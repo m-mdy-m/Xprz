@@ -22,5 +22,8 @@
   "homepage": "https://github.com/m-mdy-m/XprsJS#readme",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
