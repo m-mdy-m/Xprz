@@ -1,0 +1,23 @@
+{
+  "name": "xprsjs",
+  "version": "1.0.0",
+  "description": "XprsJS is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XprsJS, you can define routes, handle middleware, and set up an Express.js server with ease.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mdy-m/XprsJS.git"
+  },
+  "keywords": [
+    "express",
+    "node"
+  ],
+  "author": "Mahdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m-mdy-m/XprsJS/issues"
+  },
+  "homepage": "https://github.com/m-mdy-m/XprsJS#readme"
+}
