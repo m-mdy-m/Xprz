@@ -1,6 +1,7 @@
 const start = require("../../shared/app");
+const cookieParser = require('cookie-parser')
 const app = start();
-
+app.use(cookieParser())
 class getHandler {
   constructor(app, url) {
     this.app = app;
@@ -51,7 +52,7 @@ class getHandler {
   setCookie(name, value, options) {
     let cookie = { name, value, options };
     return this.handleResponse(cookie,(res)=>{
-      res.cookie(name,value,options)
+      res.cookie(name, value, { path: '/', ...options });
     });
   }
   clearCookie(name, options) {
@@ -72,4 +73,4 @@ class getHandler {
 function get(url) {
   return new getHandler(app, url);
 }
-get("/").setCookie("username", "mahdi", { maxAge: 4000 }).send('test')
+get("/").setCookie('username','mahdi', { maxAge: 40000 })
