@@ -71,6 +71,6 @@ class getHandler {
 }
 
 function get(url) {
-  return new getHandler(app, url);
+  return  new getHandler(app,url) ;
 }
-get("/").setCookie('username','mahdi', { maxAge: 40000 })
+get("/").render('./test.html')

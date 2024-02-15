@@ -1,13 +1,22 @@
 const express = require("express");
-function start(server,port = 3000,textLog = `Server is running on port ${port}`,log = true) {
-  if (!server) {
-    server = express();
+function app(app) {
+  if (!app) {
+    app = express();
   }
-  server.listen(port, () => {
+  
+  return app;
+}
+function listen(port = 3000,textLog = `Server is running on port ${port}`,log = true){
+  const ap = app()
+  ap.listen(port, () => {
     if (log) {
       console.log(textLog);
     }
   });
-  return server;
 }
-module.exports = start
+function start(app, listen,port = 3000,textLog = `Server is running on port ${port}`,log = true){
+  app(app)
+  listen(port,textLog,log)
+  return app
+}
+module.exports = {app,listen,start}
