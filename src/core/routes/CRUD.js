@@ -2,10 +2,10 @@ const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
 
 class Handler {
-  setup() {
+  setup(app,url) {
     return async (method, data, callback) => {
       const res = await new Promise((resolve) => {
-        this.app.get(this.url, (req, res) => resolve(res));
+        app.get(url, (req, res) => resolve(res));
       });
       res[method](data);
       if (callback && typeof callback === "function") {
@@ -20,7 +20,7 @@ class RouteHandler {
     this.app = app;
     this.url = url;
     this.statusCode = 2000;
-    this.handler = new Handler().setup();
+    this.handler = new Handler().setup(this.app,this.url);
   }
   status(code) {
     this.statusCode = code;
@@ -41,9 +41,10 @@ class RouteHandler {
     const handler = await this.handler;
     return handler("redirect", url);
   }
-  // setCookie(name,value,options){
-
-  // }
+  async setCookie(name,value,options){
+    const handler = await this.handler
+    return handler('cookie',{name,value,options})
+  }
 }
 
 function get(url, callbackObj) {
@@ -56,5 +57,6 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  send: "hi mahdi",
+  setCookie : ('username','mahdi'),
+  // send:"set cookie suc"
 });
