@@ -7,9 +7,7 @@ class Handler {
       const res = await new Promise((resolve) => {
         this.app.get(this.url, (req, res) => resolve(res));
       });
-
       res[method](data);
-
       if (callback && typeof callback === "function") {
         callback(res);
       }
