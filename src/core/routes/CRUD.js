@@ -21,58 +21,26 @@ class getHandler {
     return this.handleResponse(data, (res) => res.send(data));
   }
   write(data) {
-    return this.handleResponse(data, (res) => res.write(data).end());
+    return this.handleResponse(data, (res) => {
+      res.write(data)
+      res.end()
+    });
   }
   redirect(url) {
     return this.handleResponse(url, (res) => {
       res.redirect(url);
     });
   }
-  render(file, handler) {
-    return this.handleResponse(file, (res) => {
-      res.render(file, handler || {});
-    });
-  }
-  json(message) {
-    return this.handleResponse(message, (res) => {
-      res.json(message || {});
-    });
-  }
-  setHeader(content, text) {
-    return this.handleResponse(content, (res) => {
-      res.set(content, text);
-    });
-  }
-  contentType(type) {
-    return this.setHeader("Content-Type", type);
-  }
-  setCookie(name, value, options) {
-    let cookie = { name, value, options };
-    return this.handleResponse(cookie, (res) => {
-      res.cookie(name, value, options);
-    });
-  }
-  clearCookie(name, options) {
-    return this.handleResponse({ name, options }, (res, { name, options }) => {
-      res.clearCookie(name, options);
-    });
-  }
-  download(path, filename) {
-    return this.handleResponse(
-      { path, filename },
-      (res, { path, filename }) => {
-        res.download(path, filename);
-      }
-    );
-  }
 }
 
-function get(url, handler = undefined) {
-  if (!handler) {
-    return new getHandler(app, url);
-  } else {
-    app.get(url, handler);
+function get(url, callbackObj) {
+  const handler = new getHandler(app, url);
+  if (callbackObj) {
+    Object.entries(callbackObj).forEach(([method, data]) => {
+      handler[method](data);
+    });
   }
-}
-get("/").setCookie("username", "mahdi2")
-.s
+  return handler;}
+get("/", {
+  redirect:'/ss'
+});
