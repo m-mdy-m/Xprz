@@ -40,7 +40,7 @@ class getHandler {
       res.json(message || {})
     })
   }
-  set(content , text){
+  setHeader(content , text){
     return this.handleResponse(content , res=>{
       res.set(content,text)
     })
