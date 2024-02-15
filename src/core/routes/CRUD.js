@@ -1,7 +1,7 @@
-const {app,listen,start} = require("../../shared/app");
+const {launch, initApp, listen} = require("../../shared/app");
 const cookieParser = require('cookie-parser')
-const server = app()
-server.use(cookieParser())
+const app = initApp()
+// app.use(cookieParser())
 class getHandler {
   constructor(app, url) {
     this.app = app;
@@ -18,11 +18,10 @@ class getHandler {
         method.call(data,res);
     });
     return this;
-}
+  }
   send(data) {
     return this.handleResponse(data, (res) => res.send(data));
   }
-
   write(data) {
     return this.handleResponse(data, (res) => res.write(data).end());
   }
@@ -73,5 +72,7 @@ class getHandler {
 function get(url) {
   return  new getHandler(app,url) ;
 }
-get("/").render('./test.html')
+app.get('/',(req,res,nxt)=>{
+  res.send('hi')
+})
 listen(3000)
