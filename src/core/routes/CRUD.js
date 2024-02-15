@@ -48,13 +48,18 @@ class getHandler {
   contentType(type) {
     return this.set("Content-Type", type);
   }
-  cookie(name, value, options) {
+  setCookie(name, value, options) {
     return this.handleResponse(
       { name, value, options },
       (res, { name, value, options }) => {
         res.cookie(name, value, options);
       }
     );
+  }
+  setSession(key, value) {
+    return this.handleResponse({ key, value }, (res, { key, value }) => {
+      res.session[key] = value;
+    });
   }
   clearCookie(name, options) {
     return this.handleResponse({ name, options }, (res, { name, options }) => {
@@ -74,4 +79,4 @@ class getHandler {
 function get(url) {
   return new getHandler(app, url);
 }
-get("/");
+get("/").setSession('username','mahdi')
