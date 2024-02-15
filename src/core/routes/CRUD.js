@@ -1,6 +1,6 @@
 const {launch, initApp, listen} = require("../../shared/app");
 const cookieParser = require('cookie-parser')
-const app = initApp()
+const app = launch()
 // app.use(cookieParser())
 class getHandler {
   constructor(app, url) {
@@ -75,4 +75,3 @@ function get(url) {
 app.get('/',(req,res,nxt)=>{
   res.send('hi')
 })
-listen(3000)
