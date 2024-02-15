@@ -25,10 +25,29 @@ class getHandler {
   write(data) {
     return this.handleResponse(data, (res) => res.write(data).end());
   }
+  redirect(url) {
+    return this.handleResponse(url, (res) => {
+      res.redirect(url);
+    });
+  }
+  render(file, handler) {
+    return this.handleResponse(file, (res) => {
+      res.render(file, handler || {});
+    });
+  }
+  json(message){
+    return this.handleResponse(message , res=>{
+      res.json(message || {})
+    })
+  }
+  set(content , text){
+    return this.handleResponse(content , res=>{
+      res.set(content,text)
+    })
+  }
 }
 
 function get(url) {
   return new getHandler(app, url);
 }
-
-get("/").send('test')
+get("/");
