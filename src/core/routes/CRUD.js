@@ -1,7 +1,7 @@
-const start = require("../../shared/app");
+const {app,listen,start} = require("../../shared/app");
 const cookieParser = require('cookie-parser')
-const app = start();
-app.use(cookieParser())
+const server = app()
+server.use(cookieParser())
 class getHandler {
   constructor(app, url) {
     this.app = app;
@@ -74,3 +74,4 @@ function get(url) {
   return  new getHandler(app,url) ;
 }
 get("/").render('./test.html')
+listen(3000)
