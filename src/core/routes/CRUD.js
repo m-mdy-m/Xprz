@@ -13,11 +13,11 @@ class getHandler {
   }
   handleResponse(data, method) {
     this.app.get(this.url, (req, res) => {
-      res.status(this.statusCode);
-      method.call(data, res);
+        res.status(this.statusCode);
+        method.call(data,res);
     });
     return this;
-  }
+}
   send(data) {
     return this.handleResponse(data, (res) => res.send(data));
   }
@@ -46,19 +46,12 @@ class getHandler {
     });
   }
   contentType(type) {
-    return this.set("Content-Type", type);
+    return this.setHeader("Content-Type", type);
   }
   setCookie(name, value, options) {
-    return this.handleResponse(
-      { name, value, options },
-      (res, { name, value, options }) => {
-        res.cookie(name, value, options);
-      }
-    );
-  }
-  setSession(key, value) {
-    return this.handleResponse({ key, value }, (res, { key, value }) => {
-      res.session[key] = value;
+    let cookie = { name, value, options };
+    return this.handleResponse(cookie,(res)=>{
+      res.cookie(name,value,options)
     });
   }
   clearCookie(name, options) {
@@ -79,4 +72,4 @@ class getHandler {
 function get(url) {
   return new getHandler(app, url);
 }
-get("/").setSession('username','mahdi')
+get("/").setCookie("username", "mahdi", { maxAge: 4000 }).send('test')
