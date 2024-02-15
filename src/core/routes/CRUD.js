@@ -35,15 +35,39 @@ class getHandler {
       res.render(file, handler || {});
     });
   }
-  json(message){
-    return this.handleResponse(message , res=>{
-      res.json(message || {})
-    })
+  json(message) {
+    return this.handleResponse(message, (res) => {
+      res.json(message || {});
+    });
   }
-  setHeader(content , text){
-    return this.handleResponse(content , res=>{
-      res.set(content,text)
-    })
+  setHeader(content, text) {
+    return this.handleResponse(content, (res) => {
+      res.set(content, text);
+    });
+  }
+  contentType(type) {
+    return this.set("Content-Type", type);
+  }
+  cookie(name, value, options) {
+    return this.handleResponse(
+      { name, value, options },
+      (res, { name, value, options }) => {
+        res.cookie(name, value, options);
+      }
+    );
+  }
+  clearCookie(name, options) {
+    return this.handleResponse({ name, options }, (res, { name, options }) => {
+      res.clearCookie(name, options);
+    });
+  }
+  download(path, filename) {
+    return this.handleResponse(
+      { path, filename },
+      (res, { path, filename }) => {
+        res.download(path, filename);
+      }
+    );
   }
 }
 
