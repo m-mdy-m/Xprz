@@ -1,9 +1,15 @@
-const start = require('../../shared/app')
-const app = start()
+const start = require("../../shared/app");
+const app = start();
 
-function get(url,handler) {
-  app.get(url,handler)
+function send(app, url, response) {
+  app.get(url, (req, res, nxt) => {
+    res.send(response);
+  });
 }
-get('/',(req,res,nxt)=>{
-  res.send('hi')
-})
+
+function get(url, handler) {
+  app.get(url, handler || ((req, res, next) => {
+    
+  }));
+}
+get("/");
