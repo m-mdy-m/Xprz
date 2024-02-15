@@ -1,16 +1,18 @@
 const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
-
 class Handler {
-  setup(app,url) {
-    return async (method, data, callback) => {
-      const res = await new Promise((resolve) => {
-        app.get(url, (req, res) => resolve(res));
+  setup(app, url) {
+    return async (method, data, callback = undefined) => {
+      const response = await new Promise((resolve) => {
+        app.get(url, (_, res) => {
+          res[method](data);
+          if (callback) {
+            callback(res);
+          }
+          resolve(res);
+        });
       });
-      res[method](data);
-      if (callback && typeof callback === "function") {
-        callback(res);
-      }
+      return response;
     };
   }
 }
@@ -20,7 +22,7 @@ class RouteHandler {
     this.app = app;
     this.url = url;
     this.statusCode = 2000;
-    this.handler = new Handler().setup(this.app,this.url);
+    this.handler = new Handler().setup(this.app, this.url);
   }
   status(code) {
     this.statusCode = code;
@@ -57,6 +59,6 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  setCookie : ('username','mahdi'),
-  // send:"set cookie suc"
+  setCookie : ('username','mahdi',{maxAge : 30000}),
+  send: "set cookie",
 });
