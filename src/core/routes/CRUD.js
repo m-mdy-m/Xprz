@@ -3,17 +3,21 @@ const app = launch();
 class getHandler {
   constructor(app, url) {
     this.statusCode = 200;
-    this.handlerPromise = new Promise((resolve )=>{
-      app.get(url, (req, res) => {
-        this.handler = function (method, data,callback=undefined) {
-          res[method](data)
-          if (callback) {
-            callback(res)
-          }
-        }
-        resolve(this.handler)
+    this.app = app;
+    this.url = url;
+    this.statusCode = 2000;
+    this.handler = this.setupHandler();
+  }
+  setupHandler() {
+    return async (method, data, callback) => {
+      const res = await new Promise((resolve) => {
+        this.app.get(this.url, (req, res) => resolve(res));
       });
-    })
+      res[method](data);
+      if (callback && typeof callback === "function") {
+        callback(res);
+      }
+    };
   }
   status(code) {
     this.statusCode = code;
@@ -24,20 +28,20 @@ class getHandler {
   }
 
   async send(data) {
-    const handler = await this._awaitHandler();
-    return handler('send', data);
+    const handler = await this.handler;
+    return handler("send", data);
   }
 
   async write(data) {
-    const handler = await this._awaitHandler();
-    return handler('write', data, (res) => {
+    const handler = await this.handler;
+    return handler("write", data, (res) => {
       res.end();
     });
   }
 
   async redirect(url) {
-    const handler = await this._awaitHandler();
-    return handler('redirect', url);
+    const handler = await this.handler;
+    return handler("redirect", url);
   }
   // setCookie(name,value,options){
 
@@ -54,9 +58,9 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  send:"hi mahdi",
-  redirect: "/s"
+  send: "hi mahdi",
+  // redirect: "/s"
 });
-get('/s',{
-  send:'hi',
-})
+// get('/s',{
+//   send:'hi',
+// })
