@@ -5,8 +5,11 @@ class getHandler {
     this.statusCode = 200;
     this.handlerPromise = new Promise((resolve )=>{
       app.get(url, (req, res) => {
-        this.handler = function (method, data) {
+        this.handler = function (method, data,callback) {
           res[method](data)
+          if (callback) {
+            callback(res)
+          }
         }
         resolve(this.handler)
       });
@@ -16,24 +19,17 @@ class getHandler {
     this.statusCode = code;
     return this;
   }
-
-  // handleResponse(data, method) {
-  //   this.app.get(this.url, (req, res) => {
-  //     res.status(this.statusCode);
-  //     method.call(data, res);
-  //   });
-  //   return this;
-  // }
   async send(data) {
     const handler = await this.handlerPromise;
     return handler('send', data);
   }
-  // write(data) {
-  //   return this.handleResponse(data, (res) => {
-  //     res.write(data)
-  //     res.end()
-  //   });
-  // }
+  async write(data) {
+    const handler = await this.handlerPromise
+    return handler('write', data, (res)=>{
+      console.log('res');
+      res.end()
+    })
+  }
   // redirect(url) {
   //   return this.handleResponse(url, (res) => {
   //     res.redirect(url);
@@ -54,5 +50,5 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  send: "hisss",
+  write: "hisss",
 });
