@@ -1,7 +1,5 @@
-const {launch, initApp, listen} = require("../../shared/app");
-const cookieParser = require('cookie-parser')
-const app = launch()
-// app.use(cookieParser())
+const { launch, initApp, listen } = require("../../shared/app");
+const app = launch();
 class getHandler {
   constructor(app, url) {
     this.app = app;
@@ -14,8 +12,8 @@ class getHandler {
   }
   handleResponse(data, method) {
     this.app.get(this.url, (req, res) => {
-        res.status(this.statusCode);
-        method.call(data,res);
+      res.status(this.statusCode);
+      method.call(data, res);
     });
     return this;
   }
@@ -48,9 +46,9 @@ class getHandler {
   contentType(type) {
     return this.setHeader("Content-Type", type);
   }
-  setCookie(name, value, options) {
+  cookie(name, value, options) {
     let cookie = { name, value, options };
-    return this.handleResponse(cookie,(res)=>{
+    return this.handleResponse(cookie, (res) => {
       res.cookie(name, value, options);
     });
   }
@@ -69,7 +67,11 @@ class getHandler {
   }
 }
 
-function get(url,handler=undefined) {
-  return  handler?app.get(url,handler) : new getHandler(app,url) ;
+function get(url, handler = undefined) {
+  if (!handler) {
+    return new getHandler(app, url);
+  } else {
+    app.get(url, handler);
+  }
 }
-get('/').send('hi2')
+get("/").cookie("username", "mahdi", { maxAge: 3000 });
