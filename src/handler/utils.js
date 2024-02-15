@@ -1,5 +1,5 @@
-const Use = require('../utils/Use')
-class Utils {
+const provider = require("../core/middleware");
+class RouteHandlerFactory {
   setupGetRoute(app, url) {
     return async (method, data, callback = undefined) => {
       const response = await new Promise((resolve, reject) => {
@@ -18,10 +18,10 @@ class Utils {
       return response;
     };
   }
-  async handlerCookie(app, options) {
-    const { req, res, nxt } = await new Use(app);
+  async setCookieMiddleware(app, options) {
+    const { req, res, nxt } = await new provider(app);
     res.cookie(options.name, options.val, options.options);
     nxt();
   }
 }
-module.exports = Utils
+module.exports = RouteHandlerFactory;

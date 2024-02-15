@@ -1,11 +1,11 @@
-const Utils = require('./utils')
+const factoryRoute = require('./utils')
 class RouteHandler {
   constructor(app, url) {
     this.statusCode = 200;
     this.app = app;
     this.url = url;
     this.statusCode = 2000;
-    this.handler = new Utils().setupGetRoute(this.app, this.url);
+    this.handler = new factoryRoute().setupGetRoute(this.app, this.url);
   }
   status(code) {
     this.statusCode = code;
@@ -27,7 +27,7 @@ class RouteHandler {
     return handler("redirect", url);
   }
   async setCookie(name, val, options) {
-    new Utils().handlerCookie(this.app, { name, val, options });
+    new factoryRoute().setCookieMiddleware(this.app, { name, val, options });
   }
 }
 module.exports = RouteHandler
