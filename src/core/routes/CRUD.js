@@ -2,9 +2,12 @@ const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
 
 function Use(app) {
-  app.use((req, res, nxt) => {
-    return { nxt, res, req };
+  const response =  new Promise((resolve, reject) => {
+    app.use((req, res, nxt) => {
+      resolve({ req, res, nxt });
+    });
   });
+  return response
 }
 
 class Handler {
@@ -26,10 +29,10 @@ class Handler {
       return response;
     };
   }
-  handlerCookie(app, options) {
-    const { nxt, req, res } = new Use(app);
-    res.cookie(options.name, options.val, options.options);
-    nxt();
+  async handlerCookie(app, options) {
+    const {req,res,nxt} = await new Use(app)
+    res.cookie(options.name,options.val,options.options)
+    nxt()
   }
 }
 class RouteHandler {
