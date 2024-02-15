@@ -1,8 +1,8 @@
 const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
 const RouteHandler = require('../..//handler/RouteHandler')
-function get(url, callbackObj) {
-  const handler = new RouteHandler(app, url);
+
+function applyCallbacks(handler, callbackObj) {
   if (callbackObj) {
     Object.entries(callbackObj).forEach(([method, data]) => {
       if (Array.isArray(data)) {
@@ -12,6 +12,10 @@ function get(url, callbackObj) {
       }
     });
   }
+}
+function get(url, callbackObj) {
+  const handler = new RouteHandler(app, url);
+  applyCallbacks(handler,callbackObj)
   return handler;
 }
 get("/", {
