@@ -46,7 +46,7 @@ class getHandler {
   contentType(type) {
     return this.setHeader("Content-Type", type);
   }
-  cookie(name, value, options) {
+  setCookie(name, value, options) {
     let cookie = { name, value, options };
     return this.handleResponse(cookie, (res) => {
       res.cookie(name, value, options);
@@ -74,4 +74,5 @@ function get(url, handler = undefined) {
     app.get(url, handler);
   }
 }
-get("/").cookie("username", "mahdi", { maxAge: 3000 });
+get("/").setCookie("username", "mahdi2")
+.s
