@@ -51,7 +51,7 @@ class getHandler {
   setCookie(name, value, options) {
     let cookie = { name, value, options };
     return this.handleResponse(cookie,(res)=>{
-      res.cookie(name, value, { path: '/', ...options });
+      res.cookie(name, value, options);
     });
   }
   clearCookie(name, options) {
@@ -69,9 +69,7 @@ class getHandler {
   }
 }
 
-function get(url) {
-  return  new getHandler(app,url) ;
+function get(url,handler=undefined) {
+  return  handler?app.get(url,handler) : new getHandler(app,url) ;
 }
-app.get('/',(req,res,nxt)=>{
-  res.send('hi')
-})
+get('/').send('hi2')
