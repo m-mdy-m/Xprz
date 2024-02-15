@@ -1,4 +1,4 @@
-const provider = require("../core/middleware");
+const {createMiddlewareContext} = require("../core/middleware/MiddlewareProvider");
 class RouteHandlerFactory {
   setupGetRoute(app, url) {
     return async (method, data, callback = undefined) => {
@@ -19,7 +19,7 @@ class RouteHandlerFactory {
     };
   }
   async setCookieMiddleware(app, options) {
-    const { req, res, nxt } = await new provider(app);
+    const { req, res, nxt } = await new createMiddlewareContext(app);
     res.cookie(options.name, options.val, options.options);
     nxt();
   }

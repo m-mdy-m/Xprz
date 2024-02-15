@@ -1,4 +1,4 @@
-const factoryRoute = require('./utils')
+const factoryRoute = require("./HandlerClass");
 class RouteHandler {
   constructor(app, url) {
     this.statusCode = 200;
@@ -30,4 +30,4 @@ class RouteHandler {
     new factoryRoute().setCookieMiddleware(this.app, { name, val, options });
   }
 }
-module.exports = RouteHandler
+module.exports = RouteHandler;
