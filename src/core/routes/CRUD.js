@@ -1,13 +1,9 @@
-const app = require('../../shared/app')
-const { send } = require("../../funcs/send");
-let response;
-function get(route) {
-  app.get(route, (res, req, nxt) => {
-  });
-  console.log("res =>", response);
-}
+const start = require('../../shared/app')
+const app = start()
 
-console.log('hi');
-app.get('/ss',(req,res)=>{
-    console.log('rs=>',res);
+function get(url,handler) {
+  app.get(url,handler)
+}
+get('/',(req,res,nxt)=>{
+  res.send('hi')
 })
