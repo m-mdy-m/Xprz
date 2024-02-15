@@ -5,7 +5,7 @@ class getHandler {
     this.statusCode = 200;
     this.handlerPromise = new Promise((resolve )=>{
       app.get(url, (req, res) => {
-        this.handler = function (method, data,callback) {
+        this.handler = function (method, data,callback=undefined) {
           res[method](data)
           if (callback) {
             callback(res)
@@ -19,22 +19,26 @@ class getHandler {
     this.statusCode = code;
     return this;
   }
+  async _awaitHandler() {
+    return await this.handlerPromise;
+  }
+
   async send(data) {
-    const handler = await this.handlerPromise;
+    const handler = await this._awaitHandler();
     return handler('send', data);
   }
+
   async write(data) {
-    const handler = await this.handlerPromise
-    return handler('write', data, (res)=>{
-      console.log('res');
-      res.end()
-    })
+    const handler = await this._awaitHandler();
+    return handler('write', data, (res) => {
+      res.end();
+    });
   }
-  // redirect(url) {
-  //   return this.handleResponse(url, (res) => {
-  //     res.redirect(url);
-  //   });
-  // }
+
+  async redirect(url) {
+    const handler = await this._awaitHandler();
+    return handler('redirect', url);
+  }
   // setCookie(name,value,options){
 
   // }
@@ -50,5 +54,9 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  write: "hisss",
+  send:"hi mahdi",
+  redirect: "/s"
 });
+get('/s',{
+  send:'hi',
+})
