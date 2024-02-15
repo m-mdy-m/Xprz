@@ -5,7 +5,18 @@ class Handler {
     return async (method, data, callback = undefined) => {
       const response = await new Promise((resolve) => {
         app.get(url, (_, res) => {
-          res[method](data);
+          if (method === "cookie") {
+            // app.use((req, res, next) => {
+              console.log(data.name);
+              console.log(data.val);
+              console.log(data.options);
+              // res.cookie("username", "mahdi", { maxAge: 30000 });
+              // next();
+            // });
+          } else {
+            res[method](data);
+          }
+
           if (callback) {
             callback(res);
           }
@@ -43,9 +54,10 @@ class RouteHandler {
     const handler = await this.handler;
     return handler("redirect", url);
   }
-  async setCookie(name,value,options){
-    const handler = await this.handler
-    return handler('cookie',{name,value,options})
+  async setCookie(name, val, options) {
+    let cookie = { name, val, options };
+    const handler = await this.handler;
+    return handler("cookie", cookie);
   }
 }
 
@@ -53,7 +65,11 @@ function get(url, callbackObj) {
   const handler = new RouteHandler(app, url);
   if (callbackObj) {
     Object.entries(callbackObj).forEach(([method, data]) => {
-      handler[method](data);
+      if (Array.isArray(data)) {
+        handler[method](...data);
+      } else {
+        handler[method](data);
+      }
     });
   }
   return handler;
