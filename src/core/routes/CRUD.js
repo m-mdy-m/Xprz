@@ -1,30 +1,35 @@
 const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
+
+function Use(app) {
+  app.use((req, res, nxt) => {
+    return { nxt, res, req };
+  });
+}
+
 class Handler {
   setup(app, url) {
     return async (method, data, callback = undefined) => {
-      const response = await new Promise((resolve) => {
+      const response = await new Promise((resolve, reject) => {
         app.get(url, (_, res) => {
-          if (method === "cookie") {
-            // app.use((req, res, next) => {
-              console.log(data.name);
-              console.log(data.val);
-              console.log(data.options);
-              // res.cookie("username", "mahdi", { maxAge: 30000 });
-              // next();
-            // });
-          } else {
+          try {
             res[method](data);
+            if (callback) {
+              callback(res);
+            }
+            resolve(res);
+          } catch (error) {
+            reject(error);
           }
-
-          if (callback) {
-            callback(res);
-          }
-          resolve(res);
         });
       });
       return response;
     };
+  }
+  handlerCookie(app, options) {
+    const { nxt, req, res } = new Use(app);
+    res.cookie(options.name, options.val, options.options);
+    nxt();
   }
 }
 class RouteHandler {
@@ -55,9 +60,7 @@ class RouteHandler {
     return handler("redirect", url);
   }
   async setCookie(name, val, options) {
-    let cookie = { name, val, options };
-    const handler = await this.handler;
-    return handler("cookie", cookie);
+    new Handler().handlerCookie(this.app, { name, val, options });
   }
 }
 
@@ -75,6 +78,6 @@ function get(url, callbackObj) {
   return handler;
 }
 get("/", {
-  setCookie : ('username','mahdi',{maxAge : 30000}),
+  setCookie: ["username", "mahdi", { maxAge: 30000 }],
   send: "set cookie",
 });
