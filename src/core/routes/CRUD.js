@@ -2,19 +2,21 @@ const start = require("../../shared/app");
 const app = start();
 
 class handler {
-  constructor(app, url) {
+  constructor(app, url, router) {
+    console.log("ro =>", router);
     this.app = app;
     this.url = url;
+    this.router = router;
     this.statusCode = 200;
   }
   status(code) {
     this.statusCode = code;
     return this;
   }
-  handlerResponse(data, method) {
+  handleResponse(data, method) {
     this.app.get(this.url, (req, res) => {
       res.status(this.statusCode);
-      method.call(res,data)
+      method.call(res, data);
     });
     return this;
   }
@@ -28,7 +30,7 @@ class handler {
 }
 
 function get(url) {
-  return new handler(app, url);
+  return new handler(app, url, "get");
 }
 
 get("/").write("hdsadasdasd");
