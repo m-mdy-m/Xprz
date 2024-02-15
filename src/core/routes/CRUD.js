@@ -1,32 +1,33 @@
 const { launch, initApp, listen } = require("../../shared/app");
 const app = launch();
-class getHandler {
-  constructor(app, url) {
-    this.statusCode = 200;
-    this.app = app;
-    this.url = url;
-    this.statusCode = 2000;
-    this.handler = this.setupHandler();
-  }
-  setupHandler() {
+
+class Handler {
+  setup() {
     return async (method, data, callback) => {
       const res = await new Promise((resolve) => {
         this.app.get(this.url, (req, res) => resolve(res));
       });
+
       res[method](data);
+
       if (callback && typeof callback === "function") {
         callback(res);
       }
     };
   }
+}
+class RouteHandler {
+  constructor(app, url) {
+    this.statusCode = 200;
+    this.app = app;
+    this.url = url;
+    this.statusCode = 2000;
+    this.handler = new Handler().setup();
+  }
   status(code) {
     this.statusCode = code;
     return this;
   }
-  async _awaitHandler() {
-    return await this.handlerPromise;
-  }
-
   async send(data) {
     const handler = await this.handler;
     return handler("send", data);
@@ -38,7 +39,6 @@ class getHandler {
       res.end();
     });
   }
-
   async redirect(url) {
     const handler = await this.handler;
     return handler("redirect", url);
@@ -49,7 +49,7 @@ class getHandler {
 }
 
 function get(url, callbackObj) {
-  const handler = new getHandler(app, url);
+  const handler = new RouteHandler(app, url);
   if (callbackObj) {
     Object.entries(callbackObj).forEach(([method, data]) => {
       handler[method](data);
@@ -59,8 +59,4 @@ function get(url, callbackObj) {
 }
 get("/", {
   send: "hi mahdi",
-  // redirect: "/s"
 });
-// get('/s',{
-//   send:'hi',
-// })
