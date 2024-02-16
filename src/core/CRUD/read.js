@@ -1,10 +1,10 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-const {getRouter} = require("../routes/router.js");
-let handler
+let handler,router;
 
-const router = getRouter(); 
+
+
 
 console.log('Router =>', router);
 function get(url, callbackObj) {
