@@ -1,7 +1,6 @@
-const { initApp, listen } = require("./src/shared/app");
+const { initApp, listen, launch } = require("./src/shared/app");
 const get = require("./src/core/CRUD/read");
-initApp()
+launch()
 get("/",{
     send:"hi"
 });
-listen();
