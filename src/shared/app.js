@@ -1,4 +1,4 @@
-const express = require("express");
+const { initApp,launch,listen}= require('../utils/appUtils')
 const {getApp,setApp} = require("../Using");
 class AppManager {
     constructor() {
@@ -7,18 +7,14 @@ class AppManager {
     }
 
     initApp() {
-        this.app = express();
+        this.app = initApp()
         setApp(this.app)
         this.runApp = true;
         return this.app;
     }
     listen(port = 3000, textLog = `Server is running on port ${port}`, log = true) {
         if (this.runApp) {
-            this.app.listen(port, () => {
-                if (log) {
-                    console.log(textLog);
-                }
-            });
+            listen(this.app,port,textLog,log)
         } else {
             console.log('Express app has not been initialized yet.');
         }
