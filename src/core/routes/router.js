@@ -1,8 +1,5 @@
 const { getExpress } = require("../../shared/AppManager");
-const get = require("../CRUD/read");
-function router() {
+module.exports = function createRouter() {
   const express = getExpress();
-  const router = express.Router();
-  return router
-}
-module.exports = router
+  return express.Router();
+};
