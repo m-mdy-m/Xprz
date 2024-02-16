@@ -1,4 +1,4 @@
-const App = require('./src/shared/app');
+const {initApp,launch,listen} = require('./src/shared/app');
 const using = require('./src/Using');
-using.setAppInstance(App.initApp());
-App.listen(3000);
+using.setAppInstance(initApp());
+listen(3000);

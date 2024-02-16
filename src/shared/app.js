@@ -32,4 +32,10 @@ class AppManager {
         return this.app;
     }
 }
-module.exports = new AppManager()
+const appManager = new AppManager();
+
+module.exports = {
+    initApp: appManager.initApp.bind(appManager),
+    listen: appManager.listen.bind(appManager),
+    launch: appManager.launch.bind(appManager)
+};
