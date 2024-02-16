@@ -8,14 +8,14 @@ function setRoute(r) {
 }
 function get(url, callbackObj) {
   if (router) {
-    console.log('with route');
     handler = new RouteHandler(router, url);
+    applyCallbacks(handler, callbackObj);
+    return handler;
   } else {
-    console.log('no route');
     const app = getApp();
     handler = new RouteHandler(app, url);
+    applyCallbacks(handler, callbackObj);
+    return handler;
   }
-  applyCallbacks(handler, callbackObj);
-  return handler;
 }
 module.exports = { get, setRoute };
