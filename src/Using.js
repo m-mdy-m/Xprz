@@ -1,3 +1,4 @@
+const {initApp,launch,listen,isApp } = require('./shared/app')
 class Using {
   constructor() {
     this.appInstance = null;
@@ -9,7 +10,8 @@ class Using {
 
   getAppInstance() {
     if (!this.appInstance) {
-      throw new Error("Express app instance has not been initialized yet.");
+      const a = isApp()
+      console.log('a =>',a);
     }
     return this.appInstance;
   }

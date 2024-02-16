@@ -1,6 +1,5 @@
 const express = require("express");
 const {getApp,setApp} = require("../Using");
-
 class AppManager {
     constructor() {
         this.app = null;
@@ -8,12 +7,17 @@ class AppManager {
     }
 
     initApp() {
-        this.runApp = true;
         this.app = express();
         setApp(this.app)
+        this.runApp = true;
         return this.app;
     }
-
+    getApp(){
+      if (this.app) {
+        return this.app
+      }
+      return null
+    }
     listen(port = 3000, textLog = `Server is running on port ${port}`, log = true) {
         if (this.runApp) {
             this.app.listen(port, () => {
@@ -35,6 +39,7 @@ class AppManager {
 const appManager = new AppManager();
 
 module.exports = {
+    isApp : appManager.getApp.bind(appManager),
     initApp: appManager.initApp.bind(appManager),
     listen: appManager.listen.bind(appManager),
     launch: appManager.launch.bind(appManager)

@@ -1,30 +1,29 @@
-const { getApp } = require("../Using");
-const app = getApp();
-console.log("a =>", app);
-function setEjs(dir) {
-  app.set("view engine", "ejs");
-  app.set("views", dir ? dir : "views");
-}
-function setHBS(hbs, dir, options = {}) {
-  const defaultOptions = {
-    defaultLayout: "main",
-    layoutsDir: (dir, "layouts"),
-    partialsDir: (dir, "partials"),
-    extname: ".hbs",
-  };
+const { getApp, } = require("../Using")
+// const app = getApp();
+// function setEjs(dir) {
+//   app.set("view engine", "ejs");
+//   app.set("views", dir ? dir : "views");
+// }
+// function setHBS(hbs, dir, options = {}) {
+//   const defaultOptions = {
+//     defaultLayout: "main",
+//     layoutsDir: (dir, "layouts"),
+//     partialsDir: (dir, "partials"),
+//     extname: ".hbs",
+//   };
 
-  const combinedOptions = { ...defaultOptions, ...options };
+//   const combinedOptions = { ...defaultOptions, ...options };
 
-  app.set("view engine", "hbs");
-  app.set("views", dir);
-  app.engine(".hbs", hbs(combinedOptions));
-}
-function setPug(dir) {
-  app.set("view engine", "pug");
-  app.set("views", dir ? dir : "views");
-}
-module.exports = {
-  setEjs,
-  setHBS,
-  setPug,
-};
+//   app.set("view engine", "hbs");
+//   app.set("views", dir);
+//   app.engine(".hbs", hbs(combinedOptions));
+// }
+// function setPug(dir) {
+//   app.set("view engine", "pug");
+//   app.set("views", dir ? dir : "views");
+// }
+// module.exports = {
+//   setEjs,
+//   setHBS,
+//   setPug,
+// };
