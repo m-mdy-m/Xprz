@@ -1,17 +1,13 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-let handler
+let handler,router;
 
 function saveRouter(router) {
-  callback(router)
+  
 } 
 
 function get(url, callbackObj) {
-  saveRouter((rout)=>{
-    console.log(rout);
-  })
-  let router;
   if (router) {
     console.log("with route");
     handler = new RouteHandler(router, url);
