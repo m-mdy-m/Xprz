@@ -1,14 +1,19 @@
-class Using {
-  constructor(app) {
-    this.appInstance = app;
-  }
+let appInstance,hasUsing=false
 
-  getAppInstance() {
-    if (!this.appInstance) {
-      throw new Error("Express app instance has not been initialized yet.");
-    }
-    return this.appInstance;
+function Using(app){
+    appInstance = app
+    hasUsing=true
+    return app
+}
+function getAppInstance(){
+  if (!appInstance) {
+    throw new Error("Express app instance has not been initialized yet.");
   }
+  console.log('1 =>',hasUsing);
+  if (hasUsing) {
+    return appInstance
+  }
+  return
 }
 
-module.exports = Using;
+module.exports = {Using,getAppInstance,hasUsing};
