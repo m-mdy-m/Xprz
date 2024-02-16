@@ -22,3 +22,8 @@ function setPug(dir) {
   app.set("view engine", "pug");
   app.set("views", dir ? dir : "views");
 }
+module.exports = {
+  setEjs,
+  setHBS,
+  setPug,
+};
