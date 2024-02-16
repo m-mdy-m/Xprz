@@ -1,15 +1,13 @@
 class Using {
   constructor() {
     this.appInstance = null;
+    this.setAppInstance = function(app){
+      this.appInstance = app
+    }
   }
-
-  setAppInstance(app) {
-    this.appInstance = app;
-  }
-
   getAppInstance() {
     if (!this.appInstance) {
-      throw new Error("Express app instance has not been initialized yet.");
+      console.log("Express app instance has not been initialized yet.");
     }
     return this.appInstance;
   }
