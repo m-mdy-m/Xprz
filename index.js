@@ -1,2 +1,4 @@
-const { initApp, listen, launch } = require("./src/shared/app");
-launch()
+const { initApp, listen, launch } = require("./src/shared/AppManager");
+initApp();
+
+listen();

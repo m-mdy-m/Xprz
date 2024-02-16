@@ -29,6 +29,6 @@ class AppManager {
 const appManager = new AppManager();
 module.exports = {
     initApp: appManager.initApp.bind(appManager),
-    listen: appManager.listen.bind(appManager),
-    launch: appManager.launch.bind(appManager)
+    launch : appManager.launch.bind(appManager),
+    listen : appManager.listen.bind(appManager),
 };

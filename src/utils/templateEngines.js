@@ -1,7 +1,7 @@
-const { getApp, } = require("../Using")
-const {isApp}  = require('../shared/app')
-const app = isApp
-console.log('a =>',app());
+const { getApp } = require("../Using");
+const { isApp } = require("../shared/AppManager");
+const app = isApp;
+console.log("a =>", app());
 function setEjs(dir) {
   app.set("view engine", "ejs");
   app.set("views", dir ? dir : "views");

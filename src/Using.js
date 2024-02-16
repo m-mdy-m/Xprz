@@ -1,4 +1,4 @@
-const {initApp,launch,listen } = require('./shared/app')
+const { initApp, launch, listen } = require("./shared/AppManager");
 class Using {
   constructor() {
     this.appInstance = null;
@@ -15,9 +15,8 @@ class Using {
     return this.appInstance;
   }
 }
-const using = new Using()
+const using = new Using();
 module.exports = {
   setApp: using.setAppInstance.bind(using),
-  getApp: using.getAppInstance.bind(using)
+  getApp: using.getAppInstance.bind(using),
 };
-
