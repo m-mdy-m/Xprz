@@ -1,5 +1,5 @@
 const {getXPress} = require('../../shared/AppManager')
+const get = require('../CRUD/read')
 const XPress = getXPress()
-const router = XPress.Router
-console.log('v =>',router);
-// exports.router = app.Router()
+const router = XPress.Router()
+get('/')
