@@ -1,5 +1,5 @@
 const express = require("express");
-const using = require("../Using");
+const {getApp,setApp} = require("../Using");
 
 class AppManager {
     constructor() {
@@ -10,7 +10,7 @@ class AppManager {
     initApp() {
         this.runApp = true;
         this.app = express();
-        using.setAppInstance(this.app);
+        setApp(this.app)
         return this.app;
     }
 

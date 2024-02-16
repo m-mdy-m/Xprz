@@ -1,4 +1,10 @@
-const {initApp,launch,listen} = require('./src/shared/app');
-const using = require('./src/Using');
-using.setAppInstance(initApp());
-listen(3000);
+const { initApp, listen } = require("./src/shared/app");
+const get = require("./src/core/CRUD/read");
+const {getApp,setApp} = require("./src/Using");
+const app = initApp()
+setApp(app)
+getApp(app)
+get("/",{
+    send:"hi"
+});
+listen();
