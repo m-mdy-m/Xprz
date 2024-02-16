@@ -1,19 +1,25 @@
-let appInstance,hasUsing=false
-
-function Using(app){
-    appInstance = app
-    hasUsing=true
-    return app
-}
-function getAppInstance(){
-  if (!appInstance) {
-    throw new Error("Express app instance has not been initialized yet.");
+const express = require("express");
+class UsingApp {
+  constructor() {
+    this.appInstance = null;
   }
-  console.log('1 =>',hasUsing);
-  if (hasUsing) {
-    return appInstance
+  Using(app){
+    return this.appInstance = app
   }
-  return
+  getAppInstance() {
+    if (!this.appInstance) {
+      console.log("not app");
+    }
+    return this.appInstance;
+  }
+  initApp(){
+    if (!this.appInstance) {
+      this.appInstance = express()
+    }
+    return this.appInstance
+  }
 }
+const usingInstance = new UsingApp();
+let initApp = usingInstance.initApp,getApp = usingInstance.getAppInstance, Using = usingInstance.Using
 
-module.exports = {Using,getAppInstance,hasUsing};
+module.exports ={initApp,getApp,Using};
