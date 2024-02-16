@@ -8,8 +8,10 @@ function setRoute(r) {
 }
 function get(url, callbackObj) {
   if (router) {
+    console.log('with route');
     handler = new RouteHandler(router, url);
   } else {
+    console.log('no route');
     const app = getApp();
     handler = new RouteHandler(app, url);
   }
