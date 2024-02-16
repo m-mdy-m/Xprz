@@ -1,8 +1,16 @@
 const { getExpress } = require("../../shared/AppManager");
-
-function CreateRouter(){
-  const express = getExpress();
-  return express.Router();
+let saveRouter;
+class RouterManager {
+  constructor() {
+    const express = getExpress();
+    this.router = express.Router();
+    this.save();
+  }
+  save() {
+    saveRouter = this.router;
+  }
+  getRoute(){
+    return saveRouter
+  }
 }
-
-module.exports = CreateRouter
+module.exports = RouterManager;
