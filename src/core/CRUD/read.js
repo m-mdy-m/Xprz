@@ -1,9 +1,11 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-const createRouter = require("../routes/router.js");
+const {createRouter, isRoute} = require("../routes/router.js");
 let hasRouteInit = false,
   handler,router = createRouter()
+
+const route = isRoute()
 function get(url, callbackObj) {
   if (hasRouteInit) {
     handler = new RouteHandler(router, url);

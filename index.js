@@ -1,8 +1,9 @@
 const { initApp, listen, launch, getExpress } = require("./src/shared/AppManager");
 launch()
-const a = require('./src/core/routes/router')
+const {createRouter, isRoute} = require('./src/core/routes/router')
 const get = require("./src/core/CRUD/read");
 const {setEjs }= require('./src/utils/templateEngines');
-const router = require("./src/core/routes/router");
 setEjs('views')
+const router = createRouter()
+isRoute(router)
 get('/',{send : 'hi'})
