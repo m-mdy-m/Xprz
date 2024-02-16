@@ -1,12 +1,12 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-let handler,router;
+let handler;
+let router;
 
-function saveRouter(router) {
-  
-} 
-
+function saveRouter(routerInstance) {
+  router = routerInstance;
+}
 function get(url, callbackObj) {
   if (router) {
     console.log("with route");
@@ -21,4 +21,4 @@ function get(url, callbackObj) {
     return handler;
   }
 }
-module.exports = {get,saveRouter};
+module.exports = { get, saveRouter };
