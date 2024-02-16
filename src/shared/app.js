@@ -1,5 +1,6 @@
 const express = require("express");
-const {using, getAppInstance} = require('../Using')
+const using = require('../Using')
+const app = new using().appInstance()
 function initApp() {
   return express()
 }
@@ -11,12 +12,9 @@ function listen(port = 3000,textLog = `Server is running on port ${port}`,log = 
   });
 }
 function launch(port = 3000,textLog = `Server is running on port ${port}`,log = true){
-  
+  let app = initApp()
   listen(port,textLog,log)
   return app
 }
 
-
-const app = initApp()
-
-// module.exports = {initApp,listen,launch}
+module.exports = {initApp,listen,launch}
