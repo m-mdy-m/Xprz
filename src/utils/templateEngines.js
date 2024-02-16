@@ -1,5 +1,6 @@
 const { getApp } = require("../Using");
-let app = getApp();
+const app = getApp();
+console.log("a =>", app);
 function setEjs(dir) {
   app.set("view engine", "ejs");
   app.set("views", dir ? dir : "views");
