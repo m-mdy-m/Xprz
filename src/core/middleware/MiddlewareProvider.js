@@ -6,3 +6,6 @@ exports.createMiddlewareContext = function createMiddlewareContext(app) {
   });
   return response;
 };
+exports.use = function(app,handler){
+  return app.use(handler)
+}
