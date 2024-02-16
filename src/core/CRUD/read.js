@@ -1,18 +1,31 @@
-const { getApp,setApp } = require("../../Using");
+const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
+const { getExpress } = require("../../shared/AppManager");
 const { applyCallbacks } = require("../../utils/callbackHandler");
+const Route = require('../routes/router')
+let hasRouteInit = false;
 
-function getHandler(){
-  
+const router = Route()
+
+function hasRoute() {
+  console.log('router =>',router);
+  if (router.stack.length > 0) {
+    hasRouteInit = true;
+  }
 }
-
-
-let hasRouteInit = false
 function get(url, callbackObj) {
-  const app = getApp()
-  const handler = new RouteHandler(app, url);
-  applyCallbacks(handler, callbackObj);
-  return handler;
+  if (hasRouteInit) {
+    console.log('with route');
+   const handler = new RouteHandler(router,url)
+   applyCallbacks(handler,callbackObj)
+   return handler    
+  }else{
+    console.log('without route');
+    const app = getApp();
+    const handler = new RouteHandler(app, url);
+    applyCallbacks(handler, callbackObj);
+    return handler;
+  }
 }
-
-module.exports = get
+hasRoute();
+module.exports = get;

@@ -5,7 +5,7 @@ class AppManager {
         this.app = null;
         this.runApp = false;
     }
-    getXPress(){
+    getExpress(){
         return getExpress()
     }
     initApp() {
@@ -30,7 +30,7 @@ class AppManager {
 }
 const appManager = new AppManager();
 module.exports = {
-    getXPress : appManager.getXPress.bind(appManager),
+    getExpress : appManager.getExpress.bind(appManager),
     initApp: appManager.initApp.bind(appManager),
     launch : appManager.launch.bind(appManager),
     listen : appManager.listen.bind(appManager),
