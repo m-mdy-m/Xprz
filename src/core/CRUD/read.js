@@ -1,9 +1,12 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-const { createRouter, getRouter } = require("../routes/router.js");
-let handler, router;
-router = getRouter();
+const {getRouter} = require("../routes/router.js");
+let handler
+
+const router = getRouter(); 
+
+console.log('Router =>', router);
 function get(url, callbackObj) {
   if (router) {
     console.log("with route");

@@ -1,18 +1,31 @@
 const { getExpress } = require("../../shared/AppManager");
-class UsedRoute {
+class RouterSingleton {
   constructor() {
-    this.router = this.createRouter();
+    if (!RouterSingleton.instance) {
+      this.router = null;
+      RouterSingleton.instance = this;
+    }
+    return RouterSingleton.instance;
   }
+
   createRouter() {
     const express = getExpress();
     return express.Router();
   }
+
   getRouter() {
+    console.log(this.router);
     return this.router;
   }
+
+  setRouter(router) {
+    this.router = router;
+  }
 }
-const route = new UsedRoute();
+
+const routerInstance = new RouterSingleton();
 module.exports = {
-  createRouter: route.createRouter.bind(route),
-  getRouter: route.getRouter.bind(route),
+  createRouter : routerInstance.createRouter.bind(routerInstance),
+  getRouter : routerInstance.getRouter.bind(routerInstance),
+  setRouter : routerInstance.setRouter.bind(routerInstance)
 }
