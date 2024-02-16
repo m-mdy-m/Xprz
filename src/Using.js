@@ -1,9 +1,9 @@
 class Using {
   constructor() {
     this.appInstance = null;
-    this.setAppInstance = function(app){
-      this.appInstance = app
-    }
+    this.setAppInstance = function (app) {
+      this.appInstance = app;
+    };
   }
   getAppInstance() {
     if (!this.appInstance) {
