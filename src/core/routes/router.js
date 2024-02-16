@@ -1,5 +1,5 @@
 const { getExpress } = require("../../shared/AppManager");
-module.exports = function createRouter() {
+exports.createRouter = function createRouter(){
   const express = getExpress();
   return express.Router();
-};
+}
