@@ -1,11 +1,13 @@
-const { initApp,listen}= require('../utils/appUtils')
+const { initApp,listen, getExpress}= require('../utils/appUtils')
 const {setApp} = require("../Using");
 class AppManager {
     constructor() {
         this.app = null;
         this.runApp = false;
     }
-
+    getXPress(){
+        return getExpress()
+    }
     initApp() {
         this.app = initApp()
         setApp(this.app)
@@ -28,6 +30,7 @@ class AppManager {
 }
 const appManager = new AppManager();
 module.exports = {
+    getXPress : appManager.getXPress.bind(appManager),
     initApp: appManager.initApp.bind(appManager),
     launch : appManager.launch.bind(appManager),
     listen : appManager.listen.bind(appManager),
