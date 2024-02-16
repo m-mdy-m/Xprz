@@ -1,8 +1,7 @@
 const { getApp, setApp } = require("../../Using");
 const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
-let handler;
-let router;
+let handler,router
 
 function saveRouter(routerInstance) {
   router = routerInstance;
