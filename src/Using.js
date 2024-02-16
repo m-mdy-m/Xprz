@@ -1,25 +1,18 @@
-const express = require("express");
-class UsingApp {
+class Using {
   constructor() {
-    this.appInstance = null;
+      this.appInstance = null;
   }
-  Using(app){
-    return this.appInstance = app
+
+  setAppInstance(app) {
+      this.appInstance = app;
   }
+
   getAppInstance() {
-    if (!this.appInstance) {
-      console.log("not app");
-    }
-    return this.appInstance;
-  }
-  initApp(){
-    if (!this.appInstance) {
-      this.appInstance = express()
-    }
-    return this.appInstance
+      if (!this.appInstance) {
+          throw new Error('Express app instance has not been initialized yet.');
+      }
+      return this.appInstance;
   }
 }
-const usingInstance = new UsingApp();
-let initApp = usingInstance.initApp,getApp = usingInstance.getAppInstance, Using = usingInstance.Using
 
-module.exports ={initApp,getApp,Using};
+module.exports = new Using();
