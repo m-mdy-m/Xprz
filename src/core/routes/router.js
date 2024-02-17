@@ -1,41 +1,29 @@
+const { getApp } = require("../../Using");
 const { getExpress } = require("../../shared/AppManager");
-function handleMethod(router, method, handler, path) {
-  if (typeof handler !== 'function') {
-    throw new Error('Handler must be a function');
-  }
-  if (!path) {
-    throw new Error('Route path not set. Call setRoute() first.');
-  }
-
-  router[method](path, handler);
-  return router;
-}
-
+let router
 class Route {
   constructor() {
     const express = getExpress();
     this.router = express.Router();
   }
 
-  setRoute(path) {
+  setRoute(path,r) {
     this.currentRoute = path;
+    router = r
     return this;
   }
-
-  get(handler) {
-    return handleMethod(this.router, 'get', handler, this.currentRoute);
+  get(path) {
+    if (router) {
+      router.get(path, (req, res, nxt) => {
+        res.send("hi222");
+      });
+    }
   }
+  post(handler) {}
 
-  post(handler) {
-    return handleMethod(this.router, 'post', handler, this.currentRoute);
-  }
+  put(handler) {}
 
-  put(handler) {
-    return handleMethod(this.router, 'put', handler, this.currentRoute);
-  }
-
-  del(handler) {
-    return handleMethod(this.router, 'delete', handler, this.currentRoute);
-  }
+  del(handler) {}
 }
-module.exports = Route
+
+module.exports = Route;

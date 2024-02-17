@@ -57,4 +57,4 @@ class MethodRoute{
 
   }
 }
-module.exports = MethodRoute;
+module.exports = {MethodRoute,RouteHandler};
