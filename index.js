@@ -1,10 +1,16 @@
-const { launch, getExpress } = require("./src/shared/AppManager");
-launch();
-const Route = require("./src/core/routes/router");
-const { get } = require("./src/core/CRUD/GET");
-const { setEjs } = require("./src/utils/templateEngines");
-const { use } = require("./src/utils/funcs");
+const { getApp } = require("./src/Using")
+const { launch, initApp, listen } = require("./src/shared/AppManager")
+const Route = require("./src/shared/RouteManager")
+initApp()
+// const router = new Route();
+// router.setRoute('/')
 
-setEjs("views");
-const router = new Route();
-router.get("/");
+
+// router.get('hi');
+const app = getApp()
+const route = new Route()
+route.setRoute('/').get((req,res,nxt)=>{
+    res.send(`Hello World!`)
+})
+app.use(route)
+listen()
