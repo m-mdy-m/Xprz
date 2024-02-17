@@ -1,21 +1,24 @@
-const {createMiddlewareContext} = require("../core/middleware/MiddlewareProvider");
+const {createMiddlewareContext,} = require("../core/middleware/MiddlewareProvider");
 class RouteHandlerFactory {
   setupGetRoute(app, url) {
     return async (method, data, callback = undefined) => {
-      const response = await new Promise((resolve, reject) => {
-        app.get(url, (_, res) => {
-          try {
+      const handle = await new Promise((resolve, reject) => {
+        app.get(url, (req, res, nxt) => {
+          if (res) {
             res[method](data);
-            if (callback) {
-              callback(res);
-            }
             resolve(res);
-          } catch (error) {
-            reject(error);
+          }
+          if (req) {
+            req[method];
+            resolve(req);
+          }
+          if (nxt) {
+            nxt();
+            resolve(nxt);
           }
         });
       });
-      return response;
+      return handle;
     };
   }
   async setCookieMiddleware(app, options) {

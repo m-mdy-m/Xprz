@@ -5,7 +5,7 @@ class RouteHandler {
     this.app = app;
     this.url = url;
     this.statusCode = 2000;
-    this.handler = new factoryRoute().setupGetRoute(this.app, this.url);
+    this.handler = new factoryRoute().setupGetRoute(this.app,this.url);
   }
   status(code) {
     this.statusCode = code;

@@ -10,3 +10,5 @@ const router = new Route();
 use(router)
 setRoute(router);
 get("/", { send: "hi" });
+get("/test", { send: "hi2" });
+
