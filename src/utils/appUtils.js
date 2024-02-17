@@ -1,6 +1,5 @@
 const express = require('express');
-const { getApp } = require('../Using');
-const app = getApp();
+
 function initApp(){
     return express()
 }
@@ -14,13 +13,7 @@ function listen(app, port = 3000, textLog = `Server is running on port ${port}`,
         }
     });
 }
-express.set = function(...handler){
-    return app.set(...handler);
 
-}
-exports.use=function(...handler){
-    return app.use(...handler);
-}
 module.exports = {
     initApp,
     getExpress,
