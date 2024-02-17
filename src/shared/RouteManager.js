@@ -1,7 +1,5 @@
 const { getApp } = require("../Using");
 const { getExpress } = require("./AppManager");
-
-let router;
 class Route {
   constructor() {
     const express = getExpress();
@@ -14,6 +12,9 @@ class Route {
   get(...handler) {
     this.router.get(this.path, ...handler);
     return this;
+  }
+  attachTo(app) {
+    app.use(this.router); // Attach the router to the app
   }
 }
 
