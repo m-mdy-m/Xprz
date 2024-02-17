@@ -4,5 +4,5 @@ exports.set = function (...handler) {
   return app.set(...handler);
 };
 exports.use = function (...handler) {
-    app.use(...handler)
+  return app.use(...handler);
 };

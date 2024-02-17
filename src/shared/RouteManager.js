@@ -1,3 +1,4 @@
+const { getApp } = require("../Using");
 const { getExpress } = require("./AppManager");
 
 let router;
@@ -7,11 +8,12 @@ class Route {
     this.router = express.Router();
   }
   setRoute(path) {
-    this.path = path; // Set route path
-    return this; // For method chaining
+    this.path = path;
+    return this;
   }
   get(...handler) {
-    return;
+    this.router.get(this.path, ...handler);
+    return this;
   }
 }
 
