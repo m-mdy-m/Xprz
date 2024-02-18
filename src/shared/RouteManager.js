@@ -2,38 +2,53 @@ const { getExpress } = require("./AppManager");
 
 /**
  * RouteManager class handles route management for Express.js.
+ * @class
  */
 class RouteManager {
   /**
-   * Creates a new instance of the RouteManager class.
+   * Express Router instance.
+   * @type {object}
+   * @private
    */
   constructor() {
     /** @private */
     this.router = getExpress().Router();
-    /** @private */
-    this.middleware = [];
+    /**
+     * Middleware functions.
+     * @type {Array}
+     * @private
+     */
+    this.middlewares = [];
   }
 
   /**
    * Attaches the route manager to an Express app.
-   * @param {Object} app - The Express app instance.
+   * @param {object} app - Express app instance.
+   * @returns {void}
+   * @example
+   * const app = getApp();
+   * const router = new RouteManager();
+   * router.attach(app);
    */
   attachTo(app) {
     app.use(this.router);
   }
   /**
    * Registers middleware for the route manager.
-   * @param {function} middleware - Middleware function.
+   * @param {function} m - Middleware function.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.use(middlewareFunction);
    */
   use(middleware) {
     // Add middleware to the list
-    this.middleware.push(middleware);
+    this.middlewares.push(middleware);
     // Check if middleware is present
     /**
      * @private
      */
-    this.hasMiddleware = this.middleware.length > 0 ? true : false;
+    this.hasMiddleware = this.middlewares.length > 0 ? true : false;
     return this;
   }
 
@@ -41,21 +56,31 @@ class RouteManager {
    * Sets the base path for the route manager.
    * @param {string} path - Base path for the route manager.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setPath("/api");
    */
-  setBasePath(path) {
+  setRoute(path) {
     // Set the base path for the route manager
     /**
      * @private
      */
-    this.path = path;
+    this.p = path;
     return this;
   }
 
   /**
-   * Groups routes under a common path.
-   * @param {string} mainRoute - Main route path.
+   * Defines a group of routes under a common path.
+   * @param {string} mainPath - Main path for the group of routes.
    * @param {function} callback - Callback function to define grouped routes.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.group("/api", (r) => {
+   *   r.get("/users", (req, res) => {
+   *     res.send("GET /api/users");
+   *   });
+   * });
    */
   group(mainRoute, callback) {
     // Create a new RouteManager instance
@@ -68,9 +93,14 @@ class RouteManager {
   }
 
   /**
-   * Registers a route with a GET method.
+   * Registers a POST route.
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setPath("/api/users").post((req, res) => {
+   *   res.send("POST /api/users");
+   * });
    */
   get(...handlers) {
     if (this.hasMiddleware) {
@@ -78,40 +108,54 @@ class RouteManager {
       this.registerRoute("get", handlers);
     }
     // Register route without middleware
-    this.router.get(this.path, ...handlers);
+    this.router.get(this.p, ...handlers);
     return this;
   }
-
   /**
-   * Registers a route with a POST method.
+   * Registers a POST route.
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setPath("/api/users").post((req, res) => {
+   *   res.send("POST /api/users");
+   * });
    */
   post(...handlers) {
     // Register POST route
-    this.router.post(this.path, ...handlers);
+    this.router.post(this.p, ...handlers);
     return this;
   }
 
   /**
-   * Registers a route with a DELETE method.
+   * Registers a DELETE route.
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setPath("/api/users").del((req, res) => {
+   *   res.send("DELETE /api/users");
+   * });
    */
   del(...handlers) {
     // Register DELETE route
-    this.router.delete(this.path, ...handlers);
+    this.router.delete(this.p, ...handlers);
     return this;
   }
 
   /**
-   * Registers a route with a PUT method.
+   * Registers a PUT route.
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setPath("/api/users").put((req, res) => {
+   *   res.send("PUT /api/users");
+   * });
    */
   put(...handlers) {
     // Register PUT route
-    this.router.put(this.path, ...handlers);
+    this.router.put(this.p, ...handlers);
     return this;
   }
 
@@ -121,9 +165,9 @@ class RouteManager {
    */
   registerRoute(method, handlers) {
     // Combine middleware with route handlers
-    const routeHandlers = [...this.middleware, ...handlers];
+    const routeHandlers = [...this.middlewares, ...handlers];
     // Register the route with Express router
-    this.router[method](this.path, routeHandlers);
+    this.router[method](this.p, routeHandlers);
   }
 }
 
