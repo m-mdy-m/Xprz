@@ -1,6 +1,7 @@
 const AppManager = require("./AppManager");
-const jwtHandler = require("../handler/jwtHandler");
-const bcryptjsHandler = require("../handler/bcryptjsHandler");
+const jwtHandler = require("../handler/jwtHandler"),
+  bcryptjsHandler = require("../handler/bcryptjsHandler"),
+  NodemailerHandler = require("../handler/nodemailerHandler");
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -16,6 +17,11 @@ class DependencyHandler extends AppManager {
   constructor() {
     super();
   }
+  /** @private */
+  ensureAndInstantiate(packageName, HandlerClass) {
+    const pkg = ensurePackage(packageName);
+    return new HandlerClass(pkg);
+  }
   session(...options) {
     if (!this.app) {
       throw new Error("Express app has not been initialized yet.");
@@ -26,8 +32,7 @@ class DependencyHandler extends AppManager {
     this.app.use(session(...options));
   }
   jwt() {
-    const jwt = ensurePackage("jsonwebtoken");
-    return new jwtHandler(jwt);
+    return this.ensureAndInstantiate("jsonwebtoken", jwtHandler);
   }
   multer(fileConfig, ...options) {
     const multer = ensurePackage("multer");
@@ -35,12 +40,11 @@ class DependencyHandler extends AppManager {
     this.use(upload[fileConfig]());
   }
   nodemailer() {
-    const nodemailer = ensurePackage("nodemailer");
-    return nodemailer;
+    return this.ensureAndInstantiate("nodemailer", NodemailerHandler);
   }
+
   bcryptjs() {
-    const bcryptjs = ensurePackage("bcryptjs");
-    return new bcryptjsHandler(bcryptjs);
+    return this.ensureAndInstantiate("bcryptjs", bcryptjsHandler);
   }
   csrf() {
     const csrf = ensurePackage("csurf");
