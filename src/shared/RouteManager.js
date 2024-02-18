@@ -1,15 +1,24 @@
 const { getExpress } = require("./AppManager");
 
-
+let middleware = [],
+  has;
+function isMiddleware() {
+  return middleware.length > 0 ? true : false;
+}
+function registerRoute(method, route, path, ...handler) {
+  const routeHandlers = [...middleware, ...handler];
+  route[method](path, routeHandlers);
+  return;
+}
 class Route {
   constructor() {
     const express = getExpress();
     this.router = express.Router();
-    this.middleware = []
   }
-  use(middleware){
-    this.middleware.push(middleware)
-    return this
+  use(m) {
+    middleware.push(m);
+    has = isMiddleware();
+    return this;
   }
   setRoute(path) {
     this.path = path;
@@ -24,6 +33,9 @@ class Route {
   }
 
   get(...handler) {
+    if (has) {
+      registerRoute("get", this.router, this.path, handler);
+    }
     this.router.get(this.path, ...handler);
     return this;
   }
@@ -42,7 +54,7 @@ class Route {
     this.router.put(this.path, ...handler);
     return this;
   }
-  
+
   attachTo(app) {
     app.use(this.router);
   }
