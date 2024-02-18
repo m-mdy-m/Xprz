@@ -1,5 +1,5 @@
 const { initApp, listen, getExpress } = require("../utils/appUtils"),
-  { setApp } = require("../Using");
+  { setApp } = require("../shareApp");
 /**
  * Manages the Express application lifecycle.
  */
