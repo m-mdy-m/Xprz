@@ -1,12 +1,12 @@
 const AppManager = require("./AppManager");
-const jwtHandler = require("../handler/jwt"),
-  bcryptjsHandler = require("../handler/bcryptjs"),
-  NodemailerHandler = require("../handler/nodemailer"),
-  MulterHandler = require("../handler/multer"),
-  BodyParser = require("../handler/bodyParser"),
-  Cors = require("../handler/cors"),
-  flash = require("../handler/flash"),
-  Csrf = require("../handler/csrf");
+const jwtHandler = require("../handler/package/jwt"),
+  bcryptjsHandler = require("../handler/package/bcryptjs"),
+  NodemailerHandler = require("../handler/package/nodemailer"),
+  MulterHandler = require("../handler/package/multer"),
+  BodyParser = require("../handler/package/bodyParser"),
+  Cors = require("../handler/package/cors"),
+  flash = require("../handler/package/flash"),
+  Csrf = require("../handler/package/csrf");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
