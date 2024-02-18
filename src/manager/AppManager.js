@@ -7,6 +7,9 @@ class AppManager extends App {
   use(...handler) {
     this.app.use(...handler);
   }
+  middleware(...handler) {
+    this.use(...handler);
+  }
   set(...handler) {
     this.app.set(...handler);
   }
