@@ -1,5 +1,6 @@
 const App = require("../shared/BaseApp");
 const express = require("express");
+const TemplateEngines = require("../utils/templateEngines");
 
 /**
  * Manages middleware and configuration for an Express application.
@@ -106,6 +107,18 @@ class AppManager extends App {
       });
     });
   }
+  /**
+   * Creates an instance of TemplateEngines to manage template engine configuration.
+   *
+   * @returns {TemplateEngines} An instance of TemplateEngines.
+   *
+   * @example
+   * const appManager = new AppManager();
+   * const templateEngines = appManager.setTemplateEngine();
+   * templateEngines.Ejs();
+   */
+  setTemplateEngine() {
+    return new TemplateEngines();
+  }
 }
-
 module.exports = AppManager;
