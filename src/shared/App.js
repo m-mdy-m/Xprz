@@ -12,18 +12,18 @@ class App {
     this.runApp = false;
   }
   /**
-   * Registers error handling middleware for the Express application.
-   * @param {function} errorHandler - Error handling middleware function.
+   * Attaches middleware functions to the Express application.
+   *
+   * @param {...Function} handler - The middleware function(s) to use.
    * @returns {void}
+   *
    * @example
-   * const app = initApp();
-   * appManager.setErrorHandler((err, req, res, next) => {
-   *     console.error(err);
-   *     res.status(500).send('Internal Server Error');
-   * });
+   * const app = new App();
+   * app.use(express.json());
+   * app.use(cors());
    */
-  setErrorHandler(errorHandler) {
-    this.app.use(errorHandler);
+  use(...handler) {
+    this.app.use(...handler);
   }
   /**
    * Returns the Express module.
