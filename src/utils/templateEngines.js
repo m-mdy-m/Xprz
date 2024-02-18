@@ -4,7 +4,18 @@ const { getApp } = require("../Using");
 // Get the Express application instance
 let app = getApp();
 
-// Function to set up EJS as the view engine
+/**
+ * Sets up EJS as the view engine for rendering views.
+ * 
+ * @param {string} [dir='views'] - The directory containing view files.
+ * 
+ * @example
+ * // Set up EJS with default views directory
+ * setEjs();
+ * 
+ * // Set up EJS with custom views directory
+ * setEjs('custom_views');
+ */
 function setEjs(dir) {
   // Set the view engine to EJS
   app.set("view engine", "ejs");
@@ -12,13 +23,26 @@ function setEjs(dir) {
   app.set("views", dir ? dir : "views");
 }
 
-// Function to set up Handlebars (HBS) as the view engine
+/**
+ * Sets up Handlebars (HBS) as the view engine for rendering views.
+ * 
+ * @param {function} hbs - The Handlebars instance.
+ * @param {string} dir - The directory containing view files.
+ * @param {Object} [options={}] - Additional options for Handlebars.
+ * 
+ * @example
+ * // Set up Handlebars with default options and views directory
+ * setHBS(hbs, 'views');
+ * 
+ * // Set up Handlebars with custom options and views directory
+ * setHBS(hbs, 'custom_views', { defaultLayout: 'main' });
+ */
 function setHBS(hbs, dir, options = {}) {
   // Default options for Handlebars
   const defaultOptions = {
     defaultLayout: "main",
-    layoutsDir: (dir, "layouts"), // Note: This line seems incorrect, it should be `${dir}/layouts`
-    partialsDir: (dir, "partials"), // Note: This line seems incorrect, it should be `${dir}/partials`
+    layoutsDir: `${dir}/layouts`, // Corrected line
+    partialsDir: `${dir}/partials`, // Corrected line
     extname: ".hbs",
   };
 
@@ -33,7 +57,18 @@ function setHBS(hbs, dir, options = {}) {
   app.engine(".hbs", hbs(combinedOptions));
 }
 
-// Function to set up Pug as the view engine
+/**
+ * Sets up Pug as the view engine for rendering views.
+ * 
+ * @param {string} [dir='views'] - The directory containing view files.
+ * 
+ * @example
+ * // Set up Pug with default views directory
+ * setPug();
+ * 
+ * // Set up Pug with custom views directory
+ * setPug('custom_views');
+ */
 function setPug(dir) {
   // Set the view engine to Pug
   app.set("view engine", "pug");
