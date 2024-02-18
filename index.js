@@ -1,4 +1,4 @@
-const { launch } = require("./src/shared/AppManager");
+const { launch } = require("./src/shared/App");
 launch();
 const { getApp } = require("./src/Using");
 const Route = require("./src/shared/RouteManager");
@@ -13,4 +13,5 @@ router
   .setRoute("/")
   .get((req, res, nxt) => {
     res.send("hi222");
-  }).attachTo(app)
+  })
+  .attachTo(app);
