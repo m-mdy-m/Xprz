@@ -49,15 +49,18 @@ class DependencyHandler extends AppManager {
   }
   bodyParser(...handler) {
     const pkg = checkPkg("body-parser");
-    return new BodyParser(pkg, this.use);
+    const use = this.use.bind(this);
+    return new BodyParser(pkg, use, ...handler);
   }
   csrf() {
     const pkg = checkPkg("csurf");
-    return new Csrf(pkg, this.use);
+    const use = this.use.bind(this);
+    return new Csrf(pkg, use);
   }
   cors(...handler) {
     const pkg = checkPkg("cors");
-    return new Cors(pkg, this.use, ...handler);
+    const use = this.use.bind(this);
+    return new Cors(pkg, use, ...handler);
   }
   flash() {
     const pkg = checkPkg("connect-flash");
