@@ -18,7 +18,7 @@ function checkPkg(packageName) {
   }
 }
 
-class DependencyHandler extends AppManager {
+class PackageManager extends AppManager {
   constructor() {
     super();
   }
