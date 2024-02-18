@@ -23,7 +23,7 @@ class DependencyHandler extends AppManager {
     const pkg = checkPkg(packageName);
     return new HandlerClass(pkg);
   }
-  sessionPkg(...options) {
+  session(...options) {
     if (!this.app) {
       throw new Error("Express app has not been initialized yet.");
     }
@@ -32,40 +32,40 @@ class DependencyHandler extends AppManager {
     this.s = session;
     this.app.use(session(...options));
   }
-  jwtPkg() {
+  jwt() {
     const pkg = checkPkg("jsonwebtoken");
     return new jwtHandler(pkg);
   }
-  multerPkg() {
+  multer() {
     const pkg = checkPkg("multer");
     return new MulterHandler(pkg);
   }
-  nodemailerPkg() {
+  nodemailer() {
     const pkg = checkPkg("nodemailer");
     return new NodemailerHandler(pkg);
   }
-  bcryptjsPkg() {
+  bcryptjs() {
     const pkg = checkPkg("bcryptjs");
     return new bcryptjsHandler(pkg);
   }
-  csrfPkg() {
+  csrf() {
     const csrf = checkPkg("csurf");
     const Protection = csrf();
     this.use(Protection);
   }
-  corsPkg(...handler) {
+  cors(...handler) {
     const cors = checkPkg("cors");
     this.use(cors(...handler));
   }
-  bodyParserPkg(...handler) {
+  bodyParser(...handler) {
     const bodyPater = checkPkg("body-parser");
     this.use(bodyPater(...handler));
   }
-  flashPkg() {
+  flash() {
     const flash = checkPkg("connect-flash");
     this.use(flash());
   }
-  connectMongoDbSessionPkg(...options) {
+  connectMongoDbSession(...options) {
     const connectMongoDbSession = checkPkg("connect-mongodb-session");
     const store = new connectMongoDbSession(...options);
     return store;
