@@ -1,5 +1,5 @@
 const AppManager = require("./AppManager");
-const jwtHandler = require("../handler/jwtHandler");
+const jwtHandler = require("../handler/jwtHandler"),bcryptjsHandler = require('../handler/bcryptjsHandler')
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -32,6 +32,14 @@ class DependencyHandler extends AppManager {
     const multer = ensurePackage("multer");
     const upload = multer(...options);
     this.use(upload[fileConfig]());
+  }
+  nodemailer(){
+    const nodemailer = ensurePackage('nodemailer')
+    return nodemailer
+  }
+  bcryptjs(){
+    const bcryptjs =ensurePackage('bcryptjs')
+    return new bcryptjsHandler(bcryptjs)
   }
   csrf() {
     const csrf = ensurePackage("csurf");
