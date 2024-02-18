@@ -1,12 +1,26 @@
+/**
+ * CorsHandler class for configuring CORS middleware in an Express application.
+ */
 class CorsHandler {
+  /**
+   * Creates an instance of CorsHandler.
+   * @param {Function} cors - The CORS package.
+   * @param {Function} use - The Express app's `use` function.
+   * @param {Object} options - Options for configuring CORS middleware.
+   */
   constructor(cors, use, options) {
-    this.cors = cors;
+    this.cors = cors(options);
     this.use = use;
-    this.cors(options);
-    this.use(cors);
+    this.use(this.cors);
   }
+
+  /**
+   * Get the configured CORS middleware.
+   * @returns {Function} The configured CORS middleware.
+   */
   get() {
     return this.cors;
   }
 }
+
 module.exports = CorsHandler;
