@@ -6,19 +6,17 @@ const { getExpress } = require("./AppManager");
  */
 class RouteManager {
   /**
-   * Express Router instance.
-   * @type {object}
-   * @private
+   * Creates a new RouteManager instance.
    */
   constructor() {
     /** @private */
-    this.router = getExpress().Router();
+    this.r = getExpress().Router();
     /**
      * Middleware functions.
      * @type {Array}
      * @private
      */
-    this.middlewares = [];
+    this.mw = [];
   }
 
   /**
@@ -43,12 +41,12 @@ class RouteManager {
    */
   use(middleware) {
     // Add middleware to the list
-    this.middlewares.push(middleware);
+    this.mw.push(middleware);
     // Check if middleware is present
     /**
      * @private
      */
-    this.hasMiddleware = this.middlewares.length > 0 ? true : false;
+    this.hasMiddleware = this.mw.length > 0 ? true : false;
     return this;
   }
 
@@ -88,7 +86,7 @@ class RouteManager {
     // Define routes within the callback function
     callback(subRouteManager);
     // Mount the sub-route manager on the main route
-    this.router.use(mainRoute, subRouteManager.router);
+    this.r.use(mainRoute, subRouteManager.router);
     return this;
   }
 
@@ -108,7 +106,7 @@ class RouteManager {
       this.registerRoute("get", handlers);
     }
     // Register route without middleware
-    this.router.get(this.p, ...handlers);
+    this.r.get(this.p, ...handlers);
     return this;
   }
   /**
@@ -123,7 +121,7 @@ class RouteManager {
    */
   post(...handlers) {
     // Register POST route
-    this.router.post(this.p, ...handlers);
+    this.r.post(this.p, ...handlers);
     return this;
   }
 
@@ -139,7 +137,7 @@ class RouteManager {
    */
   del(...handlers) {
     // Register DELETE route
-    this.router.delete(this.p, ...handlers);
+    this.r.delete(this.p, ...handlers);
     return this;
   }
 
@@ -155,7 +153,7 @@ class RouteManager {
    */
   put(...handlers) {
     // Register PUT route
-    this.router.put(this.p, ...handlers);
+    this.r.put(this.p, ...handlers);
     return this;
   }
 
@@ -165,9 +163,9 @@ class RouteManager {
    */
   registerRoute(method, handlers) {
     // Combine middleware with route handlers
-    const routeHandlers = [...this.middlewares, ...handlers];
+    const routeHandlers = [...this.mw, ...handlers];
     // Register the route with Express router
-    this.router[method](this.p, routeHandlers);
+    this.r[method](this.p, routeHandlers);
   }
 }
 
