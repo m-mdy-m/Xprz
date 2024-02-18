@@ -1,4 +1,4 @@
-const { getExpress } = require("./App");
+const { getExpress } = require("./BaseApp");
 
 /**
  * RouteManager class handles route management for Express.js.

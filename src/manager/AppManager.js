@@ -1,4 +1,4 @@
-const App = require("../shared/App");
+const App = require("../shared/BaseApp");
 const express = require("express");
 
 /**
@@ -77,7 +77,7 @@ class AppManager extends App {
    * const appManager = new AppManager();
    * appManager.useJsonBody();
    */
-  useJsonBody(status=false) {
+  useJsonBody(status = false) {
     this.use(express.json());
     this.use(express.urlencoded({ extended: status }));
   }
