@@ -1,5 +1,4 @@
-const App = require("../shared/App"),
-  { static } = require("../utils/expressUtils");
+const App = require("../shared/App");
 
 class AppManager extends App {
   constructor() {
@@ -15,7 +14,7 @@ class AppManager extends App {
     const express = this.getExpress();
     this.use(express.static(...handlers));
   }
-  
+
   async shutdown() {
     return new Promise((resolve, reject) => {
       this.app.close((err) => {
@@ -28,4 +27,4 @@ class AppManager extends App {
     });
   }
 }
-module.exports = AppManager
+module.exports = AppManager;

@@ -64,5 +64,4 @@ class DependencyHandler extends AppManager {
     return store;
   }
 }
-const { jwt } = new DependencyHandler();
-const { isTokenExpired, jwtSign, jwtVerify } = jwt();
+const {  } = new DependencyHandler();
