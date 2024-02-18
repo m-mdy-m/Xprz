@@ -9,7 +9,7 @@ function middleware(req, res, next) {
   next();
 }
 router
-//   .use(middleware)
+  .use(middleware)
   .setRoute("/")
   .get((req, res, nxt) => {
     res.send("hi222");
