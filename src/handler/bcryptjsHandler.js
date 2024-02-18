@@ -1,6 +1,10 @@
 class bcryptjsHandler {
   constructor(bcryptjs) {
+    /** @private */
     this.bcryptjs = bcryptjs;
+  }
+  getBcryptjs() {
+    return this.bcryptjs;
   }
   async has(password, range) {
     const has = await this.bcryptjs.has(password, range);
@@ -11,4 +15,4 @@ class bcryptjsHandler {
     return isMatch;
   }
 }
-module.exports = bcryptjsHandler
+module.exports = bcryptjsHandler;

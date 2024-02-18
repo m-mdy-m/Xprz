@@ -3,7 +3,9 @@ class jwtHandler {
     /** @private */
     this.jwt = jwt;
   }
-
+  getJwt() {
+    return this.jwt;
+  }
   jwtSign(payload, secretKey, options = {}) {
     if (!payload || !secretKey) {
       throw new Error("Payload and secret key are required for JWT signing.");
@@ -35,4 +37,4 @@ class jwtHandler {
     }
   }
 }
-module.exports = jwtHandler
+module.exports = jwtHandler;
