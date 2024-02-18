@@ -1,5 +1,5 @@
 const AppManager = require("./AppManager");
-const jwt = require('../handler/jwtHandler')
+const jwtHandler = require("../handler/jwtHandler");
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -24,13 +24,15 @@ class DependencyHandler extends AppManager {
     this.s = session;
     this.app.use(session(...options));
   }
-  jwt() {}
+  jwt() {
+    const jwt = ensurePackage("jsonwebtoken");
+    return new jwtHandler(jwt);
+  }
   muter(fileConfig, ...options) {
     const multer = ensurePackage("multer");
     const upload = multer(...options);
     this.use(upload[fileConfig]());
   }
-  vfyjs() {}
   csrf() {
     const csrf = ensurePackage("csurf");
     const Protection = csrf();
@@ -54,3 +56,5 @@ class DependencyHandler extends AppManager {
     return store;
   }
 }
+const { jwt } = new DependencyHandler();
+const { isTokenExpired, jwtSign, jwtVerify } = jwt();

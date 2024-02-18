@@ -1,5 +1,6 @@
 class jwtHandler {
   constructor(jwt) {
+    /** @private */
     this.jwt = jwt;
   }
 
