@@ -3,14 +3,15 @@ const AppManager = require("./AppManager");
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);
-  } catch (e) {
+    return requiredPackage; // Return the required package
+  } catch{
     throw new Error(
       `The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`
     );
   }
 }
 
-class Dependencies extends AppManager {
+class FeatureProvider extends AppManager {
   constructor() {
     super();
   }
