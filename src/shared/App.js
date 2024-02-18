@@ -61,11 +61,7 @@ class App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(
-    port = 3000,
-    textLog = `Server is running on port ${port}`,
-    log = true
-  ) {
+  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
     if (this.runApp) {
       listen(this.app, port, textLog, log);
     } else {
@@ -84,11 +80,7 @@ class App {
    * @example
    * const app = launch();
    */
-  launch(
-    port = 3000,
-    textLog = `Server is running on port ${port}`,
-    log = true
-  ) {
+  launch(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
     this.initApp();
     this.listen(port, textLog, log);
     return this.app;
