@@ -1,17 +1,16 @@
-const { launch } = require("./src/shared/App");
-launch();
-const { getApp } = require("./src/Using");
-const Route = require("./src/shared/RouteManager");
-const app = getApp();
-const router = new Route();
-function middleware(req, res, next) {
-  console.log("hi");
-  next();
+const AppManager = require("./src/manager/AppManager");
+const DatabaseManager = require("./src/manager/DatabaseManager");
+const PackageManager = require("./src/manager/PackageManager");
+const httpMethod = require("./src/shared/HTTPMethod");
+const RouteManager = require("./src/shared/RouteManager");
+
+class XPress {
+  constructor() {
+    this.App = AppManager;
+    this.Database = DatabaseManager;
+    this.Package = PackageManager;
+    this.httpMethod = httpMethod;
+    this.RouteManager = RouteManager;
+  }
 }
-router
-  .use(middleware)
-  .setRoute("/")
-  .get((req, res, nxt) => {
-    res.send("hi222");
-  })
-  .attachTo(app);
+module.exports = XPress;
