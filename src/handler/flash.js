@@ -1,8 +1,11 @@
 class FlashHandler {
-  constructor(flash) {
+  constructor(flash,use) {
     /** @private */
     this.flash = flash;
-    this.flash();
+    /** @private */
+    this.use = use
+    /** @private */
+    this.use(this.flash())
   }
   get() {
     return this.flash;

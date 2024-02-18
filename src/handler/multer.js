@@ -6,11 +6,12 @@ class Multer {
    * Constructor to initialize the Multer instance.
    * @param {Object} multer - The Multer instance.
    */
-  constructor(multer) {
+  constructor(multer, use) {
     /** @private */
     this.multer = multer;
+    /** @private */
+    this.use = use
   }
-
   /**
    * Returns the configured Multer instance.
    * @returns {Object} The Multer instance.
@@ -55,7 +56,7 @@ class Multer {
    * multer.single({ dest: 'uploads/' }, 'image');
    */
   single(options, ...field) {
-    this.multer(options).single(...field);
+    this.use(this.multer(options).single(...field))
   }
 
   /**
@@ -67,7 +68,7 @@ class Multer {
    * multer.array({ dest: 'uploads/' }, 'images');
    */
   array(options, ...fields) {
-    this.multer(options).array(...fields);
+    this.use(this.multer(options).array(...fields))
   }
 
   /**
@@ -79,7 +80,7 @@ class Multer {
    * multer.fields({ dest: 'uploads/' }, 'avatar', 'photos');
    */
   fields(options, ...fields) {
-    this.multer(options).fields(...fields);
+    this.use(this.multer(options).fields(...fields))
   }
 
   /**
@@ -91,7 +92,7 @@ class Multer {
    * multer.any({ dest: 'uploads/' }, 'files');
    */
   any(options, ...fields) {
-    this.multer(options).any(...fields);
+    this.use(this.multer(options).any(...fields))
   }
 }
 

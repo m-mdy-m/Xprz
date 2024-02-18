@@ -37,7 +37,8 @@ class DependencyHandler extends AppManager {
   }
   multer() {
     const pkg = checkPkg("multer");
-    return new MulterHandler(pkg);
+    const use = this.use.bind(this);
+    return new MulterHandler(pkg, use);
   }
   nodemailer() {
     const pkg = checkPkg("nodemailer");
@@ -64,7 +65,8 @@ class DependencyHandler extends AppManager {
   }
   flash() {
     const pkg = checkPkg("connect-flash");
-    return new flash(pkg);
+    const use = this.use.bind(this);
+    return new flash(pkg, use);
   }
   connectMongoDbSession(...options) {
     const connectMongoDbSession = checkPkg("connect-mongodb-session");
