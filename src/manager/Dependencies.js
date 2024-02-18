@@ -1,5 +1,5 @@
 const AppManager = require("./AppManager");
-
+const jwt = require('../handler/jwtHandler')
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);

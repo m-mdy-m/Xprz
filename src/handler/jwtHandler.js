@@ -34,3 +34,4 @@ class jwtHandler {
     }
   }
 }
+module.exports = jwtHandler
