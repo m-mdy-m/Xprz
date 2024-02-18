@@ -1,10 +1,11 @@
 const { getExpress } = require("./AppManager");
-
 let middleware = [],
   has;
+
 function isMiddleware() {
   return middleware.length > 0 ? true : false;
 }
+
 function registerRoute(method, route, path, ...handler) {
   const routeHandlers = [...middleware, ...handler];
   route[method](path, routeHandlers);
@@ -26,9 +27,9 @@ class Route {
   }
 
   group(mainRoute, callback) {
-    const r = new Route();
-    callback(r);
-    this.router.use(mainRoute, r.router);
+    const subRoute = new Route();
+    callback(subRoute);
+    this.router.use(mainRoute, subRoute.router);
     return this;
   }
 
