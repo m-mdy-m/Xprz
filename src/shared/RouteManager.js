@@ -103,8 +103,7 @@ class Route {
    * @returns {void}
    * 
    * @example
-   * const express = require('express');
-   * const app = express();
+   * const app = getApp()
    * const route = new Route();
    * route.setRoute("/users").get((req, res) => {
    *   res.send("GET request to /users");
