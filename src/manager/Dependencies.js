@@ -24,6 +24,15 @@ class DependencyHandler extends AppManager {
     this.s = session;
     this.app.use(session(...options));
   }
+  jwt(){
+
+  }
+  muter(){
+
+  }
+  validator(){
+    
+  }
   csrf() {
     const csrf = ensurePackage("csurf");
     const Protection = csrf();
