@@ -13,8 +13,20 @@ class Route {
     this.router.get(this.path, ...handler);
     return this;
   }
+  post(...handler) {
+    this.router.post(this.path, ...handler);
+    return this;
+  }
+  del(...handler) {
+    this.router.delete(this.path, ...handler);
+    return this;
+  }
+  put(...handler) {
+    this.router.put(this.path, ...handler);
+    return this;
+  }
   attachTo(app) {
-    app.use(this.router); // Attach the router to the app
+    app.use(this.router);
   }
 }
 
