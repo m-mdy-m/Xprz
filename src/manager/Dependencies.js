@@ -3,7 +3,10 @@ const jwtHandler = require("../handler/jwt"),
   bcryptjsHandler = require("../handler/bcryptjs"),
   NodemailerHandler = require("../handler/nodemailer"),
   MulterHandler = require("../handler/multer"),
-  BodyParser = require("../handler/bodyParser");
+  BodyParser = require("../handler/bodyParser"),
+  Cors = require("../handler/cors"),
+  flash = require("../handler/flash"),
+  Csrf = require("../handler/csrf");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -18,11 +21,6 @@ function checkPkg(packageName) {
 class DependencyHandler extends AppManager {
   constructor() {
     super();
-  }
-  /** @private */
-  instantiateWithPkg(packageName, HandlerClass) {
-    const pkg = checkPkg(packageName);
-    return new HandlerClass(pkg);
   }
   session(...options) {
     if (!this.app) {
@@ -49,22 +47,21 @@ class DependencyHandler extends AppManager {
     const pkg = checkPkg("bcryptjs");
     return new bcryptjsHandler(pkg);
   }
+  bodyParser(...handler) {
+    const pkg = checkPkg("body-parser");
+    return new BodyParser(pkg, this.use);
+  }
   csrf() {
-    const csrf = checkPkg("csurf");
-    const Protection = csrf();
-    this.use(Protection);
+    const pkg = checkPkg("csurf");
+    return new Csrf(pkg, this.use);
   }
   cors(...handler) {
-    const cors = checkPkg("cors");
-    this.use(cors(...handler));
-  }
-  bodyParser(...handler) {
-    const bodyPater = checkPkg("body-parser");
-    return new BodyParser();
+    const pkg = checkPkg("cors");
+    return new Cors(pkg, this.use, ...handler);
   }
   flash() {
-    const flash = checkPkg("connect-flash");
-    this.use(flash());
+    const pkg = checkPkg("connect-flash");
+    return new flash(pkg);
   }
   connectMongoDbSession(...options) {
     const connectMongoDbSession = checkPkg("connect-mongodb-session");
