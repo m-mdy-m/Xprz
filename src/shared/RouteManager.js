@@ -156,7 +156,73 @@ class RouteManager {
     this.router.put(this.path, ...handlers);
     return this;
   }
+  /**
+   * Registers a PATCH route.
+   * @param {...function} handlers - Route handler functions.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setRoute("/api/users").patch((req, res) => {
+   *   res.send("PATCH /api/users");
+   * });
+   */
+  patch(...handlers) {
+    this.router.patch(this.path, ...handlers);
+    return this;
+  }
 
+  /**
+   * Registers an OPTIONS route.
+   * @param {...function} handlers - Route handler functions.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setRoute("/api/users").options((req, res) => {
+   *   res.send("OPTIONS /api/users");
+   * });
+   */
+  options(...handlers) {
+    this.router.options(this.path, ...handlers);
+    return this;
+  }
+  /**
+   * Registers route parameter validation middleware.
+   * @param {function} validator - Route parameter validation middleware function.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setValidator(paramValidatorFunction);
+   */
+  setValidator(validator) {
+    this.router.param(validator);
+    return this;
+  }
+  /**
+   * Sets a prefix for all routes registered using this RouteManager instance.
+   * @param {string} prefixPath - The prefix path for the routes.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setRoute("/users").prefix("/api/v1").get((req, res) => {
+   *   res.send("GET /api/v1/users");
+   * });
+   */
+  prefix(prefixPath) {
+    this.path = prefixPath + this.path;
+    return this;
+  }
+  /**
+   * Registers error handling middleware.
+   * @param {function} errorHandler - Error handling middleware function.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new RouteManager();
+   * router.setErrorHandler(errorHandlerFunction);
+   */
+  setErrorHandler(errorHandler) {
+    this.router.use(errorHandler);
+    return this;
+  }
   /**
    * Registers a route with the given method, path, and handlers.
    * @private
