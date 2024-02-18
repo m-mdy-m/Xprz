@@ -42,6 +42,7 @@ class Multer {
    * });
    */
   filter(filter) {
+    /** @private */
     this.fileFilter = filter;
   }
 
