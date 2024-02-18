@@ -1,6 +1,7 @@
-const { initApp, listen, getExpress } = require("../utils/appUtils");
-const { setApp } = require("../Using");
-
+const { initApp, listen, getExpress } = require("../utils/appUtils"),
+  { setApp } = require("../Using"),
+  { static } = require("../utils/expressUtils"),
+  { use, set } = require("../utils/funcs");
 /**
  * Manages the Express application lifecycle.
  */
@@ -10,18 +11,6 @@ class AppManager {
     this.app = null;
     this.runApp = false;
   }
-  /**
-   * Registers global middleware for the Express application.
-   * @param {...function} middleware - Middleware functions to be registered.
-   * @returns {void}
-   * @example
-   * const app = initApp();
-   * appManager.useMiddleware(cors(), bodyParser.json());
-   */
-  useMiddleware(...middleware) {
-    this.app.use(...middleware);
-  }
-
   /**
    * Registers error handling middleware for the Express application.
    * @param {function} errorHandler - Error handling middleware function.
@@ -35,28 +24,6 @@ class AppManager {
    */
   setErrorHandler(errorHandler) {
     this.app.use(errorHandler);
-  }
-  /**
-   * Gracefully shuts down the Express application.
-   * @returns {Promise<void>}
-   * @example
-   * const app = initApp();
-   * appManager.shutdown().then(() => {
-   *     console.log('Server gracefully shut down.');
-   * }).catch((err) => {
-   *     console.error('Error occurred during shutdown:', err);
-   * });
-   */
-  async shutdown() {
-    return new Promise((resolve, reject) => {
-      this.app.close((err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
   /**
    * Returns the Express module.
@@ -130,11 +97,65 @@ class AppManager {
   }
 }
 
+class UsingUtilsApp extends AppManager {
+  constructor() {
+    super();
+  }
+  usingSession(...options) {
+    if (!this.app) {
+      throw new Error("Express app has not been initialized yet.");
+    }
+    const session = require("express-session");
+    if (!session) {
+      throw new Error(
+        "The 'express-session' module is not installed. Please make sure to install it by running 'npm install express-session' before using sessions."
+      );
+    }
+    this.app.use(session(...options));
+  }
+  Static(...handlers) {
+    use(static(...handlers));
+  }
+  /**
+   * Registers global middleware for the Express application.
+   * @param {...function} middleware - Middleware functions to be registered.
+   * @returns {void}
+   * @example
+   * const app = initApp();
+   * appManager.useMiddleware(cors(), bodyParser.json());
+   */
+  useMiddleware(...middleware) {
+    this.app.use(...middleware);
+  }
+  /**
+   * Gracefully shuts down the Express application.
+   * @returns {Promise<void>}
+   * @example
+   * const app = initApp();
+   * appManager.shutdown().then(() => {
+   *     console.log('Server gracefully shut down.');
+   * }).catch((err) => {
+   *     console.error('Error occurred during shutdown:', err);
+   * });
+   */
+  async shutdown() {
+    return new Promise((resolve, reject) => {
+      this.app.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+}
 // Create an instance of AppManager
-const appManager = new AppManager();
+const appManager = new UsingUtilsApp();
 
 // Export methods bound to the AppManager instance
 module.exports = {
+  APP: AppManager,
   getExpress: appManager.getExpress.bind(appManager),
   initApp: appManager.initApp.bind(appManager),
   launch: appManager.launch.bind(appManager),

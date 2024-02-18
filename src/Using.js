@@ -21,12 +21,12 @@ class Using {
    * if (app) {
    *   // Use the Express application instance
    * } else {
-   *   console.log('Express app instance has not been initialized yet.');
+   *   throw new Error('Express app instance has not been initialized yet.');
    * }
    */
   getAppInstance() {
     if (!this.appInstance) {
-      console.log("Express app instance has not been initialized yet.");
+      throw new Error("Express app instance has not been initialized yet.");
     }
     return this.appInstance;
   }
