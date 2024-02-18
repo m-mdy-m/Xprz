@@ -22,9 +22,9 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example');
+   * httpMethod.setBaseRoute('/example');
    */
-  setRoute(path) {
+  setBaseRoute(path) {
     /** @private */
     this.path = path;
     return this;
@@ -38,9 +38,9 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').prefix('/api');
+   * httpMethod.setBaseRoute('/example').addPrefix('/api');
    */
-  prefix(prefixPath) {
+  addPrefix(prefixPath) {
     this.path = prefixPath + this.path;
     return this;
   }
@@ -53,11 +53,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').get((req, res) => {
+   * httpMethod.setBaseRoute('/example').GET((req, res) => {
    *   res.send('GET request received');
    * });
    */
-  get(...handler) {
+  GET(...handler) {
     this.app.get(this.path, ...handler);
     return this;
   }
@@ -70,11 +70,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').post((req, res) => {
+   * httpMethod.setBaseRoute('/example').POST((req, res) => {
    *   res.send('POST request received');
    * });
    */
-  post(...handler) {
+  POST(...handler) {
     this.app.post(this.path, ...handler);
     return this;
   }
@@ -87,11 +87,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').put((req, res) => {
+   * httpMethod.setBaseRoute('/example').PUT((req, res) => {
    *   res.send('PUT request received');
    * });
    */
-  put(...handler) {
+  PUT(...handler) {
     this.app.put(this.path, ...handler);
     return this;
   }
@@ -104,11 +104,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').del((req, res) => {
+   * httpMethod.setBaseRoute('/example').DELETE((req, res) => {
    *   res.send('DELETE request received');
    * });
    */
-  del(...handler) {
+  DELETE(...handler) {
     this.app.delete(this.path, ...handler);
     return this;
   }
@@ -121,11 +121,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').patch((req, res) => {
+   * httpMethod.setBaseRoute('/example').PATCH((req, res) => {
    *   res.send('PATCH request received');
    * });
    */
-  patch(...handler) {
+  PATCH(...handler) {
     this.app.patch(this.path, ...handler);
     return this;
   }
@@ -138,11 +138,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').options((req, res) => {
+   * httpMethod.setBaseRoute('/example').OPTIONS((req, res) => {
    *   res.send('OPTIONS request received');
    * });
    */
-  options(...handler) {
+  OPTIONS (...handler) {
     this.app.options(this.path, ...handler);
     return this;
   }
@@ -155,11 +155,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').head((req, res) => {
+   * httpMethod.setBaseRoute('/example').HEAD((req, res) => {
    *   res.send('HEAD request received');
    * });
    */
-  head(...handler) {
+  HEAD(...handler) {
     this.app.head(this.path, ...handler);
     return this;
   }
@@ -172,11 +172,11 @@ class HTTPMethod {
    * 
    * @example
    * const httpMethod = new HTTPMethod();
-   * httpMethod.setRoute('/example').trace((req, res) => {
+   * httpMethod.setBaseRoute('/example').TRACE((req, res) => {
    *   res.send('TRACE request received');
    * });
    */
-  trace(...handler) {
+  TRACE(...handler) {
     this.app.trace(this.path, ...handler);
     return this;
   }
