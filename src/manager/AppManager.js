@@ -1,4 +1,5 @@
 const App = require("../shared/App");
+const express = this.getExpress();
 
 class AppManager extends App {
   constructor() {
@@ -14,10 +15,12 @@ class AppManager extends App {
     this.app.set(...handler);
   }
   static(...handlers) {
-    const express = this.getExpress();
     this.use(express.static(...handlers));
   }
-
+  EnableJson() {
+    this.use(express.json());
+    this.use(express.urlencoded({ extended: false }));
+  }
   async shutdown() {
     return new Promise((resolve, reject) => {
       this.app.close((err) => {
