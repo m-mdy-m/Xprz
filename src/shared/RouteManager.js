@@ -15,10 +15,10 @@ class Route {
 
   /**
    * Sets the route path for the current route.
-   * 
+   *
    * @param {string} path - The route path.
    * @returns {Route} The Route instance for method chaining.
-   * 
+   *
    * @example
    * const route = new Route();
    * route.setRoute("/users");
@@ -27,13 +27,33 @@ class Route {
     this.path = path;
     return this;
   }
-
+  /**
+   * Groups related routes under a common route prefix.
+   *
+   * @param {string} mainRoute - The main route prefix.
+   * @param {Function} callback - A callback function to define routes within the group.
+   * @returns {Route} The Route instance for method chaining.
+   *
+   * @example
+   * const route = new Route();
+   * route.group('/api', (r) => {
+   *   r.setRoute('/users').get((req, res) => {
+   *     res.send('GET request to /api/users');
+   *   });
+   * }).attachTo(app);
+   */
+  group(mainRoute, callback) {
+    const r = new Route();
+    callback(r);
+    this.router.use(mainRoute, r.router);
+    return this;
+  }
   /**
    * Defines a GET route.
-   * 
+   *
    * @param {...Function} handler - The route handler functions.
    * @returns {Route} The Route instance for method chaining.
-   * 
+   *
    * @example
    * const route = new Route();
    * route.setRoute("/users").get((req, res) => {
@@ -47,10 +67,10 @@ class Route {
 
   /**
    * Defines a POST route.
-   * 
+   *
    * @param {...Function} handler - The route handler functions.
    * @returns {Route} The Route instance for method chaining.
-   * 
+   *
    * @example
    * const route = new Route();
    * route.setRoute("/users").post((req, res) => {
@@ -64,10 +84,10 @@ class Route {
 
   /**
    * Defines a DELETE route.
-   * 
+   *
    * @param {...Function} handler - The route handler functions.
    * @returns {Route} The Route instance for method chaining.
-   * 
+   *
    * @example
    * const route = new Route();
    * route.setRoute("/users").del((req, res) => {
@@ -81,10 +101,10 @@ class Route {
 
   /**
    * Defines a PUT route.
-   * 
+   *
    * @param {...Function} handler - The route handler functions.
    * @returns {Route} The Route instance for method chaining.
-   * 
+   *
    * @example
    * const route = new Route();
    * route.setRoute("/users").put((req, res) => {
@@ -98,10 +118,10 @@ class Route {
 
   /**
    * Attaches the route to the specified Express application.
-   * 
+   *
    * @param {Object} app - The Express application instance.
    * @returns {void}
-   * 
+   *
    * @example
    * const app = getApp()
    * const route = new Route();
