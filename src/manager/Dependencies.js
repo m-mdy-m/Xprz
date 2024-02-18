@@ -29,7 +29,7 @@ class DependencyHandler extends AppManager {
     const jwt = ensurePackage("jsonwebtoken");
     return new jwtHandler(jwt);
   }
-  muter(fileConfig, ...options) {
+  multer(fileConfig, ...options) {
     const multer = ensurePackage("multer");
     const upload = multer(...options);
     this.use(upload[fileConfig]());
