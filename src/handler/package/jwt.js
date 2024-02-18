@@ -47,7 +47,9 @@ class jwtHandler {
    */
   jwtVerify(token, secretKey) {
     if (!token || !secretKey) {
-      throw new Error("Token and secret key are required for JWT verification.");
+      throw new Error(
+        "Token and secret key are required for JWT verification."
+      );
     }
 
     try {
@@ -72,6 +74,31 @@ class jwtHandler {
     } catch (error) {
       return false;
     }
+  }
+  /**
+   * Middleware for JWT authentication.
+   * @param {string} secretKey - The secret key used for verifying JWT tokens.
+   * @returns {function} Middleware function for JWT authentication.
+   * @example
+   * // Apply JWT authentication middleware
+   * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
+   */
+  jwtAuthenticate(secretKey) {
+    return (req, res, nxt) => {
+      const token = req.headers.authorization;
+      if (!token) {
+        return res
+          .status(401)
+          .json({ error: "Unauthorized: No token provided" });
+      }
+      try {
+        const decodedPayload = this.jwtVerify(token, secretKey);
+        req.user = decodedPayload;
+        nxt();
+      } catch (error) {
+        return res.status(401).json({ error: "Unauthorized: Invalid token" });
+      }
+    };
   }
 }
 
