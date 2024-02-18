@@ -3,8 +3,8 @@ const AppManager = require("./AppManager");
 function ensurePackage(packageName) {
   try {
     const requiredPackage = require(packageName);
-    return requiredPackage; // Return the required package
-  } catch{
+    return requiredPackage;
+  } catch {
     throw new Error(
       `The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`
     );
@@ -24,15 +24,13 @@ class DependencyHandler extends AppManager {
     this.s = session;
     this.app.use(session(...options));
   }
-  jwt(){
-
+  jwt() {}
+  muter(fileConfig, ...options) {
+    const multer = ensurePackage("multer");
+    const upload = multer(...options);
+    this.use(upload[fileConfig]());
   }
-  muter(){
-
-  }
-  validator(){
-    
-  }
+  vfyjs() {}
   csrf() {
     const csrf = ensurePackage("csurf");
     const Protection = csrf();
