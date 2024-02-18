@@ -19,11 +19,44 @@ class AppManager {
    * appManager.useMiddleware(cors(), bodyParser.json());
    */
   useMiddleware(...middleware) {
-    if (this.app) {
-      this.app.use(...middleware);
-    } else {
-      throw new Error("Express app has not been initialized yet.");
-    }
+    this.app.use(...middleware);
+  }
+
+  /**
+   * Registers error handling middleware for the Express application.
+   * @param {function} errorHandler - Error handling middleware function.
+   * @returns {void}
+   * @example
+   * const app = initApp();
+   * appManager.setErrorHandler((err, req, res, next) => {
+   *     console.error(err);
+   *     res.status(500).send('Internal Server Error');
+   * });
+   */
+  setErrorHandler(errorHandler) {
+    this.app.use(errorHandler);
+  }
+  /**
+   * Gracefully shuts down the Express application.
+   * @returns {Promise<void>}
+   * @example
+   * const app = initApp();
+   * appManager.shutdown().then(() => {
+   *     console.log('Server gracefully shut down.');
+   * }).catch((err) => {
+   *     console.error('Error occurred during shutdown:', err);
+   * });
+   */
+  async shutdown() {
+    return new Promise((resolve, reject) => {
+      this.app.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
   /**
    * Returns the Express module.
