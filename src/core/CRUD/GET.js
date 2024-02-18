@@ -1,5 +1,5 @@
 const { getApp, setApp } = require("../../Using");
-const {MethodRoute,RouteHandler} = require("../../handler/RouteHandler");
+const RouteHandler = require("../../handler/RouteHandler");
 const { applyCallbacks } = require("../../utils/callbackHandler");
 let handler,router
 

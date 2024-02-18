@@ -30,31 +30,4 @@ class RouteHandler {
     new factoryRoute().setCookieMiddleware(this.app, { name, val, options });
   }
 }
-class MethodRoute{
-  constructor(app,url) {
-    this.app = app
-    this.url = url
-    this.statusCode = 200
-  }
-  res(){
-    const app = this.app
-    const url = this.url
-    async function send(data){
-      const handle = await new factoryRoute().setupGetRoute(app,url)
-      return handle('send',data)
-    }
-    async function write(data){
-      const handle = await new factoryRoute().setupGetRoute(app,url)
-      return handle('write',data , (res)=>{
-        res.end()
-      })
-    }
-  }
-  req(){
-
-  }
-  next(){
-
-  }
-}
-module.exports = {MethodRoute,RouteHandler};
+module.exports = RouteHandler;
