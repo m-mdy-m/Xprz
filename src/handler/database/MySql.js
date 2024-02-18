@@ -1,8 +1,13 @@
 class MySql {
   constructor(pkg) {
+    /** @private */
     this.mysql = pkg;
   }
-  connect(db, log = true, textLog = "MySqlConnected") {
+  getMySql(){
+    return this.mysql
+  }
+  Connection(db, log = true, textLog = "MySqlConnected") {
+    /** @private */
     this.connection = this.mysql({
       host: db.host,
       user: db.user,
@@ -30,7 +35,7 @@ class MySql {
       });
     });
   }
-  endConnect(log = true, textLog = "MySQL connection ended") {
+  EndConnection(log = true, textLog = "MySQL connection ended") {
     if (this.connection) {
       this.connection.end();
       if (log) {
@@ -39,25 +44,25 @@ class MySql {
     }
     throw new Error("No MySql Connection");
   }
-  async create(tableName, values) {
+  async Create(tableName, values) {
     const sql = `INSERT INTO ${tableName} SET ?`;
     const result = await this.query(sql, values);
     return result;
   }
 
-  async read(tableName, condition) {
+  async Read(tableName, condition) {
     const sql = `SELECT * FROM ${tableName} WHERE ?`;
     const result = await this.query(sql, condition);
     return result;
   }
 
-  async update(tableName, values, condition) {
+  async Update(tableName, values, condition) {
     const sql = `UPDATE ${tableName} SET ? WHERE ?`;
     const result = await this.query(sql, [values, condition]);
     return result;
   }
 
-  async delete(tableName, condition) {
+  async Delete(tableName, condition) {
     const sql = `DELETE FROM ${tableName} WHERE ?`;
     const result = await this.query(sql, condition);
     return result;
