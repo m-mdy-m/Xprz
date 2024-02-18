@@ -1,8 +1,9 @@
 const AppManager = require("./AppManager");
-const jwtHandler = require("../handler/jwt");
-const bcryptjsHandler = require("../handler/bcryptjs");
-const NodemailerHandler = require("../handler/nodemailer");
-const MulterHandler = require("../handler/multer");
+const jwtHandler = require("../handler/jwt"),
+  bcryptjsHandler = require("../handler/bcryptjs"),
+  NodemailerHandler = require("../handler/nodemailer"),
+  MulterHandler = require("../handler/multer"),
+  BodyParser = require("../handler/bodyParser");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -59,7 +60,7 @@ class DependencyHandler extends AppManager {
   }
   bodyParser(...handler) {
     const bodyPater = checkPkg("body-parser");
-    this.use(bodyPater(...handler));
+    return new BodyParser();
   }
   flash() {
     const flash = checkPkg("connect-flash");
@@ -71,4 +72,3 @@ class DependencyHandler extends AppManager {
     return store;
   }
 }
-const { multer } = new DependencyHandler();

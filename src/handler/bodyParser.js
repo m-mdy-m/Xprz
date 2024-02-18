@@ -1,4 +1,4 @@
-class bodyParser {
+class BodyParser {
   constructor(pkg, use) {
     /** @private */
     this.bodyParser = pkg;
@@ -30,4 +30,4 @@ class bodyParser {
     this.use(this.bodyParser.csv());
   }
 }
-module.exports = bodyParser;
+module.exports = BodyParser;
