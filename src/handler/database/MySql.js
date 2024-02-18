@@ -3,12 +3,11 @@ class MySql {
     /** @private */
     this.mysql = pkg;
   }
-  getMySql(){
-    return this.mysql
+  getMySql() {
+    return this.mysql;
   }
-  Connection(db, log = true, textLog = "MySqlConnected") {
-    /** @private */
-    this.connection = this.mysql({
+  connect(db, log = true, textLog = "Database Connected") {
+    this.connection = this.mysql.createConnection({
       host: db.host,
       user: db.user,
       password: db.password,
@@ -23,7 +22,9 @@ class MySql {
       }
     });
   }
-  /** @private */
+  getConnection() {
+    return this.connection;
+  }
   async query(sql, values) {
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, results) => {
@@ -35,14 +36,51 @@ class MySql {
       });
     });
   }
-  EndConnection(log = true, textLog = "MySQL connection ended") {
+  async execute(sql) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, (err, results) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(results);
+      });
+    });
+  }
+  async transaction(queries) {
+    return new Promise((resolve, reject) => {
+      this.connection.beginTransaction(async (err) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        try {
+          for (let query of queries) {
+            await this.query(query.sql, query.values);
+          }
+          this.connection.commit((err) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve("Transaction successful");
+          });
+        } catch (error) {
+          this.connection.rollback(() => {
+            reject(error);
+          });
+        }
+      });
+    });
+  }
+  endConnection(log = true, textLog = "Database connection ended") {
     if (this.connection) {
       this.connection.end();
       if (log) {
         console.log(textLog);
       }
     }
-    throw new Error("No MySql Connection");
+    throw new Error("No database connection");
   }
   async Create(tableName, values) {
     const sql = `INSERT INTO ${tableName} SET ?`;
