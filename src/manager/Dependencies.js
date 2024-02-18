@@ -1,7 +1,7 @@
 const AppManager = require("./AppManager");
-const jwtHandler = require("../handler/jwtHandler"),
-  bcryptjsHandler = require("../handler/bcryptjsHandler"),
-  NodemailerHandler = require("../handler/nodemailerHandler");
+const jwtHandler = require("../handler/jwt"),
+  bcryptjsHandler = require("../handler/bcryptjs"),
+  NodemailerHandler = require("../handler/nodemailer");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
