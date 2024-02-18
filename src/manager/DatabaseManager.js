@@ -1,19 +1,13 @@
-const AppManager = require("./AppManager");
 const MongoDb = require('../handler/database/MongoDB'), MySql = require('../handler/database/MySql')
 function checkPkg(packageName) {
     try {
       const requiredPackage = require(packageName);
       return requiredPackage;
-    } catch {
-      throw new Error(
-        `The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`
-      );
+    } catch {throw new Error(`The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`);
     }
   }
-  class DataBaseManager extends AppManager {
-    constructor() {
-        super();
-    }
+  class DataBaseManager {
+    constructor() {}
 
     /**
      * Create and return a new instance of MySql.

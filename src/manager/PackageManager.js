@@ -1,4 +1,3 @@
-const AppManager = require("./AppManager");
 const jwtHandler = require("../handler/package/jwt"),
   bcryptjsHandler = require("../handler/package/bcryptjs"),
   NodemailerHandler = require("../handler/package/nodemailer"),
@@ -7,6 +6,8 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf");
+const { useApp } = require("../shareApp");
+
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
@@ -21,10 +22,8 @@ function checkPkg(packageName) {
  * PackageManager class for managing various packages and middleware in an Express application.
  * @extends AppManager
  */
-class PackageManager extends AppManager {
-  constructor() {
-    super();
-  }
+class PackageManager {
+  constructor() {}
 
   /**
    * Initialize and configure Express session middleware.
@@ -35,13 +34,10 @@ class PackageManager extends AppManager {
    * pkgManager.session({ secret: 'secret', resave: false, saveUninitialized: true });
    */
   session(...options) {
-    if (!this.app) {
-      throw new Error("Express app has not been initialized yet.");
-    }
     const session = checkPkg("express-session");
     /** @private */
     this.s = session;
-    this.app.use(session(...options));
+    useApp(session(...options));
   }
 
   /**
@@ -65,7 +61,7 @@ class PackageManager extends AppManager {
    */
   multer() {
     const pkg = checkPkg("multer");
-    const use = this.use.bind(this);
+    const use = useApp.bind(this);
     return new MulterHandler(pkg, use);
   }
 
@@ -103,7 +99,7 @@ class PackageManager extends AppManager {
    */
   bodyParser(...handler) {
     const pkg = checkPkg("body-parser");
-    const use = this.use.bind(this);
+    const use = useApp.bind(this);
     return new BodyParser(pkg, use, ...handler);
   }
 
@@ -116,7 +112,7 @@ class PackageManager extends AppManager {
    */
   csrf() {
     const pkg = checkPkg("csurf");
-    const use = this.use.bind(this);
+    const use = useApp.bind(this);
     return new Csrf(pkg, use);
   }
 
@@ -130,7 +126,7 @@ class PackageManager extends AppManager {
    */
   cors(...handler) {
     const pkg = checkPkg("cors");
-    const use = this.use.bind(this);
+    const use = useApp.bind(this);
     return new Cors(pkg, use, ...handler);
   }
 
@@ -143,7 +139,7 @@ class PackageManager extends AppManager {
    */
   flash() {
     const pkg = checkPkg("connect-flash");
-    const use = this.use.bind(this);
+    const use = useApp.bind(this);
     return new flash(pkg, use);
   }
 
@@ -156,9 +152,9 @@ class PackageManager extends AppManager {
    * const store = pkgManager.connectMongoDbSession();
    */
   connectMongoDbSession(...options) {
-    const connectMongoDbSession = checkPkg("connect-mongodb-session")(this.s)
+    const connectMongoDbSession = checkPkg("connect-mongodb-session")(this.s);
     const store = new connectMongoDbSession(...options);
     return store;
   }
 }
-module.exports = PackageManager
+module.exports = PackageManager;
