@@ -11,7 +11,7 @@ function ensurePackage(packageName) {
   }
 }
 
-class FeatureProvider extends AppManager {
+class DependencyHandler extends AppManager {
   constructor() {
     super();
   }
