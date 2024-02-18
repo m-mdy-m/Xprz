@@ -9,8 +9,8 @@ class XPress {
     this.App = AppManager;
     this.Database = DatabaseManager;
     this.Package = PackageManager;
-    this.httpMethod = httpMethod;
-    this.RouteManager = RouteManager;
+    this.HttpMethod = httpMethod;
+    this.Route = RouteManager;
   }
 }
 module.exports = XPress;
