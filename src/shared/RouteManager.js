@@ -25,7 +25,7 @@ class RouteManager {
    * @returns {void}
    * @example
    * const app = getApp();
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.attachTo(app);
    */
   attachTo(app) {
@@ -36,10 +36,10 @@ class RouteManager {
    * @param {function} middleware - Middleware function.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
-   * router.use(middlewareFunction);
+   * const router = new Route()
+   * router.using(middlewareFunction);
    */
-  use(middleware) {
+  using(middleware) {
     // Add middleware to the list
     this.middleware.push(middleware);
     // Check if middleware is present
@@ -55,7 +55,7 @@ class RouteManager {
    * @param {string} path - Base path for the route manager.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api");
    */
   setRoute(path) {
@@ -73,7 +73,7 @@ class RouteManager {
    * @param {function} callback - Callback function to define grouped routes.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.group("/api", (r) => {
    *   r.get("/users", (req, res) => {
    *     res.send("GET /api/users");
@@ -82,7 +82,7 @@ class RouteManager {
    */
   group(mainRoute, callback) {
     // Create a new RouteManager instance
-    const subRouter = new RouteManager();
+    const subRouter = new RouteManager()
     // Define routes within the callback function
     callback(subRouter);
     // Mount the sub-route manager on the main route
@@ -95,7 +95,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").get((req, res) => {
    *   res.send("GET /api/users");
    * });
@@ -114,7 +114,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").post((req, res) => {
    *   res.send("POST /api/users");
    * });
@@ -130,7 +130,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").del((req, res) => {
    *   res.send("DELETE /api/users");
    * });
@@ -146,7 +146,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").put((req, res) => {
    *   res.send("PUT /api/users");
    * });
@@ -161,7 +161,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").patch((req, res) => {
    *   res.send("PATCH /api/users");
    * });
@@ -176,7 +176,7 @@ class RouteManager {
    * @param {...function} handlers - Route handler functions.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/api/users").options((req, res) => {
    *   res.send("OPTIONS /api/users");
    * });
@@ -190,7 +190,7 @@ class RouteManager {
    * @param {function} validator - Route parameter validation middleware function.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setValidator(paramValidatorFunction);
    */
   setValidator(validator) {
@@ -202,7 +202,7 @@ class RouteManager {
    * @param {string} prefixPath - The prefix path for the routes.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route()
    * router.setRoute("/users").prefix("/api/v1").get((req, res) => {
    *   res.send("GET /api/v1/users");
    * });
@@ -216,10 +216,10 @@ class RouteManager {
    * @param {function} errorHandler - Error handling middleware function.
    * @returns {RouteManager} The RouteManager instance.
    * @example
-   * const router = new RouteManager();
-   * router.setErrorHandler(errorHandlerFunction);
+   * const router = new Route()
+   * router.setError(errorHandlerFunction);
    */
-  setErrorHandler(errorHandler) {
+  setError(errorHandler) {
     this.router.use(errorHandler);
     return this;
   }
