@@ -74,3 +74,4 @@ class PackageManager extends AppManager {
     return store;
   }
 }
+module.exports = PackageManager
