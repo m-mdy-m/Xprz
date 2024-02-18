@@ -12,9 +12,9 @@ class ShareApp {
 
   /**
    * Sets the current Express application instance.
-   * 
+   *
    * @param {Object} app - The Express application instance to set.
-   * 
+   *
    * @example
    * const express = require('express');
    * const app = express();
@@ -23,12 +23,26 @@ class ShareApp {
   setAppInstance(app) {
     this.appInstance = app;
   }
-
+  /**
+   * Applies middleware to the current Express application instance.
+   *
+   * @param {...Function} handlers - Middleware functions to apply.
+   *
+   * @returns {Object} The modified Express application instance.
+   *
+   * @example
+   * const express = require('express');
+   * const app = express();
+   * useApp(middleware1, middleware2);
+   */
+  useApp(...handlers) {
+    return this.appInstance.use(...handlers);
+  }
   /**
    * Gets the current Express application instance.
-   * 
+   *
    * @returns {Object|null} The Express application instance, or null if not initialized.
-   * 
+   *
    * @example
    * const app = getApp();
    * if (app) {
@@ -52,9 +66,9 @@ const shareApp = new ShareApp();
 module.exports = {
   /**
    * Sets the current Express application instance.
-   * 
+   *
    * @param {Object} app - The Express application instance to set.
-   * 
+   *
    * @example
    * const express = require('express');
    * const app = express();
@@ -64,9 +78,9 @@ module.exports = {
 
   /**
    * Gets the current Express application instance.
-   * 
+   *
    * @returns {Object|null} The Express application instance, or null if not initialized.
-   * 
+   *
    * @example
    * const app = getApp();
    * if (app) {
@@ -76,4 +90,17 @@ module.exports = {
    * }
    */
   getApp: shareApp.getAppInstance.bind(shareApp),
+  /**
+   * Applies middleware to the current Express application instance.
+   *
+   * @param {...Function} handlers - Middleware functions to apply.
+   *
+   * @returns {Object} The modified Express application instance.
+   *
+   * @example
+   * const express = require('express');
+   * const app = express();
+   * useApp(middleware1, middleware2);
+   */
+  useApp: shareApp.useApp.bind(shareApp),
 };
