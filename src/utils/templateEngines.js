@@ -1,5 +1,5 @@
 // Import the `getApp` function from the "../Using" module
-const { getApp } = require("../Using");
+const { getApp } = require("../shareApp");
 
 // Get the Express application instance
 let app = getApp();
@@ -16,11 +16,11 @@ let app = getApp();
  * // Set up EJS with custom views directory
  * setEjs('custom_views');
  */
-function setEjs(dir) {
+function setEjs(dir="views") {
   // Set the view engine to EJS
   app.set("view engine", "ejs");
   // Set the views directory, defaulting to "views" if dir is not provided
-  app.set("views", dir ? dir : "views");
+  app.set("views", dir);
 }
 
 /**
@@ -69,16 +69,28 @@ function setHBS(hbs, dir, options = {}) {
  * // Set up Pug with custom views directory
  * setPug('custom_views');
  */
-function setPug(dir) {
+function setPug(dir="views") {
   // Set the view engine to Pug
   app.set("view engine", "pug");
   // Set the views directory, defaulting to "views" if dir is not provided
-  app.set("views", dir ? dir : "views");
+  app.set("views", dir);
+}
+/**
+ * Utility class for configuring template engines for rendering views in an Express application.
+ */
+class TemplateEngines {
+  /**
+   * Creates an instance of TemplateEngines.
+   */
+  constructor() {
+    // Initialize properties
+    this.Ejs = setEjs;
+    this.Pug = setPug;
+    this.Hbs = setHBS;
+  }
 }
 
+
+
 // Export the functions to be used elsewhere
-module.exports = {
-  setEjs,
-  setHBS,
-  setPug,
-};
+module.exports = TemplateEngines
