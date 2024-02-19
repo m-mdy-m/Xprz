@@ -1,3 +1,6 @@
+const request = require("supertest"); // Import supertest for making HTTP requests
+
+// Import your Express app and HTTPMethod class
 const express = require("express");
 const HTTPMethod = require("../../src/shared/HTTPMethod");
 
@@ -44,29 +47,27 @@ describe("HTTPMethod", () => {
     ];
 
     methods.forEach((method) => {
-      test(`should register handler for ${method}`, () => {
+      test(`should register handler for ${method}`, async () => {
         const handler = jest.fn();
         const routePath = "/example";
 
         httpMethod.setBaseRoute(routePath);
-        httpMethod[method.toLowerCase()](handler); // This line is causing the error
+        // Register the handler
+        httpMethod[method](handler);
 
         // Mock request and response objects
         const req = {};
         const res = { send: jest.fn() };
 
         // Trigger the registered handler
-        app[method.toLowerCase()](routePath, (req, res) => {
-          handler(req, res);
-        });
-
-        // Simulate the HTTP request
-        app[method.toLowerCase()](routePath, (req, res) => {
-          handler(req, res);
-        });
-
-        // Expect the handler to be called with request and response objects
-        expect(handler).toHaveBeenCalledWith(req, res);
+        await request(app)
+          [method.toLowerCase()](routePath) // Make the HTTP request
+          .expect(200) // Assuming 200 for successful requests
+          .then(() => {
+            // Expect the handler to have been called with request and response objects
+            expect(handler).toHaveBeenCalled();
+            expect(handler).toHaveBeenCalledWith(req, res);
+          });
       });
     });
   });
