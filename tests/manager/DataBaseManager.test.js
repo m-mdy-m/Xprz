@@ -40,16 +40,16 @@ describe("MongoDB Class", () => {
   let mongodb;
   const testCollection = "testCollection";
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     mongodb = new MongoDB(require("mongodb")); // You may need to adjust the import based on your project structure
     const uri = "mongodb://localhost:27017/XPress"; // Adjust the URI based on your MongoDB configuration
-    await mongodb.connect(uri,);
+    await mongodb.connect(uri);
   });
-
-  afterEach(() => {
-    mongodb.close(true, false); // Close the connection without logging for clean test output
-  });
-
+  // afterAll(() => {
+  //   if (mongodb) {
+  //     mongodb.close(true, false); // Close the connection without logging for clean test output
+  //   }
+  // });
   test("insert document into collection", async () => {
     const document = { name: "John", age: 25 };
     const insertedDocument = await mongodb.insert(testCollection, document);

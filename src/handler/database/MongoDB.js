@@ -121,7 +121,8 @@ class MongoDB {
    * const users = await mongodb.find('users', { age: { $gt: 18 } });
    */
   async find(collectionName, query, options = {}) {
-    const collection = this.db.collection(collectionName);
+    const db = await this.getDb()
+    const collection = db.collection(collectionName);
     const result = await collection.find(query, options).toArray();
     return result;
   }
@@ -136,9 +137,10 @@ class MongoDB {
    * const newUser = await mongodb.insert('users', { name: 'John', age: 30 });
    */
   async insert(collectionName, document, options = {}) {
-    const collection = this.db.collection(collectionName);
+    const db = await this.getDb()
+    const collection = db.collection('Tests');
     const result = await collection.insertOne(document, options);
-    return result.ops[0];
+    return result
   }
 
   /**
@@ -152,7 +154,8 @@ class MongoDB {
    * await mongodb.update('users', { name: 'John' }, { $set: { age: 35 } });
    */
   async update(collectionName, filter, update, options = {}) {
-    const collection = this.db.collection(collectionName);
+    const db = await this.getDb()
+    const collection = db.collection(collectionName);
     const result = await collection.updateOne(filter, update, options);
     return result;
   }
@@ -167,7 +170,8 @@ class MongoDB {
    * await mongodb.delete('users', { name: 'John' });
    */
   async delete(collectionName, filter, options = {}) {
-    const collection = this.db.collection(collectionName);
+    const db = await this.getDb()
+    const collection = db.collection(collectionName);
     const result = await collection.deleteOne(filter, options);
     return result;
   }
@@ -190,21 +194,24 @@ class MongoDB {
     }
   }
 }
-const { connect, getDb } = new MongoDB(require("mongodb"));
+// const testCollection = "testCollection";
+// const { insert,connect } = new MongoDB(require('mongodb'));
 
-const c = async () => {
-  const uri = "mongodb://localhost:27017/XPress";
-  await connect(uri);
-};
-c().then(async () => {
-  console.log("connect");
-});
+// const c = async () => {
+//   const uri = "mongodb://localhost:27017/XPress";
+//   await connect(uri);
+// };
+// c().then(async () => {
+//   console.log("connect");
+// });
 
-const d = async () => {
-  const a = await getDb();
-  console.log("a =>", a);
-};
-d().then(() => {
-  console.log("data ");
-});
+
+// const document = { name: "John", age: 25 };
+// const create = async () => {
+//   const insertedDocument = await insert(testCollection, document);
+//   console.log('insertedDocument=>',insertedDocument);
+// }
+// create().then(()=>{
+//   console.log('create user ');
+// })
 module.exports = MongoDB;
