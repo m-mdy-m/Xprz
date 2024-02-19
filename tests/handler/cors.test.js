@@ -1,4 +1,4 @@
-const CorsHandler = require('./CorsHandler');
+const CorsHandler = require('../../src/handler/package/cors');
 const corsMock = jest.fn();
 const useMock = jest.fn();
 
