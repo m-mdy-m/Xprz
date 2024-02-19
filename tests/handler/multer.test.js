@@ -1,14 +1,6 @@
 const Multer = require("../../src/handler/package/multer");
 const express = require("express");
 
-// Mock Multer methods
-const multerInstance = jest.fn((options) => ({
-  single: jest.fn().mockReturnValue((req, res, next) => {}),
-  array: jest.fn().mockReturnValue((req, res, next) => {}),
-  fields: jest.fn().mockReturnValue((req, res, next) => {}),
-  any: jest.fn().mockReturnValue((req, res, next) => {}),
-}));
-
 describe("Multer", () => {
   let multer;
   let app;
@@ -17,13 +9,19 @@ describe("Multer", () => {
     // Mock the Express app
     app = express();
 
-    // Bind the app.use method to the app instance
-    const use = app.use.bind(app);
-
     // Spy on the app.use() method
     jest.spyOn(app, "use");
 
-    multer = new Multer(multerInstance, use);
+    // Create a mock function for multerInstance
+    const multerInstance = jest.fn((options) => ({
+      single: jest.fn().mockReturnValue((req, res, next) => {}),
+      array: jest.fn().mockReturnValue((req, res, next) => {}),
+      fields: jest.fn().mockReturnValue((req, res, next) => {}),
+      any: jest.fn().mockReturnValue((req, res, next) => {}),
+    }));
+
+    // Instantiate Multer with mocked multerInstance and app.use spy
+    multer = new Multer(multerInstance, app.use);
   });
 
   afterEach(() => {
