@@ -11,12 +11,11 @@ class BaseApp {
     /** @private */
     this.runApp = false;
 
-    // Bind methods
-    /** @private */
-    this.initApp = this.initApp.bind(this);
-    /** @private */
-    this.listen = this.listen.bind(this);
-    this.launch = this.launch.bind(this);
+     // Bind methods
+     this.initApp = this.initApp.bind(this);
+     this.listen = this.listen.bind(this);
+     this.launch = this.launch.bind(this);
+     this.use = this.use.bind(this);
   }
   /**
    * Returns the Express module.
@@ -100,9 +99,7 @@ class BaseApp {
    * app.use(cors());
    */
   use(...handler) {
-    if (this.app) {
-      this.app.use(...handler);
-    }
+    this.app.use(...handler);
   }
 }
 
