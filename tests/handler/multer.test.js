@@ -20,8 +20,13 @@ describe("Multer", () => {
       const useMock = jest.fn();
       multer.use = useMock;
       multer.single({ dest: "uploads/" }, "image");
+      const multerInstanceResult = multerInstance();
       expect(useMock).toHaveBeenCalledWith(expect.any(Function)); // Ensure useMock is called with a function
-      expect(multerInstance().single).toHaveBeenCalledWith("image");
+
+      // Check if the returned function from useMock is called with the correct parameters
+      const singleMiddlewareFunction = useMock.mock.calls[0][0];
+      singleMiddlewareFunction(null, null, () => {});
+      expect(multerInstanceResult.single).toHaveBeenCalledWith("image");
     });
   });
 
@@ -30,8 +35,13 @@ describe("Multer", () => {
       const useMock = jest.fn();
       multer.use = useMock;
       multer.array({ dest: "uploads/" }, "images");
+      const multerInstanceResult = multerInstance();
       expect(useMock).toHaveBeenCalledWith(expect.any(Function)); // Ensure useMock is called with a function
-      expect(multerInstance().array).toHaveBeenCalledWith("images");
+
+      // Check if the returned function from useMock is called with the correct parameters
+      const arrayMiddlewareFunction = useMock.mock.calls[0][0];
+      arrayMiddlewareFunction(null, null, () => {});
+      expect(multerInstanceResult.array).toHaveBeenCalledWith("images");
     });
   });
 
@@ -40,8 +50,16 @@ describe("Multer", () => {
       const useMock = jest.fn();
       multer.use = useMock;
       multer.fields({ dest: "uploads/" }, "avatar", "photos");
+      const multerInstanceResult = multerInstance();
       expect(useMock).toHaveBeenCalledWith(expect.any(Function)); // Ensure useMock is called with a function
-      expect(multerInstance().fields).toHaveBeenCalledWith("avatar", "photos");
+
+      // Check if the returned function from useMock is called with the correct parameters
+      const fieldsMiddlewareFunction = useMock.mock.calls[0][0];
+      fieldsMiddlewareFunction(null, null, () => {});
+      expect(multerInstanceResult.fields).toHaveBeenCalledWith(
+        "avatar",
+        "photos"
+      );
     });
   });
 
@@ -50,8 +68,13 @@ describe("Multer", () => {
       const useMock = jest.fn();
       multer.use = useMock;
       multer.any({ dest: "uploads/" }, "files");
+      const multerInstanceResult = multerInstance();
       expect(useMock).toHaveBeenCalledWith(expect.any(Function)); // Ensure useMock is called with a function
-      expect(multerInstance().any).toHaveBeenCalledWith("files");
+
+      // Check if the returned function from useMock is called with the correct parameters
+      const anyMiddlewareFunction = useMock.mock.calls[0][0];
+      anyMiddlewareFunction(null, null, () => {});
+      expect(multerInstanceResult.any).toHaveBeenCalledWith("files");
     });
   });
 });
