@@ -1,5 +1,5 @@
 const Multer = require("../../src/handler/package/multer");
-const express = require('express');
+const express = require("express");
 
 // Mock Multer methods
 const multerInstance = jest.fn((options) => ({
@@ -16,11 +16,14 @@ describe("Multer", () => {
   beforeEach(() => {
     // Mock the Express app
     app = express();
-    
-    // Spy on the app.use() method
-    jest.spyOn(app, 'use');
 
-    multer = new Multer(multerInstance, app.use);
+    // Bind the app.use method to the app instance
+    const use = app.use.bind(app);
+
+    // Spy on the app.use() method
+    jest.spyOn(app, "use");
+
+    multer = new Multer(multerInstance, use);
   });
 
   afterEach(() => {
