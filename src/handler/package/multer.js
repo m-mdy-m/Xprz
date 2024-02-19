@@ -6,11 +6,11 @@ class Multer {
    * Constructor to initialize the Multer instance.
    * @param {Object} multer - The Multer instance.
    */
-  constructor(multer, app) {
+  constructor(multer, use) {
     /** @private */
     this.multer = multer;
     /** @private */
-    this.app = app;
+    this.use = use;
     // Bind methods to the current context
     this.getMulter = this.getMulter.bind(this);
     this.any = this.any.bind(this);
@@ -64,7 +64,7 @@ class Multer {
    * multer.single({ dest: 'uploads/' }, 'image');
    */
   single(options, ...field) {
-    this.app.use(this.multer(options).single(...field));
+    this.use(this.multer(options).single(...field));
   }
 
   /**
@@ -76,7 +76,7 @@ class Multer {
    * multer.array({ dest: 'uploads/' }, 'images');
    */
   array(options, ...fields) {
-    this.app.use(this.multer(options).array(...fields));
+    this.use(this.multer(options).array(...fields));
   }
 
   /**
@@ -88,7 +88,7 @@ class Multer {
    * multer.fields({ dest: 'uploads/' }, 'avatar', 'photos');
    */
   fields(options, ...fields) {
-    this.app.use(this.multer(options).fields(...fields));
+    this.use(this.multer(options).fields(...fields));
   }
 
   /**
@@ -100,7 +100,7 @@ class Multer {
    * multer.any({ dest: 'uploads/' }, 'files');
    */
   any(options, ...fields) {
-    this.app.use(this.multer(options).any(...fields));
+    this.use(this.multer(options).any(...fields));
   }
 }
 module.exports = Multer;
