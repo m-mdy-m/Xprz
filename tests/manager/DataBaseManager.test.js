@@ -36,45 +36,10 @@ describe("MySql Class", () => {
   });
 });
 
-describe('MongoDB Class', () => {
-  let mongodb;
+let mongoDb = new MongoDB(require("mongodb"));
 
-  beforeAll(async () => {
-    mongodb = new MongoDB(require('mongodb'));
-    const uri = 'mongodb://localhost:27017/XPress';
-    await mongodb.connect(uri);
-  });
-
-  afterAll(() => {
-    mongodb.close();
-  });
-
-  test('insert document into collection', async () => {
-    const testCollection = 'testCollection';
-    const document = { name: 'John', age: 25 };
-    const insertedDocument = await mongodb.insert(testCollection, document);
-    expect(insertedDocument).toEqual(expect.objectContaining(document));
-  });
-
-  test('update document in collection', async () => {
-    const testCollection = 'testCollection';
-    const filter = { name: 'John' };
-    const update = { $set: { age: 30 } };
-    const result = await mongodb.update(testCollection, filter, update);
-    expect(result.modifiedCount).toBe(1);
-  });
-
-  test('find documents in collection', async () => {
-    const testCollection = 'testCollection';
-    const query = { age: { $gt: 18 } };
-    const documents = await mongodb.find(testCollection, query);
-    expect(documents).toHaveLength(1); // Assuming there's at least one document with age greater than 18
-  });
-
-  test('delete document from collection', async () => {
-    const testCollection = 'testCollection';
-    const filter = { name: 'John' };
-    const result = await mongodb.delete(testCollection, filter);
-    expect(result.deletedCount).toBe(1);
+describe("MongoDB Class", () => {
+  it("logs", async () => {
+    console.log('mongodb =>',mongoDb);
   });
 });

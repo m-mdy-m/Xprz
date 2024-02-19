@@ -37,10 +37,9 @@ class MongoDB {
    * const uri = 'mongodb://localhost:27017/mydatabase';
    * await mongodb.connect(uri);
    */
-  async connect(uri,options = { useUnifiedTopology: true },log = true,textLog = "MongoDB Connected") {
+  async connect(uri, options = {}, log = true, textLog = "MongoDB Connected") {
     try {
       this.mongoClient = await this.mongodb.MongoClient.connect(uri, options);
-      console.log(this.mongoClient);
       this.db = this.mongoClient.db();
       if (log) {
         console.log(textLog);
@@ -117,7 +116,7 @@ class MongoDB {
    * const users = await mongodb.find('users', { age: { $gt: 18 } });
    */
   async find(collectionName, query, options = {}) {
-    const db = await this.getDb()
+    const db = await this.getDb();
     const collection = db.collection(collectionName);
     const result = await collection.find(query, options).toArray();
     return result;
@@ -133,10 +132,10 @@ class MongoDB {
    * const newUser = await mongodb.insert('users', { name: 'John', age: 30 });
    */
   async insert(collectionName, document, options = {}) {
-    const db = await this.getDb()
-    const collection = db.collection('Tests');
+    const db = await this.getDb();
+    const collection = db.collection("Tests");
     const result = await collection.insertOne(document, options);
-    return result
+    return result;
   }
 
   /**
@@ -150,7 +149,7 @@ class MongoDB {
    * await mongodb.update('users', { name: 'John' }, { $set: { age: 35 } });
    */
   async update(collectionName, filter, update, options = {}) {
-    const db = await this.getDb()
+    const db = await this.getDb();
     const collection = db.collection(collectionName);
     const result = await collection.updateOne(filter, update, options);
     return result;
@@ -166,7 +165,7 @@ class MongoDB {
    * await mongodb.delete('users', { name: 'John' });
    */
   async delete(collectionName, filter, options = {}) {
-    const db = await this.getDb()
+    const db = await this.getDb();
     const collection = db.collection(collectionName);
     const result = await collection.deleteOne(filter, options);
     return result;
@@ -190,4 +189,7 @@ class MongoDB {
     }
   }
 }
+let mongoDb = new MongoDB(require("mongodb"));
+
+
 module.exports = MongoDB;
