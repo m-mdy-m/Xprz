@@ -1,6 +1,8 @@
 const express = require("express");
-const { setApp,setExp } = require("../shareApp");
-setExp(express)
+const { setApp, setExp } = require("../shareApp");
+// Set the Express module using the shared utility function
+setExp(express);
+
 /**
  * Manages the Express application lifecycle.
  */
@@ -8,9 +10,11 @@ class App {
   constructor() {
     // Initialize properties
     /** @private */
-    this.app = null;
+    this.app = null; // Express application instance
     /** @private */
-    this.runApp = false;
+    this.runApp = false; // Flag indicating if the application is running
+    /** @private */
+    this.server = null; // Server instance
   }
   /**
    * Returns the Express module.
@@ -50,9 +54,13 @@ class App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
+  listen(
+    port = 3000,
+    textLog = `Server is running on port ${port}`,
+    log = true
+  ) {
     if (this.runApp) {
-      this.app.listen(port, () => {
+      this.server = this.app.listen(port, () => {
         if (log) {
           console.log(textLog);
         }
@@ -61,7 +69,27 @@ class App {
       throw new Error("Express app has not been initialized yet.");
     }
   }
-
+  /**
+   * Closes the server if it is running.
+   *
+   * @param {function} done - Callback function to be called when the server is closed.
+   * @returns {void}
+   *
+   * @example
+   * const app = new App();
+   * app.initApp();
+   * app.listen(3000);
+   * app.closeServer(() => {
+   *   console.log('Server closed.');
+   * });
+   */
+  closeServer(done) {
+    if (this.server) {
+      this.server.close(done);
+    } else {
+      done();
+    }
+  }
   /**
    * Initializes and launches the Express application.
    *
