@@ -1,5 +1,5 @@
 const { getApp } = require("../shareApp");
-const app = getApp();
+// const app = getApp();
 /**
  * Represents a utility class for defining HTTP methods in an Express application.
  */
@@ -7,7 +7,7 @@ class HTTPMethod {
   /**
    * Creates an instance of HTTPMethod.
    */
-  constructor() {
+  constructor(app) {
     /** @private */
     this.app = app;
     /** @private */
