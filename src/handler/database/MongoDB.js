@@ -23,7 +23,7 @@ class MongoDB {
     this.find = this.find.bind(this);
     this.insert = this.insert.bind(this);
     this.update = this.update.bind(this);
-    this.delDoc = this.delDoc.bind(this);
+    this.delete = this.delete.bind(this);
     this.close = this.close.bind(this);
     this.tryConnect = this.tryConnect.bind(this);
   }
