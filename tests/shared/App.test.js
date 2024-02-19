@@ -30,18 +30,40 @@ describe("App", () => {
   });
 
   test("launch initializes and starts the Express application", () => {
-    const port = 3000;
+    const port = 3000; // Set the port for testing
     const textLog = `Server is running on port ${port}`;
-    const log = false;
+    const log = false; // Set log to false for testing
 
+    // Mock the console.log method
     const originalConsoleLog = console.log;
     console.log = jest.fn();
 
+    // Execute the launch method
     app.launch(port, textLog, log);
 
-    expect(app.app).toBeDefined();
-    expect(app.runApp).toBe(true);
+    // Expectations
+    expect(app.app).toBeDefined(); // Ensure app is defined
+    expect(app.runApp).toBe(true); // Ensure runApp is true
 
+    // Restore the original console.log method
     console.log = originalConsoleLog;
+  });
+  test("closeServer stops the server if it is running", (done) => {
+    // Initialize and launch the app
+    app.initApp();
+    app.listen(3000);
+
+    // Call closeServer method
+    app.closeServer(() => {
+      expect(app.server).toBeNull(); // Ensure server is closed
+      done(); // Call done to end the test
+    });
+  });
+  test("closeServer does nothing if server is not running", (done) => {
+    // Call closeServer method without initializing the server
+    app.closeServer(() => {
+      expect(app.server).toBeNull(); // Ensure server is still null
+      done(); // Call done to end the test
+    });
   });
 });
