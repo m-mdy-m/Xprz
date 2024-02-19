@@ -166,7 +166,7 @@ class MongoDB {
    * @example
    * await mongodb.delete('users', { name: 'John' });
    */
-  async delDoc(collectionName, filter, options = {}) {
+  async delete(collectionName, filter, options = {}) {
     const db = await this.getDb();
     const collection = db.collection(collectionName);
     const result = await collection.deleteOne(filter, options);
