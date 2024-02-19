@@ -1,6 +1,4 @@
 const App = require("../shared/App");
-const express = require("express");
-const TemplateEngines = require("../utils/templateEngines");
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -11,9 +9,7 @@ class AppManager extends App {
   constructor() {
     super();
     /** @private */
-    this.use = this.use.bind(this);
-    /** @private */
-    this.app = this.app.bind(this)
+    this.express = this.getExpress()
   }
 
   /**
@@ -26,7 +22,7 @@ class AppManager extends App {
    * const appManager = new AppManager();
    * appManager.setErrorHandler(errorHandler);
    */
-  setErrorHandler(errorHandler) {
+  setErrorHandler(...errorHandler) {
     this.use(...errorHandler);
   }
 
@@ -69,7 +65,7 @@ class AppManager extends App {
    * appManager.static('public');
    */
   static(...handlers) {
-    this.use(express.static(...handlers));
+    this.use(this.express.static(...handlers));
   }
 
   /**
@@ -82,8 +78,8 @@ class AppManager extends App {
    * appManager.useJsonBody();
    */
   useJsonBody(status = false) {
-    this.use(express.json());
-    this.use(express.urlencoded({ extended: status }));
+    this.use(this.express.json());
+    this.use(this.express.urlencoded({ extended: status }));
   }
 
   /**
@@ -121,6 +117,7 @@ class AppManager extends App {
    * templateEngines.Ejs();
    */
   setTemplateEngine() {
+    const TemplateEngines = require("../utils/templateEngines");
     return new TemplateEngines();
   }
 }

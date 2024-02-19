@@ -1,11 +1,10 @@
 // Import the `getApp` function from the "../Using" module
 const { getApp } = require("../shareApp");
 
-// Get the Express application instance
 let app = getApp();
 if (!app) {
-  return;
-}
+  return app
+}else{
 /**
  * Sets up EJS as the view engine for rendering views.
  * 
@@ -96,3 +95,4 @@ class TemplateEngines {
 
 // Export the functions to be used elsewhere
 module.exports = TemplateEngines
+}
