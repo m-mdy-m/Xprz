@@ -1,31 +1,25 @@
 const Multer = require("../../src/handler/package/multer");
-const express = require("express");
+const express = require('express');
+
+const multerInstance = jest.fn((options) => ({
+  single: jest.fn().mockReturnValue((req, res, next) => {}),
+  array: jest.fn().mockReturnValue((req, res, next) => {}),
+  fields: jest.fn().mockReturnValue((req, res, next) => {}),
+  any: jest.fn().mockReturnValue((req, res, next) => {}),
+}));
 
 describe("Multer", () => {
   let multer;
   let app;
 
   beforeEach(() => {
-    // Mock the Express app
-    app = express();
+    app = express(); // Create an instance of Express app
+    jest.spyOn(app, 'use'); // Spy on the app.use() method
 
-    // Spy on the app.use() method
-    jest.spyOn(app, "use");
-
-    // Create a mock function for multerInstance
-    const multerInstance = jest.fn((options) => ({
-      single: jest.fn().mockReturnValue((req, res, next) => {}),
-      array: jest.fn().mockReturnValue((req, res, next) => {}),
-      fields: jest.fn().mockReturnValue((req, res, next) => {}),
-      any: jest.fn().mockReturnValue((req, res, next) => {}),
-    }));
-
-    // Instantiate Multer with mocked multerInstance and app.use spy
-    multer = new Multer(multerInstance, app.use);
+    multer = new Multer(multerInstance, app); // Pass Express app instance
   });
 
   afterEach(() => {
-    // Restore the mocked app.use() method
     jest.restoreAllMocks();
   });
 
