@@ -10,6 +10,12 @@ class BaseApp {
     this.app = null;
     /** @private */
     this.runApp = false;
+    
+    // Bind methods 
+    /** @private */
+    this.initApp = this.initApp.bind(this);
+    /** @private */
+    this.listen = this.listen.bind(this);
   }
   /**
    * Attaches middleware functions to the Express application.
@@ -63,11 +69,7 @@ class BaseApp {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(
-    port = 3000,
-    textLog = `Server is running on port ${port}`,
-    log = true
-  ) {
+  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
     if (this.runApp) {
       listen(this.app, port, textLog, log);
     } else {
@@ -86,12 +88,8 @@ class BaseApp {
    * @example
    * const app = launch();
    */
-  launch(
-    port = 3000,
-    textLog = `Server is running on port ${port}`,
-    log = true
-  ) {
-    this.initApp();
+  launch(port = 3000,textLog = `Server is running on port ${port}`, log = true) {
+    this.initApp()
     this.listen(port, textLog, log);
     return this.app;
   }

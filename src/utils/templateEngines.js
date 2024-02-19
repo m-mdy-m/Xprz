@@ -3,7 +3,9 @@ const { getApp } = require("../shareApp");
 
 // Get the Express application instance
 let app = getApp();
-
+if (!app) {
+  return;
+}
 /**
  * Sets up EJS as the view engine for rendering views.
  * 

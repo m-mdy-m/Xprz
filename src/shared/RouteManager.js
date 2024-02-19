@@ -1,4 +1,4 @@
-const { getExpress } = require("./BaseApp");
+const { getExpress } = require("../utils/appUtils");
 
 /**
  * RouteManager class handles route management for Express.js.
@@ -82,7 +82,7 @@ class RouteManager {
    */
   group(mainRoute, callback) {
     // Create a new RouteManager instance
-    const subRouter = new RouteManager()
+    const subRouter = new RouteManager();
     // Define routes within the callback function
     callback(subRouter);
     // Mount the sub-route manager on the main route
