@@ -10,13 +10,21 @@ class Multer {
     /** @private */
     this.multer = multer;
     /** @private */
-    this.use = use
+    this.use = use;
+    // Bind methods to the current context
+    this.getMulter = this.getMulter.bind(this);
+    this.any = this.any.bind(this);
+    this.array = this.array.bind(this);
+    this.disk = this.disk.bind(this);
+    this.fields = this.fields.bind(this);
+    this.filter = this.filter.bind(this);
+    this.single = this.single.bind(this);
   }
   /**
    * Returns the configured Multer instance.
    * @returns {Object} The Multer instance.
    */
-  get() {
+  getMulter() {
     return this.multer;
   }
 
@@ -56,7 +64,7 @@ class Multer {
    * multer.single({ dest: 'uploads/' }, 'image');
    */
   single(options, ...field) {
-    this.use(this.multer(options).single(...field))
+    this.use(this.multer(options).single(...field));
   }
 
   /**
@@ -68,7 +76,7 @@ class Multer {
    * multer.array({ dest: 'uploads/' }, 'images');
    */
   array(options, ...fields) {
-    this.use(this.multer(options).array(...fields))
+    this.use(this.multer(options).array(...fields));
   }
 
   /**
@@ -80,7 +88,7 @@ class Multer {
    * multer.fields({ dest: 'uploads/' }, 'avatar', 'photos');
    */
   fields(options, ...fields) {
-    this.use(this.multer(options).fields(...fields))
+    this.use(this.multer(options).fields(...fields));
   }
 
   /**
@@ -92,8 +100,7 @@ class Multer {
    * multer.any({ dest: 'uploads/' }, 'files');
    */
   any(options, ...fields) {
-    this.use(this.multer(options).any(...fields))
+    this.use(this.multer(options).any(...fields));
   }
 }
-
 module.exports = Multer;
