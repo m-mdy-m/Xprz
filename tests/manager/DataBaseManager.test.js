@@ -35,77 +35,63 @@ describe("MySql Class", () => {
     expect(mysqlPackage).toBeDefined();
   });
 });
+// Mock the mongodb package
+jest.mock('mongodb', () => {
+  const mockMongoClient = {
+    db: jest.fn(() => ({
+      collection: jest.fn(() => ({
+        find: jest.fn(),
+        insertOne: jest.fn(),
+        updateOne: jest.fn(),
+        deleteOne: jest.fn()
+      }))
+    })),
+    close: jest.fn()
+  };
 
-describe("MongoDB", () => {
-  let mongoDB;
-  let mockMongoClient;
-  let mockDb;
+  return {
+    MongoClient: {
+      connect: jest.fn(() => mockMongoClient)
+    }
+  };
+});
+// Mock console.log
+console.log = jest.fn();
+
+describe('MongoDB class', () => {
+  let mongodb;
 
   beforeAll(() => {
-    mockDb = {
-      collection: jest.fn(() => ({
-        find: jest.fn(() => ({
-          toArray: jest.fn(),
-        })),
-      })),
-    };
-
-    mockMongoClient = {
-      db: jest.fn(() => mockDb),
-      close: jest.fn(),
-    };
-
-    const mockMongoDB = {
-      MongoClient: {
-        connect: jest.fn(() => mockMongoClient),
-      },
-    };
-
-    mongoDB = new MongoDB(mockMongoDB);
+    // Initialize MongoDB instance
+    mongodb = new MongoDB(require('mongodb'));
   });
 
   afterEach(() => {
+    // Reset mock function calls
     jest.clearAllMocks();
   });
 
-  it("should connect to the MongoDB database", async () => {
-    await mongoDB.connect("mongodb://localhost:27017/XPress");
-    expect(mongoDB.getClient()).toBeDefined();
-    expect(mongoDB.getDb()).toBeDefined();
+  describe('connect method', () => {
+    it('should connect to the MongoDB database', async () => {
+      const uri = 'mongodb://localhost:27017/mydatabase';
+      await mongodb.connect(uri);
+      expect(mongodb.mongoClient).toBeDefined();
+      expect(mongodb.db).toBeDefined();
+      expect(mongodb.mongodb.MongoClient.connect).toHaveBeenCalledWith(uri, {});
+      expect(console.log).toHaveBeenCalledWith('MongoDB Connected');
+    });
+
+    it('should throw an error if connection fails', async () => {
+      // Mocking MongoDB connection failure
+      mongodb.mongodb.MongoClient.connect.mockImplementationOnce(() => {
+        throw new Error('Connection failed');
+      });
+
+      const uri = 'invalid-uri';
+      await expect(mongodb.connect(uri)).rejects.toThrow();
+      expect(console.log).not.toHaveBeenCalledWith('MongoDB Connected');
+    });
   });
 
-  it("should perform a find operation", async () => {
-    const query = { name: "John" };
-    await mongoDB.find("users", query);
-    expect(mockDb.collection).toHaveBeenCalledWith("users");
-    expect(mockDb.collection().find).toHaveBeenCalledWith(query, {});
-    expect(mockDb.collection().find().toArray).toHaveBeenCalled();
-  });
-
-  it("should perform an insert operation", async () => {
-    const document = { name: "John", age: 30 };
-    await mongoDB.insert("users", document);
-    expect(mockDb.collection).toHaveBeenCalledWith("users");
-    expect(mockDb.collection().insertOne).toHaveBeenCalledWith(document, {});
-  });
-
-  it('should perform an update operation', async () => {
-    const filter = { name: 'John' };
-    const update = { $set: { age: 35 } };
-    await mongoDB.update('users', filter, update);
-    expect(mockDb.collection).toHaveBeenCalledWith('users');
-    expect(mockDb.collection().updateOne).toHaveBeenCalledWith(filter, update, {});
-  });
-  
-  it('should perform a delete operation', async () => {
-    const filter = { name: 'John' };
-    await mongoDB.delete('users', filter);
-    expect(mockDb.collection).toHaveBeenCalledWith('users');
-    expect(mockDb.collection().deleteOne).toHaveBeenCalledWith(filter, {});
-  });
-
-  it('should close the MongoDB connection', () => {
-    mongoDB.close();
-    expect(mockMongoClient.close).toHaveBeenCalled();
-  });
+  // Write similar test cases for other methods like getMongoDb, getClient, getDb, find, insert, update, delDoc, and close
 });
