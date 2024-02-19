@@ -92,6 +92,4 @@ describe('MongoDB class', () => {
       expect(console.log).not.toHaveBeenCalledWith('MongoDB Connected');
     });
   });
-
-  // Write similar test cases for other methods like getMongoDb, getClient, getDb, find, insert, update, delDoc, and close
 });
