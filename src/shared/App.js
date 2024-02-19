@@ -85,9 +85,12 @@ class App {
    */
   closeServer(done) {
     if (this.server) {
-      this.server.close(done);
+      this.server.close(() => {
+        this.server = null; // Reset server after closing
+        done(); // Call done to end the test
+      });
     } else {
-      done();
+      done(); // Call done to end the test if server is not running
     }
   }
   /**
