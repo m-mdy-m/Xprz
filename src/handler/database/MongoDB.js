@@ -10,20 +10,20 @@ class MongoDB {
     /** @private */
     this.mongodb = pkg;
     /** @private */
-    this.client = null;
+    this.mongoClient = null;
     /** @private */
     this.db = null;
-  }
 
-  /**
-   * Get the MongoDB package.
-   * @returns {object} The MongoDB package.
-   * @example
-   * const mongodb = new MongoDB(require('mongodb'));
-   * const mongoPackage = mongodb.getMongoDb();
-   */
-  getMongoDb() {
-    return this.mongodb;
+    // Bind all methods to the instance
+    this.connect = this.connect.bind(this);
+    this.getMongoDb = this.getMongoDb.bind(this);
+    this.getClient = this.getClient.bind(this);
+    this.getDb = this.getDb.bind(this);
+    this.find = this.find.bind(this);
+    this.insert = this.insert.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
+    this.close = this.close.bind(this);
   }
 
   /**
@@ -36,18 +36,27 @@ class MongoDB {
    * const uri = 'mongodb://localhost:27017/mydatabase';
    * await mongodb.connect(uri);
    */
-  async connect(uri, options = {}, log = true, textLog = "MongoDB Connected") {
+  async connect(uri,options = { useUnifiedTopology: true },log = true, textLog = "MongoDB Connected") {
     try {
-      this.client = await this.mongodb.MongoClient.connect(uri, options);
-      console.log('this.client=>', this.client); 
-      this.db = this.client.db();
+      this.mongoClient = await this.mongodb.MongoClient.connect(uri, options);
+      this.db = this.mongoClient.db();
       if (log) {
-          console.log(textLog);
+        console.log(textLog);
       }
-  } catch (error) {
-      console.error('Error connecting to MongoDB:', error); 
+      return this.mongoClient;
+    } catch (error) {
       throw error;
+    }
   }
+  /**
+   * Get the MongoDB package.
+   * @returns {object} The MongoDB package.
+   * @example
+   * const mongodb = new MongoDB(require('mongodb'));
+   * const mongoPackage = mongodb.getMongoDb();
+   */
+  getMongoDb() {
+    return this.mongodb;
   }
 
   /**
@@ -149,5 +158,4 @@ class MongoDB {
     }
   }
 }
-
 module.exports = MongoDB;
