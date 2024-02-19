@@ -42,7 +42,7 @@ describe("MongoDB Class", () => {
 
   beforeEach(async () => {
     mongodb = new MongoDB(require("mongodb")); // You may need to adjust the import based on your project structure
-    const uri = "mongodb://localhost:27017/testdb"; // Adjust the URI based on your MongoDB configuration
+    const uri = "mongodb://localhost:27017/XPress"; // Adjust the URI based on your MongoDB configuration
     await mongodb.connect(uri,);
   });
 

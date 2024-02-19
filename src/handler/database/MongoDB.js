@@ -24,6 +24,7 @@ class MongoDB {
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
     this.close = this.close.bind(this);
+    this.tryConnect = this.tryConnect.bind(this);
   }
 
   /**
@@ -36,7 +37,12 @@ class MongoDB {
    * const uri = 'mongodb://localhost:27017/mydatabase';
    * await mongodb.connect(uri);
    */
-  async connect(uri,options = { useUnifiedTopology: true },log = true, textLog = "MongoDB Connected") {
+  async connect(
+    uri,
+    options = { useUnifiedTopology: true },
+    log = true,
+    textLog = "MongoDB Connected"
+  ) {
     try {
       this.mongoClient = await this.mongodb.MongoClient.connect(uri, options);
       this.db = this.mongoClient.db();
@@ -66,19 +72,45 @@ class MongoDB {
    * const client = mongodb.getClient();
    */
   getClient() {
-    return this.client;
+    return this.mongoClient;
   }
 
   /**
    * Get the current MongoDB database.
+   * @param {number} maxAttempts - Maximum number of attempts to connect.
+   * @param {number} delay - Delay between connection attempts in milliseconds.
    * @returns {object} The MongoDB database.
    * @example
-   * const db = mongodb.getDb();
+   * const db = await mongodb.getDb(10, 100);
    */
-  getDb() {
-    return this.db;
+  async getDb(maxAttempts = 10, delay = 100) {
+    if (this.db) {
+      return this.db;
+    }
+    return await this.tryConnect(maxAttempts, delay);
   }
+  /** @private */
+  async tryConnect(maxAttempts, delay) {
+    let attempts = 0;
+    return new Promise((resolve, reject) => {
+      const checkDatabase = () => {
+        attempts++;
+        if (this.db) {
+          resolve(this.db);
+        } else if (attempts >= maxAttempts) {
+          reject(
+            new Error(
+              "Database connection not established after maximum attempts"
+            )
+          );
+        } else {
+          setTimeout(checkDatabase, delay);
+        }
+      };
 
+      checkDatabase();
+    });
+  }
   /**
    * Perform a find operation on a MongoDB collection.
    * @param {string} collectionName - The name of the collection.
@@ -158,4 +190,21 @@ class MongoDB {
     }
   }
 }
+const { connect, getDb } = new MongoDB(require("mongodb"));
+
+const c = async () => {
+  const uri = "mongodb://localhost:27017/XPress";
+  await connect(uri);
+};
+c().then(async () => {
+  console.log("connect");
+});
+
+const d = async () => {
+  const a = await getDb();
+  console.log("a =>", a);
+};
+d().then(() => {
+  console.log("data ");
+});
 module.exports = MongoDB;
