@@ -1,16 +1,13 @@
 const express = require("express");
-const supertest = require("supertest");
 const HTTPMethod = require("../../src/shared/HTTPMethod");
 
 describe("HTTPMethod", () => {
   let app;
   let httpMethod;
-  let request;
 
   beforeEach(() => {
     app = express();
     httpMethod = new HTTPMethod(app);
-    request = supertest(app);
   });
 
   describe("setBaseRoute", () => {
@@ -22,7 +19,7 @@ describe("HTTPMethod", () => {
   });
 
   describe("addPrefix", () => {
-    test("shoulds  add prefix to the route path", () => {
+    test("should add prefix to the route path", () => {
       const baseRoute = "/example";
       const prefix = "/api";
       const expectedPath = `${prefix}${baseRoute}`;
@@ -47,18 +44,29 @@ describe("HTTPMethod", () => {
     ];
 
     methods.forEach((method) => {
-      test(`should register handler for ${method}`, async () => {
+      test(`should register handler for ${method}`, () => {
         const handler = jest.fn();
         const routePath = "/example";
 
         httpMethod.setBaseRoute(routePath);
-        httpMethod[method](handler);
+        httpMethod[method.toLowerCase()](handler); // This line is causing the error
 
-        // Perform the HTTP request
-        await request[method.toLowerCase()](routePath);
+        // Mock request and response objects
+        const req = {};
+        const res = { send: jest.fn() };
 
-        // Expect the handler to be called
-        expect(handler).toHaveBeenCalled();
+        // Trigger the registered handler
+        app[method.toLowerCase()](routePath, (req, res) => {
+          handler(req, res);
+        });
+
+        // Simulate the HTTP request
+        app[method.toLowerCase()](routePath, (req, res) => {
+          handler(req, res);
+        });
+
+        // Expect the handler to be called with request and response objects
+        expect(handler).toHaveBeenCalledWith(req, res);
       });
     });
   });

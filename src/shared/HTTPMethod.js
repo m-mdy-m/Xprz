@@ -44,7 +44,14 @@ class HTTPMethod {
     this.path = prefixPath + this.path;
     return this;
   }
-
+  /**
+   * handler route
+   * @private
+   */
+  registerRoute(method, handler) {
+    this.app[method.toLowerCase()](this.path, handler);
+    return this;
+  }
   /**
    * Registers a GET request handler for the specified route path.
    * 
@@ -57,9 +64,8 @@ class HTTPMethod {
    *   res.send('GET request received');
    * });
    */
-  GET(...handler) {
-    this.app.get(this.path, ...handler);
-    return this;
+  GET(handler) {
+    return this.registerRoute('GET', handler);
   }
 
   /**
@@ -74,9 +80,8 @@ class HTTPMethod {
    *   res.send('POST request received');
    * });
    */
-  POST(...handler) {
-    this.app.post(this.path, ...handler);
-    return this;
+  POST(handler) {
+    return this.registerRoute('POST', handler);
   }
 
   /**
@@ -91,9 +96,8 @@ class HTTPMethod {
    *   res.send('PUT request received');
    * });
    */
-  PUT(...handler) {
-    this.app.put(this.path, ...handler);
-    return this;
+  PUT(handler) {
+    return this.registerRoute('PUT', handler);
   }
 
   /**
@@ -108,9 +112,8 @@ class HTTPMethod {
    *   res.send('DELETE request received');
    * });
    */
-  DELETE(...handler) {
-    this.app.delete(this.path, ...handler);
-    return this;
+  DELETE(handler) {
+    return this.registerRoute('DELETE', handler);
   }
 
   /**
@@ -125,9 +128,8 @@ class HTTPMethod {
    *   res.send('PATCH request received');
    * });
    */
-  PATCH(...handler) {
-    this.app.patch(this.path, ...handler);
-    return this;
+  PATCH(handler) {
+    return this.registerRoute('PATCH', handler);
   }
 
   /**
@@ -142,9 +144,8 @@ class HTTPMethod {
    *   res.send('OPTIONS request received');
    * });
    */
-  OPTIONS (...handler) {
-    this.app.options(this.path, ...handler);
-    return this;
+  OPTIONS(handler) {
+    return this.registerRoute('OPTIONS', handler);
   }
 
   /**
@@ -159,9 +160,8 @@ class HTTPMethod {
    *   res.send('HEAD request received');
    * });
    */
-  HEAD(...handler) {
-    this.app.head(this.path, ...handler);
-    return this;
+  HEAD(handler) {
+    return this.registerRoute('HEAD', handler);
   }
 
   /**
@@ -176,9 +176,8 @@ class HTTPMethod {
    *   res.send('TRACE request received');
    * });
    */
-  TRACE(...handler) {
-    this.app.trace(this.path, ...handler);
-    return this;
+  TRACE(handler) {
+    return this.registerRoute('TRACE', handler);
   }
 }
 
