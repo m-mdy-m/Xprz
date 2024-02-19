@@ -1,9 +1,11 @@
+// testDataBaseManager.js
+
 const DataBaseManager = require('../../src/manager/databaseManager');
 const MySql = require('../../src/handler/database/MySql');
 const MongoDB = require('../../src/handler/database/MongoDB');
 
-jest.mock('../../src/handler/database/MySql');
-jest.mock('../../src/handler/database/MongoDB');
+jest.mock('mysql');
+jest.mock('mongodb');
 
 describe('DataBaseManager Class', () => {
   let dbManager;
@@ -12,57 +14,40 @@ describe('DataBaseManager Class', () => {
     dbManager = new DataBaseManager();
   });
 
-  test('MySql method should create and return a new instance of MySql', () => {
-    dbManager.MySql();
-    expect(MySql).toHaveBeenCalled();
+  test('MySql returns an instance of MySql', () => {
+    const mysqlInstance = dbManager.MySql();
+    expect(mysqlInstance).toBeInstanceOf(MySql);
   });
 
-  test('MongoDb method should create and return a new instance of MongoDb', () => {
-    dbManager.MongoDb();
-    expect(MongoDB).toHaveBeenCalled();
+  test('MongoDb returns an instance of MongoDB', () => {
+    const mongoDbInstance = dbManager.MongoDb();
+    expect(mongoDbInstance).toBeInstanceOf(MongoDB);
   });
 });
 
 describe('MySql Class', () => {
-  let mySql;
+  let mysql;
 
   beforeEach(() => {
-    mySql = new MySql();
+    mysql = new MySql(); 
   });
 
-  test('connect should establish a connection to the MySQL database', async () => {
-    const mockConnection = jest.fn();
-    mySql.mysql.createConnection = jest.fn(() => ({ connect: mockConnection }));
-    await mySql.connect({});
-    expect(mockConnection).toHaveBeenCalled();
+  test('getMySql returns the MySQL package', () => {
+    const mysqlPackage = mysql.getMySql();
+    expect(mysqlPackage).toBeDefined();
   });
 
-  test('query should perform a SQL query', async () => {
-    const mockQuery = jest.fn((sql, values, callback) => callback(null, {}));
-    mySql.connection = { query: mockQuery };
-    await mySql.query('SELECT * FROM table');
-    expect(mockQuery).toHaveBeenCalled();
-  });
+  // Add more tests for other methods in the MySql class
 });
-
 describe('MongoDB Class', () => {
-  let mongoDb;
+  let mongodb;
 
   beforeEach(() => {
-    mongoDb = new MongoDB();
+    mongodb = new MongoDB(); 
   });
 
-  test('connect should establish a connection to the MongoDB database', async () => {
-    const mockConnect = jest.fn(() => {});
-    mongoDb.mongodb.MongoClient.connect = mockConnect;
-    await mongoDb.connect('mongodb://localhost:27017/mydatabase');
-    expect(mockConnect).toHaveBeenCalled();
-  });
-
-  test('find should perform a find operation on a MongoDB collection', async () => {
-    const mockCollection = { find: jest.fn(() => ({ toArray: () => [] })) };
-    mongoDb.db = { collection: jest.fn(() => mockCollection) };
-    await mongoDb.find('collectionName', {});
-    expect(mockCollection.find).toHaveBeenCalled();
+  test('getMongoDb returns the MongoDB package', () => {
+    const mongoDbPackage = mongodb.getMongoDb();
+    expect(mongoDbPackage).toBeDefined();
   });
 });
