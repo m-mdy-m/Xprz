@@ -1,6 +1,7 @@
 /**
  * Class representing a MongoDB database connection manager.
  */
+
 class MongoDB {
   /**
    * Create a MongoDB instance.
@@ -22,7 +23,7 @@ class MongoDB {
     this.find = this.find.bind(this);
     this.insert = this.insert.bind(this);
     this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
+    this.delDoc = this.delDoc.bind(this);
     this.close = this.close.bind(this);
     this.tryConnect = this.tryConnect.bind(this);
   }
@@ -66,46 +67,47 @@ class MongoDB {
    * @example
    * const client = mongodb.getClient();
    */
-  getClient() {
-    return this.mongoClient;
+  async getClient(maxAttempts = 10, delay = 100) {
+    return this.tryConnect(maxAttempts, delay, async () => this.mongoClient);
   }
-
   /**
    * Get the current MongoDB database.
    * @param {number} maxAttempts - Maximum number of attempts to connect.
    * @param {number} delay - Delay between connection attempts in milliseconds.
    * @returns {object} The MongoDB database.
    * @example
-   * const db = await mongodb.getDb(10, 100);
+   * const db = await mongodb.getDb();
    */
   async getDb(maxAttempts = 10, delay = 100) {
     if (this.db) {
       return this.db;
     }
-    return await this.tryConnect(maxAttempts, delay);
+    return await this.tryConnect(maxAttempts, delay, async () => this.db);
   }
   /** @private */
-  async tryConnect(maxAttempts, delay) {
+  async tryConnect(maxAttempts, delay, getProperty) {
     let attempts = 0;
-    return new Promise((resolve, reject) => {
-      const checkDatabase = () => {
-        attempts++;
-        if (this.db) {
-          resolve(this.db);
-        } else if (attempts >= maxAttempts) {
-          reject(
-            new Error(
-              "Database connection not established after maximum attempts"
-            )
-          );
-        } else {
-          setTimeout(checkDatabase, delay);
-        }
-      };
 
-      checkDatabase();
+    return new Promise(async (resolve, reject) => {
+      while (attempts < maxAttempts) {
+        try {
+          const property = await getProperty();
+          if (property) {
+            resolve(property);
+            return; // Exit the loop if property is obtained
+          }
+        } catch (error) {
+          reject(error);
+          return; // Exit the loop if an error occurs
+        }
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        attempts++;
+      }
+
+      reject(new Error("Property not obtained after maximum attempts"));
     });
   }
+
   /**
    * Perform a find operation on a MongoDB collection.
    * @param {string} collectionName - The name of the collection.
@@ -164,7 +166,7 @@ class MongoDB {
    * @example
    * await mongodb.delete('users', { name: 'John' });
    */
-  async delete(collectionName, filter, options = {}) {
+  async delDoc(collectionName, filter, options = {}) {
     const db = await this.getDb();
     const collection = db.collection(collectionName);
     const result = await collection.deleteOne(filter, options);
