@@ -39,14 +39,15 @@ class MongoDB {
   async connect(uri, options = {}, log = true, textLog = "MongoDB Connected") {
     try {
       this.client = await this.mongodb.MongoClient.connect(uri, options);
-      console.log("this.db2=>", this.client);
+      console.log('this.client=>', this.client); 
       this.db = this.client.db();
       if (log) {
-        console.log(textLog);
+          console.log(textLog);
       }
-    } catch (error) {
+  } catch (error) {
+      console.error('Error connecting to MongoDB:', error); 
       throw error;
-    }
+  }
   }
 
   /**
