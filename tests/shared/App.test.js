@@ -1,5 +1,5 @@
-const BaseApp = require("../../src/shared/BaseApp"); // Require the BaseApp class
-const { initApp, listen, use } = new BaseApp(); // Destructure methods from the BaseApp instance
+const App = require("../../src/shared/App"); // Require the App class
+const { initApp, listen, use } = new App(); // Destructure methods from the App instance
 
 describe("App", () => {
   test("initApp initializes the Express application", () => {

@@ -3,7 +3,7 @@ const { Express, Server, init } = require("../utils/appUtils"),
 /**
  * Manages the Express application lifecycle.
  */
-class BaseApp {
+class App {
   constructor() {
     // Initialize properties
     /** @private */
@@ -104,4 +104,4 @@ class BaseApp {
 }
 
 // Export methods bound to the AppManager instance
-module.exports = BaseApp;
+module.exports = App;
