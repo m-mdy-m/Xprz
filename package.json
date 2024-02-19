@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "mongodb": "^6.3.0",
+    "mysql": "^2.18.1",
     "supertest": "^6.3.4"
   }
 }

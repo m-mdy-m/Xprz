@@ -1,4 +1,4 @@
-const DataBaseManager = require('../../src/manager/DatabaseManager');
+const DataBaseManager = require('../../src/manager/databaseManager');
 const MySql = require('../../src/handler/database/MySql');
 const MongoDB = require('../../src/handler/database/MongoDB');
 

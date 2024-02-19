@@ -17,7 +17,8 @@ function checkPkg(packageName) {
      * const mysql = dbManager.MySql();
      */
     MySql() {
-        const pkg = checkPkg("mysql" || "mysql2");
+      const isMysql = 'mysql' ? 'mysql' : 'mysql2'
+        const pkg = checkPkg(isMysql);
         return new MySql(pkg);
     }
 
