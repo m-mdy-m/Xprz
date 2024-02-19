@@ -37,14 +37,10 @@ class MongoDB {
    * const uri = 'mongodb://localhost:27017/mydatabase';
    * await mongodb.connect(uri);
    */
-  async connect(
-    uri,
-    options = { useUnifiedTopology: true },
-    log = true,
-    textLog = "MongoDB Connected"
-  ) {
+  async connect(uri,options = { useUnifiedTopology: true },log = true,textLog = "MongoDB Connected") {
     try {
       this.mongoClient = await this.mongodb.MongoClient.connect(uri, options);
+      console.log(this.mongoClient);
       this.db = this.mongoClient.db();
       if (log) {
         console.log(textLog);
@@ -194,24 +190,4 @@ class MongoDB {
     }
   }
 }
-// const testCollection = "testCollection";
-// const { insert,connect } = new MongoDB(require('mongodb'));
-
-// const c = async () => {
-//   const uri = "mongodb://localhost:27017/XPress";
-//   await connect(uri);
-// };
-// c().then(async () => {
-//   console.log("connect");
-// });
-
-
-// const document = { name: "John", age: 25 };
-// const create = async () => {
-//   const insertedDocument = await insert(testCollection, document);
-//   console.log('insertedDocument=>',insertedDocument);
-// }
-// create().then(()=>{
-//   console.log('create user ');
-// })
 module.exports = MongoDB;
