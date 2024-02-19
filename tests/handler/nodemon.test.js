@@ -1,4 +1,4 @@
-const NodemailerHandler = require('./NodemailerHandler');
+const NodemailerHandler = require('../../src/handler/package/nodemailer');
 
 // Mock Nodemailer methods
 const nodemailerInstance = {

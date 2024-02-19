@@ -6,7 +6,7 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf");
-const { useApp } = require("../shareApp");
+const { useApp, getApp } = require("../shareApp");
 
 function checkPkg(packageName) {
   try {
@@ -61,8 +61,8 @@ class PackageManager {
    */
   multer() {
     const pkg = checkPkg("multer");
-    const use = useApp.bind(this);
-    return new MulterHandler(pkg, use);
+    const app = getApp()
+    return new MulterHandler(pkg, app);
   }
 
   /**
