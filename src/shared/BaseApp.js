@@ -1,4 +1,4 @@
-const { initApp, listen, getExpress } = require("../utils/appUtils"),
+const { Express, Server, init } = require("../utils/appUtils"),
   { setApp } = require("../shareApp");
 /**
  * Manages the Express application lifecycle.
@@ -10,26 +10,13 @@ class BaseApp {
     this.app = null;
     /** @private */
     this.runApp = false;
-    
-    // Bind methods 
+
+    // Bind methods
     /** @private */
     this.initApp = this.initApp.bind(this);
     /** @private */
     this.listen = this.listen.bind(this);
-  }
-  /**
-   * Attaches middleware functions to the Express application.
-   *
-   * @param {...Function} handler - The middleware function(s) to use.
-   * @returns {void}
-   *
-   * @example
-   * const app = new App();
-   * app.use(express.json());
-   * app.use(cors());
-   */
-  use(...handler) {
-    this.app.use(...handler);
+    this.launch = this.launch.bind(this);
   }
   /**
    * Returns the Express module.
@@ -40,7 +27,7 @@ class BaseApp {
    * const express = getExpress();
    */
   getExpress() {
-    return getExpress();
+    return Express();
   }
 
   /**
@@ -52,7 +39,7 @@ class BaseApp {
    * const app = initApp();
    */
   initApp() {
-    this.app = initApp();
+    this.app = init();
     setApp(this.app);
     this.runApp = true;
     return this.app;
@@ -69,9 +56,13 @@ class BaseApp {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
+  listen(
+    port = 3000,
+    textLog = `Server is running on port ${port}`,
+    log = true
+  ) {
     if (this.runApp) {
-      listen(this.app, port, textLog, log);
+      Server(this.app, port, textLog, log);
     } else {
       throw new Error("Express app has not been initialized yet.");
     }
@@ -88,12 +79,32 @@ class BaseApp {
    * @example
    * const app = launch();
    */
-  launch(port = 3000,textLog = `Server is running on port ${port}`, log = true) {
-    this.initApp()
+  launch(
+    port = 3000,
+    textLog = `Server is running on port ${port}`,
+    log = true
+  ) {
+    this.initApp();
     this.listen(port, textLog, log);
     return this.app;
+  }
+  /**
+   * Attaches middleware functions to the Express application.
+   *
+   * @param {...Function} handler - The middleware function(s) to use.
+   * @returns {void}
+   *
+   * @example
+   * const app = new App();
+   * app.use(express.json());
+   * app.use(cors());
+   */
+  use(...handler) {
+    if (this.app) {
+      this.app.use(...handler);
+    }
   }
 }
 
 // Export methods bound to the AppManager instance
-module.exports = BaseApp
+module.exports = BaseApp;

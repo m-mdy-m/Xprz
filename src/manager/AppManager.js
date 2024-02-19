@@ -1,16 +1,22 @@
-const App = require("../shared/BaseApp");
+const { getApp, setApp, useApp } = require("../shareApp");
+const app = getApp();
+if (!app) {
+  return;
+}
 const express = require("express");
 const TemplateEngines = require("../utils/templateEngines");
-
 /**
  * Manages middleware and configuration for an Express application.
  */
-class AppManager extends App {
+class AppManager {
   /**
    * Creates an instance of AppManager.
    */
   constructor() {
-    super();
+    /** @private */
+    this.use = useApp();
+    /** @private */
+    this.app = getApp();
   }
 
   /**

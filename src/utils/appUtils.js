@@ -6,7 +6,7 @@ const express = require('express');
  * 
  * @returns {Object} A new Express application instance.
  */
-function initApp(){
+function init(){
     return express();
 }
 
@@ -15,7 +15,7 @@ function initApp(){
  * 
  * @returns {Object} The Express module.
  */
-function getExpress(){
+function Express(){
     return express;
 }
 
@@ -28,7 +28,7 @@ function getExpress(){
  * @param {boolean} [log=true] - Indicates whether to log the message. Default is true.
  * @returns {void}
  */
-function listen(app, port = 3000, textLog = `Server is running on port ${port}`, log = true) {
+function Server(app, port = 3000, textLog = `Server is running on port ${port}`, log = true) {
     app.listen(port, () => {
         if (log) {
             console.log(textLog);
@@ -37,8 +37,5 @@ function listen(app, port = 3000, textLog = `Server is running on port ${port}`,
 }
 
 // Export the functions for use in other modules
-module.exports = {
-    initApp,
-    getExpress,
-    listen,
+module.exports = {Express,Server,init
 };
