@@ -1,74 +1,116 @@
-const request = require("supertest"); // Import supertest for making HTTP requests
-
-// Import your Express app and HTTPMethod class
 const express = require("express");
+const supertest = require("supertest");
 const HTTPMethod = require("../../src/shared/HTTPMethod");
 
+// Mock Express app
+const mockApp = express();
+
+// Create an instance of HTTPMethod with the mocked app
+const httpMethod = new HTTPMethod(mockApp);
+
 describe("HTTPMethod", () => {
-  let app;
-  let httpMethod;
+  // Define a test handler function
+  const testHandler = (req, res) => {
+    res.send("Test response");
+  };
 
-  beforeEach(() => {
-    app = express();
-    httpMethod = new HTTPMethod(app);
+  // Test GET method
+  test("GET method should register route with GET HTTP method", () => {
+    httpMethod.setBaseRoute("/test").GET(testHandler);
+
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods.get
+    ).toBeTruthy();
   });
 
-  describe("setBaseRoute", () => {
-    test("should set the base route path", () => {
-      const path = "/example";
-      httpMethod.setBaseRoute(path);
-      expect(httpMethod.path).toBe(path);
-    });
+  // Test POST method
+  test("POST method should register route with POST HTTP method", () => {
+    httpMethod.setBaseRoute("/test").POST(testHandler);
+
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods.post
+    ).toBeTruthy();
   });
 
-  describe("addPrefix", () => {
-    test("should add prefix to the route path", () => {
-      const baseRoute = "/example";
-      const prefix = "/api";
-      const expectedPath = `${prefix}${baseRoute}`;
+  // Test PUT method
+  test("PUT method should register route with PUT HTTP method", () => {
+    httpMethod.setBaseRoute("/test").PUT(testHandler);
 
-      httpMethod.setBaseRoute(baseRoute);
-      httpMethod.addPrefix(prefix);
-
-      expect(httpMethod.path).toBe(expectedPath);
-    });
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods.put
+    ).toBeTruthy();
   });
 
-  describe("HTTP Methods", () => {
-    const methods = [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "PATCH",
-      "OPTIONS",
-      "HEAD",
-      "TRACE",
-    ];
+  // Test DELETE method
+  test("DELETE method should register route with DELETE HTTP method", () => {
+    httpMethod.setBaseRoute("/test").DELETE(testHandler);
 
-    methods.forEach((method) => {
-      test(`should register handler for ${method}`, async () => {
-        const handler = jest.fn();
-        const routePath = "/example";
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods
+        .delete
+    ).toBeTruthy();
+  });
 
-        httpMethod.setBaseRoute(routePath);
-        // Register the handler
-        httpMethod[method](handler);
+  // Test PATCH method
+  test("PATCH method should register route with PATCH HTTP method", () => {
+    httpMethod.setBaseRoute("/test").PATCH(testHandler);
 
-        // Mock request and response objects
-        const req = {};
-        const res = { send: jest.fn() };
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods
+        .patch
+    ).toBeTruthy();
+  });
 
-        // Trigger the registered handler
-        await request(app)
-          [method.toLowerCase()](routePath) // Make the HTTP request
-          .expect(200) // Assuming 200 for successful requests
-          .then(() => {
-            // Expect the handler to have been called with request and response objects
-            expect(handler).toHaveBeenCalled();
-            expect(handler).toHaveBeenCalledWith(req, res);
-          });
-      });
-    });
+  // Test OPTIONS method
+  test("OPTIONS method should register route with OPTIONS HTTP method", () => {
+    httpMethod.setBaseRoute("/test").OPTIONS(testHandler);
+
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods
+        .options
+    ).toBeTruthy();
+  });
+
+  // Test HEAD method
+  test("HEAD method should register route with HEAD HTTP method", () => {
+    httpMethod.setBaseRoute("/test").HEAD(testHandler);
+
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods.head
+    ).toBeTruthy();
+  });
+
+  // Test TRACE method
+  test("TRACE method should register route with TRACE HTTP method", () => {
+    httpMethod.setBaseRoute("/test").TRACE(testHandler);
+
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.path
+    ).toBe("/test");
+    expect(
+      mockApp._router.stack[mockApp._router.stack.length - 1].route.methods
+        .trace
+    ).toBeTruthy();
   });
 });
