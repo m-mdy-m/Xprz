@@ -41,7 +41,6 @@ describe('AppManager Class', () => {
     appManager.static(directoryPath);
     // Ensure static files are served by Express
     // You may need to inspect appManager.app._router.stack to check if static middleware is added
-    // and verify the correct directory is being served
   });
 
   test('useJsonBody enables JSON and URL-encoded parsing for request bodies', () => {
