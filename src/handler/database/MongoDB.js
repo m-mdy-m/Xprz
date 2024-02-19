@@ -133,7 +133,7 @@ class MongoDB {
    */
   async insert(collectionName, document, options = {}) {
     const db = await this.getDb();
-    const collection = db.collection("Tests");
+    const collection = db.collection(collectionName);
     const result = await collection.insertOne(document, options);
     return result;
   }
@@ -180,16 +180,13 @@ class MongoDB {
    * mongodb.close();
    */
   close(force = false, log = true, textLog = "MongoDB connection closed") {
-    if (this.client) {
-      this.client.close(force);
-      this.client = null;
+    if (this.mongoClient) {
+      this.mongoClient.close(force);
+      this.mongoClient = null;
       if (log) {
         console.log(textLog);
       }
     }
   }
 }
-let mongoDb = new MongoDB(require("mongodb"));
-
-
 module.exports = MongoDB;

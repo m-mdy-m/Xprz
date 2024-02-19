@@ -36,10 +36,69 @@ describe("MySql Class", () => {
   });
 });
 
-let mongoDb = new MongoDB(require("mongodb"));
+describe('MongoDB Class Tests', () => {
+  let mongodb;
 
-describe("MongoDB Class", () => {
-  it("logs", async () => {
-    console.log('mongodb =>',mongoDb);
+  // Replace the connection URI with your actual MongoDB connection string
+  const mongoURI = 'mongodb://localhost:27017/testdatabase';
+
+  beforeAll(async () => {
+    mongodb = new MongoDB(require('mongodb'));
+    await mongodb.connect(mongoURI); // Connect without logging for tests
+  });
+
+  afterAll(() => {
+    mongodb.close();
+  });
+
+  describe('Connection and Access', () => {
+    test('Should connect to MongoDB', async () => {
+      expect(mongodb.getClient()).toBeDefined();
+    });
+
+    test('Should get the MongoDB package', () => {
+      expect(mongodb.getMongoDb()).toBeDefined();
+    });
+
+    test('Should get the MongoDB database', async () => {
+      const db = await mongodb.getDb();
+      expect(db).toBeDefined();
+    });
+  });
+
+  describe('CRUD Operations', () => {
+    const testCollection = 'testCollection';
+    const testDocument = { name: 'TestUser', age: 25 };
+
+    test('Should insert a document', async () => {
+      const result = await mongodb.insert(testCollection, testDocument);
+      expect(result.result.ok).toBe(1);
+    });
+
+    test('Should find a document', async () => {
+      const result = await mongodb.find(testCollection, { name: 'TestUser' });
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].name).toBe('TestUser');
+    });
+
+    test('Should update a document', async () => {
+      const updateResult = await mongodb.update(
+        testCollection,
+        { name: 'TestUser' },
+        { $set: { age: 26 } }
+      );
+      expect(updateResult.result.ok).toBe(1);
+
+      const findResult = await mongodb.find(testCollection, { name: 'TestUser' });
+      expect(findResult[0].age).toBe(26);
+    });
+
+    test('Should delete a document', async () => {
+      const deleteResult = await mongodb.delete(testCollection, { name: 'TestUser' });
+      expect(deleteResult.result.ok).toBe(1);
+
+      const findResult = await mongodb.find(testCollection, { name: 'TestUser' });
+      expect(findResult.length).toBe(0);
+    });
   });
 });
