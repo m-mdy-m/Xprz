@@ -8,8 +8,20 @@ class ShareApp {
   constructor() {
     // Initialize properties
     this.appInstance = null;
+    this.express = null;
   }
-
+  /**
+   * Sets the Express module for use within the application.
+   *
+   * @param {Object} express - The Express module instance to set.
+   *
+   * @example
+   * const express = require('express');
+   * setExp(express);
+   */
+  setExp(express) {
+    this.express = express;
+  }
   /**
    * Sets the current Express application instance.
    *
@@ -103,4 +115,14 @@ module.exports = {
    * useApp(middleware1, middleware2);
    */
   useApp: shareApp.useApp.bind(shareApp),
+  /**
+   * Sets the Express module for use within the application.
+   *
+   * @param {Object} express - The Express module instance to set.
+   *
+   * @example
+   * const express = require('express');
+   * setExp(express);
+   */
+  setExp: shareApp.setExp.bind(shareApp),
 };

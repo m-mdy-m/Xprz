@@ -1,5 +1,6 @@
-const { Express, Server, init } = require("../utils/appUtils"),
-  { setApp } = require("../shareApp");
+const express = require("express");
+const { setApp,setExp } = require("../shareApp");
+setExp(express)
 /**
  * Manages the Express application lifecycle.
  */
@@ -10,12 +11,6 @@ class App {
     this.app = null;
     /** @private */
     this.runApp = false;
-
-     // Bind methods
-     this.initApp = this.initApp.bind(this);
-     this.listen = this.listen.bind(this);
-     this.launch = this.launch.bind(this);
-     this.use = this.use.bind(this);
   }
   /**
    * Returns the Express module.
@@ -26,7 +21,7 @@ class App {
    * const express = getExpress();
    */
   getExpress() {
-    return Express();
+    return express;
   }
 
   /**
@@ -38,7 +33,7 @@ class App {
    * const app = initApp();
    */
   initApp() {
-    this.app = init();
+    this.app = express();
     setApp(this.app);
     this.runApp = true;
     return this.app;
@@ -61,7 +56,11 @@ class App {
     log = true
   ) {
     if (this.runApp) {
-      Server(this.app, port, textLog, log);
+      this.app(port, () => {
+        if (log) {
+          console.log(textLog);
+        }
+      });
     } else {
       throw new Error("Express app has not been initialized yet.");
     }
