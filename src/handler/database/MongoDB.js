@@ -9,7 +9,9 @@ class MongoDB {
     constructor(pkg) {
       /** @private */
       this.mongodb = pkg;
+      /** @private */
       this.client = null;
+      /** @private */
       this.db = null;
     }
   

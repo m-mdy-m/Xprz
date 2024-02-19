@@ -33,7 +33,7 @@ class DataBaseManager {
    * const dbManager = new DataBaseManager();
    * const mongodb = dbManager.MongoDb();
    */
-  MongoDb() {
+  MongoDB() {
     const pkg = checkPkg("mongodb");
     return new MongoDb(pkg);
   }
