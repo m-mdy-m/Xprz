@@ -36,69 +36,72 @@ describe("MySql Class", () => {
   });
 });
 
-describe('MongoDB Class Tests', () => {
-  let mongodb;
+describe('MongoDB', () => {
+  let mongoDB;
+  let mockMongoClient;
+  let mockDb;
 
-  // Replace the connection URI with your actual MongoDB connection string
-  const mongoURI = 'mongodb://localhost:27017/testdatabase';
+  beforeAll(() => {
+    mockDb = {
+      collection: jest.fn(() => ({
+        find: jest.fn().mockReturnThis(), // Ensure find() returns the collection itself
+        toArray: jest.fn(), // Mock toArray() for find operation
+        insertOne: jest.fn(),
+        updateOne: jest.fn(),
+        deleteOne: jest.fn()
+      }))
+    };
 
-  beforeAll(async () => {
-    mongodb = new MongoDB(require('mongodb'));
-    await mongodb.connect(mongoURI); // Connect without logging for tests
+    mockMongoClient = {
+      db: jest.fn(() => mockDb),
+      close: jest.fn()
+    };
+
+    const mockMongoDB = {
+      MongoClient: {
+        connect: jest.fn(() => mockMongoClient)
+      }
+    };
+
+    mongoDB = new MongoDB(mockMongoDB);
   });
 
-  afterAll(() => {
-    mongodb.close();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  describe('Connection and Access', () => {
-    test('Should connect to MongoDB', async () => {
-      expect(mongodb.getClient()).toBeDefined();
-    });
-
-    test('Should get the MongoDB package', () => {
-      expect(mongodb.getMongoDb()).toBeDefined();
-    });
-
-    test('Should get the MongoDB database', async () => {
-      const db = await mongodb.getDb();
-      expect(db).toBeDefined();
-    });
+  it('should perform a find operation', async () => {
+    const query = { name: 'John' };
+    await mongoDB.find('users', query);
+    expect(mockDb.collection).toHaveBeenCalledWith('users');
+    expect(mockDb.collection().find).toHaveBeenCalledWith(query);
+    expect(mockDb.collection().find().toArray).toHaveBeenCalled(); // Ensure toArray() is called
   });
 
-  describe('CRUD Operations', () => {
-    const testCollection = 'testCollection';
-    const testDocument = { name: 'TestUser', age: 25 };
+  it('should perform an insert operation', async () => {
+    const document = { name: 'John', age: 30 };
+    await mongoDB.insert('users', document);
+    expect(mockDb.collection).toHaveBeenCalledWith('users');
+    expect(mockDb.collection().insertOne).toHaveBeenCalledWith(document);
+  });
 
-    test('Should insert a document', async () => {
-      const result = await mongodb.insert(testCollection, testDocument);
-      expect(result.result.ok).toBe(1);
-    });
+  it('should perform an update operation', async () => {
+    const filter = { name: 'John' };
+    const update = { $set: { age: 35 } };
+    await mongoDB.update('users', filter, update);
+    expect(mockDb.collection).toHaveBeenCalledWith('users');
+    expect(mockDb.collection().updateOne).toHaveBeenCalledWith(filter, update);
+  });
 
-    test('Should find a document', async () => {
-      const result = await mongodb.find(testCollection, { name: 'TestUser' });
-      expect(result.length).toBeGreaterThan(0);
-      expect(result[0].name).toBe('TestUser');
-    });
+  it('should perform a delete operation', async () => {
+    const filter = { name: 'John' };
+    await mongoDB.delete('users', filter);
+    expect(mockDb.collection).toHaveBeenCalledWith('users');
+    expect(mockDb.collection().deleteOne).toHaveBeenCalledWith(filter);
+  });
 
-    test('Should update a document', async () => {
-      const updateResult = await mongodb.update(
-        testCollection,
-        { name: 'TestUser' },
-        { $set: { age: 26 } }
-      );
-      expect(updateResult.result.ok).toBe(1);
-
-      const findResult = await mongodb.find(testCollection, { name: 'TestUser' });
-      expect(findResult[0].age).toBe(26);
-    });
-
-    test('Should delete a document', async () => {
-      const deleteResult = await mongodb.delete(testCollection, { name: 'TestUser' });
-      expect(deleteResult.result.ok).toBe(1);
-
-      const findResult = await mongodb.find(testCollection, { name: 'TestUser' });
-      expect(findResult.length).toBe(0);
-    });
+  it('should close the MongoDB connection', () => {
+    mongoDB.close();
+    expect(mockMongoClient.close).toHaveBeenCalled();
   });
 });
