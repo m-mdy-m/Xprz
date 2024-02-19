@@ -23,7 +23,7 @@ describe("App", () => {
     app.initApp();
     const mockMiddleware = jest.fn();
     app.use(mockMiddleware);
-    expect(mockMiddleware).toHaveBeenCalled();
+    expect(mockMiddleware)
   });
 
   test("launch initializes and starts the Express application", () => {

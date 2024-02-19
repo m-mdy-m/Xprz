@@ -50,13 +50,9 @@ class App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(
-    port = 3000,
-    textLog = `Server is running on port ${port}`,
-    log = true
-  ) {
+  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true) {
     if (this.runApp) {
-      this.app(port, () => {
+      this.app.listen(port, () => {
         if (log) {
           console.log(textLog);
         }
