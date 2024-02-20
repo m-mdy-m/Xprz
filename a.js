@@ -5,7 +5,7 @@ const { launch} = new App()
 
 const router = new RouteManager()
 
-router.setRoute('/').get((req,res,nxt)=>{
+router.setRoute('/').get(()=>{
     router.res()
 })
 .attachTo(launch())
