@@ -22,13 +22,13 @@ class RouteManager {
     this.responseMethod = null; // Initialize response method
 
   }
-  // /** @private */
-  // setRequest(method, req, res, nxt) {
-  //   console.log("method:", method);
-  //   console.log("Request:", req);
-  //   console.log("Response:", res);
-  //   console.log("Next:", nxt);
-  // }
+  /** @private */
+  setRequest(method, handler) {
+    const handle = (req,res,nxt)=>{
+      handler(req,res,nxt)
+    }
+
+  }
   /**
    * Attaches the route manager to an Express app.
    * @param {object} app - Express app instance.
@@ -110,9 +110,6 @@ class RouteManager {
    * });
    */
   get(...handlers) {
-    // this.setRequest("GET", (req, res, nxt) => {
-    //   return req, res, nxt;
-    // });
     if (this.hasMiddleware) {
       // Register route with middleware
       this.registerRoute("get", handlers);
