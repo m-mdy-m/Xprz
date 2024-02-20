@@ -20,8 +20,6 @@ class RouteManager {
     this.middleware = [];
     /** @private */
     this.responseMethod = null; // Initialize response method
-    /** @private */
-    this.response = getExp().response; // Access to Express.js response object
 
   }
   // /** @private */
