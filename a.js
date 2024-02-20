@@ -5,12 +5,8 @@ const { launch} = new App()
 
 const router = new RouteManager()
 
-router.setRoute('/').get((req,res,nxt)=>{
-    const {send,write  }= router.res()
-    // send('hi' ) === res.send('hi') /// send for GET for / route
-})
-.post((req,res,nxt)=>{
-    const {send , write} = router.res()
-    // send("hi") === res.send("hi") // send for POST for / route
+router.setRoute('/').get(()=>{
+    const { send} = router.res()
+    send('hi')
 })
 .attachTo(launch())

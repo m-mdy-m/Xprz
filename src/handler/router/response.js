@@ -1,8 +1,11 @@
 class Response {
-  constructor() {
+  constructor(res) {
+    this.res= res
+    this.send = this.send.bind(this)
   }
-  res(){
+  send(data){
 
+    this.res.send(data)
   }
 }
 module.exports = Response
