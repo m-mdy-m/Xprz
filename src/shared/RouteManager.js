@@ -1,5 +1,5 @@
-const { getExpress } = require("../utils/appUtils");
-
+const { getExp } = require("../shareApp");
+const Response = require('../handler/router/response')
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -10,7 +10,7 @@ class RouteManager {
    */
   constructor() {
     /** @private */
-    this.router = getExpress().Router();
+    this.router = getExp().Router();
     /**
      * Middleware functions.
      * @type {Array}
@@ -64,9 +64,9 @@ class RouteManager {
      * @private
      */
     this.path = path;
+    new Response(this.path)
     return this;
   }
-
   /**
    * Defines a group of routes under a common path.
    * @param {string} mainRoute - Main path for the group of routes.

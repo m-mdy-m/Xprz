@@ -15,6 +15,14 @@ class App {
     this.runApp = false; // Flag indicating if the application is running
     /** @private */
     this.server = null; // Server instance
+
+
+    this.initApp = this.initApp.bind(this)
+    this.launch = this.launch.bind(this)
+    this.listen = this.listen.bind(this)
+    this.use = this.use.bind(this)
+    this.closeServer = this.closeServer.bind(this)
+    this.getExpress = this.getExpress.bind(this)
   }
   /**
    * Returns the Express module.

@@ -22,6 +22,10 @@ class ShareApp {
   setExp(express) {
     this.express = express;
   }
+
+  getExp(){
+    return this.express
+  }
   /**
    * Sets the current Express application instance.
    *
@@ -125,4 +129,6 @@ module.exports = {
    * setExp(express);
    */
   setExp: shareApp.setExp.bind(shareApp),
+
+  getExp : shareApp.getExp.bind(shareApp)
 };
