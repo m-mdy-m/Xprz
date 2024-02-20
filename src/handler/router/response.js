@@ -1,9 +1,8 @@
 class Response {
-  constructor(path) {
-    this.path = path;
+  constructor() {
   }
   res(){
-    
+
   }
 }
 module.exports = Response

@@ -1,5 +1,5 @@
 const { getExp } = require("../shareApp");
-const Response = require('../handler/router/response')
+const Response = require("../handler/router/response");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -17,8 +17,13 @@ class RouteManager {
      * @private
      */
     this.middleware = [];
+    /** @private */
+    this.responseMethod = null; // Initialize response method
   }
-
+  /** @private */
+  setRequest(method) {
+    this.responseMethod = method;
+  }
   /**
    * Attaches the route manager to an Express app.
    * @param {object} app - Express app instance.
@@ -64,7 +69,6 @@ class RouteManager {
      * @private
      */
     this.path = path;
-    new Response(this.path)
     return this;
   }
   /**
@@ -101,6 +105,7 @@ class RouteManager {
    * });
    */
   get(...handlers) {
+    
     if (this.hasMiddleware) {
       // Register route with middleware
       this.registerRoute("get", handlers);
@@ -232,6 +237,10 @@ class RouteManager {
     const routeHandlers = [...this.middleware, ...handlers];
     // Register the route with Express router
     this.router[method](this.path, routeHandlers);
+  }
+
+  res() {
+    // handling Response
   }
 }
 
