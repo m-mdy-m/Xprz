@@ -1,11 +1,10 @@
 const Response = require("../response");
 
-class AdvanceMethods extends Response {
+class ResEnhancer  extends Response {
   constructor() {
     super();
     this.res = this.res;
   }
-  // Set cache control header
   cacheControl(maxAge, isPrivate = false) {
     const directive = isPrivate ? "private" : "public";
     this.res.header("Cache-Control", `${directive}, max-age=${maxAge}`);
@@ -23,6 +22,5 @@ class AdvanceMethods extends Response {
     this.res.header("Access-Control-Allow-Methods", methods);
     this.res.header("Access-Control-Allow-Headers", headers);
   }
-  
 }
-module.exports = AdvanceMethods;
+module.exports = ResEnhancer;

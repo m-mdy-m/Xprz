@@ -4,7 +4,10 @@ class Response {
   constructor(res) {
     this.res = res;
   }
-
+  write(data){
+    this.res.write(data)
+    this.res.end()
+  }
   status(code) {
     this.res.status(code);
   }
@@ -31,7 +34,7 @@ class Response {
   }
   download(path, filename, callback) {
     this.res.download(path, filename, callback);
-}
+  }
   contentType(type) {
     this.res.contentType(type);
   }

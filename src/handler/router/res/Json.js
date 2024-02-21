@@ -1,6 +1,6 @@
-const AdvanceMethods = require("./AdvanceHandler");
+const ResEnhancer = require("./ResEnhancer");
 
-class JsonHandler extends AdvanceMethods {
+class JsonHandler extends ResEnhancer {
   constructor() {
     super();
     this.json = this.res.json;
