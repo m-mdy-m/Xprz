@@ -5,7 +5,8 @@ class CookieHandler {
 
   // Method to set a cookie
   setCookie(name, value, options = {}) {
-    this.cookie(name, value, options);
+    const serializedCookie = this.serializeCookie(name, value, options);
+    this.cookie += (this.cookie ? "; " : "") + serializedCookie;
   }
 
   // Method to get a specific cookie by name
@@ -23,16 +24,25 @@ class CookieHandler {
   removeCookie(name, options = {}) {
     this.cookie(name, "", { ...options, expires: new Date(0) });
   }
-
+  // Helper method to serialize a cookie
+  serializeCookie(name, value, options = {}) {
+    const parts = [`${name}=${value}`];
+    for (const option in options) {
+      if (options.hasOwnProperty(option)) {
+        parts.push(`${option}=${options[option]}`);
+      }
+    }
+    return parts.join("; ");
+  }
   // Helper method to parse cookies
   parseCookies() {
     const cookies = {};
-    const cookieHeader = this.cookie;
-    cookieHeader &&
-      cookieHeader.split(";").forEach((cookie) => {
-        const parts = cookie.split("=");
-        cookies[parts[0].trim()] = parts[1];
+    if (this.cookie) {
+      this.cookie.split(";").forEach((cookie) => {
+        const parts = cookie.trim().split("=");
+        cookies[parts[0]] = parts[1];
       });
+    }
     return cookies;
   }
   // Method to check if a cookie exists
