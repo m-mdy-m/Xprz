@@ -29,9 +29,9 @@ class Response {
   sendFile(path, fn = undefined) {
     this.res.sendFile(path, fn);
   }
-  download(path, fn = undefined) {
-    this.res.download(path, fn);
-  }
+  download(path, filename, callback) {
+    this.res.download(path, filename, callback);
+}
   contentType(type) {
     this.res.contentType(type);
   }
