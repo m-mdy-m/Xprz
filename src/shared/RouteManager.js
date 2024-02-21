@@ -1,4 +1,30 @@
 const { getExp } = require("../shareApp");
+const { ServerResponse, IncomingMessage } = require("http");
+
+function final(req = new IncomingMessage(), res = new ServerResponse(), options = finalHandler().Options, err) {
+  return function () {
+  };
+}
+
+function finalHandler() {
+  return {
+    Options: {
+      env: String || undefined,
+      onerror: (err) => {},
+    },
+  };
+}
+function handle(req, res, callback, router) {
+  const r = router._router;
+
+  const done =
+    callback ||
+    final(req, res, {
+      env: "development",
+    });
+
+  r.handle(req, res, done);
+}
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -16,11 +42,11 @@ class RouteManager {
      * @private
      */
     this.middleware = [];
+    this.path = "/";
   }
   res() {
-    return (req, res) => {
-      res.send("hi");
-  };
+  //   const res = '';
+  //   handle(req,res,null,this.router)
   }
   /**
    * Attaches the route manager to an Express app.
@@ -108,7 +134,8 @@ class RouteManager {
       this.registerRoute("get", handlers);
     }
     // Register route without middleware
-    this.router.get(this.path, ...handlers);
+    this.router.get(this.path, ...handlers)
+    console.log('this =>',this);
     return this;
   }
   /**

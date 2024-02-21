@@ -1,11 +1,11 @@
 const App = require("./src/shared/App");
 const RouteManager = require("./src/shared/RouteManager");
 
-const { launch} = new App()
+const { launch } = new App();
 
-const router = new RouteManager()
+const router = new RouteManager();
 
-router.setRoute('/').get(()=>{
-    router.res()
-})
-.attachTo(launch())
+router.setRoute("/").get(() => {
+  router.res()
+});
+router.attachTo(launch());
