@@ -1,10 +1,10 @@
-const Request = require('../baseReq')
+const Request = require("../baseReq");
 
-class ReqEnhancer extends Request{
-    constructor() {
-        super()
-    }
-    // Method to check if the request has a specific query parameter
+class ReqEnhancer extends Request {
+  constructor() {
+    super();
+  }
+  // Method to check if the request has a specific query parameter
   hasQueryParam(paramName) {
     return paramName in this.req.query;
   }
@@ -36,7 +36,9 @@ class ReqEnhancer extends Request{
 
   // Method to check if the request has a specific header with a case-insensitive comparison
   hasHeaderIgnoreCase(headerName) {
-    const headers = Object.keys(this.req.headers).map(header => header.toLowerCase());
+    const headers = Object.keys(this.req.headers).map((header) =>
+      header.toLowerCase()
+    );
     return headers.includes(headerName.toLowerCase());
   }
 
@@ -48,6 +50,11 @@ class ReqEnhancer extends Request{
     }, {});
     return headers[headerName.toLowerCase()];
   }
+
+  // Method to check if the request is sent with a specific HTTP method
+  isMethod(method) {
+    return this.req.method.toLowerCase() === method.toLowerCase();
+  }
 }
 
-module.exports = ReqEnhancer
+module.exports = ReqEnhancer;
