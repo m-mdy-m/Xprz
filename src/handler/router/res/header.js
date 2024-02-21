@@ -95,6 +95,14 @@ class HeadersHandler extends ResEnhancer {
   setCrossOriginResourcePolicy(policy) {
     this.header("Cross-Origin-Resource-Policy", policy);
   }
-  
+  // Method to clear a specific header
+  clearHeader(name) {
+    this.res.removeHeader(name);
+  }
+
+  // Method to clear all headers
+  clearAllHeaders() {
+    this.res.clearHeaders();
+  }
 }
 module.exports = HeadersHandler;
