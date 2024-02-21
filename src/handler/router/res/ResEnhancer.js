@@ -1,4 +1,4 @@
-const Response = require("../response");
+const Response = require("../baseRes");
 const JsonHandler = require("./Json");
 const CookieHandler = require("./cookie");
 const HeadersHandler = require("./header");

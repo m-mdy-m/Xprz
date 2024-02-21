@@ -11,6 +11,6 @@ const { launch } = new App();
 const router = new RouteManager();
 
 router.setRoute("/").get(() => {
-  const {advHeader } = router.res()
+  const { } = router.res()
 });
 router.attachTo(launch());
