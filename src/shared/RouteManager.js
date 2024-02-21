@@ -117,10 +117,7 @@ class RouteManager {
     }
     // Register route without middleware
     this.router.get(this.path, (req, res) => {
-      let response;
-      if (this.usingRes) {
-        response = this.setRes(res);
-      }
+      let response = this.setRes(res);
       handlers.forEach((h) => h(req, response ? response : res));
     });
     return this;

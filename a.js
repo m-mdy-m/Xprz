@@ -6,6 +6,7 @@ const { launch } = new App();
 const router = new RouteManager();
 
 router.setRoute("/").get(() => {
-  router.res()
+  const { send} = router.res()
+  send('hi')
 });
 router.attachTo(launch());
