@@ -4,7 +4,7 @@ class baseReq {
   }
 
   // Method to get request query parameters
-  getQueryParams() {
+  getQuery() {
     return this.req.query;
   }
 
@@ -90,27 +90,42 @@ class baseReq {
   }
 
   // Method to get an array of subdomains in the domain name of the request
-  subdomains() {
+  getSubdomains() {
     return this.req.subdomains;
   }
 
-  hostname() {
+  // Method to get the hostname from the request
+  getHostname() {
     return this.req.hostname;
   }
   // Method to get the host from the request
-  host() {
+  getHost() {
     return this.req.host;
   }
   // Method to check if the request is fresh
-  fresh() {
+  isFresh() {
     return this.req.fresh;
   }
   // Method to check if the request is stale
-  stale() {
+  isStale() {
     return this.req.stale;
   }
-  xhr() {
+  isXhr() {
     return this.req.xhr;
+  }
+  // Method to get the request language preferences
+  getLanguages() {
+    return this.req.languages;
+  }
+
+  // Method to get the request encoding preferences
+  getEncodings() {
+    return this.req.encodings;
+  }
+
+  // Method to get the request charset preferences
+  getCharsets() {
+    return this.req.charsets ;
   }
 }
 

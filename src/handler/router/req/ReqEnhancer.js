@@ -30,7 +30,7 @@ class ReqEnhancer extends Request {
   }
 
   // Method to get a specific cookie from the request
-  getCookie(cookieName) {
+  getCookieName(cookieName) {
     return this.req.cookies[cookieName];
   }
 
@@ -54,6 +54,17 @@ class ReqEnhancer extends Request {
   // Method to check if the request is sent with a specific HTTP method
   isMethod(method) {
     return this.req.method.toLowerCase() === method.toLowerCase();
+  }
+  getAllParams() {
+    return {
+      query: this.getQuery(),
+      body: this.getBody(),
+      cookies: this.getCookies(),
+    };
+  }
+  // Method to get the accepted content types by the request
+  getAcceptedContentTypes() {
+    return this.req.accepts();
   }
 }
 
