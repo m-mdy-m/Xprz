@@ -4,7 +4,7 @@ const RouteManager = require("./src/shared/RouteManager");
 const a = e()
 
 a.get('/',(req,res,nxt)=>{
-  res.
+  // res.
 })
 const { launch } = new App();
 
