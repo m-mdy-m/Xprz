@@ -51,6 +51,14 @@ class Response {
   location(url){
     this.res.location(url)
   }
-  red
+  redirect(url){
+    this.res.redirect(url)
+  }
+  vary(field){
+    this.res.vary(field)
+  }
+  render(view,options,callback){
+    this.res.render(view,options,callback)
+  }
 }
 module.exports = Response;
