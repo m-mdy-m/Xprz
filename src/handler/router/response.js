@@ -5,6 +5,20 @@ class Response {
     /** @private */
     this.res = res;
   }
+
+  status(code){
+    this.res.status(code)
+  }
+  links(links){
+    this.res.links(links)
+  }
+  send(body){
+    this.res.send(body)
+  }
+  json(obj){
+    this.res.json(obj)
+  }
+  end
   jsonp(obj) {
     this.res.json(obj);
   }
@@ -14,7 +28,6 @@ class Response {
   sendFile(path, fn = undefined) {
     this.res.sendFile(path, fn);
   }
-
   download(path, fn = undefined) {
     this.res.download(path, fn);
   }
