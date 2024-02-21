@@ -27,6 +27,60 @@ class HeadersHandler extends ResEnhancer {
   setVaryHeader(headers) {
     this.header("Vary", headers);
   }
+  // Method to set Pragma header
+  setPragma(value) {
+    this.header("Pragma", value);
+  }
+
+  // Method to set Trailer header
+  setTrailer(value) {
+    this.header("Trailer", value);
+  }
+
+  // Method to set Transfer-Encoding header
+  setTransferEncoding(encoding) {
+    this.header("Transfer-Encoding", encoding);
+  }
+
+  // Method to set Upgrade header
+  setUpgrade(value) {
+    this.header("Upgrade", value);
+  }
+
+  // Method to set Warning header
+  setWarning(value) {
+    this.header("Warning", value);
+  }
+
+  // Method to set WWW-Authenticate header
+  setWWWAuthenticate(value) {
+    this.header("WWW-Authenticate", value);
+  }
+
+  // Method to set X-Forwarded-For header
+  setXForwardedFor(value) {
+    this.header("X-Forwarded-For", value);
+  }
+
+  // Method to set X-Forwarded-Proto header
+  setXForwardedProto(value) {
+    this.header("X-Forwarded-Proto", value);
+  }
+
+  // Method to set X-Real-IP header
+  setXRealIP(value) {
+    this.header("X-Real-IP", value);
+  }
+
+  // Method to set Retry-After header
+  setRetryAfter(value) {
+    this.header("Retry-After", value);
+  }
+
+  // Method to set Expires header
+  setExpires(expirationDate) {
+    this.header("Expires", expirationDate.toUTCString());
+  }
   // Method to set X-Content-Type-Options header
   setContentTypeOptions(value) {
     this.header("X-Content-Type-Options", value);
