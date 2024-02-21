@@ -1,6 +1,11 @@
+const e = require("express");
 const App = require("./src/shared/App");
 const RouteManager = require("./src/shared/RouteManager");
+const a = e()
 
+a.get('/',(req,res,nxt)=>{
+  res.type()
+})
 const { launch } = new App();
 
 const router = new RouteManager();
