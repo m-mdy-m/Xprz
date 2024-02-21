@@ -1,6 +1,5 @@
 const { getExp } = require("../shareApp");
-const { response, request } = require("express");
-const RequestHandler = require("../handler/router/requestHandler");
+const response = require("../handler/router/response");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -20,8 +19,8 @@ class RouteManager {
     this.middleware = [];
     this.path = "/";
   }
-  customHandler() {
-    return new RequestHandler(request,response)
+  res(res) {
+    return new response(res)
   }
   /**
    * Attaches the route manager to an Express app.

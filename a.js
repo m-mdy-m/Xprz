@@ -5,8 +5,8 @@ const { launch } = new App();
 
 const router = new RouteManager();
 
-router.setRoute("/").get(() => {
-  const {req,res } = router.customHandler()
-  res
+router.setRoute("/").get((req,res) => {
+  const {send } = router.res(res)
+  send()
 });
 router.attachTo(launch());
