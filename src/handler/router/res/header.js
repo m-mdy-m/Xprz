@@ -41,7 +41,9 @@ class HeadersHandler extends ResEnhancer {
   }
   // Method to set HSTS (HTTP Strict Transport Security) header
   setHSTSHeader(maxAge, includeSubDomains = true) {
-    const directive = `max-age=${maxAge}${includeSubDomains ? "; includeSubDomains" : ""}`;
+    const directive = `max-age=${maxAge}${
+      includeSubDomains ? "; includeSubDomains" : ""
+    }`;
     this.header("Strict-Transport-Security", directive);
   }
   // Method to set X-Content-Type-Options header to prevent MIME-sniffing
@@ -63,6 +65,21 @@ class HeadersHandler extends ResEnhancer {
   // Method to set X-XSS-Protection header
   setXssProtection(value) {
     this.header("X-XSS-Protection", value);
+  }
+
+  // Method to set Expect-CT header for Certificate Transparency enforcement
+  setExpectCTHeader(value) {
+    this.header("Expect-CT", value);
+  }
+
+  // Method to set Feature-Policy header to control allowed features
+  setFeaturePolicy(value) {
+    this.header("Feature-Policy", value);
+  }
+
+  // Method to set Public-Key-Pins header for pinning of public keys
+  setPublicKeyPinsHeader(value) {
+    this.header("Public-Key-Pins", value);
   }
 }
 module.exports = HeadersHandler;
