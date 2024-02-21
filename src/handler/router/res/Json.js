@@ -5,7 +5,7 @@ class JsonHandler extends AdvanceMethods {
     super();
     this.json = this.res.json;
   }
-  // Method to send a success response with a message
+  // Method to  a success response with a message
   Success(message) {
     return this.json({ success: true, message });
   }
@@ -69,6 +69,27 @@ class JsonHandler extends AdvanceMethods {
   // Advanced method to  JSON response with metadata and additional details
   AdvancedJson(data, metadata = {}) {
     return this.json({ data, metadata });
+  }
+
+
+  // Method to  a response indicating that the request requires authentication
+  AuthenticationRequiredResponse(message = 'Authentication required') {
+    return this.status(401).json({ success: false, error: message });
+  }
+
+  // Method to  a response indicating that the request requires authorization
+  AuthorizationRequiredResponse(message = 'Authorization required') {
+    return this.status(403).json({ success: false, error: message });
+  }
+
+  // Method to  a response indicating that the server encountered an unexpected error
+  InternalServerErrorResponse(message = 'Internal server error') {
+    return this.status(500).json({ success: false, error: message });
+  }
+
+  // Method to  a response indicating that the resource is temporarily unavailable
+  ServiceUnavailableResponse(message = 'Service temporarily unavailable') {
+    return this.status(503).json({ success: false, error: message });
   }
 }
 module.exports = JsonHandler;
