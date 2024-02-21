@@ -18,11 +18,6 @@ class baseReq {
     return this.req.headers;
   }
 
-  // Method to get request method (GET, POST, etc.)
-  getMethod() {
-    return this.req.method;
-  }
-
   // Method to get request URL
   getUrl() {
     return this.req.url;
@@ -74,6 +69,48 @@ class baseReq {
   // Method to check if the request accepts a specific content type
   accepts(type) {
     return this.req.accepts(type);
+  }
+  param(name, handlers) {
+    return this.req.param(name, handlers);
+  }
+  // Method to get the request URL
+  getUrl() {
+    return this.req.url;
+  }
+  // Method to check if the request matches the given types
+  is(types) {
+    return this.req.is(types);
+  }
+  getPath() {
+    return this.req.path;
+  }
+  // Method to get the request method (GET, POST, etc.)
+  getMethod() {
+    return this.req.method;
+  }
+
+  // Method to get an array of subdomains in the domain name of the request
+  subdomains() {
+    return this.req.subdomains;
+  }
+
+  hostname() {
+    return this.req.hostname;
+  }
+  // Method to get the host from the request
+  host() {
+    return this.req.host;
+  }
+  // Method to check if the request is fresh
+  fresh() {
+    return this.req.fresh;
+  }
+  // Method to check if the request is stale
+  stale() {
+    return this.req.stale;
+  }
+  xhr() {
+    return this.req.xhr;
   }
 }
 
