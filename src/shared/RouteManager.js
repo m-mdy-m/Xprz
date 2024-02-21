@@ -18,9 +18,18 @@ class RouteManager {
      */
     this.middleware = [];
     this.path = "/";
+
+    this.response = null;
   }
-  res(res) {
-    return new response(res)
+  setRes(res) {
+    console.log("res =>", res);
+    this.response = res;
+    console.log("this.response =>", this.response);
+  }
+
+  res() {
+    this.doNtUsing = false;
+    return new response(this.response);
   }
   /**
    * Attaches the route manager to an Express app.
@@ -105,10 +114,13 @@ class RouteManager {
   get(...handlers) {
     if (this.hasMiddleware) {
       // Register route with middleware
-      this.registerRoute("get", handlers);
+      this.registerRoute("get", ...handlers);
     }
     // Register route without middleware
-    this.router.get(this.path, ...handlers);
+    this.router.get(this.path, (req, res) => {
+      const response = this.setRes(res);
+      handlers.forEach((h) => h(req, response));
+    });
     return this;
   }
   /**
