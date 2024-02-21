@@ -6,29 +6,51 @@ class Response {
     this.res = res;
   }
   jsonp(obj) {
-    return this.res.json(obj);
+    this.res.json(obj);
   }
   sendStatus(statusCode) {
-    return this.res.sendStatus(statusCode);
+    this.res.sendStatus(statusCode);
   }
   sendFile(path, fn = undefined) {
-    return this.res.sendFile(path, fn);
+    this.res.sendFile(path, fn);
   }
 
   download(path, fn = undefined) {
-    return this.res.download(path, fn);
+    this.res.download(path, fn);
   }
   contentType(type) {
-    return this.type(type);
+    this.type(type);
   }
   type(type) {
-    return this.res.type(type);
+    this.res.type(type);
   }
   format(obj) {
-    return this.res.format(obj);
+    this.res.format(obj);
   }
   attachment(filename) {
-    return this.res.attachment(filename);
+    this.res.attachment(filename);
   }
+  append(field,val){
+    this.res.append(field,val)
+  }
+  set(field,val){
+    this.header(field,val)
+  }
+  header(field,val){
+    this.res.header(field,val)
+  }
+  get(field){
+    return this.res.get(field)
+  }
+  clearCookie(name,options){
+    this.res.clearCookie(name,options)
+  }
+  cookie(name,value,options){
+    this.res.cookie(name,value,options)
+  }
+  location(url){
+    this.res.location(url)
+  }
+  red
 }
 module.exports = Response;
