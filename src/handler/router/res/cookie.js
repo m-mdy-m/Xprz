@@ -1,4 +1,4 @@
-class HandlerCookie {
+class CookieHandler {
   constructor(cookie) {
     this.cookie = cookie;
   }
@@ -56,4 +56,4 @@ class HandlerCookie {
     return Object.keys(cookies).length;
   }
 }
-module.exports = HandlerCookie;
+module.exports = CookieHandler;
