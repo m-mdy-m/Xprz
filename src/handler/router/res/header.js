@@ -13,6 +13,11 @@ class HeadersHandler extends ResEnhancer {
     this.header("Access-Control-Allow-Methods", methods);
     this.header("Access-Control-Allow-Headers", headers);
   }
+  // Method to set Content-Disposition header for file download
+  setContentDisposition(filename, options = {}) {
+    const disposition = this.getContentDisposition(filename, options);
+    this.header("Content-Disposition", disposition);
+  }
   setLocation(location) {
     this.header("Location", location);
   }
@@ -33,6 +38,15 @@ class HeadersHandler extends ResEnhancer {
   // Method to set X-Content-Type-Options header
   setContentTypeOptions(value) {
     this.header("X-Content-Type-Options", value);
+  }
+  // Method to set HSTS (HTTP Strict Transport Security) header
+  setHSTSHeader(maxAge, includeSubDomains = true) {
+    const directive = `max-age=${maxAge}${includeSubDomains ? "; includeSubDomains" : ""}`;
+    this.header("Strict-Transport-Security", directive);
+  }
+  // Method to set X-Content-Type-Options header to prevent MIME-sniffing
+  setNoSniffHeader() {
+    this.header("X-Content-Type-Options", "nosniff");
   }
   // Method to set Referrer-Policy header
   setReferrerPolicy(value) {
