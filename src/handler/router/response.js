@@ -68,8 +68,8 @@ class Response {
   location(url) {
     this.res.location(url);
   }
-  redirectTo(url) {
-    this.redirect(url);
+  redirect(url) {
+    this.res.redirect(url);
   }
   vary(field) {
     this.res.vary(field);
