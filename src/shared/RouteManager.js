@@ -18,17 +18,16 @@ class RouteManager {
      */
     this.middleware = [];
     this.path = "/";
+    this.usingRes = false;
 
     this.response = null;
   }
   setRes(res) {
-    console.log("res =>", res);
     this.response = res;
-    console.log("this.response =>", this.response);
   }
 
   res() {
-    this.doNtUsing = false;
+    this.usingRes = true;
     return new response(this.response);
   }
   /**
@@ -118,8 +117,11 @@ class RouteManager {
     }
     // Register route without middleware
     this.router.get(this.path, (req, res) => {
-      const response = this.setRes(res);
-      handlers.forEach((h) => h(req, response));
+      let response;
+      if (this.usingRes) {
+        response = this.setRes(res);
+      }
+      handlers.forEach((h) => h(req, response ? response : res));
     });
     return this;
   }
