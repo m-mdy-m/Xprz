@@ -1,9 +1,7 @@
-const ResEnhancer = require("./ResEnhancer");
-
-class JsonHandler extends ResEnhancer {
-  constructor() {
-    super();
-    this.json = this.res.json;
+class JsonHandler {
+  constructor(json,status) {
+    this.json = json;
+    this.status = status
   }
   // Method to  a success response with a message
   Success(message) {

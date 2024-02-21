@@ -1,4 +1,5 @@
 const { response } = require("express");
+const ResEnhancer = require("./res/ResEnhancer");
 console.log("res =>", response);
 class Response {
   constructor(res) {

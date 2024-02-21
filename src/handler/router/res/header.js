@@ -1,8 +1,8 @@
-const ResEnhancer = require("./ResEnhancer");
 
-class HeadersHandler extends ResEnhancer {
-  constructor() {
-    super();
+class HeadersHandler {
+  constructor(header,res) {
+    this.header = header
+    this.res = res
   }
   cacheControl(maxAge, isPrivate = false) {
     const directive = isPrivate ? "private" : "public";
@@ -12,11 +12,6 @@ class HeadersHandler extends ResEnhancer {
     this.header("Access-Control-Allow-Origin", origin);
     this.header("Access-Control-Allow-Methods", methods);
     this.header("Access-Control-Allow-Headers", headers);
-  }
-  // Method to set Content-Disposition header for file download
-  setContentDisposition(filename, options = {}) {
-    const disposition = this.getContentDisposition(filename, options);
-    this.header("Content-Disposition", disposition);
   }
   setLocation(location) {
     this.header("Location", location);

@@ -1,5 +1,5 @@
 const { getExp } = require("../shareApp");
-const response = require("../handler/router/response");
+const response = require("../handler/router/res/ResEnhancer");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
