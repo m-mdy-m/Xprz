@@ -1,5 +1,6 @@
 const { getExp } = require("../shareApp");
-const response = require("../handler/router/res/ResEnhancer");
+const Response = require("../handler/router/res/ResEnhancer");
+const Request = require("../handler/router/req/ReqEnhancer");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -18,17 +19,20 @@ class RouteManager {
      */
     this.middleware = [];
     this.path = "/";
-    this.usingRes = false;
-
     this.response = null;
+    this.request = null;
   }
   setRes(res) {
     this.response = res;
   }
-
+  setReq(req) {
+    this.request = req;
+  }
   res() {
-    this.usingRes = true;
-    return new response(this.response);
+    return new Response(this.response);
+  }
+  req() {
+    return new Request(this.request);
   }
   /**
    * Attaches the route manager to an Express app.
@@ -118,7 +122,10 @@ class RouteManager {
     // Register route without middleware
     this.router.get(this.path, (req, res) => {
       let response = this.setRes(res);
-      handlers.forEach((h) => h(req, response ? response : res));
+      let request = this.setReq(req);
+      handlers.forEach((h) =>
+        h(request ? request : req, response ? response : res)
+      );
     });
     return this;
   }

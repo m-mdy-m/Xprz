@@ -11,6 +11,6 @@ const { launch } = new App();
 const router = new RouteManager();
 
 router.setRoute("/").get(() => {
-  const { } = router.res()
+  const { } = router.req()
 });
 router.attachTo(launch());
