@@ -1,4 +1,3 @@
-const { handle } = require("express/lib/application");
 const { getExp } = require("../shareApp");
 const { response, request } = require("express");
 const RequestHandler = require("../handler/router/requestHandler");
@@ -22,7 +21,7 @@ class RouteManager {
     this.path = "/";
   }
   customHandler() {
-    return new RequestHandler(response,request)
+    return new RequestHandler(request,response)
   }
   /**
    * Attaches the route manager to an Express app.
