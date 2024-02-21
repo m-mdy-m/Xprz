@@ -81,5 +81,20 @@ class HeadersHandler extends ResEnhancer {
   setPublicKeyPinsHeader(value) {
     this.header("Public-Key-Pins", value);
   }
+  // Method to set Cross-Origin Embedder Policy (COEP) header
+  setCrossOriginEmbedderPolicy(policy) {
+    this.header("Cross-Origin-Embedder-Policy", policy);
+  }
+
+  // Method to set Cross-Origin Opener Policy (COOP) header
+  setCrossOriginOpenerPolicy(policy) {
+    this.header("Cross-Origin-Opener-Policy", policy);
+  }
+
+  // Method to set Cross-Origin Resource Policy (CORP) header
+  setCrossOriginResourcePolicy(policy) {
+    this.header("Cross-Origin-Resource-Policy", policy);
+  }
+  
 }
 module.exports = HeadersHandler;
