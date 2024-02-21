@@ -22,23 +22,39 @@ class JsonHandler extends AdvanceMethods {
   }
   // Method to  a response indicating that the resource was created successfully
   CreatedResponse(createdObject) {
-    return this.status(201).json({ success: true, message: 'Resource created successfully', data: createdObject });
+    return this.status(201).json({
+      success: true,
+      message: "Resource created successfully",
+      data: createdObject,
+    });
   }
   // Method to  a response indicating that the resource was updated successfully
   UpdatedResponse(updatedObject) {
-    return this.json({ success: true, message: 'Resource updated successfully', data: updatedObject });
+    return this.json({
+      success: true,
+      message: "Resource updated successfully",
+      data: updatedObject,
+    });
   }
   // Method to  a response indicating that the operation was completed successfully
-  OperationSuccess(message = 'Operation successful') {
+  OperationSuccess(message = "Operation successful") {
     return this.json({ success: true, message });
   }
   // Method to  a response indicating that the operation failed due to validation errors
   ValidationFailedResponse(validationErrors) {
-    return this.status(422).json({ success: false, error: 'Validation failed', validationErrors });
+    return this.status(422).json({
+      success: false,
+      error: "Validation failed",
+      validationErrors,
+    });
   }
-   // Method to  a response indicating that the resource was deleted successfully
-   DeletedResponse(deletedObject) {
-    return this.json({ success: true, message: 'Resource deleted successfully', data: deletedObject });
+  // Method to  a response indicating that the resource was deleted successfully
+  DeletedResponse(deletedObject) {
+    return this.json({
+      success: true,
+      message: "Resource deleted successfully",
+      data: deletedObject,
+    });
   }
   // Method to  an error response with a status code and message
   Error(statusCode, message) {
