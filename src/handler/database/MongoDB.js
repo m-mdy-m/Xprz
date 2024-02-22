@@ -21,14 +21,14 @@ class MongoDB {
     this.db = null;
 
     // Bind all methods to the instance
-    this.connect = this.connect.bind(this);
+    this.connectMongoDB = this.connectMongoDB.bind(this);
     this.getMongoDb = this.getMongoDb.bind(this);
     this.getClient = this.getClient.bind(this);
     this.getDb = this.getDb.bind(this);
     this.find = this.find.bind(this);
     this.insert = this.insert.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
+    this.up = this.up.bind(this);
+    this.delDoc = this.delDoc.bind(this);
     this.close = this.close.bind(this);
     this.tryConnect = this.tryConnect.bind(this);
   }
@@ -43,7 +43,7 @@ class MongoDB {
    * const uri = 'mongodb://localhost:27017/mydatabase';
    * await mongodb.connect(uri);
    */
-  async connect(uri, options = {}, log = true, textLog = "MongoDB Connected") {
+  async connectMongoDB(uri, options = {}, log = true, textLog = "MongoDB Connected") {
     try {
       this.mongoClient = await this.mongodb.MongoClient.connect(uri, options);
       this.db = this.mongoClient.db();
@@ -158,16 +158,16 @@ class MongoDB {
   }
 
   /**
-   * Perform an update operation on a MongoDB collection.
+   * Perform an up operation on a MongoDB collection.
    * @param {string} collectionName - The name of the collection.
    * @param {object} filter - The filter criteria.
-   * @param {object} update - The update object.
+   * @param {object} up - The update object.
    * @param {object} options - Additional options.
    * @returns {Promise} A promise that resolves with the update result.
    * @example
-   * await mongodb.update('users', { name: 'John' }, { $set: { age: 35 } });
+   * await mongodb.up('users', { name: 'John' }, { $set: { age: 35 } });
    */
-  async update(collectionName, filter, update, options = {}) {
+  async up(collectionName, filter, update, options = {}) {
     try {
       const db = await this.getDb();
       const collection = db.collection(collectionName);
@@ -179,15 +179,15 @@ class MongoDB {
   }
 
   /**
-   * Perform a delete operation on a MongoDB collection.
+   * Perform a delDoc operation on a MongoDB collection.
    * @param {string} collectionName - The name of the collection.
    * @param {object} filter - The filter criteria.
    * @param {object} options - Additional options.
    * @returns {Promise} A promise that resolves with the delete result.
    * @example
-   * await mongodb.delete('users', { name: 'John' });
+   * await mongodb.delDoc('users', { name: 'John' });
    */
-  async delete(collectionName, filter, options = {}) {
+  async delDoc(collectionName, filter, options = {}) {
     try {
       const db = await this.getDb();
       const collection = db.collection(collectionName);

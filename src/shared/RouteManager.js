@@ -23,8 +23,11 @@ class RouteManager {
      * @private
      */
     this.middleware = [];
+    /** @private */
     this.path = "/";
+    /** @private */
     this.response = null;
+    /** @private */
     this.request = null;
   }
   /**

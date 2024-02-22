@@ -273,7 +273,7 @@ Update records in a table.
   await mysql.update('users', { age: 25 }, { id: 1 });
   ```
 
-#### `delete(tableName, condition)`
+#### `deleteQuery(tableName, condition)`
 
 Delete records from a table.
 
@@ -287,12 +287,12 @@ Delete records from a table.
 
 - **Usage:**
   ```javascript
-  await mysql.delete('users', { id: 1 });
+  await mysql.deleteQuery('users', { id: 1 });
   ```
 
 - **Example:**
   ```javascript
-  await mysql.delete('users', { id: 1 });
+  await mysql.deleteQuery('users', { id: 1 });
   ```
 ---
 
@@ -307,7 +307,7 @@ Manages MongoDB database connections and provides methods for performing CRUD op
 
 ### Methods
 
-#### `connect(uri, options = {}, log = true, textLog = "MongoDB Connected")`
+#### `connectMongoDB(uri, options = {}, log = true, textLog = "MongoDB Connected")`
 
 Connect to the MongoDB database.
 

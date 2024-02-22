@@ -1,6 +1,5 @@
 const {
   MySqlQueryError,
-  MySqlConnectionError,
   MySqlTransactionError,
 } = require("../../Errors/database.error");
 
@@ -15,6 +14,18 @@ class MySql {
   constructor(pkg) {
     /** @private */
     this.mysql = pkg;
+
+    this.getMySql = this.getMySql.bind(this);
+    this.connect = this.connect.bind(this);
+    this.getConnection = this.getConnection.bind(this);
+    this.query = this.query.bind(this);
+    this.execute = this.execute.bind(this);
+    this.transaction = this.transaction.bind(this);
+    this.endConnection = this.endConnection.bind(this);
+    this.Create = this.Create.bind(this);
+    this.read = this.read.bind(this);
+    this.update = this.update.bind(this);
+    this.deleteQuery = this.deleteQuery.bind(this);
   }
 
   /**
@@ -43,6 +54,7 @@ class MySql {
    * mysql.connect(config);
    */
   connect(config, log = true, textLog = "Database Connected") {
+    /** @private */
     this.connection = this.mysql.createConnection(config);
     this.connection.connect((err) => {
       if (err) {
@@ -220,9 +232,9 @@ class MySql {
    * @param {object} condition - The condition to filter records.
    * @returns {Promise} A promise that resolves with the query results.
    * @example
-   * await mysql.delete('users', { id: 1 });
+   * await mysql.deleteQuery('users', { id: 1 });
    */
-  async delete(tableName, condition) {
+  async deleteQuery(tableName, condition) {
     const sql = `DELETE FROM ${tableName} WHERE ?`;
     const result = await this.query(sql, condition);
     return result;
