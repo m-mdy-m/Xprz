@@ -135,6 +135,10 @@ class App {
    * app.use(cors());
    */
   use(...handler) {
+    // Ensure that app is initialized before using it
+    if (!this.runApp || !this.app) {
+      throw new ExpressNotInitializedError();
+    }
     this.app.use(...handler);
   }
 }

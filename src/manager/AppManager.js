@@ -134,22 +134,25 @@ class AppManager extends App {
    * appManager.loadRoutes('routes');
    */
   loadRoutes(routeDir) {
+    console.log('this.use=>',this.use);
     try {
       // Check if the provided directory exists
       if (!fs.existsSync(routeDir)) {
-        throw new RouteLoadingError(`Route directory ${routeDir} does not exist.`);
+        throw new RouteLoadingError(
+          `Route directory ${routeDir} does not exist.`
+        );
       }
       // Read the files in the route directory
       fs.readdirSync(routeDir).forEach((file) => {
-        const routePath = path.join(routeDir, file.replace(/\\/g, '/'));
-  
+        const routePath = path.join(routeDir, file.replace(/\\/g, "/"));
+
         // Check if the file is a JavaScript file
-        if (file.endsWith('.js')) {
+        if (file.endsWith(".js")) {
           // Dynamically require the route file
           const route = require(routePath);
-  
+
           // Check if the route is a function
-          if (typeof route === 'function') {
+          if (typeof route === "function") {
             // Mount the route
             this.use(route);
             console.log(`Route ${routePath} loaded successfully.`);
