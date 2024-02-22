@@ -10,6 +10,25 @@ class JsonHandler {
   constructor(json, status) {
     this.json = json;
     this.status = status;
+    // Bind methods to ensure they have access to the correct 'this' context
+    this.success = this.success.bind(this);
+    this.list = this.list.bind(this);
+    this.created = this.created.bind(this);
+    this.updated = this.updated.bind(this);
+    this.opSuccess = this.opSuccess.bind(this);
+    this.validationFailed = this.validationFailed.bind(this);
+    this.deleted = this.deleted.bind(this);
+    this.error = this.error.bind(this);
+    this.downloadLink = this.downloadLink.bind(this);
+    this.advancedJson = this.advancedJson.bind(this);
+    this.authRequired = this.authRequired.bind(this);
+    this.authzRequired = this.authzRequired.bind(this);
+    this.internalServerError = this.internalServerError.bind(this);
+    this.serviceUnavailable = this.serviceUnavailable.bind(this);
+    this.notFound = this.notFound.bind(this);
+    this.redirectResponse = this.redirectResponse.bind(this);
+    this.fileUploadSuccess = this.fileUploadSuccess.bind(this);
+    this.badRequest = this.badRequest.bind(this);
   }
   /**
    * Sends a success response with a message.
