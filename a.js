@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const { session } = new Package();
-const a = session()
+const { nodemailer } = new Package();
+const a = nodemailer()
