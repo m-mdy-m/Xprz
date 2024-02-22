@@ -4,8 +4,8 @@ const Request = require("../baseReq");
  * @extends Request
  */
 class ReqEnhancer extends Request {
-  constructor() {
-    super();
+  constructor(req) {
+    super(req);
     // Bind methods to ensure they have access to the correct 'this' context
     this.hasQueryParam = this.hasQueryParam.bind(this);
     this.getQueryParam = this.getQueryParam.bind(this);

@@ -11,8 +11,8 @@ class ResEnhancer extends Response {
   /**
    * Creates a new ResEnhancer instance.
    */
-  constructor() {
-    super();
+  constructor(res) {
+    super(res);
     // Bind methods to ensure they have access to the correct 'this' context
     this.getCookieHandler = this.getCookieHandler.bind(this);
     this.getHeadersHandler = this.getHeadersHandler.bind(this);

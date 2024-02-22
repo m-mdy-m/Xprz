@@ -1,6 +1,8 @@
 const { getExp } = require("../shareApp");
-const Response = require("../handler/router/baseRes");
-const Request = require("../handler/router/baseReq");
+const baseRes = require("../handler/router/baseRes");
+const baseReq = require("../handler/router/baseReq");
+const Request = require("../handler/router/req/ReqEnhancer");
+const Response = require("../handler/router/res/ResEnhancer");
 
 const {
   RouteManagerError,
@@ -62,7 +64,7 @@ class RouteManager {
    * enhancedResponse.status(200).send("Enhanced Response");
    */
   res() {
-    return new Response(this.response);
+    return new Response(this.response)
   }
 
   /**
@@ -75,7 +77,7 @@ class RouteManager {
    * const requestData = enhancedRequest.getBody(); // Accessing request body
    */
   req() {
-    return new Request(this.request);
+    return new Request(this.request)
   }
   /**
    * Attaches the route manager to an Express app.
