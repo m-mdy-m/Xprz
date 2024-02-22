@@ -60,12 +60,12 @@ class JsonHandler {
   }
 
   // Method to  a response with a download link
-  download(downloadUrl) {
+  downloadLink(downloadUrl) {
     return this.json({ downloadUrl });
   }
 
   // Advanced method to  JSON response with metadata and additional details
-  advanced(data, metadata = {}) {
+  advancedJson(data, metadata = {}) {
     return this.json({ data, metadata });
   }
 
