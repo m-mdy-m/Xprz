@@ -16,15 +16,13 @@ class Response {
     return this;
   }
   send(body) {
-    this.res.end(body);
+    this.res.send(body);
     return this;
   }
   json(obj) {
     this.setHeader("Content-Type", "application/json");
     const jsonString = JSON.stringify(obj);
-    console.log(`Sending JSON: ${jsonString}`);
-    this.send(jsonString);
-    return this;
+    return this.send(jsonString);
   }
   end(any = undefined) {
     this.res.end(any);
