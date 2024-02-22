@@ -51,9 +51,7 @@ class HTTPMethod {
    */
   registerRoute(method, handler) {
     if (!this.path) {
-      throw new HTTPMethodError(
-        "Base route is not set. Please set the base route using setBaseRoute() before registering routes."
-      );
+      throw new HTTPMethodError("Base route is not set. Please set the base route using setBaseRoute() before registering routes.");
     }
     this.app[method.toLowerCase()](this.path, handler);
     return this;
