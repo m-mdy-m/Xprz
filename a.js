@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const {cors} = new Package()
-const a = cors().get()
+const { csrf } = new Package();
+const a = csrf().get();

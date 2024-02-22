@@ -21,4 +21,4 @@ Get the configured CORS middleware.
 - **Usage:**
   ```javascript
   const {cors} = new Package()
-  const corsMiddleware = corsHandler.get();
+  const corsMiddleware = cors().get();
