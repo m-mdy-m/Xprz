@@ -21,7 +21,9 @@ class Response {
   }
   json(obj) {
     this.setHeader("Content-Type", "application/json");
-    this.send(JSON.stringify(obj));
+    const jsonString = JSON.stringify(obj);
+    console.log(`Sending JSON: ${jsonString}`);
+    this.send(jsonString);
     return this;
   }
   end(any = undefined) {
