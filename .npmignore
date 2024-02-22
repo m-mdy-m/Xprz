@@ -16,6 +16,3 @@ test/
 # Ignore configuration files (keep this line)
 tsconfig.json
 babel.config.js
-
-a.js
-/a.js
