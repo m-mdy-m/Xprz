@@ -134,20 +134,37 @@ class AppManager extends App {
    * appManager.loadRoutes('routes');
    */
   loadRoutes(routeDir) {
-    const absoluteRouteDir = path.resolve(__dirname, routeDir); 
-    fs.readdirSync(absoluteRouteDir).forEach((file) => {
-      const routePath = path.join(absoluteRouteDir, file);
-      try {
-        const route = require(routePath);
-        console.log("r =>", route);
-        this.use(route);
-        console.log(`Route ${routePath} loaded successfully.`);
-      } catch (error) {
-        throw new RouteLoadingError(
-          `Error loading route ${file}: ${error.message}`
-        );
+    try {
+      // Check if the provided directory exists
+      if (!fs.existsSync(routeDir)) {
+        throw new RouteLoadingError(`Route directory ${routeDir} does not exist.`);
       }
-    });
+  
+      // Read the files in the route directory
+      fs.readdirSync(routeDir).forEach((file) => {
+        const routePath = path.join(routeDir, file);
+  
+        // Check if the file is a JavaScript file
+        if (file.endsWith('.js')) {
+          // Dynamically require the route file
+          const route = require(routePath);
+  
+          // Check if the route is a function
+          if (typeof route === 'function') {
+            // Mount the route
+            this.use(route);
+            console.log(`Route ${routePath} loaded successfully.`);
+          } else {
+            console.warn(`Skipping non-function route in file: ${routePath}`);
+          }
+        } else {
+          console.warn(`Skipping non-JavaScript file: ${routePath}`);
+        }
+      });
+    } catch (error) {
+      // Throw a RouteLoadingError if any error occurs
+      throw new RouteLoadingError(`Error loading routes: ${error.message}`);
+    }
   }
 }
 module.exports = AppManager;
