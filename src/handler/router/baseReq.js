@@ -1,34 +1,72 @@
+/**
+ * Represents a base request handler providing utility methods for handling HTTP requests.
+ * @class
+ */
 class baseReq {
+  /**
+   * Creates a new baseReq instance.
+   * @param {object} req - The Express request object.
+   */
   constructor(req) {
     this.req = req;
   }
 
-  // Method to get request query parameters
+  /**
+   * Retrieves the query parameters from the request.
+   * @returns {object} The request query parameters.
+   * @example
+   * const queryParams = req.getQuery();
+   */
   getQuery() {
     return this.req.query;
   }
 
-  // Method to get request body
+  /**
+   * Retrieves the request body.
+   * @returns {object} The request body.
+   * @example
+   * const requestBody = req.getBody();
+   */
   getBody() {
     return this.req.body;
   }
 
-  // Method to get request headers
+  /**
+   * Retrieves the request headers.
+   * @returns {object} The request headers.
+   * @example
+   * const requestHeaders = req.getHeaders();
+   */
   getHeaders() {
     return this.req.headers;
   }
 
-  // Method to get request URL
+  /**
+   * Retrieves the request URL.
+   * @returns {string} The request URL.
+   * @example
+   * const requestUrl = req.getUrl();
+   */
   getUrl() {
     return this.req.url;
   }
 
-  // Method to get request path
+  /**
+   * Retrieves the request path.
+   * @returns {string} The request path.
+   * @example
+   * const requestPath = req.getPath();
+   */
   getPath() {
     return this.req.path;
   }
 
-  // Method to check if the request is an AJAX request
+  /**
+   * Checks if the request is an AJAX request.
+   * @returns {boolean} True if the request is an AJAX request, false otherwise.
+   * @example
+   * const isAjaxRequest = req.isAjax();
+   */
   isAjax() {
     return (
       this.req.xhr ||
@@ -36,96 +74,232 @@ class baseReq {
     );
   }
 
-  // Method to check if the request is secure (HTTPS)
+  /**
+   * Checks if the request is secure (HTTPS).
+   * @returns {boolean} True if the request is secure (HTTPS), otherwise false.
+   * @example
+   * const isSecure = req.isSecure();
+   */
+
   isSecure() {
     return this.req.secure;
   }
 
-  // Method to get request IP address
+  /**
+   * Gets the IP address of the request.
+   * @returns {string} The IP address of the request.
+   * @example
+   * const ipAddress = req.getIp();
+   */
+
   getIp() {
     return this.req.ip;
   }
 
-  // Method to get request cookies
+  /**
+   * Retrieves the cookies from the request.
+   * @returns {object} The cookies sent with the request.
+   * @example
+   * const cookies = req.getCookies();
+   */
+
   getCookies() {
     return this.req.cookies;
   }
 
-  // Method to check if a request has a specific header
+  /**
+   * Checks if the request has a specific header.
+   * @param {string} headerName - The name of the header to check.
+   * @returns {boolean} True if the request has the specified header, otherwise false.
+   * @example
+   * const hasHeader = req.hasHeader('Content-Type');
+   */
+
   hasHeader(headerName) {
     return this.req.headers.hasOwnProperty(headerName);
   }
 
-  // Method to get a specific request header
+  /**
+   * Gets the value of a specific request header.
+   * @param {string} headerName - The name of the header.
+   * @returns {string} The value of the specified header.
+   * @example
+   * const contentType = req.getHeader('Content-Type');
+   */
+
   getHeader(headerName) {
     return this.req.headers[headerName];
   }
 
-  // Method to get request protocol
+  /**
+   * Retrieves the protocol used by the request (HTTP or HTTPS).
+   * @returns {string} The protocol used by the request.
+   * @example
+   * const protocol = req.getProtocol();
+   */
+
   getProtocol() {
     return this.req.protocol;
   }
 
-  // Method to check if the request accepts a specific content type
+  /**
+   * Checks if the request accepts a specific content type.
+   * @param {string|string[]} type - The content type to check.
+   * @returns {string|false|null} The best matching content type, or false if none of the given types is accepted, or null if the request does not specify a content type preference.
+   * @example
+   * const contentType = req.accepts('json');
+   */
+
   accepts(type) {
     return this.req.accepts(type);
   }
+  /**
+   * Retrieves the value of a parameter from the request.
+   * @param {string} name - The name of the parameter.
+   * @param {Function[]} [handlers] - Optional middleware for processing the parameter.
+   * @returns {*} The value of the specified parameter.
+   * @example
+   * const userId = req.param('userId');
+   */
+
   param(name, handlers) {
     return this.req.param(name, handlers);
   }
-  // Method to get the request URL
+  /**
+   * Retrieves the URL of the request.
+   * @returns {string} The URL of the request.
+   * @example
+   * const requestUrl = req.getUrl();
+   */
+
   getUrl() {
     return this.req.url;
   }
-  // Method to check if the request matches the given types
+  /**
+   * Checks if the request matches the given types.
+   * @param {string|string[]} types - The types to check against.
+   * @returns {string|false|null} The first type that matches, or false if none match, or null if the request does not specify a content type.
+   * @example
+   * const isJSON = req.is('json');
+   */
+
   is(types) {
     return this.req.is(types);
   }
+  /**
+   * Retrieves the path of the request.
+   * @returns {string} The path of the request.
+   * @example
+   * const requestPath = req.getPath();
+   */
+
   getPath() {
     return this.req.path;
   }
-  // Method to get the request method (GET, POST, etc.)
+  /**
+   * Retrieves the HTTP method of the request.
+   * @returns {string} The HTTP method of the request (e.g., GET, POST).
+   * @example
+   * const method = req.getMethod();
+   */
+
   getMethod() {
     return this.req.method;
   }
 
-  // Method to get an array of subdomains in the domain name of the request
+  /**
+   * Retrieves an array of subdomains in the domain name of the request.
+   * @returns {string[]} An array of subdomains.
+   * @example
+   * const subdomains = req.getSubdomains();
+   */
+
   getSubdomains() {
     return this.req.subdomains;
   }
 
-  // Method to get the hostname from the request
+  /**
+   * Retrieves the hostname from the request.
+   * @returns {string} The hostname.
+   * @example
+   * const hostname = req.getHostname();
+   */
+
   getHostname() {
     return this.req.hostname;
   }
-  // Method to get the host from the request
+
+  /**
+   * Retrieves the host from the request.
+   * @returns {string} The host.
+   * @example
+   * const host = req.getHost();
+   */
+
   getHost() {
     return this.req.host;
   }
-  // Method to check if the request is fresh
+  /**
+   * Checks if the request is fresh.
+   * @returns {boolean} True if the request is fresh, false otherwise.
+   * @example
+   * const isFreshRequest = req.isFresh();
+   */
+
   isFresh() {
     return this.req.fresh;
   }
-  // Method to check if the request is stale
+  /**
+   * Checks if the request is stale.
+   * @returns {boolean} True if the request is stale, false otherwise.
+   * @example
+   * const isStaleRequest = req.isStale();
+   */
+
   isStale() {
     return this.req.stale;
   }
+  /**
+   * Checks if the request is an XMLHttpRequest (AJAX) request.
+   * @returns {boolean} True if the request is an XMLHttpRequest, false otherwise.
+   * @example
+   * const isXhrRequest = req.isXhr();
+   */
+
   isXhr() {
     return this.req.xhr;
   }
-  // Method to get the request language preferences
+  /**
+   * Retrieves the request language preferences.
+   * @returns {string[]} An array of language preferences.
+   * @example
+   * const languages = req.getLanguages();
+   */
+
   getLanguages() {
     return this.req.languages;
   }
 
-  // Method to get the request encoding preferences
+  /**
+   * Retrieves the request encoding preferences.
+   * @returns {string[]} An array of encoding preferences.
+   * @example
+   * const encodings = req.getEncodings();
+   */
+
   getEncodings() {
     return this.req.encodings;
   }
 
-  // Method to get the request charset preferences
+  /**
+   * Retrieves the request charset preferences.
+   * @returns {string[]} An array of charset preferences.
+   * @example
+   * const charsets = req.getCharsets();
+   */
+
   getCharsets() {
-    return this.req.charsets ;
+    return this.req.charsets;
   }
 }
 
