@@ -144,10 +144,24 @@ listen(3000);
 
 For detailed documentation on XPress and its various features, refer to the documents provided in the `doc` folder of the package. The documentation offers comprehensive explanations, usage examples, and best practices to maximize the potential of XPress in your projects.
 
+## Benefits of Using XPress
+
+- **Productivity**: XPress simplifies complex tasks, allowing developers to focus on building features rather than managing boilerplate code.
+  
+- **Scalability**: With built-in support for middleware, routing, and database integration, XPress facilitates the development of scalable web applications.
+
+- **Flexibility**: XPress offers flexibility in choosing database options, middleware, and package integrations, enabling developers to tailor their applications to specific requirements.
+
+- **Community Support**: Backed by a vibrant community of developers, XPress benefits from ongoing improvements, updates, and contributions.
+
+- **Performance**: Optimized for performance, XPress ensures that web applications built with it deliver fast and responsive user experiences.
+
+
+
 ## Bugs and Feedback
 
-If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/your-username/your-repository).
+If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/m-mdy-m/XprsJS).
 
 ## License
 
-XPress is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+XPress is licensed under the MIT License. See the [LICENSE](https://github.com/m-mdy-m/XprsJS/blob/main/LICENSE) file for details.
