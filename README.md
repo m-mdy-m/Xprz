@@ -1,8 +1,6 @@
-# XprsJS
+# XPressJs
 
-
-XprsJS is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XprsJS, you can define routes, handle middleware, and set up an Express.js server with ease.
-
+XPressJs is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XPressJs, you can define routes, handle middleware, and set up an Express.js server with ease.
 
 ## Features:
 
@@ -14,11 +12,14 @@ XprsJS is a lightweight and concise wrapper for Express.js, designed to simplify
 
 ## Getting Started:
 
-1. Install XprsJS:
+1. Install xpressjs:
    ```bash
-   npm install xprsjs
+   npm install xpressjs
    ```
 
+2. Import XPressJs into your project and start building your Express.js application with ease.
+
+3. For detailed usage instructions and documentation, please refer to the `doc` folder in the XPressJs repository.
 
 ### Contribution:
 
