@@ -30,7 +30,6 @@ class RouteRegistrationError extends RouteManagerError {
 }
 
 module.exports = {
-  RouteManagerError,
   RouteManagerValidationError,
   RouteMethodError,
   RouteRegistrationError,
