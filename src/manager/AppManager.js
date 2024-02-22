@@ -1,4 +1,5 @@
 const App = require("../shared/App");
+const { ShutdownError} = require('../Errors/App.error')
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -99,7 +100,7 @@ class AppManager extends App {
     return new Promise((resolve, reject) => {
       this.app.close((err) => {
         if (err) {
-          reject(err);
+          reject(new ShutdownError(`Error shutting down application: ${err.message}`));
         } else {
           resolve();
         }
