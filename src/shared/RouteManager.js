@@ -172,7 +172,7 @@ class RouteManager {
         );
       });
     } catch (error) {
-      throw new RouteRegistrationError(`Error registering GET route: ${error.message}` );
+      throw new RouteRegistrationError(`Error registering GET route: ${error.message}`);
     }
     return this;
   }
@@ -295,10 +295,16 @@ class RouteManager {
    * @private
    */
   registerRoute(method, handlers) {
-    // Combine middleware with route handlers
-    const routeHandlers = [...this.middleware, ...handlers];
-    // Register the route with Express router
-    this.router[method](this.path, routeHandlers);
+    try {
+      // Combine middleware with route handlers
+      const routeHandlers = [...this.middleware, ...handlers];
+      // Register the route with Express router
+      this.router[method](this.path, routeHandlers);
+    } catch (error) {
+      throw new RouteRegistrationError(
+        `Error registering ${method.toUpperCase()} route: ${error.message}`
+      );
+    }
   }
 }
 
