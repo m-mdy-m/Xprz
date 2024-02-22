@@ -22,9 +22,19 @@ class ShareApp {
   setExp(express) {
     this.express = express;
   }
-
-  getExp(){
-    return this.express
+  /**
+   * Retrieves the Express module instance used within the application.
+   * @returns {Object|null} The Express module instance, or null if not set.
+   * @example
+   * const expressInstance = getExp();
+   * if (expressInstance) {
+   *   // Use the Express module instance
+   * } else {
+   *   throw new Error('Express module instance has not been initialized yet.');
+   * }
+   */
+  getExp() {
+    return this.express;
   }
   /**
    * Sets the current Express application instance.
@@ -129,6 +139,16 @@ module.exports = {
    * setExp(express);
    */
   setExp: shareApp.setExp.bind(shareApp),
-
-  getExp : shareApp.getExp.bind(shareApp)
+  /**
+   * Retrieves the Express module instance used within the application.
+   * @returns {Object|null} The Express module instance, or null if not set.
+   * @example
+   * const expressInstance = getExp();
+   * if (expressInstance) {
+   *   // Use the Express module instance
+   * } else {
+   *   throw new Error('Express module instance has not been initialized yet.');
+   * }
+   */
+  getExp: shareApp.getExp.bind(shareApp),
 };
