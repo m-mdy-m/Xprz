@@ -1,6 +1,6 @@
-# XPressJs
+# XPress
 
-XPressJs is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XPressJs, you can define routes, handle middleware, and set up an Express.js server with ease.
+XPress is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XPress, you can define routes, handle middleware, and set up an Express.js server with ease.
 
 ## Features:
 
@@ -12,14 +12,14 @@ XPressJs is a lightweight and concise wrapper for Express.js, designed to simpli
 
 ## Getting Started:
 
-1. Install xpressjs:
+1. Install xpress:
    ```bash
-   npm install xpressjs
+   npm install xpress
    ```
 
-2. Import XPressJs into your project and start building your Express.js application with ease.
+2. Import XPress into your project and start building your Express.js application with ease.
 
-3. For detailed usage instructions and documentation, please refer to the `doc` folder in the XPressJs repository.
+3. For detailed usage instructions and documentation, please refer to the `doc` folder in the XPress repository.
 
 ### Contribution:
 
