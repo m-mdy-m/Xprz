@@ -1,5 +1,5 @@
 {
-  "name": "xpress",
+  "name": "xprsy",
   "version": "1.0.0",
   "description": "XprsJS is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With XprsJS, you can define routes, handle middleware, and set up an Express.js server with ease.",
   "main": "index.js",

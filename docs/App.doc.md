@@ -14,8 +14,8 @@ Returns the Express module.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz");
+  const { App } = new xprz();
   const { getExpress } = new App();
   const express = getExpress();
   ```
@@ -30,8 +30,8 @@ Initializes the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz");
+  const { App } = new xprz();
   const { initApp } = new App();
   const app = initApp();
   ```
@@ -48,8 +48,8 @@ Starts the Express application to listen on the specified port.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprsy = require("xprz");
+  const { App } = new xprz();
   const { listen } = new App();
   listen(3000, "Server is running on port 3000", true);
   ```
@@ -64,8 +64,8 @@ Closes the server if it is running.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz");
+  const { App } = new xprz();
   const { closeServer } = new App();
   closeServer(() => {
     console.log("Server closed.");
@@ -88,8 +88,8 @@ Initializes and launches the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz");
+  const { App } = new xprz();
   const { launch } = new App();
   const app = launch();
   ```
@@ -104,8 +104,8 @@ Attaches middleware functions to the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { use } = new App();
   use(express.json());
   use(cors());
@@ -121,8 +121,8 @@ Sets the error handler middleware for the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { setErrorHandler } = new App();
   setErrorHandler(errorHandler);
   ```
@@ -137,8 +137,8 @@ Adds middleware function(s) to the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { middleware } = new App();
   middleware(myMiddlewareFunction);
   ```
@@ -153,8 +153,8 @@ Sets properties on the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { set } = new App();
   set("title", "My Express App");
   ```
@@ -169,8 +169,8 @@ Serves static files and directories with Express.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { static } = new App();
   static("public");
   ```
@@ -185,8 +185,8 @@ Enables JSON and URL-encoded parsing for request bodies.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { useJsonBody } = new App();
   useJsonBody();
   ```
@@ -201,8 +201,8 @@ Shuts down the Express application.
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { shutdown } = new App();
   shutdown()
     .then(() => {
@@ -223,8 +223,8 @@ Creates an instance of `TemplateEngines` to manage template engine configuration
 
 - **Usage:**
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { setTemplateEngine } = new App();
   const templateEngines = setTemplateEngine();
   templateEngines.Ejs();
@@ -242,8 +242,8 @@ Dynamically loads and mounts routes from a specified directory.
 - **Usage:**
 
   ```javascript
-  const XPress = require("xpress");
-  const { App } = new XPress();
+  const xprz = require("xprz")
+  const { App } = new xprz();
   const { loadRoutes } = new App();
   // Assuming 'routes' is the directory containing route files
   loadRoutes("routes");

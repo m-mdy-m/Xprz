@@ -1,17 +1,17 @@
-# XPress
+# XPRZ
 
-XPress is a versatile web development framework for Node.js, offering a comprehensive suite of features to streamline your application development process. With XPress, you can quickly build robust web applications with ease.
+Xprz is a versatile web development framework for Node.js, offering a comprehensive suite of features to streamline your application development process. With xprz, you can quickly build robust web applications with ease.
 
 ## Overview
 
-XPress provides a wide range of functionalities to simplify and enhance your Node.js web development experience. Here's a brief overview of some key components and features:
+Xprz provides a wide range of functionalities to simplify and enhance your Node.js web development experience. Here's a brief overview of some key components and features:
 
 ## Components
 
 - **App**: Manage your Express application's lifecycle effortlessly with the `App` class. Initialize, launch, and handle server events seamlessly.
 - **Database**: Seamlessly integrate with MongoDB and MySQL databases for efficient data management and CRUD operations.
 - **HttpMethod**: Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly.
-- **Package**: Integrate popular Node.js packages seamlessly with XPress. Enjoy out-of-the-box support for essential packages like bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
+- **Package**: Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for essential packages like bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 - **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
 - **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
 
@@ -27,9 +27,9 @@ XPress provides a wide range of functionalities to simplify and enhance your Nod
 ## Example Features:
 
 ### Express Application Management
-Simplify the management of your Express application's lifecycle with XPress's intuitive `App` class. Initialize your application, launch the server, and handle lifecycle events seamlessly:
+Simplify the management of your Express application's lifecycle with xprz's intuitive `App` class. Initialize your application, launch the server, and handle lifecycle events seamlessly:
 ```javascript
-const { App } = require('xpress');
+const { App } = require('xprz');
 const { initApp, listen, launch } = new App();
 
 // Initialize the Express application
@@ -44,7 +44,7 @@ launch();
 ### Middleware Management
 Effortlessly enhance your application's functionality by attaching middleware functions with a simple API:
 ```javascript
-const { App } = require('xpress');
+const { App } = require('xprz');
 const { use, useJsonBody, cors } = new App();
 
 // Enable CORS
@@ -57,7 +57,7 @@ useJsonBody();
 ### Static File Serving
 Serve static files and directories with ease:
 ```javascript
-const { App } = require('xpress');
+const { App } = require('xprz');
 const { static } = new App();
 
 // Serve static files from the 'public' directory
@@ -67,7 +67,7 @@ static('public');
 ### Route Management
 Efficiently organize and manage your application's routes with the `Route` class:
 ```javascript
-const { App, Route } = require('xpress');
+const { App, Route } = require("xprz")
 const { get } = new Route();
 
 // Define a route
@@ -79,7 +79,7 @@ get('/api/users', (req, res) => {
 ### Database Integration
 Seamlessly integrate with MongoDB and MySQL databases:
 ```javascript
-const { App, Database } = require('xpress');
+const { App, Database } = require("xprz")
 const { MongoDB, MySql } = new Database();
 
 // MongoDB usage example
@@ -94,7 +94,7 @@ query('SELECT * FROM users');
 ### HTTP Method Utilities
 Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly:
 ```javascript
-const { HttpMethod } = require('xpress');
+const { HttpMethod } = require("xprz")
 const { GET, POST, PUT, DELETE } = new HttpMethod();
 
 // Define routes for different HTTP methods
@@ -108,29 +108,29 @@ POST('/api/users', (req, res) => {
 ```
 
 ### Package Integration
-Integrate popular Node.js packages seamlessly with XPress. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
+Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 
 ### Shared Application Instance
-Access and share the Express application instance across modules with XPress's `SharedApp` class. Simplify application-wide configuration and access with ease.
+Access and share the Express application instance across modules with xprz's `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Installation
 
-To install XPress and start using it in your project, simply run:
+To install xprz and start using it in your project, simply run:
 
 ```bash
-npm install xpress
+npm install xprz
 ```
 
 ## Usage
 
-Get started with XPress by initializing the components you need and configuring them as per your project requirements. Use the provided examples as a reference to set up your Express application efficiently.
+Get started with xprz by initializing the components you need and configuring them as per your project requirements. Use the provided examples as a reference to set up your Express application efficiently.
 
 ## Examples
 
 ### Basic Example
 
 ```javascript
-const { App, Route } = require('xpress');
+const { App, Route } = require("xprz")
 const { initApp, listen } = new App();
 const { get } = new Route();
 
@@ -139,7 +139,7 @@ initApp();
 
 // Define a basic route
 get('/', (req, res) => {
-  res.send('Hello, XPress!');
+  res.send('Hello, xprz!');
 });
 
 // Start server
@@ -149,7 +149,7 @@ listen(3000);
 ### Real-world Example (Blogging Platform)
 
 ```javascript
-const { App } = require('xpress');
+const { App } = require("xprz")
 const { initApp, loadRoutes, listen } = new App();
 
 // Initialize Express application
@@ -164,19 +164,19 @@ listen(3000);
 
 ## Documentation
 
-For detailed documentation on XPress and its various features, refer to the documents provided in the `doc` folder of the package. The documentation offers comprehensive explanations, usage examples, and best practices to maximize the potential of XPress in your projects.
+For detailed documentation on xprz and its various features, refer to the documents provided in the `doc` folder of the package. The documentation offers comprehensive explanations, usage examples, and best practices to maximize the potential of xprz in your projects.
 
-## Benefits of Using XPress
+## Benefits of Using xprz
 
-- **Productivity**: XPress simplifies complex tasks, allowing developers to focus on building features rather than managing boilerplate code.
+- **Productivity**: xprz simplifies complex tasks, allowing developers to focus on building features rather than managing boilerplate code.
   
-- **Scalability**: With built-in support for middleware, routing, and database integration, XPress facilitates the development of scalable web applications.
+- **Scalability**: With built-in support for middleware, routing, and database integration, xprz facilitates the development of scalable web applications.
 
-- **Flexibility**: XPress offers flexibility in choosing database options, middleware, and package integrations, enabling developers to tailor their applications to specific requirements.
+- **Flexibility**: xprz offers flexibility in choosing database options, middleware, and package integrations, enabling developers to tailor their applications to specific requirements.
 
-- **Community Support**: Backed by a vibrant community of developers, XPress benefits from ongoing improvements, updates, and contributions.
+- **Community Support**: Backed by a vibrant community of developers, xprz benefits from ongoing improvements, updates, and contributions.
 
-- **Performance**: Optimized for performance, XPress ensures that web applications built with it deliver fast and responsive user experiences.
+- **Performance**: Optimized for performance, xprz ensures that web applications built with it deliver fast and responsive user experiences.
 
 ## Bugs and Feedback
 
@@ -184,4 +184,4 @@ If you encounter any bugs or have feedback or suggestions for improvement, pleas
 
 ## License
 
-XPress is licensed under the MIT License. See the [LICENSE](https://github.com/m-mdy-m/XprsJS/blob/main/LICENSE) file for details.
+xprz is licensed under the MIT License. See the [LICENSE](https://github.com/m-mdy-m/XprsJS/blob/main/LICENSE) file for details.

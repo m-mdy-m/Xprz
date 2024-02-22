@@ -4,7 +4,7 @@ const PackageManager = require("./src/manager/PackageManager");
 const AppSharedManager = require("./src/utils/shared.app");
 const httpMethod = require("./src/shared/HTTPMethod");
 const RouteManager = require("./src/shared/RouteManager");
-class XPress {
+class Xprz {
   constructor() {
     this.SharedApp  = AppSharedManager;
     this.App = AppManager;
@@ -14,4 +14,4 @@ class XPress {
     this.Route = RouteManager;
   }
 }
-module.exports = XPress;
+module.exports = Xprz;

@@ -1,6 +1,6 @@
-const XPress  = require('./index')
+const xprz  = require('./index')
 
-const { App,Database,HttpMethod,Package,Route,SharedApp } = new XPress()
+const { App,Database,HttpMethod,Package,Route,SharedApp } = new xprz()
 
 const {closeServer,getExpress,initApp,launch,listen,loadRoutes,middleware,set,setErrorHandler,setTemplateEngine,shutdown,static,use,useJsonBody } = new App()
 const { MongoDB,MySql}= new Database()
