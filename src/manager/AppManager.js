@@ -13,6 +13,15 @@ class AppManager extends App {
     super();
     /** @private */
     this.express = this.getExpress();
+    // Bind methods
+    this.setErrorHandler = this.setErrorHandler.bind(this);
+    this.middleware = this.middleware.bind(this);
+    this.set = this.set.bind(this);
+    this.static = this.static.bind(this);
+    this.useJsonBody = this.useJsonBody.bind(this);
+    this.shutdown = this.shutdown.bind(this);
+    this.setTemplateEngine = this.setTemplateEngine.bind(this);
+    this.loadRoutes = this.loadRoutes.bind(this);
   }
 
   /**
@@ -134,7 +143,6 @@ class AppManager extends App {
    * appManager.loadRoutes('routes');
    */
   loadRoutes(routeDir) {
-    console.log('this.use=>',this.use);
     try {
       // Check if the provided directory exists
       if (!fs.existsSync(routeDir)) {
