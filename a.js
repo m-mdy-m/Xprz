@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const { jwt } = new Package();
-const a = jwt()
+const { multer } = new Package();
+const a = multer()

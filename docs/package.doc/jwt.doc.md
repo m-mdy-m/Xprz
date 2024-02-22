@@ -89,5 +89,5 @@ Middleware for JWT authentication.
 - **Usage:**
   ```javascript
   // Apply JWT authentication middleware
-  app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
+  app.use(jwt().jwtAuthenticate('your_secret_key'));
   ```
