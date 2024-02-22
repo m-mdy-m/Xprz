@@ -156,8 +156,6 @@ For detailed documentation on XPress and its various features, refer to the docu
 
 - **Performance**: Optimized for performance, XPress ensures that web applications built with it deliver fast and responsive user experiences.
 
-
-
 ## Bugs and Feedback
 
 If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/m-mdy-m/XprsJS).
