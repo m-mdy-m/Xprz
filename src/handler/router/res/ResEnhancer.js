@@ -13,6 +13,10 @@ class ResEnhancer extends Response {
    */
   constructor() {
     super();
+    // Bind methods to ensure they have access to the correct 'this' context
+    this.getCookieHandler = this.getCookieHandler.bind(this);
+    this.getHeadersHandler = this.getHeadersHandler.bind(this);
+    this.getJsonHandler = this.getJsonHandler.bind(this);
   }
 
   /**
