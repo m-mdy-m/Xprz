@@ -139,10 +139,9 @@ class AppManager extends App {
       if (!fs.existsSync(routeDir)) {
         throw new RouteLoadingError(`Route directory ${routeDir} does not exist.`);
       }
-  
       // Read the files in the route directory
       fs.readdirSync(routeDir).forEach((file) => {
-        const routePath = path.join(routeDir, file);
+        const routePath = path.join(routeDir, file.replace(/\\/g, '/'));
   
         // Check if the file is a JavaScript file
         if (file.endsWith('.js')) {

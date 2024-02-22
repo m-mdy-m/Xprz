@@ -1,4 +1,5 @@
 const XPress = require("./index");
+const path = require('path');
 
 const { App, Database, HttpMethod, Package, Route, Utils } = new XPress();
 
@@ -11,4 +12,6 @@ router
     send("hi");
   })
   .attachTo(launch());
-loadRoutes("routes");
+// Use __dirname to reference the routes directory
+const routesDirectory = path.join(__dirname, "routes");
+loadRoutes(routesDirectory);
