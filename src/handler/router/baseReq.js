@@ -81,9 +81,6 @@ class baseReq {
   is(types) {
     return this.req.is(types);
   }
-  getPath() {
-    return this.req.path;
-  }
   // Method to get the request method (GET, POST, etc.)
   getMethod() {
     return this.req.method;
@@ -125,7 +122,7 @@ class baseReq {
 
   // Method to get the request charset preferences
   getCharsets() {
-    return this.req.charsets ;
+    return this.req.charsets;
   }
 }
 
