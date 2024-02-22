@@ -1,6 +1,6 @@
 const { getExp } = require("../shareApp");
-const Response = require("../handler/router/res/ResEnhancer");
-const Request = require("../handler/router/req/ReqEnhancer");
+const Response = require("../handler/router/baseRes");
+const Request = require("../handler/router/baseReq");
 
 const {
   RouteManagerError,

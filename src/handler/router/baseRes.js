@@ -10,6 +10,37 @@ class Response {
    */
   constructor(res) {
     this.res = res;
+
+    // Bind all methods to the current instance
+    this.write = this.write.bind(this);
+    this.status = this.status.bind(this);
+    this.links = this.links.bind(this);
+    this.send = this.send.bind(this);
+    this.json = this.json.bind(this);
+    this.end = this.end.bind(this);
+    this.jsonp = this.jsonp.bind(this);
+    this.setHeaders = this.setHeaders.bind(this);
+    this.setHeader = this.setHeader.bind(this);
+    this.getHeader = this.getHeader.bind(this);
+    this.sendStatus = this.sendStatus.bind(this);
+    this.sendFile = this.sendFile.bind(this);
+    this.download = this.download.bind(this);
+    this.contentType = this.contentType.bind(this);
+    this.type = this.type.bind(this);
+    this.format = this.format.bind(this);
+    this.attachment = this.attachment.bind(this);
+    this.append = this.append.bind(this);
+    this.set = this.set.bind(this);
+    this.header = this.header.bind(this);
+    this.get = this.get.bind(this);
+    this.clearCookie = this.clearCookie.bind(this);
+    this.cookie = this.cookie.bind(this);
+    this.location = this.location.bind(this);
+    this.redirect = this.redirect.bind(this);
+    this.vary = this.vary.bind(this);
+    this.render = this.render.bind(this);
+    this.setContentType = this.setContentType.bind(this);
+    this.sendHTML = this.sendHTML.bind(this);
   }
 
   /**
@@ -233,6 +264,19 @@ class Response {
     this.res.append(field, val);
     return this;
   }
+  /**
+   * Sets a single header field with the specified value.
+   * @param {string} field - The header field name.
+   * @param {string|string[]} val - The value(s) to set.
+   * @returns {Response} The Response instance.
+   * @example
+   * // Set a custom header
+   * response.set("X-Custom-Header", "Value");
+   *
+   * // Set multiple headers
+   * response.set("Content-Type", "application/json");
+   * response.set("Cache-Control", "no-cache");
+   */
   set(field, val) {
     this.setHeader(field, val);
     return this;
