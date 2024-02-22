@@ -2,9 +2,9 @@ class Response {
   constructor(res) {
     this.res = res;
   }
-  write(data){
-    this.res.write(data)
-    this.res.end()
+  write(data) {
+    this.res.write(data);
+    this.res.end();
   }
   status(code) {
     this.res.status(code);
@@ -16,13 +16,20 @@ class Response {
     this.res.send(body);
   }
   json(obj) {
-    this.res.json(obj);
+    this.setHeader("Content-Type", "application/json");
+    this.send(JSON.stringify(obj));
   }
   end(any = undefined) {
     this.res.end(any);
   }
   jsonp(obj) {
     this.res.json(obj);
+  }
+  setHeader(field, val) {
+    this.res.setHeader(field, val);
+  }
+  getHeader(field) {
+    return this.res.getHeader(field);
   }
   sendStatus(statusCode) {
     this.res.sendStatus(statusCode);
@@ -67,7 +74,9 @@ class Response {
     this.res.location(url);
   }
   redirect(url) {
-    this.res.redirect(url);
+    this.setHeader("Location", url);
+    this.res.statusCode = 302;
+    this.res.end();
   }
   vary(field) {
     this.res.vary(field);
