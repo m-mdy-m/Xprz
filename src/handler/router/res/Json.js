@@ -1,13 +1,13 @@
 class JsonHandler {
-  constructor(json,status) {
+  constructor(json, status) {
     this.json = json;
-    this.status = status
+    this.status = status;
   }
   // Method to  a success response with a message
-  Success(message) {
+  success(message) {
     return this.json({ success: true, message });
   }
-  ListResponse(items, totalCount, totalPages, currentPage) {
+  list(items, totalCount, totalPages, currentPage) {
     const responseData = {
       items,
       pagination: {
@@ -19,7 +19,7 @@ class JsonHandler {
     return this.json(responseData);
   }
   // Method to  a response indicating that the resource was created successfully
-  CreatedResponse(createdObject) {
+  created(createdObject) {
     return this.status(201).json({
       success: true,
       message: "Resource created successfully",
@@ -27,7 +27,7 @@ class JsonHandler {
     });
   }
   // Method to  a response indicating that the resource was updated successfully
-  UpdatedResponse(updatedObject) {
+  updated(updatedObject) {
     return this.json({
       success: true,
       message: "Resource updated successfully",
@@ -35,11 +35,11 @@ class JsonHandler {
     });
   }
   // Method to  a response indicating that the operation was completed successfully
-  OperationSuccess(message = "Operation successful") {
+  opSuccess(message = "Operation successful") {
     return this.json({ success: true, message });
   }
   // Method to  a response indicating that the operation failed due to validation errors
-  ValidationFailedResponse(validationErrors) {
+  validationFailed(validationErrors) {
     return this.status(422).json({
       success: false,
       error: "Validation failed",
@@ -47,7 +47,7 @@ class JsonHandler {
     });
   }
   // Method to  a response indicating that the resource was deleted successfully
-  DeletedResponse(deletedObject) {
+  deleted(deletedObject) {
     return this.json({
       success: true,
       message: "Resource deleted successfully",
@@ -55,38 +55,37 @@ class JsonHandler {
     });
   }
   // Method to  an error response with a status code and message
-  Error(statusCode, message) {
+  error(statusCode, message) {
     return this.status(statusCode).json({ success: false, error: message });
   }
 
   // Method to  a response with a download link
-  DownloadLink(downloadUrl) {
+  download(downloadUrl) {
     return this.json({ downloadUrl });
   }
 
   // Advanced method to  JSON response with metadata and additional details
-  AdvancedJson(data, metadata = {}) {
+  advanced(data, metadata = {}) {
     return this.json({ data, metadata });
   }
 
-
   // Method to  a response indicating that the request requires authentication
-  AuthenticationRequiredResponse(message = 'Authentication required') {
+  authRequired(message = "Authentication required") {
     return this.status(401).json({ success: false, error: message });
   }
 
   // Method to  a response indicating that the request requires authorization
-  AuthorizationRequiredResponse(message = 'Authorization required') {
+  authzRequired(message = "Authorization required") {
     return this.status(403).json({ success: false, error: message });
   }
 
   // Method to  a response indicating that the server encountered an unexpected error
-  InternalServerErrorResponse(message = 'Internal server error') {
+  internalServerError(message = "Internal server error") {
     return this.status(500).json({ success: false, error: message });
   }
 
   // Method to  a response indicating that the resource is temporarily unavailable
-  ServiceUnavailableResponse(message = 'Service temporarily unavailable') {
+  serviceUnavailable(message = "Service temporarily unavailable") {
     return this.status(503).json({ success: false, error: message });
   }
 }
