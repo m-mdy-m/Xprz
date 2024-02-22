@@ -1,6 +1,14 @@
 const { getExp } = require("../shareApp");
 const Response = require("../handler/router/res/ResEnhancer");
 const Request = require("../handler/router/req/ReqEnhancer");
+
+const {
+  RouteManagerError,
+  RouteManagerValidationError,
+  RouteMethodError,
+  RouteNotFoundError,
+  RouteRegistrationError,
+} = require("../Errors/RouteManager.error");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -28,6 +36,9 @@ class RouteManager {
    * @private
    */
   setRes(res) {
+    if (!res) {
+      throw new RouteManagerValidationError("Response object is required.");
+    }
     this.response = res;
   }
   /**
@@ -36,6 +47,9 @@ class RouteManager {
    * @private
    */
   setReq(req) {
+    if (!req) {
+      throw new RouteManagerValidationError("Request object is required.");
+    }
     this.request = req;
   }
   /**
@@ -144,18 +158,22 @@ class RouteManager {
    * });
    */
   get(...handlers) {
-    if (this.hasMiddleware) {
-      // Register route with middleware
-      this.registerRoute("get", ...handlers);
+    try {
+      if (this.hasMiddleware) {
+        // Register route with middleware
+        this.registerRoute("get", ...handlers);
+      }
+      // Register route without middleware
+      this.router.get(this.path, (req, res) => {
+        let response = this.setRes(res);
+        let request = this.setReq(req);
+        handlers.forEach((h) =>
+          h(request ? request : req, response ? response : res)
+        );
+      });
+    } catch (error) {
+      throw new RouteRegistrationError(`Error registering GET route: ${error.message}` );
     }
-    // Register route without middleware
-    this.router.get(this.path, (req, res) => {
-      let response = this.setRes(res);
-      let request = this.setReq(req);
-      handlers.forEach((h) =>
-        h(request ? request : req, response ? response : res)
-      );
-    });
     return this;
   }
   /**
