@@ -94,8 +94,8 @@ class JsonHandler {
     return this.status(404).json({ success: false, error: message });
   }
   // Method to send a redirect response
-  redirect(url, statusCode = 302) {
-    return this.status(statusCode).json({ success: true, redirectUrl: url });
+  redirectResponse(redirectUrl) {
+    return this.status(302).json({ success: true, message: "Redirecting...", redirectUrl });
   }
   // Method to send a response for successful file upload
   fileUploadSuccess(filename, fileSize) {
