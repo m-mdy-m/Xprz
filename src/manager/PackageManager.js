@@ -5,7 +5,8 @@ const jwtHandler = require("../handler/package/jwt"),
   BodyParser = require("../handler/package/bodyParser"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
-  Csrf = require("../handler/package/csrf");
+  Csrf = require("../handler/package/csrf"),
+  {ModuleNotInstalledError,PackageInitializationError} = require('../Errors/package.manager.error')
 const { useApp, getApp } = require("../shareApp");
 
 function checkPkg(packageName) {
@@ -13,9 +14,7 @@ function checkPkg(packageName) {
     const requiredPackage = require(packageName);
     return requiredPackage;
   } catch {
-    throw new Error(
-      `The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`
-    );
+    throw new ModuleNotInstalledError(packageName);
   }
 }
 /**
@@ -152,9 +151,12 @@ class PackageManager {
    * const store = pkgManager.connectMongoDbSession();
    */
   connectMongoDbSession(...options) {
-    const connectMongoDbSession = checkPkg("connect-mongodb-session")(this.s);
-    const store = new connectMongoDbSession(...options);
-    return store;
+    try {
+      const connectMongoDbSession = require("connect-mongodb-session")(this.s);
+      return new connectMongoDbSession(...options);
+    } catch (error) {
+      throw new PackageInitializationError("connect-mongodb-session", error.message);
+    }
   }
 }
 module.exports = PackageManager;
