@@ -1,13 +1,12 @@
 const MongoDb = require("../handler/database/MongoDB"),
-  MySql = require("../handler/database/MySql");
+  MySql = require("../handler/database/MySql"),
+  ModuleNotInstalledError = require("../Errors/database.error");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);
     return requiredPackage;
   } catch {
-    throw new Error(
-      `The '${packageName}' module is not installed. Please make sure to install it by running 'npm install ${packageName}' before using sessions.`
-    );
+    throw new ModuleNotInstalledError(packageName);
   }
 }
 class DataBaseManager {
