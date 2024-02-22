@@ -10,6 +10,7 @@ class baseReq {
   constructor(req) {
     this.req = req;
 
+    // Bind all methods to the current instance
     this.getQuery = this.getQuery.bind(this);
     this.getBody = this.getBody.bind(this);
     this.getHeaders = this.getHeaders.bind(this);
