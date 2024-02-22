@@ -23,10 +23,10 @@ const s = session({ secret: 'secret', resave: false, saveUninitialized: true })
 const r = new Route() /// methods
 r.setRoute('/').get(()=>{
     const {append,attachment,clearCookie,contentType,cookie,download,end,format,get,getCookieHandler,getHeader,getHeadersHandler,getJsonHandler,header,json,jsonp,links,location,redirect,render,res,send,sendFile,sendHTML,sendStatus,set,setContentType,setHeader,setHeaders,status,type,vary,write } = r.res()
-    const { accepts, getAcceptedContentTypes,getAllParams,getBody,getBodyParam,getCharsets,getCookieName,getCookies,getEncodings,getHeader,getHeaderIgnoreCase,getHeaders,getHost,getHostname,getIp,getLanguages,getMethod,getPath,getProtocol,getQuery,getQueryParam,getSubdomains,getUrl,hasBodyParam,hasCookie,hasHeader,hasHeaderIgnoreCase,hasQueryParam ,is,isAjax,isFresh,isMethod,isSecure,isStale,isXhr,param,req} = r.req()
-    const { clearAllCookies,cookie,countCookies,getAllCookies,getCookie,hasCookie,removeCookie,setCookie} = getCookieHandler()
+    const { accepts, getAcceptedContentTypes,getAllParams,getBody,getBodyParam,getCharsets,getCookieName,getCookies,getEncodings,getHeaderName,getHeadersReq,getHeaderIgnoreCase,getHost,getHostname,getIp,getLanguages,getMethod,getPath,getProtocol,getQuery,getQueryParam,getSubdomains,getUrl,hasBodyParam,hasCookie,hasHeader,hasHeaderIgnoreCase,hasQueryParam ,is,isAjax,isFresh,isMethod,isSecure,isStale,isXhr,param,req} = r.req()
+    const { clearAllCookies,countCookies,getAllCookies,getCookie,isCookie,removeCookie,setCookie} = getCookieHandler()
     const { cacheControl,clearAllHeaders,clearHeader,setContentSecurityPolicy,setContentTypeOptions,setCorsHeaders,setCorsMaxAge,setCrossOriginEmbedderPolicy,setCrossOriginOpenerPolicy,setCrossOriginResourcePolicy,setExpectCTHeader,setExpires,setFeaturePolicy,setFrameOptions,setHSTSHeader,setLocation,setNoSniffHeader,setPragma,setPublicKeyPinsHeader,setReferrerPolicy,setRetryAfter,setStrictTransportSecurity,setTrailer,setTransferEncoding,setUpgrade,setVaryHeader,setWWWAuthenticate,setWarning,setXForwardedFor,setXForwardedProto,setXRealIP,setXssProtection,} = getHeadersHandler()
-    const { advancedJson,authRequired,authzRequired,badRequest,created,deleted,downloadLink,error,fileUploadSuccess,internalServerError,json,list,notFound,opSuccess,redirectResponse,serviceUnavailable,status,success,updated,validationFailed} = getJsonHandler()
+    const { advancedJson,authRequired,authzRequired,badRequest,created,deleted,downloadLink,error,fileUploadSuccess,internalServerError,list,notFound,opSuccess,redirectResponse,serviceUnavailable,success,updated,validationFailed} = getJsonHandler()
 
 })
 

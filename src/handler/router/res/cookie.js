@@ -7,18 +7,19 @@ class CookieHandler {
    * @param {string} [cookie=""] - The initial cookie string.
    */
   constructor(cookie = "") {
+    /** @private */
     this.cookie = cookie;
-     // Bind methods to ensure they have access to the correct 'this' context
-     this.setCookie = this.setCookie.bind(this);
-     this.getCookie = this.getCookie.bind(this);
-     this.getAllCookies = this.getAllCookies.bind(this);
-     this.removeCookie = this.removeCookie.bind(this);
-     this.hasCookie = this.hasCookie.bind(this);
-     this.clearAllCookies = this.clearAllCookies.bind(this);
-     this.countCookies = this.countCookies.bind(this);
-     // Private methods
-     this.serializeCookie = this.serializeCookie.bind(this);
-     this.parseCookies = this.parseCookies.bind(this);
+    // Bind methods to ensure they have access to the correct 'this' context
+    this.setCookie = this.setCookie.bind(this);
+    this.getCookie = this.getCookie.bind(this);
+    this.getAllCookies = this.getAllCookies.bind(this);
+    this.removeCookie = this.removeCookie.bind(this);
+    this.isCookie = this.isCookie.bind(this);
+    this.clearAllCookies = this.clearAllCookies.bind(this);
+    this.countCookies = this.countCookies.bind(this);
+    // Private methods
+    this.serializeCookie = this.serializeCookie.bind(this);
+    this.parseCookies = this.parseCookies.bind(this);
   }
 
   /**
@@ -112,9 +113,9 @@ class CookieHandler {
    * @returns {boolean} True if the cookie exists, otherwise false.
    * @example
    *const { getCookieHandler } = router.res();
-   * const hasCookie = getCookieHandler().hasCookie('username');
+   * const isCookie = getCookieHandler().isCookie('username');
    */
-  hasCookie(name) {
+  isCookie(name) {
     const cookies = this.parseCookies();
     return cookies.hasOwnProperty(name);
   }

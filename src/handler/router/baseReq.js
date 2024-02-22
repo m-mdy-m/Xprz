@@ -13,7 +13,7 @@ class baseReq {
     // Bind all methods to the current instance
     this.getQuery = this.getQuery.bind(this);
     this.getBody = this.getBody.bind(this);
-    this.getHeaders = this.getHeaders.bind(this);
+    this.getHeadersReq = this.getHeadersReq.bind(this);
     this.getUrl = this.getUrl.bind(this);
     this.getPath = this.getPath.bind(this);
     this.isAjax = this.isAjax.bind(this);
@@ -21,7 +21,7 @@ class baseReq {
     this.getIp = this.getIp.bind(this);
     this.getCookies = this.getCookies.bind(this);
     this.hasHeader = this.hasHeader.bind(this);
-    this.getHeader = this.getHeader.bind(this);
+    this.getHeaderName = this.getHeaderName.bind(this);
     this.getProtocol = this.getProtocol.bind(this);
     this.accepts = this.accepts.bind(this);
     this.param = this.param.bind(this);
@@ -64,9 +64,9 @@ class baseReq {
    * Retrieves the request headers.
    * @returns {object} The request headers.
    * @example
-   * const requestHeaders = getHeaders();
+   * const requestHeaders = getHeadersReq();
    */
-  getHeaders() {
+  getHeadersReq() {
     return this.req.headers;
   }
 
@@ -153,10 +153,10 @@ class baseReq {
    * @param {string} headerName - The name of the header.
    * @returns {string} The value of the specified header.
    * @example
-   * const contentType = getHeader('Content-Type');
+   * const contentType = getHeaderName('Content-Type');
    */
 
-  getHeader(headerName) {
+  getHeaderName(headerName) {
     return this.req.headers[headerName];
   }
 

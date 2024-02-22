@@ -43,7 +43,7 @@ Retrieves the request body.
   const requestBody = getBody();
   ```
 
-##### `getHeaders()`
+##### `getHeadersReq()`
 
 Retrieves the request headers.
 
@@ -52,7 +52,7 @@ Retrieves the request headers.
 
 - **Example:**
   ```javascript
-  const requestHeaders = getHeaders();
+  const requestHeaders = getHeadersReq();
   ```
 
 ##### `getUrl()`
@@ -142,7 +142,7 @@ Checks if the request has a specific header.
   const hasContentTypeHeader = hasHeader('Content-Type');
   ```
 
-##### `getHeader(headerName)`
+##### `getHeaderName(headerName)`
 
 Gets the value of a specific request header.
 
@@ -154,7 +154,7 @@ Gets the value of a specific request header.
 
 - **Example:**
   ```javascript
-  const contentType = getHeader('Content-Type');
+  const contentType = getHeaderName('Content-Type');
   ```
 
 ##### `getProtocol()`

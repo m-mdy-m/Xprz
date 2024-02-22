@@ -67,7 +67,7 @@ Removes a cookie with the given name.
   getCookieHandler().removeCookie('username');
   ```
 
-#### `hasCookie(name)`
+#### `isCookie(name)`
 
 Checks if a cookie with the given name exists.
 
@@ -80,7 +80,7 @@ Checks if a cookie with the given name exists.
 - **Example:**
   ```javascript
   const { getCookieHandler } = router.res();
-  const hasCookie = getCookieHandler().hasCookie('username');
+  const isCookie = getCookieHandler().isCookie('username');
   ```
 
 #### `clearAllCookies()`

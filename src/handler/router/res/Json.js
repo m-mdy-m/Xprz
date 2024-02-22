@@ -8,7 +8,9 @@ class JsonHandler {
    * @param {Function} status - The function used to set HTTP status code for responses.
    */
   constructor(json, status) {
+    /** @private */
     this.json = json;
+    /** @private☻ */
     this.status = status;
     // Bind methods to ensure they have access to the correct 'this' context
     this.success = this.success.bind(this);
