@@ -1,5 +1,5 @@
 const { getApp } = require("../shareApp");
-const HTTPMethodError = require("../Errors/HttpMethods.error");
+const {HTTPMethodExecutionError,HTTPMethodRouteError} = require("../Errors/HttpMethods.error");
 const app = getApp();
 /**
  * Represents a utility class for defining HTTP methods in an Express application.
@@ -51,9 +51,13 @@ class HTTPMethod {
    */
   registerRoute(method, handler) {
     if (!this.path) {
-      throw new HTTPMethodError("Base route is not set. Please set the base route using setBaseRoute() before registering routes.");
+      throw new HTTPMethodRouteError("Base route is not set. Please set the base route using setBaseRoute() before registering routes.");
     }
-    this.app[method.toLowerCase()](this.path, handler);
+    try {
+      this.app[method.toLowerCase()](this.path, handler);
+    } catch (error) {
+      throw new HTTPMethodExecutionError(`Error registering ${method.toUpperCase()} route: ${error.message}`);
+    }
     return this;
   }
   /**
