@@ -4,13 +4,7 @@ const baseReq = require("../handler/router/baseReq");
 const Request = require("../handler/router/req/ReqEnhancer");
 const Response = require("../handler/router/res/ResEnhancer");
 
-const {
-  RouteManagerError,
-  RouteManagerValidationError,
-  RouteMethodError,
-  RouteNotFoundError,
-  RouteRegistrationError,
-} = require("../Errors/RouteManager.error");
+const {RouteManagerValidationError,RouteRegistrationError,} = require("../Errors/RouteManager.error");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -64,7 +58,7 @@ class RouteManager {
    * enhancedResponse.status(200).send("Enhanced Response");
    */
   res() {
-    return new Response(this.response)
+    return new Response(this.response);
   }
 
   /**
@@ -77,7 +71,7 @@ class RouteManager {
    * const requestData = enhancedRequest.getBody(); // Accessing request body
    */
   req() {
-    return new Request(this.request)
+    return new Request(this.request);
   }
   /**
    * Attaches the route manager to an Express app.
@@ -201,7 +195,7 @@ class RouteManager {
    * });
    */
   put(...handlers) {
-    return this.registerMethod('put', ...handlers);
+    return this.registerMethod("put", ...handlers);
   }
   /**
    * Registers a PATCH route.
@@ -214,7 +208,7 @@ class RouteManager {
    * });
    */
   patch(...handlers) {
-    return this.registerMethod('patch',...handlers)
+    return this.registerMethod("patch", ...handlers);
   }
 
   /**
@@ -228,7 +222,7 @@ class RouteManager {
    * });
    */
   options(...handlers) {
-    return this.registerMethod('options',...handlers)
+    return this.registerMethod("options", ...handlers);
   }
   /**
    * Registers route parameter validation middleware.
