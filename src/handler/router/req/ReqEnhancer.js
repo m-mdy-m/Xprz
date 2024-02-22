@@ -12,7 +12,7 @@ class ReqEnhancer extends Request {
    * @param {string} paramName - The name of the query parameter to check.
    * @returns {boolean} True if the query parameter exists, otherwise false.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const hasParam = request.hasQueryParam('paramName');
    */
   hasQueryParam(paramName) {
@@ -24,7 +24,7 @@ class ReqEnhancer extends Request {
    * @param {string} paramName - The name of the query parameter to retrieve.
    * @returns {*} The value of the query parameter, or undefined if not found.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const paramValue = request.getQueryParam('paramName');
    */
   getQueryParam(paramName) {
@@ -36,7 +36,7 @@ class ReqEnhancer extends Request {
    * @param {string} paramName - The name of the body parameter to check.
    * @returns {boolean} True if the body parameter exists, otherwise false.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const hasParam = request.hasBodyParam('paramName');
    */
   hasBodyParam(paramName) {
@@ -48,7 +48,7 @@ class ReqEnhancer extends Request {
    * @param {string} paramName - The name of the body parameter to retrieve.
    * @returns {*} The value of the body parameter, or undefined if not found.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const paramValue = request.getBodyParam('paramName');
    */
   getBodyParam(paramName) {
@@ -60,7 +60,7 @@ class ReqEnhancer extends Request {
    * @param {string} cookieName - The name of the cookie to check.
    * @returns {boolean} True if the cookie exists, otherwise false.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const hasCookie = request.hasCookie('cookieName');
    */
   hasCookie(cookieName) {
@@ -72,7 +72,7 @@ class ReqEnhancer extends Request {
    * @param {string} cookieName - The name of the cookie to retrieve.
    * @returns {*} The value of the cookie, or undefined if not found.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const cookieValue = request.getCookieName('cookieName');
    */
   getCookieName(cookieName) {
@@ -84,7 +84,7 @@ class ReqEnhancer extends Request {
    * @param {string} headerName - The name of the header to check.
    * @returns {boolean} True if the header exists, otherwise false.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const hasHeader = request.hasHeaderIgnoreCase('headerName');
    */
   hasHeaderIgnoreCase(headerName) {
@@ -99,7 +99,7 @@ class ReqEnhancer extends Request {
    * @param {string} headerName - The name of the header to retrieve.
    * @returns {*} The value of the header, or undefined if not found.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const headerValue = request.getHeaderIgnoreCase('headerName');
    */
   getHeaderIgnoreCase(headerName) {
@@ -115,7 +115,7 @@ class ReqEnhancer extends Request {
    * @param {string} method - The HTTP method to check (e.g., 'GET', 'POST').
    * @returns {boolean} True if the request method matches the specified method, otherwise false.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const isGetMethod = request.isMethod('GET');
    */
   isMethod(method) {
@@ -125,7 +125,7 @@ class ReqEnhancer extends Request {
    * Retrieves all parameters from the request, including query parameters, body parameters, and cookies.
    * @returns {Object} An object containing all request parameters.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const allParams = request.getAllParams();
    */
   getAllParams() {
@@ -139,7 +139,7 @@ class ReqEnhancer extends Request {
    * Retrieves the accepted content types by the request.
    * @returns {string[]} An array of accepted content types.
    * @example
-   * const request = new req();
+   * const request = new ReqEnhancer();
    * const acceptedTypes = request.getAcceptedContentTypes();
    */
   getAcceptedContentTypes() {
