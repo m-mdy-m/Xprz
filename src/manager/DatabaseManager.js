@@ -21,8 +21,7 @@ class DataBaseManager {
    * const mysql = dbManager.MySql();
    */
   MySql() {
-    const isMysql = "mysql" ? "mysql" : "mysql2";
-    const pkg = checkPkg(isMysql);
+    const pkg = checkPkg("mysql") || checkPkg("mysql2");
     return new MySql(pkg);
   }
 
