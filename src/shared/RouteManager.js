@@ -41,13 +41,24 @@ class RouteManager {
   /**
    * Returns an enhanced response object.
    * @returns {Response} Enhanced response object.
+   * @example
+   * const router = new RouteManager();
+   * // Assuming 'response' is the Express response object
+   * const enhancedResponse = router.res();
+   * enhancedResponse.status(200).send("Enhanced Response");
    */
   res() {
     return new Response(this.response);
   }
+
   /**
    * Returns an enhanced request object.
    * @returns {Request} Enhanced request object.
+   * @example
+   * const router = new RouteManager();
+   * // Assuming 'request' is the Express request object
+   * const enhancedRequest = router.req();
+   * const requestData = enhancedRequest.getBody(); // Accessing request body
    */
   req() {
     return new Request(this.request);
