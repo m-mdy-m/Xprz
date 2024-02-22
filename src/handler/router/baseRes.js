@@ -8,28 +8,33 @@ class Response {
     this.res.end();
   }
   status(code) {
-    this.res.status(code);
+    this.res.statusCode = code;
+    return this;
   }
   links(links) {
     this.res.links(links);
+    return this;
   }
   send(body) {
-    this.res.send(body);
+    this.res.end(body);
+    return this;
   }
   json(obj) {
     this.setHeader("Content-Type", "application/json");
     this.send(JSON.stringify(obj));
+    return this;
   }
   end(any = undefined) {
     this.res.end(any);
   }
   jsonp(obj) {
-    this.res.json(obj);
+    this.json(obj);
   }
   setHeaders(headers) {
     for (const [field, val] of Object.entries(headers)) {
       this.setHeader(field, val);
     }
+    return this;
   }
   setHeader(field, val) {
     this.res.setHeader(field, val);
@@ -64,7 +69,8 @@ class Response {
     this.res.append(field, val);
   }
   set(field, val) {
-    this.header(field, val);
+    this.setHeader(field, val);
+    return this;
   }
   header(field, val) {
     this.res.header(field, val);
@@ -85,6 +91,7 @@ class Response {
     this.setHeader("Location", url);
     this.res.statusCode = 302;
     this.res.end();
+    return this;
   }
   vary(field) {
     const existingVary = this.res.getHeader("Vary") || "";
@@ -96,10 +103,10 @@ class Response {
   }
   setContentType(type) {
     this.setHeader("Content-Type", type);
+    return this;
   }
   sendHTML(html) {
-    this.setContentType("text/html");
-    this.send(html);
+    this.setContentType("text/html").send(html);
   }
 }
 module.exports = Response;
