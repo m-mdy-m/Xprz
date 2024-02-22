@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const { cors } = new Package();
-const a = cors();
+const { jwt } = new Package();
+const a = jwt()
