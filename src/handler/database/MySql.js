@@ -1,3 +1,9 @@
+const {
+  MySqlQueryError,
+  MySqlConnectionError,
+  MySqlTransactionError,
+} = require("../../Errors/database.error");
+
 /**
  * Class representing a MySQL database connection manager.
  */
@@ -70,7 +76,7 @@ class MySql {
     return new Promise((resolve, reject) => {
       this.connection.query(sql, values, (err, results) => {
         if (err) {
-          reject(err);
+          reject(new MySqlQueryError(sql, err.message));
           return;
         }
         resolve(results);
@@ -89,7 +95,7 @@ class MySql {
     return new Promise((resolve, reject) => {
       this.connection.query(sql, (err, results) => {
         if (err) {
-          reject(err);
+          reject(new MySqlQueryError(sql, err.message));
           return;
         }
         resolve(results);
@@ -112,7 +118,7 @@ class MySql {
     return new Promise((resolve, reject) => {
       this.connection.beginTransaction(async (err) => {
         if (err) {
-          reject(err);
+          reject(new MySqlTransactionError("begin", err.message));
           return;
         }
         try {
@@ -121,14 +127,14 @@ class MySql {
           }
           this.connection.commit((err) => {
             if (err) {
-              reject(err);
+              reject(new MySqlTransactionError("commit", err.message));
               return;
             }
             resolve("Transaction successful");
           });
         } catch (error) {
           this.connection.rollback(() => {
-            reject(error);
+            reject(new MySqlTransactionError('rollback', error.message));
           });
         }
       });

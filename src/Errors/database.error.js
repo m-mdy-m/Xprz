@@ -21,4 +21,25 @@ class MongoDBOperationError extends Error {
   }
 }
 
-module.exports = { ModuleNotInstalledError,MongoDBConnectionError,MongoDBOperationError};
+
+class MySqlConnectionError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = this.constructor.name;
+    }
+  }
+  
+  class MySqlQueryError extends Error {
+    constructor(query, error) {
+      super(`Error executing query '${query}': ${error}`);
+      this.name = this.constructor.name;
+    }
+  }
+  
+  class MySqlTransactionError extends Error {
+    constructor(operation, error) {
+      super(`Error during transaction ${operation}: ${error}`);
+      this.name = this.constructor.name;
+    }
+  }
+module.exports = { ModuleNotInstalledError,MongoDBConnectionError,MongoDBOperationError,MySqlConnectionError,MySqlQueryError,MySqlTransactionError};
