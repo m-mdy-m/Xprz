@@ -106,5 +106,8 @@ class JsonHandler {
       fileSize,
     });
   }
+  badRequest(message = "Bad request") {
+    return this.status(400).json({ success: false, error: message });
+  }
 }
 module.exports = JsonHandler;
