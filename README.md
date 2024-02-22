@@ -1,120 +1,153 @@
-# XPress: Your Complete Web Development Companion
+# XPress
 
-Welcome to XPress, the ultimate package for accelerating your web development journey. With XPress, you can build powerful web applications effortlessly, thanks to its comprehensive set of tools and utilities designed to streamline your development process. Whether you're a seasoned developer or just starting out, XPress has something for everyone.
+XPress is a powerful web development framework for Node.js, providing a robust set of features to streamline and enhance your application development experience. With XPress, you can build scalable and feature-rich web applications effortlessly.
 
 ## Features
 
 ### Express Application Management
+Simplify the management of your Express application's lifecycle with XPress's intuitive `App` class. Initialize your application, launch the server, and handle lifecycle events seamlessly:
+```javascript
+const { App } = require('xpress');
+const { initApp, listen, launch } = new App();
 
-With XPress's `App` class, managing your Express application has never been easier. Initialize, launch, and manage your application effortlessly, allowing you to focus on building your application logic.
+// Initialize the Express application
+initApp();
+
+// Start the server
+listen(3000);
+// Or use the alternative
+launch();
+```
 
 ### Middleware Management
+Effortlessly enhance your application's functionality by attaching middleware functions with a simple API:
+```javascript
+const { App } = require('xpress');
+const { use, useJsonBody, cors } = new App();
 
-Easily attach middleware functions to your application using XPress. From enabling CORS to parsing JSON and URL-encoded request bodies, XPress simplifies the process of integrating middleware into your application.
+// Enable CORS
+use(cors());
+
+// Parse JSON and URL-encoded request bodies
+useJsonBody();
+```
 
 ### Static File Serving
+Serve static files and directories with ease:
+```javascript
+const { App } = require('xpress');
+const { static } = new App();
 
-Serve static files and directories with ease using XPress's `static` method. Whether you need to serve images, CSS files, or client-side JavaScript, XPress has you covered.
+// Serve static files from the 'public' directory
+static('public');
+```
 
 ### Route Management
+Efficiently organize and manage your application's routes with the `Route` class:
+```javascript
+const { App, Route } = require('xpress');
+const { get } = new Route();
 
-Efficiently manage your application's routes with XPress's `RouteManager` class. Define routes for various HTTP methods and group them under common paths, making it easy to organize and maintain your application's routing logic.
+// Define a route
+get('/api/users', (req, res) => {
+  // Handle GET request for '/api/users'
+});
+```
+
+### Database Integration
+Seamlessly integrate with MongoDB and MySQL databases:
+```javascript
+const { App, Database } = require('xpress');
+const { MongoDB, MySql } = new Database();
+
+// MongoDB usage example
+const { find } = MongoDB();
+find('users', { username: 'john_doe' });
+
+// MySQL usage example
+const { query } = MySql();
+query('SELECT * FROM users');
+```
+
+### HTTP Method Utilities
+Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly:
+```javascript
+const { HttpMethod } = require('xpress');
+const { GET, POST, PUT, DELETE } = new HttpMethod();
+
+// Define routes for different HTTP methods
+GET('/api/users', (req, res) => {
+  // Handle GET request for '/api/users'
+});
+
+POST('/api/users', (req, res) => {
+  // Handle POST request for '/api/users'
+});
+```
+
+### Package Integration
+Integrate popular Node.js packages seamlessly with XPress. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
+
+### Shared Application Instance
+Access and share the Express application instance across modules with XPress's `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Installation
 
 To install XPress and start using it in your project, simply run:
 
-```
+```bash
 npm install xpress
 ```
 
-For detailed installation instructions and usage examples, please refer to the documentation provided in the `doc` folder of the package.
+## Usage
 
-## Real-world Usage Examples
+Get started with XPress by initializing the components you need and configuring them as per your project requirements. Use the provided examples as a reference to set up your Express application efficiently.
 
-### Blogging Platform
+## Examples
 
-Create a robust blogging platform using XPress:
+### Basic Example
 
 ```javascript
-const XPress = require("xpress");
-const { App, RouteManager } = new XPress();
+const { App, Route } = require('xpress');
+const { initApp, listen } = new App();
+const { get } = new Route();
 
-// Initialize Express app
+// Initialize Express application
+initApp();
+
+// Define a basic route
+get('/', (req, res) => {
+  res.send('Hello, XPress!');
+});
+
+// Start server
+listen(3000);
+```
+
+### Real-world Example (Blogging Platform)
+
+```javascript
+const { App } = require('xpress');
 const { initApp, loadRoutes, listen } = new App();
+
+// Initialize Express application
 initApp();
 
 // Load routes from 'blogRoutes' directory
-loadRoutes("blogRoutes");
+loadRoutes('blogRoutes');
 
 // Start server
 listen(3000);
 ```
 
-### E-commerce Website
+## Documentation
 
-Build a sophisticated e-commerce website with XPress:
+For detailed documentation on XPress and its various features, refer to the documents provided in the `doc` folder of the package. The documentation offers comprehensive explanations, usage examples, and best practices to maximize the potential of XPress in your projects.
 
-```javascript
-const XPress = require("xpress");
-const { App, RouteManager } = new XPress();
+## Bugs and Feedback
 
-// Initialize Express app
-const { initApp, listen } = new App();
-
-const router = new RouteManager();
-
-// Define routes for product management
-router.group("/products", (r) => {
-  r.get("/", (req, res) => {
-    // Handle GET request for '/products'
-  });
-
-  r.post("/", (req, res) => {
-    // Handle POST request for '/products'
-  });
-});
-
-// Start server
-listen(3000);
-```
-
-### RESTful API
-
-Create a RESTful API using XPress:
-
-```javascript
-const XPress = require("xpress");
-const { App, RouteManager } = new XPress();
-
-// Initialize Express app
-const { initApp, listen } = new App();
-
-const router = new RouteManager();
-
-// Define routes for user management
-router.group("/api/users", (r) => {
-  r.get("/", (req, res) => {
-    // Handle GET request for '/api/users'
-  });
-
-  r.post("/", (req, res) => {
-    // Handle POST request for '/api/users'
-  });
-});
-
-// Start server
-listen(3000);
-```
-
-## Feedback and Support
-
-We welcome your feedback and suggestions for improving XPress. If you encounter any bugs or have ideas for new features, please don't hesitate to [open an issue](https://github.com/your-username/xpress/issues) on GitHub.
+If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/your-username/your-repository).
 
 ## License
 
-XPress is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
-
-## Get Started
-
-Ready to supercharge your web development experience? Install XPress today and unlock the full potential of Express.js! Don't forget to check out the documentation for detailed usage instructions and best practices. Let's build amazing things together with XPress!
+XPress is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
