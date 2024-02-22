@@ -399,10 +399,8 @@ Sets the Cross-Origin Resource Policy (CORP) header to control which origins can
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
- 
-
- getHeadersHandler().setCrossOriginResourcePolicy("same-site");
+    const { getHeadersHandler } = router.res();
+    getHeadersHandler().setCrossOriginResourcePolicy("same-site");
   ```
 
 #### `clearHeader(name)`
