@@ -88,5 +88,23 @@ class JsonHandler {
   serviceUnavailable(message = "Service temporarily unavailable") {
     return this.status(503).json({ success: false, error: message });
   }
+
+  // Method to send a response indicating that the resource was not found
+  notFound(message = "Resource not found") {
+    return this.status(404).json({ success: false, error: message });
+  }
+  // Method to send a redirect response
+  redirect(url, statusCode = 302) {
+    return this.status(statusCode).json({ success: true, redirectUrl: url });
+  }
+  // Method to send a response for successful file upload
+  fileUploadSuccess(filename, fileSize) {
+    return this.json({
+      success: true,
+      message: "File uploaded successfully",
+      filename,
+      fileSize,
+    });
+  }
 }
 module.exports = JsonHandler;
