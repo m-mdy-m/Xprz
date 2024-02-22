@@ -22,15 +22,33 @@ class RouteManager {
     this.response = null;
     this.request = null;
   }
+  /**
+   * Sets the response object.
+   * @param {object} res - Express response object.
+   * @private
+   */
   setRes(res) {
     this.response = res;
   }
+  /**
+   * Sets the request object.
+   * @param {object} req - Express request object.
+   * @private
+   */
   setReq(req) {
     this.request = req;
   }
+  /**
+   * Returns an enhanced response object.
+   * @returns {Response} Enhanced response object.
+   */
   res() {
     return new Response(this.response);
   }
+  /**
+   * Returns an enhanced request object.
+   * @returns {Request} Enhanced request object.
+   */
   req() {
     return new Request(this.request);
   }
