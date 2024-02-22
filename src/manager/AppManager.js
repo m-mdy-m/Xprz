@@ -137,12 +137,19 @@ class AppManager extends App {
   /**
    * Dynamically loads and mounts routes from a specified directory.
    * @param {string} routeDir - The directory containing route files.
+   * @param {boolean} [log=true] - Whether to log the loaded routes.
    * @example
-   * const appManager = new App();
+   * const appManager = new AppManager();
    * // Assuming 'routes' is the directory containing route files
    * appManager.loadRoutes('routes');
+   *
+   * @example
+   * const appManager = new AppManager();
+   * // Assuming 'routes' is the directory containing route files
+   * // Do not log loaded routes
+   * appManager.loadRoutes('routes', false);
    */
-  loadRoutes(routeDir) {
+  loadRoutes(routeDir, log = true) {
     try {
       // Check if the provided directory exists
       if (!fs.existsSync(routeDir)) {
@@ -163,7 +170,9 @@ class AppManager extends App {
           if (typeof route === "function") {
             // Mount the route
             this.use(route);
-            console.log(`Route ${routePath} loaded successfully.`);
+            if (log) {
+              console.log(`Route ${routePath} loaded successfully.`);
+            }
           } else {
             console.warn(`Skipping non-function route in file: ${routePath}`);
           }
