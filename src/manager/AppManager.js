@@ -1,5 +1,7 @@
 const App = require("../shared/App");
-const { ShutdownError} = require('../Errors/App.error')
+const { ShutdownError } = require("../Errors/App.error");
+const fs = require("fs");
+const path = require("path");
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -10,7 +12,7 @@ class AppManager extends App {
   constructor() {
     super();
     /** @private */
-    this.express = this.getExpress()
+    this.express = this.getExpress();
   }
 
   /**
@@ -20,7 +22,7 @@ class AppManager extends App {
    * @returns {void}
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.setErrorHandler(errorHandler);
    */
   setErrorHandler(...errorHandler) {
@@ -34,7 +36,7 @@ class AppManager extends App {
    * @returns {void}
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.middleware(myMiddlewareFunction);
    */
   middleware(...handler) {
@@ -48,7 +50,7 @@ class AppManager extends App {
    * @returns {void}
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.set('title', 'My Express App');
    */
   set(...handler) {
@@ -62,7 +64,7 @@ class AppManager extends App {
    * @returns {void}
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.static('public');
    */
   static(...handlers) {
@@ -75,7 +77,7 @@ class AppManager extends App {
    * @returns {void}
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.useJsonBody();
    */
   useJsonBody(status = false) {
@@ -89,7 +91,7 @@ class AppManager extends App {
    * @returns {Promise<void>} A promise that resolves when the application is shut down.
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * appManager.shutdown().then(() => {
    *   console.log('Application shut down successfully.');
    * }).catch((err) => {
@@ -100,7 +102,9 @@ class AppManager extends App {
     return new Promise((resolve, reject) => {
       this.app.close((err) => {
         if (err) {
-          reject(new ShutdownError(`Error shutting down application: ${err.message}`));
+          reject(
+            new ShutdownError(`Error shutting down application: ${err.message}`)
+          );
         } else {
           resolve();
         }
@@ -113,13 +117,29 @@ class AppManager extends App {
    * @returns {TemplateEngines} An instance of TemplateEngines.
    *
    * @example
-   * const appManager = new AppManager();
+   * const appManager = new App();
    * const templateEngines = appManager.setTemplateEngine();
    * templateEngines.Ejs();
    */
   setTemplateEngine() {
     const TemplateEngines = require("../utils/templateEngines");
     return new TemplateEngines();
+  }
+  /**
+   * Dynamically loads and mounts routes from a specified directory.
+   * @param {string} routeDir - The directory containing route files.
+   * @example
+   * const appManager = new App();
+   * // Assuming 'routes' is the directory containing route files
+   * appManager.loadRoutes('routes');
+   */
+  loadRoutes(routeDir) {
+    fs.readdirSync(routeDir).forEach((file) => {
+      const routePath = path.join(routeDir, file);
+      const route = require(routePath);
+      this.use(route);
+      console.log(`Route ${routePath} loaded successfully.`);
+    });
   }
 }
 module.exports = AppManager;
