@@ -4,7 +4,8 @@ const Request = require("../baseReq");
  * @extends Request
  */
 class ReqEnhancer extends Request {
-  constructor() {
+  constructor(req) {
+    new Request(req)
     super();
   }
   /**

@@ -11,8 +11,9 @@ class ResEnhancer extends Response {
   /**
    * Creates a new ResEnhancer instance.
    */
-  constructor() {
+  constructor(res) {
     super();
+    new Response(res)
   }
 
   /**

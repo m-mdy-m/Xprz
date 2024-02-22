@@ -1,12 +1,13 @@
-const App = require("./src/shared/App");
-const RouteManager = require("./src/shared/RouteManager");
+const XPress = require('./index')
 
-const { launch } = new App();
+const { App,AppManager,Database,HttpMethod,Package,Route,Utils,} = new XPress()
 
-const router = new RouteManager();
-
-router.setRoute("/").get(() => {
-  const { } = router.req()
-  const { } = router.res()
-});
-router.attachTo(launch());
+const { closeServer,getExpress,initApp,launch,listen,use} = new App()
+launch()
+const { getApp} = Utils
+const app = getApp()
+const router = new Route()
+router.setRoute('/').get(()=>{
+  const { send } =router.res()
+  send()
+}).attachTo(app)
