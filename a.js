@@ -20,7 +20,7 @@ const { createTransport,getNodeMailer,send,setMailOptions} = nodemailer()
 const s = session({ secret: 'secret', resave: false, saveUninitialized: true })
 
 // const {attachTo,del,get,group,options,patch,post,prefix,put,req,res,setError,setRoute,setValidator,using} = new Route() /// methods
-const r = new Route() /// methods
+const r = new Route() 
 r.setRoute('/').get(()=>{
     const {append,attachment,clearCookie,contentType,cookie,download,end,format,get,getCookieHandler,getHeader,getHeadersHandler,getJsonHandler,header,json,jsonp,links,location,redirect,render,res,send,sendFile,sendHTML,sendStatus,set,setContentType,setHeader,setHeaders,status,type,vary,write } = r.res()
     const { accepts, getAcceptedContentTypes,getAllParams,getBody,getBodyParam,getCharsets,getCookieName,getCookies,getEncodings,getHeaderName,getHeadersReq,getHeaderIgnoreCase,getHost,getHostname,getIp,getLanguages,getMethod,getPath,getProtocol,getQuery,getQueryParam,getSubdomains,getUrl,hasBodyParam,hasCookie,hasHeader,hasHeaderIgnoreCase,hasQueryParam ,is,isAjax,isFresh,isMethod,isSecure,isStale,isXhr,param,req} = r.req()
