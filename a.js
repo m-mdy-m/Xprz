@@ -9,5 +9,5 @@ const app = getApp()
 const router = new Route()
 router.setRoute('/').get(()=>{
   const { send } =router.res()
-  send()
+  send('hi')
 }).attachTo(app)
