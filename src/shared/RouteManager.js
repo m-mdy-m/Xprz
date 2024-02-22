@@ -158,21 +158,7 @@ class RouteManager {
    * });
    */
   get(...handlers) {
-    try {
-      if (this.hasMiddleware) {
-        // Register route with middleware
-        this.registerRoute("get", ...handlers);
-      }
-      // Register route without middleware
-      this.router.get(this.path, (req, res) => {
-        let response = this.setRes(res);
-        let request = this.setReq(req);
-        handlers.forEach((h) => h(request ? request : req, response ? response : res));
-      });
-    } catch (error) {
-      throw new RouteRegistrationError(`Error registering GET route: ${error.message}`);
-    }
-    return this;
+    return this.registerMethod("get", ...handlers);
   }
   /**
    * Registers a POST route.
@@ -185,9 +171,7 @@ class RouteManager {
    * });
    */
   post(...handlers) {
-    // Register POST route
-    this.router.post(this.path, ...handlers);
-    return this;
+    return this.registerMethod("post", ...handlers);
   }
 
   /**
@@ -201,9 +185,7 @@ class RouteManager {
    * });
    */
   del(...handlers) {
-    // Register DELETE route
-    this.router.delete(this.path, ...handlers);
-    return this;
+    return this.registerMethod("delete", ...handlers);
   }
 
   /**
@@ -217,9 +199,7 @@ class RouteManager {
    * });
    */
   put(...handlers) {
-    // Register PUT route
-    this.router.put(this.path, ...handlers);
-    return this;
+    return this.registerMethod('put', ...handlers);
   }
   /**
    * Registers a PATCH route.
@@ -232,8 +212,7 @@ class RouteManager {
    * });
    */
   patch(...handlers) {
-    this.router.patch(this.path, ...handlers);
-    return this;
+    return this.registerMethod('patch',...handlers)
   }
 
   /**
@@ -247,8 +226,7 @@ class RouteManager {
    * });
    */
   options(...handlers) {
-    this.router.options(this.path, ...handlers);
-    return this;
+    return this.registerMethod('options',...handlers)
   }
   /**
    * Registers route parameter validation middleware.
@@ -303,6 +281,32 @@ class RouteManager {
         `Error registering ${method.toUpperCase()} route: ${error.message}`
       );
     }
+  }
+  /**
+   * Registers a method with the given method and handlers.
+   * @private
+   */
+  registerMethod(method, ...handlers) {
+    try {
+      if (this.hasMiddleware) {
+        // Register route with middleware
+        this.registerRoute(method, ...handlers);
+      } else {
+        // Register route without middleware
+        this.router[method](this.path, (req, res) => {
+          let response = this.setRes(res);
+          let request = this.setReq(req);
+          handlers.forEach((h) =>
+            h(request ? request : req, response ? response : res)
+          );
+        });
+      }
+    } catch (error) {
+      throw new RouteRegistrationError(
+        `Error registering ${method.toUpperCase()} route: ${error.message}`
+      );
+    }
+    return this;
   }
 }
 
