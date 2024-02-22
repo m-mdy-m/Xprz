@@ -1,4 +1,4 @@
-const { getApp, useApp, setApp, getExp } = require("../shareApp");
+const { getApp, useApp, getExp } = require("../shareApp");
 
 class AppSharedManager {
   constructor() {
