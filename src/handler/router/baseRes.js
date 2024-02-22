@@ -94,5 +94,12 @@ class Response {
   render(view, options, callback) {
     this.res.render(view, options, callback);
   }
+  setContentType(type) {
+    this.setHeader("Content-Type", type);
+  }
+  sendHTML(html) {
+    this.setContentType("text/html");
+    this.send(html);
+  }
 }
 module.exports = Response;
