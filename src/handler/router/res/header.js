@@ -10,6 +10,40 @@ class HeadersHandler {
   constructor(header, res) {
     this.header = header;
     this.res = res;
+
+    // Bind methods to ensure they have access to the correct 'this' context
+    this.cacheControl = this.cacheControl.bind(this);
+    this.setCorsHeaders = this.setCorsHeaders.bind(this);
+    this.setLocation = this.setLocation.bind(this);
+    this.setCorsMaxAge = this.setCorsMaxAge.bind(this);
+    this.setVaryHeader = this.setVaryHeader.bind(this);
+    this.setPragma = this.setPragma.bind(this);
+    this.setTrailer = this.setTrailer.bind(this);
+    this.setTransferEncoding = this.setTransferEncoding.bind(this);
+    this.setUpgrade = this.setUpgrade.bind(this);
+    this.setWarning = this.setWarning.bind(this);
+    this.setWWWAuthenticate = this.setWWWAuthenticate.bind(this);
+    this.setXForwardedFor = this.setXForwardedFor.bind(this);
+    this.setXForwardedProto = this.setXForwardedProto.bind(this);
+    this.setXRealIP = this.setXRealIP.bind(this);
+    this.setRetryAfter = this.setRetryAfter.bind(this);
+    this.setExpires = this.setExpires.bind(this);
+    this.setContentTypeOptions = this.setContentTypeOptions.bind(this);
+    this.setContentSecurityPolicy = this.setContentSecurityPolicy.bind(this);
+    this.setHSTSHeader = this.setHSTSHeader.bind(this);
+    this.setNoSniffHeader = this.setNoSniffHeader.bind(this);
+    this.setReferrerPolicy = this.setReferrerPolicy.bind(this);
+    this.setStrictTransportSecurity = this.setStrictTransportSecurity.bind(this);
+    this.setFrameOptions = this.setFrameOptions.bind(this);
+    this.setXssProtection = this.setXssProtection.bind(this);
+    this.setExpectCTHeader = this.setExpectCTHeader.bind(this);
+    this.setFeaturePolicy = this.setFeaturePolicy.bind(this);
+    this.setPublicKeyPinsHeader = this.setPublicKeyPinsHeader.bind(this);
+    this.setCrossOriginEmbedderPolicy = this.setCrossOriginEmbedderPolicy.bind(this);
+    this.setCrossOriginOpenerPolicy = this.setCrossOriginOpenerPolicy.bind(this);
+    this.setCrossOriginResourcePolicy = this.setCrossOriginResourcePolicy.bind(this);
+    this.clearHeader = this.clearHeader.bind(this);
+    this.clearAllHeaders = this.clearAllHeaders.bind(this);
   }
   /**
    * Sets the Cache-Control header for caching directives.
