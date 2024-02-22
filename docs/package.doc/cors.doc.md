@@ -6,7 +6,6 @@ Configures CORS middleware in an Express application.
 
 - **Parameters:**
   - `cors` (Function): The CORS package.
-  - `use` (Function): The Express app's `use` function.
   - `options` (Object): Options for configuring CORS middleware.
 
 ### Methods

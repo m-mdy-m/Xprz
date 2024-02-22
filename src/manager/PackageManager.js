@@ -29,7 +29,7 @@ class PackageManager {
    * @param {...any} options - Options for configuring the session middleware.
    * @throws {Error} Throws an error if Express app has not been initialized.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * pkgManager.session({ secret: 'secret', resave: false, saveUninitialized: true });
    */
   session(...options) {
@@ -43,7 +43,7 @@ class PackageManager {
    * Initialize and configure JWT handler.
    * @returns {jwtHandler} Instance of jwtHandler.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const jwt = pkgManager.jwt();
    */
   jwt() {
@@ -55,7 +55,7 @@ class PackageManager {
    * Initialize and configure multer middleware.
    * @returns {MulterHandler} Instance of MulterHandler.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const multer = pkgManager.multer();
    */
   multer() {
@@ -68,7 +68,7 @@ class PackageManager {
    * Initialize and configure Nodemailer handler.
    * @returns {NodemailerHandler} Instance of NodemailerHandler.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const nodemailer = pkgManager.nodemailer();
    */
   nodemailer() {
@@ -80,7 +80,7 @@ class PackageManager {
    * Initialize and configure bcryptjs handler.
    * @returns {bcryptjsHandler} Instance of bcryptjsHandler.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const bcryptjs = pkgManager.bcryptjs();
    */
   bcryptjs() {
@@ -93,7 +93,7 @@ class PackageManager {
    * @param {...Function} handler - Optional additional handlers to use with body-parser.
    * @returns {BodyParser} Instance of BodyParser.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const bodyParser = pkgManager.bodyParser();
    */
   bodyParser(...handler) {
@@ -106,7 +106,7 @@ class PackageManager {
    * Initialize and configure CSRF protection middleware.
    * @returns {Csrf} Instance of Csrf.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const csrf = pkgManager.csrf();
    */
   csrf() {
@@ -120,8 +120,8 @@ class PackageManager {
    * @param {...Function} handler - Optional additional handlers to use with CORS.
    * @returns {Cors} Instance of Cors.
    * @example
-   * const pkgManager = new PackageManager();
-   * const cors = pkgManager.cors();
+   * const pkgManager = new Package();
+   * const cors = pkgManager.cors(...handler);
    */
   cors(...handler) {
     const pkg = checkPkg("cors");
@@ -133,7 +133,7 @@ class PackageManager {
    * Initialize and configure flash middleware.
    * @returns {flash} Instance of flash.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const flash = pkgManager.flash();
    */
   flash() {
@@ -147,7 +147,7 @@ class PackageManager {
    * @param {...any} options - Options for configuring the MongoDB session store.
    * @returns {Object} Instance of MongoDB session store.
    * @example
-   * const pkgManager = new PackageManager();
+   * const pkgManager = new Package();
    * const store = pkgManager.connectMongoDbSession();
    */
   connectMongoDbSession(...options) {

@@ -1,4 +1,3 @@
-```markdown
 ## `CsrfHandler`
 
 Configures CSRF protection middleware in an Express application.
@@ -7,8 +6,6 @@ Configures CSRF protection middleware in an Express application.
 
 - **Parameters:**
   - `csrf` (Function): The CSRF package.
-  - `use` (Function): The Express app's `use` function.
-
 ### Methods
 
 #### `get()`
