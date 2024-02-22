@@ -1,7 +1,8 @@
 class CustomError extends Error {
   constructor(message) {
     super(message);
-    this.message = message;
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 class ExpressNotInitializedError extends CustomError {
@@ -10,4 +11,4 @@ class ExpressNotInitializedError extends CustomError {
   }
 }
 
-module.exports = {ExpressNotInitializedError}
+module.exports = { ExpressNotInitializedError };
