@@ -1,8 +1,30 @@
 # XPress
 
-XPress is a powerful web development framework for Node.js, providing a robust set of features to streamline and enhance your application development experience. With XPress, you can build scalable and feature-rich web applications effortlessly.
+XPress is a versatile web development framework for Node.js, offering a comprehensive suite of features to streamline your application development process. With XPress, you can quickly build robust web applications with ease.
+
+## Overview
+
+XPress provides a wide range of functionalities to simplify and enhance your Node.js web development experience. Here's a brief overview of some key components and features:
+
+## Components
+
+- **App**: Manage your Express application's lifecycle effortlessly with the `App` class. Initialize, launch, and handle server events seamlessly.
+- **Database**: Seamlessly integrate with MongoDB and MySQL databases for efficient data management and CRUD operations.
+- **HttpMethod**: Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly.
+- **Package**: Integrate popular Node.js packages seamlessly with XPress. Enjoy out-of-the-box support for essential packages like bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
+- **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
+- **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Features
+
+- **Middleware Management**: Effortlessly enhance your application's functionality by attaching middleware functions with a simple API.
+- **Static File Serving**: Serve static files and directories effortlessly to handle CSS, JavaScript, images, and more.
+- **Database Integration**: Seamlessly integrate with MongoDB and MySQL databases for efficient data management.
+- **HTTP Method Utilities**: Simplify HTTP method handling with predefined utility methods for GET, POST, PUT, DELETE, and more.
+- **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
+- **Shared Application Instance**: Share the Express application instance across modules for easy access and configuration.
+
+## Example Features:
 
 ### Express Application Management
 Simplify the management of your Express application's lifecycle with XPress's intuitive `App` class. Initialize your application, launch the server, and handle lifecycle events seamlessly:
