@@ -360,3 +360,161 @@ Retrieves the request charset preferences.
   ```javascript
   const charsets = getCharsets();
   ```
+##### `hasQueryParam(paramName)`
+
+Checks if the request has a specific query parameter.
+
+- **Parameters:**
+  - `paramName` (string): The name of the query parameter to check.
+
+- **Returns:**
+  - `boolean`: True if the query parameter exists, otherwise false.
+
+- **Example:**
+  ```javascript
+  const hasParam = hasQueryParam('paramName');
+  ```
+
+##### `getQueryParam(paramName)`
+
+Retrieves a specific query parameter from the request.
+
+- **Parameters:**
+  - `paramName` (string): The name of the query parameter to retrieve.
+
+- **Returns:**
+  - `*`: The value of the query parameter, or undefined if not found.
+
+- **Example:**
+  ```javascript
+  const paramValue = getQueryParam('paramName');
+  ```
+
+##### `hasBodyParam(paramName)`
+
+Checks if the request has a specific body parameter.
+
+- **Parameters:**
+  - `paramName` (string): The name of the body parameter to check.
+
+- **Returns:**
+  - `boolean`: True if the body parameter exists, otherwise false.
+
+- **Example:**
+  ```javascript
+  const hasParam = hasBodyParam('paramName');
+  ```
+
+##### `getBodyParam(paramName)`
+
+Retrieves a specific body parameter from the request.
+
+- **Parameters:**
+  - `paramName` (string): The name of the body parameter to retrieve.
+
+- **Returns:**
+  - `*`: The value of the body parameter, or undefined if not found.
+
+- **Example:**
+  ```javascript
+  const paramValue = getBodyParam('paramName');
+  ```
+
+##### `hasCookie(cookieName)`
+
+Checks if the request has a specific cookie.
+
+- **Parameters:**
+  - `cookieName` (string): The name of the cookie to check.
+
+- **Returns:**
+  - `boolean`: True if the cookie exists, otherwise false.
+
+- **Example:**
+  ```javascript
+  const hasCookie = hasCookie('cookieName');
+  ```
+
+##### `getCookieName(cookieName)`
+
+Retrieves a specific cookie from the request.
+
+- **Parameters:**
+  - `cookieName` (string): The name of the cookie to retrieve.
+
+- **Returns:**
+  - `*`: The value of the cookie, or undefined if not found.
+
+- **Example:**
+  ```javascript
+  const cookieValue = getCookieName('cookieName');
+  ```
+
+##### `hasHeaderIgnoreCase(headerName)`
+
+Checks if the request has a specific header with a case-insensitive comparison.
+
+- **Parameters:**
+  - `headerName` (string): The name of the header to check.
+
+- **Returns:**
+  - `boolean`: True if the header exists, otherwise false.
+
+- **Example:**
+  ```javascript
+  const hasHeader = hasHeaderIgnoreCase('headerName');
+  ```
+
+##### `getHeaderIgnoreCase(headerName)`
+
+Retrieves a specific header from the request with a case-insensitive comparison.
+
+- **Parameters:**
+  - `headerName` (string): The name of the header to retrieve.
+
+- **Returns:**
+  - `*`: The value of the header, or undefined if not found.
+
+- **Example:**
+  ```javascript
+  const headerValue = getHeaderIgnoreCase('headerName');
+  ```
+
+##### `isMethod(method)`
+
+Checks if the request is sent with a specific HTTP method.
+
+- **Parameters:**
+  - `method` (string): The HTTP method to check (e.g., 'GET', 'POST').
+
+- **Returns:**
+  - `boolean`: True if the request method matches the specified method, otherwise false.
+
+- **Example:**
+  ```javascript
+  const isGetMethod = isMethod('GET');
+  ```
+
+##### `getAllParams()`
+
+Retrieves all parameters from the request, including query parameters, body parameters, and cookies.
+
+- **Returns:**
+  - `Object`: An object containing all request parameters.
+
+- **Example:**
+  ```javascript
+  const allParams = getAllParams();
+  ```
+
+##### `getAcceptedContentTypes()`
+
+Retrieves the accepted content types by the request.
+
+- **Returns:**
+  - `string[]`: An array of accepted content types.
+
+- **Example:**
+  ```javascript
+  const acceptedTypes = getAcceptedContentTypes();
+  ```
