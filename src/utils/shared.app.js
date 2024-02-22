@@ -40,7 +40,7 @@ class AppSharedManager {
      *   throw new Error('Express module instance has not been initialized yet.');
      * }
      */
-    this.getExpress = getExp;
+    this.getExp = getExp;
   }
 }
 
