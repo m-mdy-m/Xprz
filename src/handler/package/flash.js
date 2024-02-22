@@ -20,7 +20,7 @@ class FlashHandler {
    * Get the configured flash middleware.
    * @returns {Function} The configured flash middleware.
    */
-  get() {
+  getFlash() {
     return this.flash;
   }
 }

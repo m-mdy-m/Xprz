@@ -8,7 +8,7 @@ Configures CSRF protection middleware in an Express application.
   - `csrf` (Function): The CSRF package.
 ### Methods
 
-#### `get()`
+#### `getCsrf()`
 
 Get the configured CSRF middleware.
 
@@ -18,7 +18,7 @@ Get the configured CSRF middleware.
 - **Usage:**
   ```javascript
   const { csrf } = new Package();
-  const csrfMiddleware = csrf().get();
+  const csrfMiddleware = csrf().getCsrf();
   ```
 
 #### `configure(options)`

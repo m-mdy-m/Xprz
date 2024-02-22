@@ -10,7 +10,7 @@ Configures CORS middleware in an Express application.
 
 ### Methods
 
-#### `get()`
+#### `getCors()`
 
 Get the configured CORS middleware.
 
@@ -20,4 +20,4 @@ Get the configured CORS middleware.
 - **Usage:**
   ```javascript
   const {cors} = new Package()
-  const corsMiddleware = cors().get();
+  const corsMiddleware = cors().getCors();

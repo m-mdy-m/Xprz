@@ -9,7 +9,7 @@ Configures flash middleware in an Express application.
 
 ### Methods
 
-#### `get()`
+#### `getFlash()`
 
 Get the configured flash middleware.
 
@@ -19,5 +19,5 @@ Get the configured flash middleware.
 - **Usage:**
   ```javascript
   const { flash } = new Package();
-  const flashMiddleware = flash().get();
+  const flashMiddleware = flash().getFlash();
   ```

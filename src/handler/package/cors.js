@@ -20,7 +20,7 @@ class CorsHandler {
    * Get the configured CORS middleware.
    * @returns {Function} The configured CORS middleware.
    */
-  get() {
+  getCors() {
     return this.cors;
   }
 }

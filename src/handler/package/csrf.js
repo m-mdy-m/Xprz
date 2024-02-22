@@ -22,7 +22,7 @@ class CsrfHandler {
    * Get the configured CSRF middleware.
    * @returns {Function} The configured CSRF middleware.
    */
-  get() {
+  getCsrf() {
     return this.csrf;
   }
 
