@@ -1,3 +1,4 @@
+const http = require("http");
 class Response {
   constructor(res) {
     this.res = res;
@@ -25,6 +26,11 @@ class Response {
   jsonp(obj) {
     this.res.json(obj);
   }
+  setHeaders(headers) {
+    for (const [field, val] of Object.entries(headers)) {
+      this.setHeader(field, val);
+    }
+  }
   setHeader(field, val) {
     this.res.setHeader(field, val);
   }
@@ -32,7 +38,9 @@ class Response {
     return this.res.getHeader(field);
   }
   sendStatus(statusCode) {
-    this.res.sendStatus(statusCode);
+    this.res.statusCode = statusCode;
+    this.res.statusMessage = http.STATUS_CODES[statusCode];
+    this.res.end(`${statusCode} ${http.STATUS_CODES[statusCode]}`);
   }
   sendFile(path, fn = undefined) {
     this.res.sendFile(path, fn);
@@ -79,7 +87,9 @@ class Response {
     this.res.end();
   }
   vary(field) {
-    this.res.vary(field);
+    const existingVary = this.res.getHeader("Vary") || "";
+    const newVary = existingVary ? `${existingVary}, ${field}` : field;
+    this.setHeader("Vary", newVary);
   }
   render(view, options, callback) {
     this.res.render(view, options, callback);
