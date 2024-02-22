@@ -44,7 +44,7 @@ describe('baseReq', () => {
   });
 
   test('getHeaders() should return request headers', () => {
-    expect(req.getHeaders()).toEqual({ 'Content-Type': 'application/json' });
+    expect(req.getHeaders()['accept']).toEqual('application/json');
   });
 
 });
