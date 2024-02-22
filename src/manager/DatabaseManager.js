@@ -1,6 +1,6 @@
 const MongoDb = require("../handler/database/MongoDB"),
   MySql = require("../handler/database/MySql"),
-  ModuleNotInstalledError = require("../Errors/database.error");
+  {ModuleNotInstalledError} = require("../Errors/database.error");
 function checkPkg(packageName) {
   try {
     const requiredPackage = require(packageName);

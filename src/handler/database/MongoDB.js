@@ -1,3 +1,8 @@
+const {
+  ModuleNotInstalledError,
+  MongoDBConnectionError,
+  MongoDBOperationError,
+} = require("../../Errors/database.error");
 /**
  * Class representing a MongoDB database connection manager.
  */
@@ -47,7 +52,7 @@ class MongoDB {
       }
       return this.mongoClient;
     } catch (error) {
-      throw error;
+      throw new MongoDBConnectionError("Failed to connect to MongoDB database");
     }
   }
   /**
@@ -104,7 +109,11 @@ class MongoDB {
         attempts++;
       }
 
-      reject(new Error("Property not obtained after maximum attempts"));
+      reject(
+        new MongoDBConnectionError(
+          "Failed to obtain property after maximum attempts"
+        )
+      );
     });
   }
 
@@ -118,10 +127,14 @@ class MongoDB {
    * const users = await mongodb.find('users', { age: { $gt: 18 } });
    */
   async find(collectionName, query, options = {}) {
-    const db = await this.getDb();
-    const collection = db.collection(collectionName);
-    const result = await collection.find(query, options).toArray();
-    return result;
+    try {
+      const db = await this.getDb();
+      const collection = db.collection(collectionName);
+      const result = await collection.find(query, options).toArray();
+      return result;
+    } catch (error) {
+      throw new MongoDBOperationError("find", error.message);
+    }
   }
 
   /**
@@ -134,10 +147,14 @@ class MongoDB {
    * const newUser = await mongodb.insert('users', { name: 'John', age: 30 });
    */
   async insert(collectionName, document, options = {}) {
-    const db = await this.getDb();
-    const collection = db.collection(collectionName);
-    const result = await collection.insertOne(document, options);
-    return result;
+    try {
+      const db = await this.getDb();
+      const collection = db.collection(collectionName);
+      const result = await collection.insertOne(document, options);
+      return result;
+    } catch (error) {
+      throw new MongoDBOperationError("insert", error.message);
+    }
   }
 
   /**
@@ -151,10 +168,14 @@ class MongoDB {
    * await mongodb.update('users', { name: 'John' }, { $set: { age: 35 } });
    */
   async update(collectionName, filter, update, options = {}) {
-    const db = await this.getDb();
-    const collection = db.collection(collectionName);
-    const result = await collection.updateOne(filter, update, options);
-    return result;
+    try {
+      const db = await this.getDb();
+      const collection = db.collection(collectionName);
+      const result = await collection.updateOne(filter, update, options);
+      return result;
+    } catch (error) {
+      throw new MongoDBOperationError("update", error.message);
+    }
   }
 
   /**
@@ -167,10 +188,14 @@ class MongoDB {
    * await mongodb.delete('users', { name: 'John' });
    */
   async delete(collectionName, filter, options = {}) {
-    const db = await this.getDb();
-    const collection = db.collection(collectionName);
-    const result = await collection.deleteOne(filter, options);
-    return result;
+    try {
+      const db = await this.getDb();
+      const collection = db.collection(collectionName);
+      const result = await collection.deleteOne(filter, options);
+      return result;
+    } catch (error) {
+      throw new MongoDBOperationError("delete", error.message);
+    }
   }
 
   /**
