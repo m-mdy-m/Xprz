@@ -4,48 +4,52 @@ describe('CookieHandler', () => {
   let cookieHandler;
 
   beforeEach(() => {
-    // Mocking the cookie header string
-    const mockCookieHeader = 'cookie1=value1; cookie2=value2; cookie3=value3';
-    cookieHandler = new CookieHandler(mockCookieHeader);
+    cookieHandler = new CookieHandler('');
   });
 
-  test('setCookie method should set a new cookie', () => {
-    cookieHandler.setCookie('newCookie', 'newValue');
-    expect(cookieHandler.getCookie('newCookie')).toBe('newValue');
+  afterEach(() => {
+    cookieHandler = null;
+  });
+
+  test('setCookie method should set a cookie', () => {
+    cookieHandler.setCookie('testCookie', 'testValue');
+    expect(cookieHandler.getCookie('testCookie')).toBe('testValue');
   });
 
   test('getCookie method should return the value of a specific cookie', () => {
-    expect(cookieHandler.getCookie('cookie2')).toBe('value2');
+    cookieHandler.setCookie('testCookie', 'testValue');
+    expect(cookieHandler.getCookie('testCookie')).toBe('testValue');
   });
 
   test('getAllCookies method should return all cookies as an object', () => {
-    const allCookies = cookieHandler.getAllCookies();
-    expect(allCookies).toEqual({
-      cookie1: 'value1',
-      cookie2: 'value2',
-      cookie3: 'value3',
-    });
+    cookieHandler.setCookie('cookie1', 'value1');
+    cookieHandler.setCookie('cookie2', 'value2');
+    expect(cookieHandler.getAllCookies()).toEqual({ cookie1: 'value1', cookie2: 'value2' });
   });
 
-  test('removeCookie method should remove a specific cookie', () => {
-    cookieHandler.removeCookie('cookie1');
-    expect(cookieHandler.getCookie('cookie1')).toBeUndefined();
+  test('removeCookie method should remove a cookie', () => {
+    cookieHandler.setCookie('testCookie', 'testValue');
+    cookieHandler.removeCookie('testCookie');
+    expect(cookieHandler.getCookie('testCookie')).toBeUndefined();
   });
 
-  test('hasCookie method should return true if the cookie exists', () => {
-    expect(cookieHandler.hasCookie('cookie3')).toBe(true);
-  });
-
-  test('hasCookie method should return false if the cookie does not exist', () => {
-    expect(cookieHandler.hasCookie('nonexistentCookie')).toBe(false);
+  test('hasCookie method should return true if cookie exists, otherwise false', () => {
+    cookieHandler.setCookie('testCookie', 'testValue');
+    expect(cookieHandler.hasCookie('testCookie')).toBe(true);
+    expect(cookieHandler.hasCookie('nonExistentCookie')).toBe(false);
   });
 
   test('clearAllCookies method should remove all cookies', () => {
+    cookieHandler.setCookie('cookie1', 'value1');
+    cookieHandler.setCookie('cookie2', 'value2');
+    cookieHandler.setCookie('cookie3', 'value3');
     cookieHandler.clearAllCookies();
-    expect(cookieHandler.getAllCookies()).toEqual({});
+    expect(cookieHandler.countCookies()).toBe(0);
   });
 
   test('countCookies method should return the number of cookies', () => {
-    expect(cookieHandler.countCookies()).toBe(3);
+    cookieHandler.setCookie('cookie1', 'value1');
+    cookieHandler.setCookie('cookie2', 'value2');
+    expect(cookieHandler.countCookies()).toBe(2);
   });
 });

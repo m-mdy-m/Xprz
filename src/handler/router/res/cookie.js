@@ -19,10 +19,13 @@ class CookieHandler {
   getAllCookies() {
     return this.parseCookies();
   }
-
   // Method to remove a cookie
   removeCookie(name, options = {}) {
-    this.cookie(name, "", { ...options, expires: new Date(0) });
+    const cookies = this.parseCookies();
+    delete cookies[name];
+    this.cookie = Object.entries(cookies)
+      .map(([cookieName, cookieValue]) => `${cookieName}=${cookieValue}`)
+      .join("; ");
   }
   // Helper method to serialize a cookie
   serializeCookie(name, value, options = {}) {
@@ -53,12 +56,7 @@ class CookieHandler {
 
   // Method to clear all cookies
   clearAllCookies() {
-    const cookies = this.parseCookies();
-    for (const name in cookies) {
-      if (cookies.hasOwnProperty(name)) {
-        this.removeCookie(name);
-      }
-    }
+    this.cookie = "";
   }
   // Method to get the number of cookies
   countCookies() {
