@@ -9,6 +9,34 @@ class baseReq {
    */
   constructor(req) {
     this.req = req;
+
+    this.getQuery = this.getQuery.bind(this);
+    this.getBody = this.getBody.bind(this);
+    this.getHeaders = this.getHeaders.bind(this);
+    this.getUrl = this.getUrl.bind(this);
+    this.getPath = this.getPath.bind(this);
+    this.isAjax = this.isAjax.bind(this);
+    this.isSecure = this.isSecure.bind(this);
+    this.getIp = this.getIp.bind(this);
+    this.getCookies = this.getCookies.bind(this);
+    this.hasHeader = this.hasHeader.bind(this);
+    this.getHeader = this.getHeader.bind(this);
+    this.getProtocol = this.getProtocol.bind(this);
+    this.accepts = this.accepts.bind(this);
+    this.param = this.param.bind(this);
+    this.getUrl = this.getUrl.bind(this);
+    this.is = this.is.bind(this);
+    this.getPath = this.getPath.bind(this);
+    this.getMethod = this.getMethod.bind(this);
+    this.getSubdomains = this.getSubdomains.bind(this);
+    this.getHostname = this.getHostname.bind(this);
+    this.getHost = this.getHost.bind(this);
+    this.isFresh = this.isFresh.bind(this);
+    this.isStale = this.isStale.bind(this);
+    this.isXhr = this.isXhr.bind(this);
+    this.getLanguages = this.getLanguages.bind(this);
+    this.getEncodings = this.getEncodings.bind(this);
+    this.getCharsets = this.getCharsets.bind(this);
   }
 
   /**
