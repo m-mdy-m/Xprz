@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const { multer } = new Package();
-const a = multer()
+const { session } = new Package();
+const a = session()
