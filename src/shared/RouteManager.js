@@ -1,10 +1,11 @@
 const { getExp } = require("../shareApp");
-const baseRes = require("../handler/router/baseRes");
-const baseReq = require("../handler/router/baseReq");
 const Request = require("../handler/router/req/ReqEnhancer");
 const Response = require("../handler/router/res/ResEnhancer");
 
-const {RouteManagerValidationError,RouteRegistrationError,} = require("../Errors/RouteManager.error");
+const {
+  RouteManagerValidationError,
+  RouteRegistrationError,
+} = require("../Errors/RouteManager.error");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -52,10 +53,12 @@ class RouteManager {
    * Returns an enhanced response object.
    * @returns {Response} Enhanced response object.
    * @example
-   * const router = new RouteManager();
+   * const router = new Route();
    * // Assuming 'response' is the Express response object
-   * const enhancedResponse = router.res();
-   * enhancedResponse.status(200).send("Enhanced Response");
+   * router.setRoute("/").get(()=>{
+   *     const {  send } = router.res()
+   *     send("hello world")
+   * });
    */
   res() {
     return new Response(this.response);
@@ -65,10 +68,12 @@ class RouteManager {
    * Returns an enhanced request object.
    * @returns {Request} Enhanced request object.
    * @example
-   * const router = new RouteManager();
-   * // Assuming 'request' is the Express request object
-   * const enhancedRequest = router.req();
-   * const requestData = enhancedRequest.getBody(); // Accessing request body
+   * const router = new Route();
+   * // Assuming 'response' is the Express response object
+   * router.setRoute("/").get(()=>{
+   * const {  getBody } = router.req()
+   * getBody() // Accessing request body
+   * });
    */
   req() {
     return new Request(this.request);
