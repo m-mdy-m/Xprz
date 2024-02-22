@@ -28,11 +28,11 @@ class AppManagerError extends Error {
   }
 }
 
-// AppManagerConfigurationError class extends AppManagerError to represent configuration errors in the AppManager.
-class AppManagerConfigurationError extends AppManagerError {
+// Custom error class for route loading errors
+class RouteLoadingError extends Error {
   constructor(message) {
-    // Call the constructor of AppManagerError with a default message if no message is provided.
-    super(message || "Error occurred in AppManager configuration.");
+    super(message);
+    this.name = 'RouteLoadingError';
   }
 }
 
@@ -45,4 +45,4 @@ class ShutdownError extends AppManagerError {
 }
 
 // Export ExpressNotInitializedError and ShutdownError for use in other modules.
-module.exports = { ExpressNotInitializedError, ShutdownError };
+module.exports = { ExpressNotInitializedError, ShutdownError ,RouteLoadingError};

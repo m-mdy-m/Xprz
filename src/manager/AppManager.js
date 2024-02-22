@@ -1,5 +1,5 @@
 const App = require("../shared/App");
-const { ShutdownError } = require("../Errors/App.error");
+const { ShutdownError, RouteLoadingError } = require("../Errors/App.error");
 const fs = require("fs");
 const path = require("path");
 /**
@@ -134,11 +134,19 @@ class AppManager extends App {
    * appManager.loadRoutes('routes');
    */
   loadRoutes(routeDir) {
-    fs.readdirSync(routeDir).forEach((file) => {
-      const routePath = path.join(routeDir, file);
-      const route = require(routePath);
-      this.use(route);
-      console.log(`Route ${routePath} loaded successfully.`);
+    const absoluteRouteDir = path.resolve(__dirname, routeDir); 
+    fs.readdirSync(absoluteRouteDir).forEach((file) => {
+      const routePath = path.join(absoluteRouteDir, file);
+      try {
+        const route = require(routePath);
+        console.log("r =>", route);
+        this.use(route);
+        console.log(`Route ${routePath} loaded successfully.`);
+      } catch (error) {
+        throw new RouteLoadingError(
+          `Error loading route ${file}: ${error.message}`
+        );
+      }
     });
   }
 }
