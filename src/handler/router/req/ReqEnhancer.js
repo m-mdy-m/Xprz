@@ -1,40 +1,92 @@
 const Request = require("../baseReq");
-
+/**
+ * Class extending the baseReq class to enhance request handling capabilities.
+ * @extends Request
+ */
 class ReqEnhancer extends Request {
   constructor() {
     super();
   }
-  // Method to check if the request has a specific query parameter
+  /**
+   * Checks if the request has a specific query parameter.
+   * @param {string} paramName - The name of the query parameter to check.
+   * @returns {boolean} True if the query parameter exists, otherwise false.
+   * @example
+   * const request = new req();
+   * const hasParam = request.hasQueryParam('paramName');
+   */
   hasQueryParam(paramName) {
     return paramName in this.req.query;
   }
 
-  // Method to get a specific query parameter from the request
+  /**
+   * Retrieves a specific query parameter from the request.
+   * @param {string} paramName - The name of the query parameter to retrieve.
+   * @returns {*} The value of the query parameter, or undefined if not found.
+   * @example
+   * const request = new req();
+   * const paramValue = request.getQueryParam('paramName');
+   */
   getQueryParam(paramName) {
     return this.req.query[paramName];
   }
 
-  // Method to check if the request has a specific body parameter
+  /**
+   * Checks if the request has a specific body parameter.
+   * @param {string} paramName - The name of the body parameter to check.
+   * @returns {boolean} True if the body parameter exists, otherwise false.
+   * @example
+   * const request = new req();
+   * const hasParam = request.hasBodyParam('paramName');
+   */
   hasBodyParam(paramName) {
     return paramName in this.req.body;
   }
 
-  // Method to get a specific body parameter from the request
+  /**
+   * Retrieves a specific body parameter from the request.
+   * @param {string} paramName - The name of the body parameter to retrieve.
+   * @returns {*} The value of the body parameter, or undefined if not found.
+   * @example
+   * const request = new req();
+   * const paramValue = request.getBodyParam('paramName');
+   */
   getBodyParam(paramName) {
     return this.req.body[paramName];
   }
 
-  // Method to check if the request has a specific cookie
+  /**
+   * Checks if the request has a specific cookie.
+   * @param {string} cookieName - The name of the cookie to check.
+   * @returns {boolean} True if the cookie exists, otherwise false.
+   * @example
+   * const request = new req();
+   * const hasCookie = request.hasCookie('cookieName');
+   */
   hasCookie(cookieName) {
     return cookieName in this.req.cookies;
   }
 
-  // Method to get a specific cookie from the request
+  /**
+   * Retrieves a specific cookie from the request.
+   * @param {string} cookieName - The name of the cookie to retrieve.
+   * @returns {*} The value of the cookie, or undefined if not found.
+   * @example
+   * const request = new req();
+   * const cookieValue = request.getCookieName('cookieName');
+   */
   getCookieName(cookieName) {
     return this.req.cookies[cookieName];
   }
 
-  // Method to check if the request has a specific header with a case-insensitive comparison
+  /**
+   * Checks if the request has a specific header with a case-insensitive comparison.
+   * @param {string} headerName - The name of the header to check.
+   * @returns {boolean} True if the header exists, otherwise false.
+   * @example
+   * const request = new req();
+   * const hasHeader = request.hasHeaderIgnoreCase('headerName');
+   */
   hasHeaderIgnoreCase(headerName) {
     const headers = Object.keys(this.req.headers).map((header) =>
       header.toLowerCase()
@@ -42,7 +94,14 @@ class ReqEnhancer extends Request {
     return headers.includes(headerName.toLowerCase());
   }
 
-  // Method to get a specific header from the request with a case-insensitive comparison
+  /**
+   * Retrieves a specific header from the request with a case-insensitive comparison.
+   * @param {string} headerName - The name of the header to retrieve.
+   * @returns {*} The value of the header, or undefined if not found.
+   * @example
+   * const request = new req();
+   * const headerValue = request.getHeaderIgnoreCase('headerName');
+   */
   getHeaderIgnoreCase(headerName) {
     const headers = Object.keys(this.req.headers).reduce((acc, curr) => {
       acc[curr.toLowerCase()] = this.req.headers[curr];
@@ -51,10 +110,24 @@ class ReqEnhancer extends Request {
     return headers[headerName.toLowerCase()];
   }
 
-  // Method to check if the request is sent with a specific HTTP method
+  /**
+   * Checks if the request is sent with a specific HTTP method.
+   * @param {string} method - The HTTP method to check (e.g., 'GET', 'POST').
+   * @returns {boolean} True if the request method matches the specified method, otherwise false.
+   * @example
+   * const request = new req();
+   * const isGetMethod = request.isMethod('GET');
+   */
   isMethod(method) {
     return this.req.method.toLowerCase() === method.toLowerCase();
   }
+  /**
+   * Retrieves all parameters from the request, including query parameters, body parameters, and cookies.
+   * @returns {Object} An object containing all request parameters.
+   * @example
+   * const request = new req();
+   * const allParams = request.getAllParams();
+   */
   getAllParams() {
     return {
       query: this.getQuery(),
@@ -62,7 +135,13 @@ class ReqEnhancer extends Request {
       cookies: this.getCookies(),
     };
   }
-  // Method to get the accepted content types by the request
+  /**
+   * Retrieves the accepted content types by the request.
+   * @returns {string[]} An array of accepted content types.
+   * @example
+   * const request = new req();
+   * const acceptedTypes = request.getAcceptedContentTypes();
+   */
   getAcceptedContentTypes() {
     return this.req.accepts();
   }
