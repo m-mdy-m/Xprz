@@ -44,7 +44,7 @@ class baseReq {
    * Retrieves the query parameters from the request.
    * @returns {object} The request query parameters.
    * @example
-   * const queryParams = req.getQuery();
+   * const queryParams = getQuery();
    */
   getQuery() {
     return this.req.query;
@@ -54,7 +54,7 @@ class baseReq {
    * Retrieves the request body.
    * @returns {object} The request body.
    * @example
-   * const requestBody = req.getBody();
+   * const requestBody = getBody();
    */
   getBody() {
     return this.req.body;
@@ -64,7 +64,7 @@ class baseReq {
    * Retrieves the request headers.
    * @returns {object} The request headers.
    * @example
-   * const requestHeaders = req.getHeaders();
+   * const requestHeaders = getHeaders();
    */
   getHeaders() {
     return this.req.headers;
@@ -74,7 +74,7 @@ class baseReq {
    * Retrieves the request URL.
    * @returns {string} The request URL.
    * @example
-   * const requestUrl = req.getUrl();
+   * const requestUrl = getUrl();
    */
   getUrl() {
     return this.req.url;
@@ -84,7 +84,7 @@ class baseReq {
    * Retrieves the request path.
    * @returns {string} The request path.
    * @example
-   * const requestPath = req.getPath();
+   * const requestPath = getPath();
    */
   getPath() {
     return this.req.path;
@@ -94,7 +94,7 @@ class baseReq {
    * Checks if the request is an AJAX request.
    * @returns {boolean} True if the request is an AJAX request, false otherwise.
    * @example
-   * const isAjaxRequest = req.isAjax();
+   * const isAjaxRequest = isAjax();
    */
   isAjax() {
     return (
@@ -107,7 +107,7 @@ class baseReq {
    * Checks if the request is secure (HTTPS).
    * @returns {boolean} True if the request is secure (HTTPS), otherwise false.
    * @example
-   * const isSecure = req.isSecure();
+   * const isSecure = isSecure();
    */
 
   isSecure() {
@@ -118,7 +118,7 @@ class baseReq {
    * Gets the IP address of the request.
    * @returns {string} The IP address of the request.
    * @example
-   * const ipAddress = req.getIp();
+   * const ipAddress = getIp();
    */
 
   getIp() {
@@ -129,7 +129,7 @@ class baseReq {
    * Retrieves the cookies from the request.
    * @returns {object} The cookies sent with the request.
    * @example
-   * const cookies = req.getCookies();
+   * const cookies = getCookies();
    */
 
   getCookies() {
@@ -141,7 +141,7 @@ class baseReq {
    * @param {string} headerName - The name of the header to check.
    * @returns {boolean} True if the request has the specified header, otherwise false.
    * @example
-   * const hasHeader = req.hasHeader('Content-Type');
+   * const hasHeader = hasHeader('Content-Type');
    */
 
   hasHeader(headerName) {
@@ -153,7 +153,7 @@ class baseReq {
    * @param {string} headerName - The name of the header.
    * @returns {string} The value of the specified header.
    * @example
-   * const contentType = req.getHeader('Content-Type');
+   * const contentType = getHeader('Content-Type');
    */
 
   getHeader(headerName) {
@@ -164,7 +164,7 @@ class baseReq {
    * Retrieves the protocol used by the request (HTTP or HTTPS).
    * @returns {string} The protocol used by the request.
    * @example
-   * const protocol = req.getProtocol();
+   * const protocol =getProtocol();
    */
 
   getProtocol() {
@@ -176,7 +176,7 @@ class baseReq {
    * @param {string|string[]} type - The content type to check.
    * @returns {string|false|null} The best matching content type, or false if none of the given types is accepted, or null if the request does not specify a content type preference.
    * @example
-   * const contentType = req.accepts('json');
+   * const contentType = accepts('json');
    */
 
   accepts(type) {
@@ -188,7 +188,7 @@ class baseReq {
    * @param {Function[]} [handlers] - Optional middleware for processing the parameter.
    * @returns {*} The value of the specified parameter.
    * @example
-   * const userId = req.param('userId');
+   * const userId = param('userId');
    */
 
   param(name, handlers) {
@@ -198,7 +198,7 @@ class baseReq {
    * Retrieves the URL of the request.
    * @returns {string} The URL of the request.
    * @example
-   * const requestUrl = req.getUrl();
+   * const requestUrl = getUrl();
    */
 
   getUrl() {
@@ -209,7 +209,7 @@ class baseReq {
    * @param {string|string[]} types - The types to check against.
    * @returns {string|false|null} The first type that matches, or false if none match, or null if the request does not specify a content type.
    * @example
-   * const isJSON = req.is('json');
+   * const isJSON = is('json');
    */
 
   is(types) {
@@ -219,7 +219,7 @@ class baseReq {
    * Retrieves the path of the request.
    * @returns {string} The path of the request.
    * @example
-   * const requestPath = req.getPath();
+   * const requestPath = getPath();
    */
 
   getPath() {
@@ -229,7 +229,7 @@ class baseReq {
    * Retrieves the HTTP method of the request.
    * @returns {string} The HTTP method of the request (e.g., GET, POST).
    * @example
-   * const method = req.getMethod();
+   * const method = getMethod();
    */
 
   getMethod() {
@@ -240,7 +240,7 @@ class baseReq {
    * Retrieves an array of subdomains in the domain name of the request.
    * @returns {string[]} An array of subdomains.
    * @example
-   * const subdomains = req.getSubdomains();
+   * const subdomains = getSubdomains();
    */
 
   getSubdomains() {
@@ -251,7 +251,7 @@ class baseReq {
    * Retrieves the hostname from the request.
    * @returns {string} The hostname.
    * @example
-   * const hostname = req.getHostname();
+   * const hostname = getHostname();
    */
 
   getHostname() {
@@ -262,7 +262,7 @@ class baseReq {
    * Retrieves the host from the request.
    * @returns {string} The host.
    * @example
-   * const host = req.getHost();
+   * const host = getHost();
    */
 
   getHost() {
@@ -272,7 +272,7 @@ class baseReq {
    * Checks if the request is fresh.
    * @returns {boolean} True if the request is fresh, false otherwise.
    * @example
-   * const isFreshRequest = req.isFresh();
+   * const isFreshRequest = isFresh();
    */
 
   isFresh() {
@@ -282,7 +282,7 @@ class baseReq {
    * Checks if the request is stale.
    * @returns {boolean} True if the request is stale, false otherwise.
    * @example
-   * const isStaleRequest = req.isStale();
+   * const isStaleRequest = isStale();
    */
 
   isStale() {
@@ -292,7 +292,7 @@ class baseReq {
    * Checks if the request is an XMLHttpRequest (AJAX) request.
    * @returns {boolean} True if the request is an XMLHttpRequest, false otherwise.
    * @example
-   * const isXhrRequest = req.isXhr();
+   * const isXhrRequest = isXhr();
    */
 
   isXhr() {
@@ -302,7 +302,7 @@ class baseReq {
    * Retrieves the request language preferences.
    * @returns {string[]} An array of language preferences.
    * @example
-   * const languages = req.getLanguages();
+   * const languages = getLanguages();
    */
 
   getLanguages() {
@@ -313,7 +313,7 @@ class baseReq {
    * Retrieves the request encoding preferences.
    * @returns {string[]} An array of encoding preferences.
    * @example
-   * const encodings = req.getEncodings();
+   * const encodings = getEncodings();
    */
 
   getEncodings() {
@@ -324,7 +324,7 @@ class baseReq {
    * Retrieves the request charset preferences.
    * @returns {string[]} An array of charset preferences.
    * @example
-   * const charsets = req.getCharsets();
+   * const charsets = getCharsets();
    */
 
   getCharsets() {
