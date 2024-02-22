@@ -12,5 +12,5 @@ router
   })
   .attachTo(launch());
 loadRoutes("routes");
-const {MongoDB } = new Database()
-const { } = MongoDB()
+const {cors} = new Package()
+const a = cors().get()

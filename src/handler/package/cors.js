@@ -9,7 +9,9 @@ class CorsHandler {
    * @param {Object} options - Options for configuring CORS middleware.
    */
   constructor(cors, use, options) {
+    /** @private */
     this.cors = cors(options);
+    /** @private */
     this.use = use;
     this.use(this.cors);
   }
