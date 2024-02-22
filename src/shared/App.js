@@ -1,5 +1,8 @@
 const express = require("express");
 const { setApp, setExp } = require("../shareApp");
+
+const { ExpressNotInitializedError } = require("../Errors/App.error");
+
 // Set the Express module using the shared utility function
 setExp(express);
 
@@ -16,13 +19,12 @@ class App {
     /** @private */
     this.server = null; // Server instance
 
-
-    this.initApp = this.initApp.bind(this)
-    this.launch = this.launch.bind(this)
-    this.listen = this.listen.bind(this)
-    this.use = this.use.bind(this)
-    this.closeServer = this.closeServer.bind(this)
-    this.getExpress = this.getExpress.bind(this)
+    this.initApp = this.initApp.bind(this);
+    this.launch = this.launch.bind(this);
+    this.listen = this.listen.bind(this);
+    this.use = this.use.bind(this);
+    this.closeServer = this.closeServer.bind(this);
+    this.getExpress = this.getExpress.bind(this);
   }
   /**
    * Returns the Express module.
@@ -62,7 +64,11 @@ class App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(port = 3000,textLog = `Server is running on port ${port}`,log = true  ) {
+  listen(
+    port = 3000,
+    textLog = `Server is running on port ${port}`,
+    log = true
+  ) {
     if (this.runApp) {
       this.server = this.app.listen(port, () => {
         if (log) {
@@ -70,7 +76,7 @@ class App {
         }
       });
     } else {
-      throw new Error("Express app has not been initialized yet.");
+      throw new ExpressNotInitializedError();
     }
   }
   /**
