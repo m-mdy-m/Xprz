@@ -167,9 +167,7 @@ class RouteManager {
       this.router.get(this.path, (req, res) => {
         let response = this.setRes(res);
         let request = this.setReq(req);
-        handlers.forEach((h) =>
-          h(request ? request : req, response ? response : res)
-        );
+        handlers.forEach((h) => h(request ? request : req, response ? response : res));
       });
     } catch (error) {
       throw new RouteRegistrationError(`Error registering GET route: ${error.message}`);
