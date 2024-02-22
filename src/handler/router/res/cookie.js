@@ -8,6 +8,17 @@ class CookieHandler {
    */
   constructor(cookie = "") {
     this.cookie = cookie;
+     // Bind methods to ensure they have access to the correct 'this' context
+     this.setCookie = this.setCookie.bind(this);
+     this.getCookie = this.getCookie.bind(this);
+     this.getAllCookies = this.getAllCookies.bind(this);
+     this.removeCookie = this.removeCookie.bind(this);
+     this.hasCookie = this.hasCookie.bind(this);
+     this.clearAllCookies = this.clearAllCookies.bind(this);
+     this.countCookies = this.countCookies.bind(this);
+     // Private methods
+     this.serializeCookie = this.serializeCookie.bind(this);
+     this.parseCookies = this.parseCookies.bind(this);
   }
 
   /**

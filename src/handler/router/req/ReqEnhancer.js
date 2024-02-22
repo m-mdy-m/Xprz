@@ -4,9 +4,20 @@ const Request = require("../baseReq");
  * @extends Request
  */
 class ReqEnhancer extends Request {
-  constructor(req) {
-    new Request(req)
+  constructor() {
     super();
+    // Bind methods to ensure they have access to the correct 'this' context
+    this.hasQueryParam = this.hasQueryParam.bind(this);
+    this.getQueryParam = this.getQueryParam.bind(this);
+    this.hasBodyParam = this.hasBodyParam.bind(this);
+    this.getBodyParam = this.getBodyParam.bind(this);
+    this.hasCookie = this.hasCookie.bind(this);
+    this.getCookieName = this.getCookieName.bind(this);
+    this.hasHeaderIgnoreCase = this.hasHeaderIgnoreCase.bind(this);
+    this.getHeaderIgnoreCase = this.getHeaderIgnoreCase.bind(this);
+    this.isMethod = this.isMethod.bind(this);
+    this.getAllParams = this.getAllParams.bind(this);
+    this.getAcceptedContentTypes = this.getAcceptedContentTypes.bind(this);
   }
   /**
    * Checks if the request has a specific query parameter.
