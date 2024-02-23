@@ -14,6 +14,12 @@ class AppManager extends App {
     /** @private */
     this.express = this.getExpress();
     // Bind methods
+    this.initApp = this.initApp.bind(this)
+    this.getExpress = this.getExpress.bind(this)
+    this.listen = this.listen.bind(this)
+    this.closeServer = this.closeServer.bind(this)
+    this.launch=this.launch.bind(this)
+    this.use = this.use.bind(this)
     this.setErrorHandler = this.setErrorHandler.bind(this);
     this.middleware = this.middleware.bind(this);
     this.set = this.set.bind(this);
