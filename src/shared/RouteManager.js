@@ -297,23 +297,13 @@ class RouteManager {
         this.registerRoute(method, ...handlers);
       } else {
         // Register route without middleware
-        const controllerHandlers = handlers.filter(handler => typeof handler === 'function');
-        const inlineHandlers = handlers.filter(handler => typeof handler !== 'function');
-        if (controllerHandlers.length > 0) {
-          // Register route with controller(s)
-          this.router[method](this.path, controllerHandlers);
-        }
-        // Register route without middleware
-        if (inlineHandlers.length > 0) {
-          // Register route with inline handler(s)
-          this.router[method](this.path, (req, res) => {
-              let response = this.setRes(res);
-              let request = this.setReq(req);
-              inlineHandlers.forEach((h) =>
-                  h(request ? request : req, response ? response : res)
-              );
-          });
-        }
+        this.router[method](this.path, (req, res) => {
+          let response = this.setRes(res);
+          let request = this.setReq(req);
+          handlers.forEach((h) =>
+            h(request ? request : req, response ? response : res)
+          );
+        });
       }
     } catch (error) {
       throw new RouteRegistrationError(
