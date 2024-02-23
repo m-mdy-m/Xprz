@@ -14,12 +14,6 @@ class AppManager extends App {
     /** @private */
     this.express = this.getExpress();
     // Bind methods
-    this.initApp = this.initApp.bind(this)
-    this.getExpress = this.getExpress.bind(this)
-    this.listen = this.listen.bind(this)
-    this.closeServer = this.closeServer.bind(this)
-    this.launch=this.launch.bind(this)
-    this.use = this.use.bind(this)
     this.setErrorHandler = this.setErrorHandler.bind(this);
     this.middleware = this.middleware.bind(this);
     this.set = this.set.bind(this);
@@ -29,7 +23,96 @@ class AppManager extends App {
     this.setTemplateEngine = this.setTemplateEngine.bind(this);
     this.loadRoutes = this.loadRoutes.bind(this);
   }
-
+  /**
+   * Initializes the Express application.
+   *
+   * @returns {Object} The initialized Express application instance.
+   *
+   * @example
+   * const app = initApp();
+   */
+  initApp() {
+    return this._delegateToApp('initApp', arguments);
+  }
+  /**
+   * Starts the Express application to listen on the specified port.
+   *
+   * @param {number} [port=3000] - The port number to listen on.
+   * @param {string} [textLog=`Server is running on port ${port}`] - The text to log when the server starts.
+   * @param {boolean} [log=true] - Whether to log the server start message.
+   * @returns {void}
+   *
+   * @example
+   * listen(3000, 'Server is running on port 3000', true);
+   */
+  listen() {
+    return this._delegateToApp('listen', arguments);
+  }
+  /**
+   * Initializes and launches the Express application.
+   *
+   * @param {number} [port=3000] - The port number to listen on.
+   * @param {string} [textLog=`Server is running on port ${port}`] - The text to log when the server starts.
+   * @param {boolean} [log=true] - Whether to log the server start message.
+   * @returns {Object} The initialized Express application instance.
+   *
+   * @example
+   * const app = launch();
+   */
+  launch() {
+    return this._delegateToApp('launch', arguments);
+  }
+  /**
+   * Closes the server if it is running.
+   *
+   * @param {function} done - Callback function to be called when the server is closed.
+   * @returns {void}
+   *
+   * @example
+   * const app = new App();
+   * app.initApp();
+   * app.listen(3000);
+   * app.closeServer(() => {
+   *   console.log('Server closed.');
+   * });
+   */
+  closeServer() {
+    return this._delegateToApp('closeServer', arguments);
+  }
+  /**
+   * Returns the Express module.
+   *
+   * @returns {Object} The Express module.
+   *
+   * @example
+   * const express = getExpress();
+   */
+  getExpress() {
+    return this._delegateToApp('getExpress', arguments);
+  }
+  /**
+   * Attaches middleware functions to the Express application.
+   *
+   * @param {...Function} handler - The middleware function(s) to use.
+   * @returns {void}
+   *
+   * @example
+   * const app = new App();
+   * app.use(express.json());
+   * app.use(cors());
+   */
+  use() {
+    return this._delegateToApp('use', arguments);
+  }
+  /** @private */
+  _delegateToApp(methodName, args) {
+    const method = this[methodName];
+    if (typeof method === 'function') {
+      return method.apply(this, args);
+    } else {
+      throw new Error(`Method ${methodName} is not defined`);
+    }
+  }
   /**
    * Sets the error handler middleware for the Express application.
    *
