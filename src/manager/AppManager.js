@@ -32,7 +32,7 @@ class AppManager extends App {
    * const app = initApp();
    */
   initApp() {
-    return this._delegateToApp('initApp', arguments);
+    return super.initApp()
   }
   /**
    * Starts the Express application to listen on the specified port.
@@ -45,8 +45,8 @@ class AppManager extends App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen() {
-    return this._delegateToApp('listen', arguments);
+  listen(port = 3000, textLog = `Server is running on port ${port}`, log = true) {
+    return super.listen(port, textLog, log);
   }
   /**
    * Initializes and launches the Express application.
@@ -59,8 +59,8 @@ class AppManager extends App {
    * @example
    * const app = launch();
    */
-  launch() {
-    return this._delegateToApp('launch', arguments);
+  launch(port, textLog, log) {
+    return super.launch(port, textLog, log);
   }
   /**
    * Closes the server if it is running.
@@ -76,8 +76,8 @@ class AppManager extends App {
    *   console.log('Server closed.');
    * });
    */
-  closeServer() {
-    return this._delegateToApp('closeServer', arguments);
+  closeServer(done) {
+    return super.closeServer(done);
   }
   /**
    * Returns the Express module.
@@ -88,7 +88,7 @@ class AppManager extends App {
    * const express = getExpress();
    */
   getExpress() {
-    return this._delegateToApp('getExpress', arguments);
+    return super.getExpress()
   }
   /**
    * Attaches middleware functions to the Express application.
@@ -101,17 +101,8 @@ class AppManager extends App {
    * app.use(express.json());
    * app.use(cors());
    */
-  use() {
-    return this._delegateToApp('use', arguments);
-  }
-  /** @private */
-  _delegateToApp(methodName, args) {
-    const method = this[methodName];
-    if (typeof method === 'function') {
-      return method.apply(this, args);
-    } else {
-      throw new Error(`Method ${methodName} is not defined`);
-    }
+  use(...handler) {
+    return super.use(...handler)
   }
   /**
    * Sets the error handler middleware for the Express application.
@@ -166,7 +157,7 @@ class AppManager extends App {
    * appManager.static('public');
    */
   static(...handlers) {
-    this.use(this.express.static(path.join(__dirname ,...handlers)));
+    this.use(this.express.static(path.join(__dirname, ...handlers)));
   }
 
   /**
