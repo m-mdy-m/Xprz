@@ -17,6 +17,7 @@ function checkPkg(packageName) {
     throw new ModuleNotInstalledError(packageName);
   }
 }
+const session = checkPkg("express-session");
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
  * @extends AppManager
@@ -33,9 +34,6 @@ class PackageManager {
    * pkgManager.session({ secret: 'secret', resave: false, saveUninitialized: true });
    */
   session(...options) {
-    const session = checkPkg("express-session");
-    /** @private */
-    this.s = session;
     useApp(session(...options));
   }
 
@@ -152,7 +150,7 @@ class PackageManager {
    */
   connectMongoDbSession(...options) {
     try {
-      const connectMongoDbSession = require("connect-mongodb-session")(this.s);
+      const connectMongoDbSession = require("connect-mongodb-session")(session); 
       return new connectMongoDbSession(...options);
     } catch (error) {
       throw new PackageInitializationError("connect-mongodb-session", error.message);
