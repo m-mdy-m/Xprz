@@ -6,21 +6,43 @@ const {
 
 function _checkPkg(packageName) {
   try {
-    const requiredPackage = require(packageName);
-    return requiredPackage;
+    return require(packageName);
   } catch {
-    throw new ModuleNotInstalledError(packageName);
+    return null;
   }
 }
-function $install(pkg) {
+function $install(packages) {
   try {
-    if (!pkg) {
-      execSync(`npm install ${pkg}`);
+    if (!Array.isArray(packages)) {
+      packages = [packages];
     }
-    const hasPkg = _checkPkg(pkg);
-    return hasPkg;
+    let installedPackages = [];
+
+    // Install and check each package
+    for (const pkg of packages) {
+      // Install the package
+
+      let isPkg = _checkPkg(pkg);
+        console.log('isPkg =>',isPkg);
+      if (!isPkg) {
+        execSync(`npm install ${pkg}`); 
+        isPkg = _checkPkg(pkg);
+      }
+
+      if (isPkg) {
+        installedPackages.push(isPkg);
+      } else {
+        throw new PackageInitializationError(
+          pkg,
+          "Package not installed or cannot be required."
+        );
+      }
+    }
+    return installedPackages;
   } catch (er) {
-    throw new PackageInitializationError(pkg, er.message);
+    throw new PackageInitializationError(packages, er.message);
   }
 }
+const a = $install(["body-parser", "nodemailer"]);
+console.log("a =>", a);
 module.exports = $install;
