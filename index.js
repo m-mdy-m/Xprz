@@ -4,8 +4,10 @@ const PackageManager = require("./src/manager/PackageManager");
 const AppSharedManager = require("./src/utils/shared.app");
 const httpMethod = require("./src/shared/HTTPMethod");
 const RouteManager = require("./src/shared/RouteManager");
+const $install = require("./src/utils/installPkg");
 class Xprz {
   constructor() {
+    this.$install = $install
     this.SharedApp  = AppSharedManager;
     this.App = AppManager;
     this.Database = DatabaseManager;

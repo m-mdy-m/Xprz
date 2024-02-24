@@ -21,7 +21,16 @@ function _checkPkg(packageName, retries = 10, delay = 100) {
   }
 }
 
-// Function to install a package if it's not already installed
+/**
+ * Installs a package if it's not already installed.
+ * @param {string} package - The name of the package to install.
+ * @returns {object} - The installed package.
+ * @throws {PackageInitializationError} - If package installation fails.
+ * @example
+ * // Install 'vfyjs' package
+ * const installedPackage = $install('vfyjs');
+ * console.log(installedPackage); // Outputs the installed package
+ */
 function $install(package) {
   try {
     let isPkg = _checkPkg(package);

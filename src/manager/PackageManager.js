@@ -18,20 +18,6 @@ const session = $install("express-session");
 class PackageManager {
   constructor() {}
   /**
- * Installs a package if it's not already installed.
- * @param {string} pkgName - The name of the package to install.
- * @returns {object} - The installed package.
- * @throws {PackageInitializationError} - If package installation fails.
- * @example
- * // Install 'nodemailer' package
- * const installedPackage = $install('nodemailer');
- * console.log(installedPackage); // Outputs the installed package
- */
-$install(pkgName) {
-  return $install(pkgName);
-}
-
-  /**
    * Initialize and configure Express session middleware.
    * @param {...any} options - Options for configuring the session middleware.
    * @throws {Error} Throws an error if Express app has not been initialized.
