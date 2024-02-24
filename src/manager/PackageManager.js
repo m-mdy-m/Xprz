@@ -9,6 +9,14 @@ const jwtHandler = require("../handler/package/jwt"),
   { PackageInitializationError } = require("../Errors/package.manager.error"),
   $install = require("../utils/installPkg");
 const { useApp, getApp } = require("../shareApp");
+let connectMongo = false
+function initSession(){
+  let session
+  if (connectMongo) {
+    session = $install("express-session");
+  }
+  return session
+}
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
  * @extends AppManager
@@ -24,8 +32,7 @@ class PackageManager {
    * pkgManager.session({ secret: 'secret', resave: false, saveUninitialized: true });
    */
   session(...options) {
-    let session = $install("express-session");
-    this.connectMongo = session
+    const session = initSession()
     useApp(session(...options));
   }
 
@@ -141,8 +148,10 @@ class PackageManager {
    * const store = pkgManager.connectMongoDbSession();
    */
   connectMongoDbSession(...options) {
+    connectMongo = true
+    const session = initSession()
     try {
-      const connectMongoDbSession = require("connect-mongodb-session")(this.connectMongo);
+      const connectMongoDbSession = $install("connect-mongodb-session")(session);
       return new connectMongoDbSession(...options);
     } catch (error) {
       throw new PackageInitializationError(
