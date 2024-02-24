@@ -33,7 +33,13 @@ class PackageManager {
    */
   session(...options) {
     const session = initSession();
+  if (session) {
     useApp(session(...options));
+  } else {
+    // Handle the case when session initialization is skipped.
+    // You might want to throw an error or log a warning.
+    console.warn("Session initialization skipped. connectMongo is false.");
+  }
   }
 
   /**
