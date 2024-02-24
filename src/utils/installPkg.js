@@ -32,14 +32,14 @@ function _checkPkg(packageName, retries = 10, delay = 100) {
  * const installedPackage = $install('vfyjs');
  * console.log(installedPackage); // Outputs the installed package
  */
-function $install(package, saveDev = false) {
+function $install(package, saveDev = false, version = "latest") {
   try {
-    if (typeof package !== 'string' || package.trim() === '') {
-        throw new TypeError('Package name must be a non-empty string.');
-      }
+    if (typeof package !== "string" || package.trim() === "") {
+      throw new TypeError("Package name must be a non-empty string.");
+    }
     let isPkg = _checkPkg(package);
     if (!isPkg) {
-      const installCommand = `npm install ${package}${
+      const installCommand = `npm install ${package}@${version}${
         saveDev ? " --save-dev" : ""
       }`;
       // Install the package using npm
