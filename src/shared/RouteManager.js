@@ -291,12 +291,12 @@ class RouteManager {
    * @private
    */
   registerMethod(method, ...handlers) {
-    console.log(handlers);
     try {
       if (this.hasMiddleware) {
         // Register route with middleware
         this.registerRoute(method, ...handlers);
       } else {
+        console.log("typeof handlers=>", typeof handlers);
         // Register route without middleware
         this.router[method](this.path, (req, res) => {
           let response = this.setRes(res);
