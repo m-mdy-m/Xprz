@@ -291,6 +291,7 @@ class RouteManager {
    * @private
    */
   registerMethod(method, ...handlers) {
+    console.log(handlers);
     try {
       if (this.hasMiddleware) {
         // Register route with middleware
@@ -300,9 +301,9 @@ class RouteManager {
         this.router[method](this.path, (req, res) => {
           let response = this.setRes(res);
           let request = this.setReq(req);
-          handlers.forEach((h) =>
-            h(request ? request : req, response ? response : res)
-          );
+          handlers.forEach((handler) => {
+            handler(request ? request : req, response ? response : res);
+          });
         });
       }
     } catch (error) {
