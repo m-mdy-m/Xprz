@@ -11,11 +11,10 @@ const jwtHandler = require("../handler/package/jwt"),
 const { useApp, getApp } = require("../shareApp");
 let connectMongo = false;
 function initSession() {
-  let session = null;
   if (connectMongo) {
-    session = $install("express-session");
+    return $install("express-session");
   }
-  return session;
+  return null;
 }
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
