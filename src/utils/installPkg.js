@@ -4,6 +4,7 @@ const {
 } = require("../Errors/package.manager.error");
 
 // Function to check if a package is installed
+/** @private */
 function _checkPkg(packageName, retries = 10, delay = 100) {
   while (retries > 0) {
     try {
