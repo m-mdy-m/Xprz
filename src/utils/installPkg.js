@@ -34,12 +34,12 @@ function _checkPkg(packageName, retries = 10, delay = 100) {
  */
 function $install(package, saveDev = false) {
   try {
-    if (typeof packageName !== "string" || packageName.trim() === "") {
-      throw new TypeError("Package name must be a non-empty string.");
-    }
+    if (typeof package !== 'string' || package.trim() === '') {
+        throw new TypeError('Package name must be a non-empty string.');
+      }
     let isPkg = _checkPkg(package);
     if (!isPkg) {
-      const installCommand = `npm install ${packageName}${
+      const installCommand = `npm install ${package}${
         saveDev ? " --save-dev" : ""
       }`;
       // Install the package using npm
@@ -52,6 +52,4 @@ function $install(package, saveDev = false) {
     throw new PackageInitializationError(package, er.message);
   }
 }
-const a = $install('vfyjs', true)
-console.log('a =>',a);
 module.exports = $install; // Export the install function
