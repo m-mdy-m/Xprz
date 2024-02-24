@@ -1,5 +1,6 @@
 const App = require("../shared/App");
 const { ShutdownError, RouteLoadingError } = require("../Errors/App.error");
+const { getApp} = require('../shareApp')
 const fs = require("fs");
 const path = require("path");
 /**
@@ -245,11 +246,11 @@ class AppManager extends App {
         if (file.endsWith(".js")) {
           // Dynamically require the route file
           const route = require(routePath);
-
           // Check if the route is a function
-          if (typeof route === "function") {
+          if (typeof route === "object") {
             // Mount the route
-            this.use(route);
+            const app = getApp()
+            route.attachTo(app)
             if (log) {
               console.log(`Route ${routePath} loaded successfully.`);
             }
