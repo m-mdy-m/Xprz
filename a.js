@@ -1,3 +1,5 @@
-const Xprz = require('./index')
-const {$install } = new Xprz()
-require($install)
+function hello() {
+  const a = "hello";
+  return a;
+}
+module.exports = hello
