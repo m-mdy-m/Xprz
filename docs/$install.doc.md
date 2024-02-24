@@ -1,75 +1,64 @@
-# `$install` Function Documentation
+# $install Function Documentation
 
 ## Overview
 
-The `$install` function is a utility designed to simplify the installation of Node.js packages within your project. It provides a convenient way to ensure that a specific package is installed and available for use, handling the installation process and potential errors.
+The `$install` function is a utility provided by the Xprz framework for simplified package installation in Node.js applications. It automates the process of checking for the existence of a specified package and installing it if not already present. This function supports both npm and yarn as package managers, providing flexibility based on your project's requirements.
 
 ## Installation
 
-To use the `$install` function in your project, you can include it by requiring it in your JavaScript file:
+The `$install` function is globally available upon installing the Xprz package. To install Xprz, use the following command:
 
-```javascript
-const Xprz = require('xprz');
-const { $install} = new Xprz()
-
+```bash
+npm install xprz
 ```
 
-Make sure to adjust the path accordingly.
+After installation, you can access the `$install` function globally within your Node.js application.
 
-## Function Signature
+## Usage
+
+The `$install` function streamlines the package installation process, making it easy to manage dependencies. Here's an overview of its usage:
 
 ```javascript
-/**
- * Installs a package if it's not already installed.
- * @param {string} package - The name of the package to install.
- * @param {boolean} [saveDev=false] - Whether to install the package as a development dependency.
- * @param {string} [version="latest"] - The version of the package to install.
- * @param {boolean} [global=false] - Whether to install the package globally.
- * @param {string} [additionalArgs=null] - Additional arguments to pass to the package manager.
- * @param {string} [pkgManager='npm'] - The package manager to use ('npm' or 'yarn').
- * @returns {object} - The installed package.
- * @throws {PackageInitializationError} - If package installation fails.
- * @throws {TypeError} - If the package parameter is not a non-empty string.
- */
-function $install(package, saveDev = false, version = "latest", global = false, additionalArgs = null, pkgManager = 'npm') {
-  // Function implementation...
-}
+const installedPackage = $install('package-name');
 ```
 
-## Usage Examples
+### Parameters
 
-### Example 1: Install a package using npm
+- **package** (string): The name of the package to install.
+- **saveDev** (boolean, optional): Whether to install the package as a development dependency. Default is `false`.
+- **version** (string, optional): The version of the package to install. Default is `'latest'`.
+- **global** (boolean, optional): Whether to install the package globally. Default is `false`.
+- **additionalArgs** (string, optional): Additional arguments to pass to the package manager.
+- **pkgManager** (string, optional): The package manager to use ('npm' or 'yarn'). Default is `'npm'`.
+
+### Examples
+
+#### Install a package using npm:
 
 ```javascript
 const installedPackage = $install('example-package');
-console.log(installedPackage); // Outputs the installed package
 ```
 
-In this example, the function installs the 'example-package' using npm and logs the installed package to the console.
-
-### Example 2: Install a package with specific version and as a development dependency using yarn
+#### Install a package using yarn as a development dependency with a specific version and additional arguments:
 
 ```javascript
 const installedPackage = $install('example-package', true, '1.2.3', false, '--ignore-scripts', 'yarn');
-console.log(installedPackage); // Outputs the installed package
 ```
 
-This example demonstrates installing 'example-package' with version 1.2.3, as a development dependency, and using yarn as the package manager. The `--ignore-scripts` flag is also passed as an additional argument.
+## Benefits
 
-## Why Use `$install`?
+1. **Simplified Package Management:** The `$install` function abstracts away the complexities of package installation, providing a concise and consistent interface.
 
-- **Simplicity:** The function simplifies the process of installing packages, reducing the need for users to write complex installation scripts.
+2. **Global Availability:** Being globally available, `$install` enhances the ease of use across your entire project, eliminating the need for repetitive installation code.
 
-- **Consistency:** It abstracts away the differences between npm and yarn commands, providing a consistent interface regardless of the package manager in use.
+3. **Dynamic Package Loading:** The function intelligently checks if the specified package is already installed, avoiding redundant installations and improving efficiency.
 
-- **Error Handling:** The function handles potential errors during the installation process, throwing a `PackageInitializationError` if installation fails.
+4. **Support for npm and yarn:** The flexibility to choose between npm and yarn allows you to align the package management strategy with your project requirements.
 
-- **Customization:** Users can customize the installation by specifying options such as version, dependency type (development or production), and additional arguments.
+## Error Handling
 
-- **Compatibility:** The function supports both npm and yarn, making it versatile for projects using different package managers.
+The `$install` function throws a `PackageInitializationError` if the package installation fails. This error includes details about the package and the specific error message.
 
 ## Conclusion
 
-The `$install` function streamlines the package installation process, making it more straightforward and less error-prone. Its flexibility and error-handling capabilities contribute to a smoother development experience.
-
-Feel free to incorporate this function into your projects to enhance package management and streamline your workflows.
+In summary, the `$install` function simplifies and streamlines the process of managing dependencies in your Node.js applications. Its global availability, support for multiple package managers, and straightforward usage make it a valuable tool for improving the efficiency of your development workflow.
