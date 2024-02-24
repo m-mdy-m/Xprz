@@ -9,8 +9,10 @@ const jwtHandler = require("../handler/package/jwt"),
   { PackageInitializationError } = require("../Errors/package.manager.error"),
   $install = require("../utils/installPkg");
 const { useApp, getApp } = require("../shareApp");
-
-const session = $install("express-session");
+let installSession = false,session
+if (installSession) {
+  session = $install("express-session");
+}
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
  * @extends AppManager
@@ -26,6 +28,7 @@ class PackageManager {
    * pkgManager.session({ secret: 'secret', resave: false, saveUninitialized: true });
    */
   session(...options) {
+    installSession = true;
     useApp(session(...options));
   }
 
