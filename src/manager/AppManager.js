@@ -1,8 +1,9 @@
 const App = require("../shared/App");
 const { ShutdownError, RouteLoadingError } = require("../Errors/App.error");
-const { getApp} = require('../shareApp')
+const { getApp } = require("../shareApp");
 const fs = require("fs");
 const path = require("path");
+const $read = require("../utils/read");
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -33,7 +34,7 @@ class AppManager extends App {
    * const app = initApp();
    */
   initApp() {
-    return super.initApp()
+    return super.initApp();
   }
   /**
    * Starts the Express application to listen on the specified port.
@@ -46,7 +47,11 @@ class AppManager extends App {
    * @example
    * listen(3000, 'Server is running on port 3000', true);
    */
-  listen(port = 3000, textLog = `Server is running on port ${port}`, log = true) {
+  listen(
+    port = 3000,
+    textLog = `Server is running on port ${port}`,
+    log = true
+  ) {
     return super.listen(port, textLog, log);
   }
   /**
@@ -89,7 +94,7 @@ class AppManager extends App {
    * const express = getExpress();
    */
   getExpress() {
-    return super.getExpress()
+    return super.getExpress();
   }
   /**
    * Attaches middleware functions to the Express application.
@@ -103,7 +108,7 @@ class AppManager extends App {
    * app.use(cors());
    */
   use(...handler) {
-    return super.use(...handler)
+    return super.use(...handler);
   }
   /**
    * Sets the error handler middleware for the Express application.
@@ -241,19 +246,20 @@ class AppManager extends App {
       // Read the files in the route directory
       fs.readdirSync(routeDir).forEach((file) => {
         const routePath = path.join(routeDir, file.replace(/\\/g, "/"));
-
         // Check if the file is a JavaScript file
         if (file.endsWith(".js")) {
           // Dynamically require the route file
-          const route = require(routePath);
+          const route = $read(routePath)
           // Check if the route is a function
           if (typeof route === "object") {
             // Mount the route
-            const app = getApp()
+            const app = getApp();
             try {
-              route.attachTo(app)
+              route.attachTo(app);
             } catch (error) {
-              throw new RouteLoadingError('Error attaching route to the application: ' + error.message);
+              throw new RouteLoadingError(
+                "Error attaching route to the application: " + error.message
+              );
             }
             if (log) {
               console.log(`Route ${routePath} loaded successfully.`);
