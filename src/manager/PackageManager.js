@@ -18,6 +18,14 @@ const session = $install("express-session");
  */
 class PackageManager {
   constructor() {}
+  $install(pkgName){
+    if (typeof pkgName === 'string') {
+      return $install(pkgName)
+    }
+    throw new PackageInitializationError(pkgName,"Invalid package name provided. Please provide a valid package name as a string.");
+  }
+
+
   /**
    * Initialize and configure Express session middleware.
    * @param {...any} options - Options for configuring the session middleware.
