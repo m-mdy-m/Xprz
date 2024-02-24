@@ -32,14 +32,20 @@ function _checkPkg(packageName, retries = 10, delay = 100) {
  * const installedPackage = $install('vfyjs');
  * console.log(installedPackage); // Outputs the installed package
  */
-function $install(package, saveDev = false, version = "latest",global =false) {
+function $install(package, saveDev = false, version = "latest",global =false,additionalArgs='',pkgManager = 'npm') {
+  const pkg = pkgManager.toLowerCase().trim()
   try {
     if (typeof package !== "string" || package.trim() === "") {
       throw new TypeError("Package name must be a non-empty string.");
     }
     let isPkg = _checkPkg(package);
     if (!isPkg) {
-      const installCommand = `npm install ${global ? "-g" : ''} ${package}@${version}${saveDev ? " --save-dev" : ""}`;
+      let installCommand
+        if (pkg === 'yarn') {
+        installCommand =  `yarn add ${package}@${version}${saveDev ? " --dev" : ""}${global ? " --global" : ""}`;   
+      }else{
+          installCommand = `npm install ${global ? "-g" : ''} ${package}@${version}${saveDev ? " --save-dev" : ""}${additionalArgs}`;
+      }
       // Install the package using npm
       execSync(installCommand);
       isPkg = _checkPkg(package); // Check again if package is now installed
