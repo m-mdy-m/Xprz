@@ -15,6 +15,10 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 - **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
 - **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
 
+- **$read**: Dynamically load files or folders within a Node.js environment with ease using the `$read` utility function. Simplify the process of managing dependencies and accessing resources effortlessly.
+
+- **$install**: Simplify package installation in your Node.js applications with the `$install` utility function provided by Xprz. Automate the process of checking for package existence and installing dependencies seamlessly.
+
 ## Features
 
 - **Middleware Management**: Effortlessly enhance your application's functionality by attaching middleware functions with a simple API.
@@ -23,6 +27,10 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 - **HTTP Method Utilities**: Simplify HTTP method handling with predefined utility methods for GET, POST, PUT, DELETE, and more.
 - **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
 - **Shared Application Instance**: Share the Express application instance across modules for easy access and configuration.
+- **$read**: Dynamically load modules or directories within your project, simplifying dependency management and resource access.
+  
+- **$install**: Streamline package installation by automating the process of checking for package existence and installing dependencies with ease.
+
 
 ## Example Features:
 
@@ -144,6 +152,29 @@ get('/', (req, res) => {
 
 // Start server
 listen(3000);
+```
+
+### $read
+```javascript
+const myModule = $read("./myFile.js");
+console.log(myModule); // Outputs the loaded module
+
+const myFolder = $read("./myFolder");
+console.log(myFolder); // Outputs an object containing all modules within the folder
+```
+
+### $install
+```javascript
+const installedPackage = $install('example-package');
+```
+
+### Real-world Example (Project Initialization)
+
+```javascript
+const myFolder = $read("./myFolder");
+console.log(myFolder); // Outputs an object containing all modules within the folder
+
+const installedPackage = $install('example-package');
 ```
 
 ### Real-world Example (Blogging Platform)
