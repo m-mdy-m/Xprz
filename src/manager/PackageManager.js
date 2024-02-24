@@ -6,9 +6,8 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf"),
-  {
-    PackageInitializationError,
-  } = require("../Errors/package.manager.error"),$install = require('../utils/installPkg')
+  { PackageInitializationError } = require("../Errors/package.manager.error"),
+  $install = require("../utils/installPkg");
 const { useApp, getApp } = require("../shareApp");
 
 const session = $install("express-session");
@@ -18,13 +17,9 @@ const session = $install("express-session");
  */
 class PackageManager {
   constructor() {}
-  $install(pkgName){
-    if (typeof pkgName === 'string') {
-      return $install(pkgName)
-    }
-    throw new PackageInitializationError(pkgName,"Invalid package name provided. Please provide a valid package name as a string.");
+  $install(pkgName) {
+    return $install(pkgName);
   }
-
 
   /**
    * Initialize and configure Express session middleware.
