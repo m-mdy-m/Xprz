@@ -296,13 +296,16 @@ class RouteManager {
         // Register route with middleware
         this.registerRoute(method, ...handlers);
       } else {
-        console.log("typeof handlers=>", typeof handlers);
         // Register route without middleware
         this.router[method](this.path, (req, res) => {
           let response = this.setRes(res);
           let request = this.setReq(req);
           handlers.forEach((handler) => {
-            handler(request ? request : req, response ? response : res);
+            if (handler.length > 1) {
+              handler(this.req(), this.res());
+            } else {
+              handler(request ? request : req, response ? response : res);
+            }
           });
         });
       }

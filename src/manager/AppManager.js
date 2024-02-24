@@ -250,7 +250,11 @@ class AppManager extends App {
           if (typeof route === "object") {
             // Mount the route
             const app = getApp()
-            route.attachTo(app)
+            try {
+              route.attachTo(app)
+            } catch (error) {
+              throw new RouteLoadingError('Error attaching route to the application: ' + error.message);
+            }
             if (log) {
               console.log(`Route ${routePath} loaded successfully.`);
             }
