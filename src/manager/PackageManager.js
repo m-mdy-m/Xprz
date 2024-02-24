@@ -6,25 +6,18 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf"),
-  {ModuleNotInstalledError,PackageInitializationError} = require('../Errors/package.manager.error')
+  {
+    PackageInitializationError,
+  } = require("../Errors/package.manager.error"),$install = require('../utils/installPkg')
 const { useApp, getApp } = require("../shareApp");
 
-function checkPkg(packageName) {
-  try {
-    const requiredPackage = require(packageName);
-    return requiredPackage;
-  } catch {
-    throw new ModuleNotInstalledError(packageName);
-  }
-}
-const session = checkPkg("express-session");
+const session = $install("express-session");
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
  * @extends AppManager
  */
 class PackageManager {
   constructor() {}
-
   /**
    * Initialize and configure Express session middleware.
    * @param {...any} options - Options for configuring the session middleware.
@@ -45,7 +38,7 @@ class PackageManager {
    * const jwt = pkgManager.jwt();
    */
   jwt() {
-    const pkg = checkPkg("jsonwebtoken");
+    const pkg = $install("jsonwebtoken");
     return new jwtHandler(pkg);
   }
 
@@ -57,8 +50,8 @@ class PackageManager {
    * const multer = pkgManager.multer();
    */
   multer() {
-    const pkg = checkPkg("multer");
-    const app = getApp()
+    const pkg = $install("multer");
+    const app = getApp();
     return new MulterHandler(pkg, app);
   }
 
@@ -70,7 +63,7 @@ class PackageManager {
    * const nodemailer = pkgManager.nodemailer();
    */
   nodemailer() {
-    const pkg = checkPkg("nodemailer");
+    const pkg = $install("nodemailer");
     return new NodemailerHandler(pkg);
   }
 
@@ -82,7 +75,7 @@ class PackageManager {
    * const bcryptjs = pkgManager.bcryptjs();
    */
   bcryptjs() {
-    const pkg = checkPkg("bcryptjs");
+    const pkg = $install("bcryptjs");
     return new bcryptjsHandler(pkg);
   }
 
@@ -95,7 +88,7 @@ class PackageManager {
    * const bodyParser = pkgManager.bodyParser();
    */
   bodyParser(...handler) {
-    const pkg = checkPkg("body-parser");
+    const pkg = $install("body-parser");
     const use = useApp.bind(this);
     return new BodyParser(pkg, use, ...handler);
   }
@@ -108,7 +101,7 @@ class PackageManager {
    * const csrf = pkgManager.csrf();
    */
   csrf() {
-    const pkg = checkPkg("csurf");
+    const pkg = $install("csurf");
     const use = useApp.bind(this);
     return new Csrf(pkg, use);
   }
@@ -122,7 +115,7 @@ class PackageManager {
    * const cors = pkgManager.cors(...handler);
    */
   cors(...handler) {
-    const pkg = checkPkg("cors");
+    const pkg = $install("cors");
     const use = useApp.bind(this);
     return new Cors(pkg, use, ...handler);
   }
@@ -135,7 +128,7 @@ class PackageManager {
    * const flash = pkgManager.flash();
    */
   flash() {
-    const pkg = checkPkg("connect-flash");
+    const pkg = $install("connect-flash");
     const use = useApp.bind(this);
     return new flash(pkg, use);
   }
@@ -150,10 +143,13 @@ class PackageManager {
    */
   connectMongoDbSession(...options) {
     try {
-      const connectMongoDbSession = require("connect-mongodb-session")(session); 
+      const connectMongoDbSession = require("connect-mongodb-session")(session);
       return new connectMongoDbSession(...options);
     } catch (error) {
-      throw new PackageInitializationError("connect-mongodb-session", error.message);
+      throw new PackageInitializationError(
+        "connect-mongodb-session",
+        error.message
+      );
     }
   }
 }
