@@ -10,7 +10,9 @@ class Dotenv {
   constructor(pkg) {
     /** @private */
     this.dotenv = pkg;
+    /** @private */
     this.setup = this.setup.bind(this);
+    /** @private */
     this.getDot = this.getDot.bind(this);
   }
 

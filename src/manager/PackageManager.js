@@ -169,22 +169,23 @@ class PackageManager {
     }
   }
   /**
-     * Setup dotenv configuration.
-     * @param {Object} [options={}] - Options for dotenv configuration.
-     * @param {boolean} [log=false] - Whether to log success message or not.
-     * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
-     * @example
-     * const dotenvInstance =dotenv();
-     * const success = dotenvInstance.setup(true);
-     * if (success) {
-     *   // Environment variables loaded successfully
-     * } else {
-     *   // Failed to load environment variables
-     * }
-     */
+   * Setup dotenv configuration.
+   * @param {Object} [options={}] - Options for dotenv configuration.
+   * @param {boolean} [log=false] - Whether to log success message or not.
+   * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
+   * @example
+   * const dotenvInstance =dotenv();
+   * const success = dotenvInstance.setup(true);
+   * if (success) {
+   *   // Environment variables loaded successfully
+   * } else {
+   *   // Failed to load environment variables
+   * }
+   */
   dotenv() {
     const pkg = $install("dotenv");
-    return new Dotenv(pkg);
+    const dotenv = new Dotenv(pkg);
+    // return dotenv
   }
 }
 module.exports = PackageManager;
