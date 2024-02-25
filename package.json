@@ -1,6 +1,6 @@
 {
   "name": "xprz",
-  "version": "1.0.5-beta.3.3",
+  "version": "1.0.5-beta.3.4",
   "description": "Xprz is a lightweight and concise wrapper for Express.js, designed to simplify the process of building web applications with a minimalistic syntax. With Xprz, you can define routes, handle middleware, and set up an Express.js server with ease.",
   "main": "index.js",
   "scripts": {
