@@ -227,7 +227,7 @@ Creates an instance of `TemplateEngines` to manage template engine configuration
   const { App } = new xprz();
   const { setTemplateEngine } = new App();
   const templateEngines = setTemplateEngine();
-  templateEngines.Ejs();
+  templateEngines.ejs();
   ```
 
 ### `loadRoutes`

@@ -206,19 +206,33 @@ class AppManager extends App {
       });
     });
   }
+
+  /**
+   * Methods for interacting with setTemplateEngine instances.
+   * @typedef {Object} setTemplateEngine
+   * @property {Function} ejs
+   * @property {Function} hbs
+   * @property {Function} pug
+   */
+  /**
+   * Methods for interacting with setTemplateEngine instances.
+   * @typedef {Object} setTemplateEngine
+   * @property {Function} ejs - Function to configure EJS template engine.
+   * @property {Function} hbs - Function to configure Handlebars (HBS) template engine.
+   * @property {Function} pug - Function to configure Pug template engine.
+   */
+
   /**
    * Creates an instance of TemplateEngines to manage template engine configuration.
-   *
    * @returns {TemplateEngines} An instance of TemplateEngines.
-   *
    * @example
    * const appManager = new App();
    * const templateEngines = appManager.setTemplateEngine();
    * templateEngines.Ejs();
    */
   setTemplateEngine() {
-    const TemplateEngines = require("../utils/templateEngines");
-    return new TemplateEngines();
+    const { setEjs, setHBS, setPug } = require("../utils/templateEngines");
+    return { ejs: setEjs, hbs: setHBS, pug: setPug };
   }
   /**
    * Dynamically loads and mounts routes from a specified directory.
@@ -249,7 +263,7 @@ class AppManager extends App {
         // Check if the file is a JavaScript file
         if (file.endsWith(".js")) {
           // Dynamically require the route file
-          const route = $read(routePath)
+          const route = $read(routePath);
           // Check if the route is a function
           if (typeof route === "object") {
             // Mount the route

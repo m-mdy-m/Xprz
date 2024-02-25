@@ -14,10 +14,10 @@ if (!app) {
  * 
  * @example
  * // Set up EJS with default views directory
- * setEjs();
+ * ejs();
  * 
  * // Set up EJS with custom views directory
- * setEjs('custom_views');
+ * ejs('custom_views');
  */
 function setEjs(dir="views") {
   $install('ejs')
@@ -36,10 +36,10 @@ function setEjs(dir="views") {
  * 
  * @example
  * // Set up Handlebars with default options and views directory
- * setHBS(hbs, 'views');
+ * hbs(hbs, 'views');
  * 
  * // Set up Handlebars with custom options and views directory
- * setHBS(hbs, 'custom_views', { defaultLayout: 'main' });
+ * hbs(hbs, 'custom_views', { defaultLayout: 'main' });
  */
 function setHBS(hbs, dir, options = {}) {
   // Default options for Handlebars
@@ -68,10 +68,10 @@ function setHBS(hbs, dir, options = {}) {
  * 
  * @example
  * // Set up Pug with default views directory
- * setPug();
+ * pug();
  * 
  * // Set up Pug with custom views directory
- * setPug('custom_views');
+ * pug('custom_views');
  */
 function setPug(dir="views") {
   // Set the view engine to Pug
@@ -79,23 +79,6 @@ function setPug(dir="views") {
   // Set the views directory, defaulting to "views" if dir is not provided
   app.set("views", dir);
 }
-/**
- * Utility class for configuring template engines for rendering views in an Express application.
- */
-class TemplateEngines {
-  /**
-   * Creates an instance of TemplateEngines.
-   */
-  constructor() {
-    // Initialize properties
-    this.Ejs = setEjs;
-    this.Pug = setPug;
-    this.Hbs = setHBS;
-  }
-}
-
-
-
 // Export the functions to be used elsewhere
-module.exports = TemplateEngines
+module.exports = {setEjs,setHBS,setPug}
 }
