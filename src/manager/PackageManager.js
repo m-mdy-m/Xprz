@@ -6,9 +6,10 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf"),
-  Dotenv = require("../handler/package/dotenv"),
   { PackageInitializationError } = require("../Errors/package.manager.error"),
   $install = require("../utils/installPkg");
+const Dotenv = require("../handler/package/dotenv");
+
 const { useApp, getApp } = require("../shareApp");
 let connectMongo = false;
 function initSession() {
@@ -169,22 +170,36 @@ class PackageManager {
     }
   }
   /**
-   * Setup dotenv configuration.
-   * @param {Object} [options={}] - Options for dotenv configuration.
-   * @param {boolean} [log=false] - Whether to log success message or not.
-   * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
+   * Initialize and configure dotenv for managing environment variables.
+   * @returns {Object} An object containing methods for interacting with dotenv.
    * @example
-   * const dotenvInstance =dotenv();
-   * const success = dotenvInstance.setup(true);
-   * if (success) {
-   *   // Environment variables loaded successfully
-   * } else {
-   *   // Failed to load environment variables
-   * }
+   * const pkgManager = new Package();
+   * const dotenv = pkgManager.dotenv();
+   * dotenv.setupDot(true);
    */
   dotenv() {
-    const pkg = $install("dotenv");
-    return new Dotenv(pkg);
+    const { getDot, setupDot } = new Dotenv();
+    return {
+      /**
+       * Get the underlying dotenv instance.
+       * @returns {Object} - The dotenv instance.
+       * @example
+       * const dotenv = pkgManager.dotenv();
+       * const dotenvInstance = dotenv.getDot();
+       */
+      getDot,
+
+      /**
+       * Setup dotenv configuration.
+       * @param {boolean} [log=false] - Whether to log success message or not.
+       * @param {Object} [options={}] - Options for dotenv configuration.
+       * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
+       * @example
+       * const dotenv = pkgManager.dotenv();
+       * dotenv.setupDot(true, { path: '/path/to/.env' });
+       */
+      setupDot,
+    };
   }
 }
 module.exports = PackageManager;
