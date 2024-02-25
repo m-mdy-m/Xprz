@@ -228,7 +228,7 @@ class AppManager extends App {
    * @example
    * const appManager = new App();
    * const templateEngines = appManager.setTemplateEngine();
-   * templateEngines.Ejs();
+   * templateEngines.ejs();
    */
   setTemplateEngine() {
     const { setEjs, setHBS, setPug } = require("../utils/templateEngines");
