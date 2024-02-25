@@ -53,6 +53,42 @@ class RouteManager {
     this.request = req;
   }
   /**
+   * Methods for interacting with res.
+   * @typedef {Object} Response
+   * @property {Function} write
+   * @property {Function} status
+   * @property {Function} links
+   * @property {Function} send
+   * @property {Function} json
+   * @property {Function} end
+   * @property {Function} jsonp
+   * @property {Function} setHeaders
+   * @property {Function} setHeader
+   * @property {Function} getHeader
+   * @property {Function} sendStatus
+   * @property {Function} sendFile
+   * @property {Function} download
+   * @property {Function} contentType
+   * @property {Function} type
+   * @property {Function} format
+   * @property {Function} attachment
+   * @property {Function} append
+   * @property {Function} set
+   * @property {Function} header
+   * @property {Function} get
+   * @property {Function} clearCookie
+   * @property {Function} cookie
+   * @property {Function} location
+   * @property {Function} redirect
+   * @property {Function} vary
+   * @property {Function} render
+   * @property {Function} setContentType
+   * @property {Function} sendHTML
+   * @property {Function} getCookieHandler
+   * @property {Function} getHeadersHandler
+   * @property {Function} getJsonHandler
+   */
+  /**
    * Returns an enhanced response object.
    * @returns {Response} Enhanced response object.
    * @example
@@ -66,6 +102,49 @@ class RouteManager {
   res() {
     return new Response(this.response);
   }
+
+  /**
+   * Methods for interacting with res.
+   * @typedef {Object} Response
+   * @property {Function} getQuery
+   * @property {Function} getBody
+   * @property {Function} getHeadersReq
+   * @property {Function} getUrl
+   * @property {Function} getPath
+   * @property {Function} isAjax
+   * @property {Function} isSecure
+   * @property {Function} getIp
+   * @property {Function} getCookies
+   * @property {Function} hasHeader
+   * @property {Function} getHeaderName
+   * @property {Function} getProtocol
+   * @property {Function} accepts
+   * @property {Function} param
+   * @property {Function} getUrl
+   * @property {Function} is
+   * @property {Function} getPath
+   * @property {Function} getMethod
+   * @property {Function} getSubdomains
+   * @property {Function} getHostname
+   * @property {Function} getHost
+   * @property {Function} isFresh
+   * @property {Function} isStale
+   * @property {Function} isXhr
+   * @property {Function} getLanguages
+   * @property {Function} getEncodings
+   * @property {Function} getCharsets
+   * @property {Function} hasQueryParam
+   * @property {Function} getQueryParam
+   * @property {Function} hasBodyParam
+   * @property {Function} getBodyParam
+   * @property {Function} hasCookie
+   * @property {Function} getCookieName
+   * @property {Function} hasHeaderIgnoreCase
+   * @property {Function} getHeaderIgnoreCase
+   * @property {Function} isMethod
+   * @property {Function} getAllParams
+   * @property {Function} getAcceptedContentTypes
+   */
 
   /**
    * Returns an enhanced request object.

@@ -169,16 +169,21 @@ class PackageManager {
       );
     }
   }
-  /**
-   * Initialize and configure dotenv for managing environment variables.
-   * @returns {Object} An object containing methods for interacting with dotenv.
-   * @param {Function} getDot - A function to retrieve environment variables.
-   * @param {Function} setupDot - A function to configure dotenv settings.
-   * @example
-   * const pkgManager = new Package();
-   * const dotenv = pkgManager.dotenv();
-   * dotenv.setupDot(true);
-   */
+ /**
+ * Methods for interacting with dotenv.
+ * @typedef {Object} DotenvMethods
+ * @property {Function} getDot - A function to retrieve environment variables.
+ * @property {Function} setupDot - A function to configure dotenv settings.
+ */
+
+/**
+ * Initialize and configure dotenv for managing environment variables.
+ * @returns {DotenvMethods} An object containing methods for interacting with dotenv.
+ * @example
+ * const pkgManager = new Package();
+ * const dotenv = pkgManager.dotenv();
+ * dotenv.setupDot(true);
+ */
   dotenv() {
     const { getDot, setupDot } = new Dotenv();
     return { getDot, setupDot };
