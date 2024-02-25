@@ -55,38 +55,38 @@ class RouteManager {
   /**
    * Methods for interacting with res.
    * @typedef {Object} Response
-   * @property {Function} write
-   * @property {Function} status
-   * @property {Function} links
-   * @property {Function} send
-   * @property {Function} json
-   * @property {Function} end
-   * @property {Function} jsonp
-   * @property {Function} setHeaders
-   * @property {Function} setHeader
-   * @property {Function} getHeader
-   * @property {Function} sendStatus
-   * @property {Function} sendFile
-   * @property {Function} download
-   * @property {Function} contentType
-   * @property {Function} type
-   * @property {Function} format
-   * @property {Function} attachment
-   * @property {Function} append
-   * @property {Function} set
-   * @property {Function} header
-   * @property {Function} get
-   * @property {Function} clearCookie
-   * @property {Function} cookie
-   * @property {Function} location
-   * @property {Function} redirect
-   * @property {Function} vary
-   * @property {Function} render
-   * @property {Function} setContentType
-   * @property {Function} sendHTML
-   * @property {Function} getCookieHandler
-   * @property {Function} getHeadersHandler
-   * @property {Function} getJsonHandler
+   * @property {Function} write - Writes data to the HTTP response.
+   * @property {Function} status - Sets the HTTP status code for the response.
+   * @property {Function} links - Sets the links header for the response.
+   * @property {Function} send - Sends a response of various types.
+   * @property {Function} json - Sends a JSON response.
+   * @property {Function} end - Ends the response process.
+   * @property {Function} jsonp - Sends a JSON response with JSONP support.
+   * @property {Function} setHeaders - Sets the response headers.
+   * @property {Function} setHeader - Sets a single response header value.
+   * @property {Function} getHeader - Gets a response header value.
+   * @property {Function} sendStatus - Sends the HTTP status for the response.
+   * @property {Function} sendFile - Sends a file as an octet stream.
+   * @property {Function} download - Initiates a file download.
+   * @property {Function} contentType - Sets the content type of the response.
+   * @property {Function} type - Sets the content type for the response.
+   * @property {Function} format - Formats the response.
+   * @property {Function} attachment - Sets the attachment header for the response.
+   * @property {Function} append - Appends additional header values.
+   * @property {Function} set - Sets a response header.
+   * @property {Function} header - Alias for set.
+   * @property {Function} get - Gets the response header value for a given header.
+   * @property {Function} clearCookie - Clears the specified cookie.
+   * @property {Function} cookie - Sets a cookie in the response.
+   * @property {Function} location - Sets the location header for the response.
+   * @property {Function} redirect - Redirects the request.
+   * @property {Function} vary - Adds values to the Vary response header.
+   * @property {Function} render - Renders a view template.
+   * @property {Function} setContentType - Sets the content type of the response.
+   * @property {Function} sendHTML - Sends an HTML response.
+   * @property {Function} getCookieHandler - Retrieves a handler function for dealing with cookies.
+   * @property {Function} getHeadersHandler - Retrieves a handler function for dealing with headers.
+   * @property {Function} getJsonHandler - Retrieves a handler function for dealing with JSON data.
    */
   /**
    * Returns an enhanced response object.
@@ -104,46 +104,44 @@ class RouteManager {
   }
 
   /**
-   * Methods for interacting with res.
+   * Methods for interacting with the response.
    * @typedef {Object} Response
-   * @property {Function} getQuery
-   * @property {Function} getBody
-   * @property {Function} getHeadersReq
-   * @property {Function} getUrl
-   * @property {Function} getPath
-   * @property {Function} isAjax
-   * @property {Function} isSecure
-   * @property {Function} getIp
-   * @property {Function} getCookies
-   * @property {Function} hasHeader
-   * @property {Function} getHeaderName
-   * @property {Function} getProtocol
-   * @property {Function} accepts
-   * @property {Function} param
-   * @property {Function} getUrl
-   * @property {Function} is
-   * @property {Function} getPath
-   * @property {Function} getMethod
-   * @property {Function} getSubdomains
-   * @property {Function} getHostname
-   * @property {Function} getHost
-   * @property {Function} isFresh
-   * @property {Function} isStale
-   * @property {Function} isXhr
-   * @property {Function} getLanguages
-   * @property {Function} getEncodings
-   * @property {Function} getCharsets
-   * @property {Function} hasQueryParam
-   * @property {Function} getQueryParam
-   * @property {Function} hasBodyParam
-   * @property {Function} getBodyParam
-   * @property {Function} hasCookie
-   * @property {Function} getCookieName
-   * @property {Function} hasHeaderIgnoreCase
-   * @property {Function} getHeaderIgnoreCase
-   * @property {Function} isMethod
-   * @property {Function} getAllParams
-   * @property {Function} getAcceptedContentTypes
+   * @property {Function} getQuery - Retrieves the query parameters from the request.
+   * @property {Function} getBody - Retrieves the request body.
+   * @property {Function} getHeadersReq - Retrieves the request headers.
+   * @property {Function} getUrl - Retrieves the request URL.
+   * @property {Function} getPath - Retrieves the request path.
+   * @property {Function} isAjax - Checks if the request is an AJAX request.
+   * @property {Function} isSecure - Checks if the request is secure (HTTPS).
+   * @property {Function} getIp - Gets the IP address of the request.
+   * @property {Function} getCookies - Retrieves the cookies from the request.
+   * @property {Function} hasHeader - Checks if the request has a specific header.
+   * @property {Function} getHeaderName - Gets the value of a specific request header.
+   * @property {Function} getProtocol - Retrieves the protocol used by the request.
+   * @property {Function} accepts - Checks if the request accepts a specific content type.
+   * @property {Function} param - Retrieves the value of a parameter from the request.
+   * @property {Function} is - Checks if the request matches the given types.
+   * @property {Function} getMethod - Retrieves the HTTP method of the request.
+   * @property {Function} getSubdomains - Retrieves an array of subdomains in the domain name of the request.
+   * @property {Function} getHostname - Retrieves the hostname from the request.
+   * @property {Function} getHost - Retrieves the host from the request.
+   * @property {Function} isFresh - Checks if the request is fresh.
+   * @property {Function} isStale - Checks if the request is stale.
+   * @property {Function} isXhr - Checks if the request is an XMLHttpRequest (AJAX) request.
+   * @property {Function} getLanguages - Retrieves the request language preferences.
+   * @property {Function} getEncodings - Retrieves the request encoding preferences.
+   * @property {Function} getCharsets - Retrieves the request charset preferences.
+   * @property {Function} hasQueryParam - Checks if the request has a specific query parameter.
+   * @property {Function} getQueryParam - Gets the value of a specific query parameter.
+   * @property {Function} hasBodyParam - Checks if the request has a specific body parameter.
+   * @property {Function} getBodyParam - Gets the value of a specific body parameter.
+   * @property {Function} hasCookie - Checks if the request has a specific cookie.
+   * @property {Function} getCookieName - Gets the value of a specific cookie.
+   * @property {Function} hasHeaderIgnoreCase - Checks if the request has a specific header (case-insensitive).
+   * @property {Function} getHeaderIgnoreCase - Gets the value of a specific header (case-insensitive).
+   * @property {Function} isMethod - Checks if the request method matches a given method.
+   * @property {Function} getAllParams - Retrieves all parameters from the request.
+   * @property {Function} getAcceptedContentTypes - Retrieves the accepted content types from the request.
    */
 
   /**
