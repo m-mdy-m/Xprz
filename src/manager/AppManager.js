@@ -163,7 +163,7 @@ class AppManager extends App {
    * appManager.static('public');
    */
   static(...handlers) {
-    this.use(this.express.static($read(...handlers)));
+    this.use(this.express.static(path.resolve(process.cwd(), ...handlers)));
   }
 
   /**
