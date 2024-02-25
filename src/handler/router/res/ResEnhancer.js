@@ -18,7 +18,17 @@ class ResEnhancer extends Response {
     this.getHeadersHandler = this.getHeadersHandler.bind(this);
     this.getJsonHandler = this.getJsonHandler.bind(this);
   }
-
+  /**
+   * Methods for interacting with CookieHandler instances.
+   * @typedef {Object} CookieHandler
+   * @property {Function} setCookie - Sets a cookie in the response headers.
+   * @property {Function} getCookie - Retrieves the value of a specific cookie from the request headers.
+   * @property {Function} getAllCookies - Retrieves all cookies from the request headers.
+   * @property {Function} removeCookie - Removes a specific cookie from the response headers.
+   * @property {Function} isCookie - Checks if a specific cookie is present in the request headers.
+   * @property {Function} clearAllCookies - Clears all cookies from the response headers.
+   * @property {Function} countCookies - Counts the number of cookies present in the request headers.
+   */
   /**
    * Gets an advanced cookie handler.
    * @returns {CookieHandler} Advanced cookie handler.
