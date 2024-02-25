@@ -39,7 +39,7 @@ class Dotenv {
    *   // Failed to load environment variables
    * }
    */
-  setup(log = false,options = { path: path.resolve(process.cwd(), ".env") }) {
+  setup(log = false, options = { path: path.resolve(process.cwd(), ".env") }) {
     try {
       const result = this.dotenv.config(options);
       if (result.error) {
