@@ -1,5 +1,6 @@
 const MongoDb = require("../handler/database/MongoDB"),
-  MySql = require("../handler/database/MySql"),$install = require('../utils/installPkg')
+  MySql = require("../handler/database/MySql"),
+  $install = require("../utils/installPkg");
 
 class DataBaseManager {
   constructor() {}
@@ -11,7 +12,7 @@ class DataBaseManager {
    * const dbManager = new DataBaseManager();
    * const mysql = dbManager.MySql();
    */
-  MySql(pkgname='mysql2') {
+  MySql(pkgname = "mysql2") {
     const pkg = $install(pkgname);
     return new MySql(pkg);
   }
