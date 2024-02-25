@@ -1,14 +1,6 @@
 const MongoDb = require("../handler/database/MongoDB"),
-  MySql = require("../handler/database/MySql"),
-  {ModuleNotInstalledError} = require("../Errors/database.error");
-function checkPkg(packageName) {
-  try {
-    const requiredPackage = require(packageName);
-    return requiredPackage;
-  } catch {
-    throw new ModuleNotInstalledError(packageName);
-  }
-}
+  MySql = require("../handler/database/MySql"),$install = require('../utils/installPkg')
+
 class DataBaseManager {
   constructor() {}
 
@@ -20,7 +12,7 @@ class DataBaseManager {
    * const mysql = dbManager.MySql();
    */
   MySql() {
-    const pkg = checkPkg("mysql") || checkPkg("mysql2");
+    const pkg = $install("mysql2");
     return new MySql(pkg);
   }
 
@@ -32,7 +24,7 @@ class DataBaseManager {
    * const mongodb = dbManager.MongoDb();
    */
   MongoDB() {
-    const pkg = checkPkg("mongodb");
+    const pkg = $install("mongodb");
     return new MongoDb(pkg);
   }
 }
