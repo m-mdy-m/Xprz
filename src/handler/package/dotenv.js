@@ -17,7 +17,7 @@ class Dotenv {
      * Get the underlying dotenv instance.
      * @returns {Object} - The dotenv instance.
      * @example
-     * const dotenvInstance = new Dotenv(require('dotenv'));
+     * const dotenvInstance = dotenv();
      * const dotenv = dotenvInstance.getDot();
      */
     getDot() {
@@ -30,7 +30,7 @@ class Dotenv {
      * @param {boolean} [log=false] - Whether to log success message or not.
      * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
      * @example
-     * const dotenvInstance = new Dotenv(require('dotenv'));
+     * const dotenvInstance =dotenv();
      * const success = dotenvInstance.setup(true,{});
      * if (success) {
      *   // Environment variables loaded successfully
