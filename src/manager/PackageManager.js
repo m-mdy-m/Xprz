@@ -184,8 +184,7 @@ class PackageManager {
    */
   dotenv() {
     const pkg = $install("dotenv");
-    const dotenv = new Dotenv(pkg);
-    // return dotenv
+    return new Dotenv(pkg);
   }
 }
 module.exports = PackageManager;

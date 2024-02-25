@@ -1,12 +1,5 @@
 const path = require("path");
-/**
- * A class for managing environment variables using the dotenv library.
- */
 class Dotenv {
-  /**
-   * Creates an instance of Dotenv.
-   * @param {Object} pkg - The package object for dotenv.
-   */
   constructor(pkg) {
     /** @private */
     this.dotenv = pkg;
@@ -16,31 +9,9 @@ class Dotenv {
     this.getDot = this.getDot.bind(this);
   }
 
-  /**
-   * Get the underlying dotenv instance.
-   * @returns {Object} - The dotenv instance.
-   * @example
-   * const dotenvInstance = dotenv();
-   * const dotenv = dotenvInstance.getDot();
-   */
   getDot() {
     return this.dotenv;
   }
-
-  /**
-   * Setup dotenv configuration.
-   * @param {Object} [options={}] - Options for dotenv configuration.
-   * @param {boolean} [log=false] - Whether to log success message or not.
-   * @returns {boolean} - Returns true if .env file was loaded successfully, false otherwise.
-   * @example
-   * const dotenvInstance =dotenv();
-   * const success = dotenvInstance.setup(true,{});
-   * if (success) {
-   *   // Environment variables loaded successfully
-   * } else {
-   *   // Failed to load environment variables
-   * }
-   */
   setup(log = false, options = { path: path.resolve(process.cwd(), ".env") }) {
     try {
       const result = this.dotenv.config(options);
