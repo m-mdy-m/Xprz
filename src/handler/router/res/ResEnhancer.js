@@ -41,27 +41,27 @@ class ResEnhancer extends Response {
     return new HeadersHandler(this.header, this.res);
   }
   /**
- * Methods for interacting with res.
- * @typedef {Object} JsonHandler
- * @method success
- * @method list
- * @method created
- * @method updated
- * @method opSuccess
- * @method validationFailed
- * @method deleted
- * @method error
- * @method downloadLink
- * @method advancedJson
- * @method authRequired
- * @method authzRequired
- * @method internalServerError
- * @method serviceUnavailable
- * @method notFound
- * @method redirectResponse
- * @method fileUploadSuccess
- * @method badRequest
- */
+   * Methods for interacting with JsonHandler instances.
+   * @typedef {Object} JsonHandler
+   * @method success - Sends a success response with a message.
+   * @method list - Sends a response with a list of items along with pagination details.
+   * @method created - Sends a response indicating that the resource was created successfully.
+   * @method updated - Sends a response indicating that the resource was updated successfully.
+   * @method opSuccess - Sends a response indicating that the operation was completed successfully.
+   * @method validationFailed - Sends a response indicating that the operation failed due to validation errors.
+   * @method deleted - Sends a response indicating that the resource was deleted successfully.
+   * @method error - Sends an error response with a status code and message.
+   * @method downloadLink - Sends a response with a download link.
+   * @method advancedJson - Sends a JSON response with metadata and additional details.
+   * @method authRequired - Sends a response indicating that the request requires authentication.
+   * @method authzRequired - Sends a response indicating that the request requires authorization.
+   * @method internalServerError - Sends a response indicating that the server encountered an unexpected error.
+   * @method serviceUnavailable - Sends a response indicating that the resource is temporarily unavailable.
+   * @method notFound - Sends a response indicating that the resource was not found.
+   * @method redirectResponse - Sends a redirect response.
+   * @method fileUploadSuccess - Sends a response for successful file upload.
+   * @method badRequest - Sends a response for a bad request.
+   */
 
   /**
    * Gets an advanced JSON handler.
