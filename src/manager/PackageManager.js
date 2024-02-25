@@ -6,6 +6,7 @@ const jwtHandler = require("../handler/package/jwt"),
   Cors = require("../handler/package/cors"),
   flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf"),
+  Dotenv = require("../handler/package/dotenv"),
   { PackageInitializationError } = require("../Errors/package.manager.error"),
   $install = require("../utils/installPkg");
 const { useApp, getApp } = require("../shareApp");
@@ -32,13 +33,13 @@ class PackageManager {
    */
   session(...options) {
     const session = initSession();
-  if (session) {
-    useApp(session(...options));
-  } else {
-    // Handle the case when session initialization is skipped.
-    // You might want to throw an error or log a warning.
-    console.warn("Session initialization skipped. connectMongo is false.");
-  }
+    if (session) {
+      useApp(session(...options));
+    } else {
+      // Handle the case when session initialization is skipped.
+      // You might want to throw an error or log a warning.
+      console.warn("Session initialization skipped. connectMongo is false.");
+    }
   }
 
   /**
@@ -166,6 +167,10 @@ class PackageManager {
         error.message
       );
     }
+  }
+  dotenv() {
+    const pkg = $install("dotenv");
+    return new Dotenv(pkg);
   }
 }
 module.exports = PackageManager;
