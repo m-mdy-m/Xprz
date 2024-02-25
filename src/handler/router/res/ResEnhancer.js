@@ -40,6 +40,28 @@ class ResEnhancer extends Response {
   getHeadersHandler() {
     return new HeadersHandler(this.header, this.res);
   }
+  /**
+ * Methods for interacting with res.
+ * @typedef {Object} JsonHandler
+ * @method success
+ * @method list
+ * @method created
+ * @method updated
+ * @method opSuccess
+ * @method validationFailed
+ * @method deleted
+ * @method error
+ * @method downloadLink
+ * @method advancedJson
+ * @method authRequired
+ * @method authzRequired
+ * @method internalServerError
+ * @method serviceUnavailable
+ * @method notFound
+ * @method redirectResponse
+ * @method fileUploadSuccess
+ * @method badRequest
+ */
 
   /**
    * Gets an advanced JSON handler.
