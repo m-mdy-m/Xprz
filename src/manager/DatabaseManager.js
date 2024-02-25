@@ -11,8 +11,8 @@ class DataBaseManager {
    * const dbManager = new DataBaseManager();
    * const mysql = dbManager.MySql();
    */
-  MySql() {
-    const pkg = $install("mysql2");
+  MySql(pkgname='mysql2') {
+    const pkg = $install(pkgname);
     return new MySql(pkg);
   }
 
