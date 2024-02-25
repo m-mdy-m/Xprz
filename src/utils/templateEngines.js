@@ -1,5 +1,7 @@
 // Import the `getApp` function from the "../Using" module
 const { getApp } = require("../shareApp");
+const $install = require("./installPkg");
+const $read = require("./read");
 
 let app = getApp();
 if (!app) {
@@ -18,10 +20,13 @@ if (!app) {
  * setEjs('custom_views');
  */
 function setEjs(dir="views") {
+  $install('ejs')
+  // Assuming $read returns the resolved path to the views directory
+  const viewsPath = $read(dir);
   // Set the view engine to EJS
   app.set("view engine", "ejs");
   // Set the views directory, defaulting to "views" if dir is not provided
-  app.set("views", dir);
+  app.set("views", viewsPath);
 }
 
 /**
