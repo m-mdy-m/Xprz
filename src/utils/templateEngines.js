@@ -44,11 +44,12 @@ function setEjs(dir="views") {
  * setHBS(hbs, 'custom_views', { defaultLayout: 'main' });
  */
 function setHBS(hbs, dir, options = {}) {
+  const viewsPath = $read(dir);
   // Default options for Handlebars
   const defaultOptions = {
     defaultLayout: "main",
-    layoutsDir: `${dir}/layouts`, // Corrected line
-    partialsDir: `${dir}/partials`, // Corrected line
+    layoutsDir: `${viewsPath}/layouts`, // Corrected line
+    partialsDir: `${viewsPath}/partials`, // Corrected line
     extname: ".hbs",
   };
 
@@ -58,7 +59,7 @@ function setHBS(hbs, dir, options = {}) {
   // Set the view engine to Handlebars
   app.set("view engine", "hbs");
   // Set the views directory
-  app.set("views", dir);
+  app.set("views", viewsPath);
   // Configure Handlebars engine with the combined options
   app.engine(".hbs", hbs(combinedOptions));
 }
@@ -76,10 +77,11 @@ function setHBS(hbs, dir, options = {}) {
  * setPug('custom_views');
  */
 function setPug(dir="views") {
+  const viewsPath = $read(dir);
   // Set the view engine to Pug
   app.set("view engine", "pug");
   // Set the views directory, defaulting to "views" if dir is not provided
-  app.set("views", dir);
+  app.set("views", viewsPath);
 }
 /**
  * Utility class for configuring template engines for rendering views in an Express application.
