@@ -9,7 +9,7 @@ class Dotenv {
     /** @private */
     this.dotenv = $install("dotenv");
     /** @private */
-    this.setup = this.setup.bind(this);
+    this.setupDot = this.setupDot.bind(this);
     /** @private */
     this.getDot = this.getDot.bind(this);
   }
