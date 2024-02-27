@@ -1,5 +1,4 @@
 const {
-  ModuleNotInstalledError,
   MongoDBConnectionError,
   MongoDBOperationError,
 } = require("../../Errors/database.error");
