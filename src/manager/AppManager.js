@@ -4,6 +4,7 @@ const { getApp } = require("../shareApp");
 const fs = require("fs");
 const path = require("path");
 const $read = require("../utils/read");
+const { dir } = require("console");
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -24,6 +25,8 @@ class AppManager extends App {
     this.shutdown = this.shutdown.bind(this);
     this.setTemplateEngine = this.setTemplateEngine.bind(this);
     this.loadRoutes = this.loadRoutes.bind(this);
+    /** @private */
+    this.loadRoutesRecursively = this.loadRoutesRecursively.bind(this);
   }
   /**
    * Initializes the Express application.
@@ -294,9 +297,20 @@ class AppManager extends App {
           `Route directory ${routeDir} does not exist.`
         );
       }
-      // Read the files in the route directory
-      fs.readdirSync(routeDir).forEach((file) => {
-        const routePath = path.join(routeDir, file.replace(/\\/g, "/"));
+      this.loadRoutesRecursively(dir, log);
+    } catch (error) {
+      // Throw a RouteLoadingError if any error occurs
+      throw new RouteLoadingError(`Error loading routes: ${error.message}`);
+    }
+  }
+  /** @private */
+  loadRoutesRecursively(dir, log) {
+    // Read the files in the route directory
+    fs.readdirSync(dir).forEach((file) => {
+      const routePath = path.join(dir, file.replace(/\\/g, "/"));
+      if (fs.statSync(routePath).isDirectory()) {
+        this.loadRoutesRecursively(routePath, log);
+      } else {
         // Check if the file is a JavaScript file
         if (file.endsWith(".js")) {
           // Dynamically require the route file
@@ -317,11 +331,8 @@ class AppManager extends App {
         } else {
           console.warn(`Skipping non-JavaScript file: ${routePath}`);
         }
-      });
-    } catch (error) {
-      // Throw a RouteLoadingError if any error occurs
-      throw new RouteLoadingError(`Error loading routes: ${error.message}`);
-    }
+      }
+    });
   }
 }
 module.exports = AppManager;
