@@ -1,4 +1,3 @@
-const http = require("http");
 /**
  * Response class provides enhanced functionality for handling HTTP responses.
  * @class
@@ -22,7 +21,6 @@ class Response {
     this.setHeaders = this.setHeaders.bind(this);
     this.setHeader = this.setHeader.bind(this);
     this.getHeader = this.getHeader.bind(this);
-    this.sendStatus = this.sendStatus.bind(this);
     this.sendFile = this.sendFile.bind(this);
     this.download = this.download.bind(this);
     this.contentType = this.contentType.bind(this);
@@ -158,19 +156,6 @@ class Response {
    */
   getHeader(field) {
     return this.res.getHeader(field);
-  }
-  /**
-   * Sends the HTTP response with the specified status code.
-   * @param {number} statusCode - The HTTP status code.
-   * @returns {Response} The Response instance.
-   * @example
-   * response.sendStatus(404);
-   */
-  sendStatus(statusCode) {
-    this.res.statusCode = statusCode;
-    this.res.statusMessage = http.STATUS_CODES[statusCode];
-    this.res.end(`${statusCode} ${http.STATUS_CODES[statusCode]}`);
-    return this;
   }
   /**
    * Sends a file in the HTTP response.

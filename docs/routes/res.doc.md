@@ -152,22 +152,6 @@ Gets the value of a response header.
   ```javascript
   const contentType = response.getHeader("Content-Type");
   ```
-
-#### `sendStatus(statusCode)`
-
-Sends the HTTP response with the specified status code.
-
-- **Parameters:**
-  - `statusCode` (number): The HTTP status code.
-
-- **Returns:**
-  - `Response`: The Response instance.
-
-- **Example:**
-  ```javascript
-  response.sendStatus(404);
-  ```
-
 #### `sendFile(path, fn)`
 
 Sends a file in the HTTP response.
