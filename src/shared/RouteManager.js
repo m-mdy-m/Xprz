@@ -55,38 +55,38 @@ class RouteManager {
   /**
    * Methods for interacting with res.
    * @typedef {Object} Response
-   * @method write - Writes data to the HTTP response.
-   * @method status - Sets the HTTP status code for the response.
-   * @method links - Sets the links header for the response.
-   * @method send - Sends a response of various types.
-   * @method json - Sends a JSON response.
-   * @method end - Ends the response process.
-   * @method jsonp - Sends a JSON response with JSONP support.
-   * @method setHeaders - Sets the response headers.
-   * @method setHeader - Sets a single response header value.
-   * @method getHeader - Gets a response header value.
-   * @method sendStatus - Sends the HTTP status for the response.
-   * @method sendFile - Sends a file as an octet stream.
-   * @method download - Initiates a file download.
-   * @method contentType - Sets the content type of the response.
-   * @method type - Sets the content type for the response.
-   * @method format - Formats the response.
-   * @method attachment - Sets the attachment header for the response.
-   * @method append - Appends additional header values.
-   * @method set - Sets a response header.
-   * @method header - Alias for set.
-   * @method get - Gets the response header value for a given header.
-   * @method clearCookie - Clears the specified cookie.
-   * @method cookie - Sets a cookie in the response.
-   * @method location - Sets the location header for the response.
-   * @method redirect - Redirects the request.
-   * @method vary - Adds values to the Vary response header.
-   * @method render - Renders a view template.
-   * @method setContentType - Sets the content type of the response.
-   * @method sendHTML - Sends an HTML response.
-   * @method getCookieHandler - Retrieves a handler function for dealing with cookies.
-   * @method getHeadersHandler - Retrieves a handler function for dealing with headers.
-   * @method getJsonHandler - Retrieves a handler function for dealing with JSON data.
+   * @property write - Writes data to the HTTP response.
+   * @property status - Sets the HTTP status code for the response.
+   * @property links - Sets the links header for the response.
+   * @property send - Sends a response of various types.
+   * @property json - Sends a JSON response.
+   * @property end - Ends the response process.
+   * @property jsonp - Sends a JSON response with JSONP support.
+   * @property setHeaders - Sets the response headers.
+   * @property setHeader - Sets a single response header value.
+   * @property getHeader - Gets a response header value.
+   * @property sendStatus - Sends the HTTP status for the response.
+   * @property sendFile - Sends a file as an octet stream.
+   * @property download - Initiates a file download.
+   * @property contentType - Sets the content type of the response.
+   * @property type - Sets the content type for the response.
+   * @property format - Formats the response.
+   * @property attachment - Sets the attachment header for the response.
+   * @property append - Appends additional header values.
+   * @property set - Sets a response header.
+   * @property header - Alias for set.
+   * @property get - Gets the response header value for a given header.
+   * @property clearCookie - Clears the specified cookie.
+   * @property cookie - Sets a cookie in the response.
+   * @property location - Sets the location header for the response.
+   * @property redirect - Redirects the request.
+   * @property vary - Adds values to the Vary response header.
+   * @property render - Renders a view template.
+   * @property setContentType - Sets the content type of the response.
+   * @property sendHTML - Sends an HTML response.
+   * @property getCookieHandler - Retrieves a handler function for dealing with cookies.
+   * @property getHeadersHandler - Retrieves a handler function for dealing with headers.
+   * @property getJsonHandler - Retrieves a handler function for dealing with JSON data.
    */
   /**
    * Returns an enhanced response object.
@@ -106,42 +106,42 @@ class RouteManager {
   /**
    * Methods for interacting with the response.
    * @typedef {Object} Response
-   * @method getQuery - Retrieves the query parameters from the request.
-   * @method getBody - Retrieves the request body.
-   * @method getHeadersReq - Retrieves the request headers.
-   * @method getUrl - Retrieves the request URL.
-   * @method getPath - Retrieves the request path.
-   * @method isAjax - Checks if the request is an AJAX request.
-   * @method isSecure - Checks if the request is secure (HTTPS).
-   * @method getIp - Gets the IP address of the request.
-   * @method getCookies - Retrieves the cookies from the request.
-   * @method hasHeader - Checks if the request has a specific header.
-   * @method getHeaderName - Gets the value of a specific request header.
-   * @method getProtocol - Retrieves the protocol used by the request.
-   * @method accepts - Checks if the request accepts a specific content type.
-   * @method param - Retrieves the value of a parameter from the request.
-   * @method is - Checks if the request matches the given types.
-   * @method getMethod - Retrieves the HTTP method of the request.
-   * @method getSubdomains - Retrieves an array of subdomains in the domain name of the request.
-   * @method getHostname - Retrieves the hostname from the request.
-   * @method getHost - Retrieves the host from the request.
-   * @method isFresh - Checks if the request is fresh.
-   * @method isStale - Checks if the request is stale.
-   * @method isXhr - Checks if the request is an XMLHttpRequest (AJAX) request.
-   * @method getLanguages - Retrieves the request language preferences.
-   * @method getEncodings - Retrieves the request encoding preferences.
-   * @method getCharsets - Retrieves the request charset preferences.
-   * @method hasQueryParam - Checks if the request has a specific query parameter.
-   * @method getQueryParam - Gets the value of a specific query parameter.
-   * @method hasBodyParam - Checks if the request has a specific body parameter.
-   * @method getBodyParam - Gets the value of a specific body parameter.
-   * @method hasCookie - Checks if the request has a specific cookie.
-   * @method getCookieName - Gets the value of a specific cookie.
-   * @method hasHeaderIgnoreCase - Checks if the request has a specific header (case-insensitive).
-   * @method getHeaderIgnoreCase - Gets the value of a specific header (case-insensitive).
-   * @method isMethod - Checks if the request method matches a given method.
-   * @method getAllParams - Retrieves all parameters from the request.
-   * @method getAcceptedContentTypes - Retrieves the accepted content types from the request.
+   * @property getQuery - Retrieves the query parameters from the request.
+   * @property getBody - Retrieves the request body.
+   * @property getHeadersReq - Retrieves the request headers.
+   * @property getUrl - Retrieves the request URL.
+   * @property getPath - Retrieves the request path.
+   * @property isAjax - Checks if the request is an AJAX request.
+   * @property isSecure - Checks if the request is secure (HTTPS).
+   * @property getIp - Gets the IP address of the request.
+   * @property getCookies - Retrieves the cookies from the request.
+   * @property hasHeader - Checks if the request has a specific header.
+   * @property getHeaderName - Gets the value of a specific request header.
+   * @property getProtocol - Retrieves the protocol used by the request.
+   * @property accepts - Checks if the request accepts a specific content type.
+   * @property param - Retrieves the value of a parameter from the request.
+   * @property is - Checks if the request matches the given types.
+   * @property getMethod - Retrieves the HTTP method of the request.
+   * @property getSubdomains - Retrieves an array of subdomains in the domain name of the request.
+   * @property getHostname - Retrieves the hostname from the request.
+   * @property getHost - Retrieves the host from the request.
+   * @property isFresh - Checks if the request is fresh.
+   * @property isStale - Checks if the request is stale.
+   * @property isXhr - Checks if the request is an XMLHttpRequest (AJAX) request.
+   * @property getLanguages - Retrieves the request language preferences.
+   * @property getEncodings - Retrieves the request encoding preferences.
+   * @property getCharsets - Retrieves the request charset preferences.
+   * @property hasQueryParam - Checks if the request has a specific query parameter.
+   * @property getQueryParam - Gets the value of a specific query parameter.
+   * @property hasBodyParam - Checks if the request has a specific body parameter.
+   * @property getBodyParam - Gets the value of a specific body parameter.
+   * @property hasCookie - Checks if the request has a specific cookie.
+   * @property getCookieName - Gets the value of a specific cookie.
+   * @property hasHeaderIgnoreCase - Checks if the request has a specific header (case-insensitive).
+   * @property getHeaderIgnoreCase - Gets the value of a specific header (case-insensitive).
+   * @property isMethod - Checks if the request method matches a given method.
+   * @property getAllParams - Retrieves all parameters from the request.
+   * @property getAcceptedContentTypes - Retrieves the accepted content types from the request.
    */
 
   /**

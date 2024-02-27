@@ -303,34 +303,38 @@ class AppManager extends App {
       throw new RouteLoadingError(`Error loading routes: ${error.message}`);
     }
   }
-  /** @private */
+  /**
+   * Recursively loads routes from the given directory and its subdirectories.
+   * @private
+   * @param {string} directory - The directory to search for routes.
+   * @param {boolean} log - Whether to log the loaded routes.
+   */
   loadRoutesRecursively(dir, log) {
     // Read the files in the route directory
     fs.readdirSync(dir).forEach((file) => {
       const routePath = path.join(dir, file.replace(/\\/g, "/"));
       if (fs.statSync(routePath).isDirectory()) {
+        // Recursively load routes from subdirectories
         this.loadRoutesRecursively(routePath, log);
-      } else {
-        // Check if the file is a JavaScript file
-        if (file.endsWith(".js")) {
-          // Dynamically require the route file
-          const route = $read(routePath);
-          // Check if the route is a function
-          // Mount the route
-          const app = getApp();
-          try {
-            route.attachTo(app);
-          } catch (error) {
-            throw new RouteLoadingError(
-              "Error attaching route to the application: " + error.message
-            );
-          }
-          if (log) {
-            console.log(`Route ${routePath} loaded successfully.`);
-          }
-        } else {
-          console.warn(`Skipping non-JavaScript file: ${routePath}`);
+      } else if (file.endsWith(".js")) {
+        // Dynamically require the route file
+        const route = $read(routePath);
+        // Check if the route is a function
+        // Mount the route to the application
+        const app = getApp();
+        try {
+          route.attachTo(app);
+        } catch (error) {
+          throw new RouteLoadingError(
+            "Error attaching route to the application: " + error.message
+          );
         }
+        if (log) {
+          console.log(`Route ${routePath} loaded successfully.`);
+        }
+      } else {
+        // Skip non-JavaScript files
+        console.warn(`Skipping non-JavaScript file: ${routePath}`);
       }
     });
   }
