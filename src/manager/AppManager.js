@@ -302,21 +302,17 @@ class AppManager extends App {
           // Dynamically require the route file
           const route = $read(routePath);
           // Check if the route is a function
-          if (typeof route === "object") {
-            // Mount the route
-            const app = getApp();
-            try {
-              route.attachTo(app);
-            } catch (error) {
-              throw new RouteLoadingError(
-                "Error attaching route to the application: " + error.message
-              );
-            }
-            if (log) {
-              console.log(`Route ${routePath} loaded successfully.`);
-            }
-          } else {
-            console.warn(`Skipping non-function route in file: ${routePath}`);
+          // Mount the route
+          const app = getApp();
+          try {
+            route.attachTo(app);
+          } catch (error) {
+            throw new RouteLoadingError(
+              "Error attaching route to the application: " + error.message
+            );
+          }
+          if (log) {
+            console.log(`Route ${routePath} loaded successfully.`);
           }
         } else {
           console.warn(`Skipping non-JavaScript file: ${routePath}`);
