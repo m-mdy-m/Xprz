@@ -4,7 +4,6 @@ const { getApp } = require("../shareApp");
 const fs = require("fs");
 const path = require("path");
 const $read = require("../utils/read");
-const { dir } = require("console");
 /**
  * Manages middleware and configuration for an Express application.
  */
@@ -297,7 +296,7 @@ class AppManager extends App {
           `Route directory ${routeDir} does not exist.`
         );
       }
-      this.loadRoutesRecursively(dir, log);
+      this.loadRoutesRecursively(routeDir, log);
     } catch (error) {
       // Throw a RouteLoadingError if any error occurs
       throw new RouteLoadingError(`Error loading routes: ${error.message}`);
