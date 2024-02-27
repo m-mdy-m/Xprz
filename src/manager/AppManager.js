@@ -289,7 +289,7 @@ class AppManager extends App {
    * // Do not log loaded routes
    * appManager.loadRoutes('routes', false);
    */
-  loadRoutes(routeDir, log = false) {
+  loadRoutes(routeDir='routes', log = false) {
     try {
       // Check if the provided directory exists
       if (!fs.existsSync(routeDir)) {
