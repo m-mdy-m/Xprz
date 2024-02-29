@@ -310,18 +310,6 @@ class RouteManager {
     return this.registerMethod("options", ...handlers);
   }
   /**
-   * Registers route parameter validation middleware.
-   * @param {function} validator - Route parameter validation middleware function.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.setValidator(paramValidatorFunction);
-   */
-  setValidator(validator) {
-    this.router.param(validator);
-    return this;
-  }
-  /**
    * Sets a prefix for all routes registered using this RouteManager instance.
    * @param {string} prefixPath - The prefix path for the routes.
    * @returns {RouteManager} The RouteManager instance.

@@ -69,7 +69,7 @@ Registers middleware for the route manager.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.using(middlewareFunction);
+  router.using(middlewareFunction); // or using([middleware function])
   ```
 
 #### `setRoute(path)`
@@ -215,24 +215,6 @@ Registers an OPTIONS route.
   router.setRoute("/api/users").options((req, res) => {
     res.send("OPTIONS /api/users");
   });
-  ```
-
-#### `setValidator(validator)`
-
-Registers route parameter validation middleware.
-
-- **Parameters:**
-  - `validator` (function): Route parameter validation middleware function
-
-.
-
-- **Returns:**
-  - `RouteManager`: The RouteManager instance.
-
-- **Example:**
-  ```javascript
-  const router = new Route();
-  router.setValidator(paramValidatorFunction);
   ```
 
 #### `prefix(prefixPath)`
