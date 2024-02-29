@@ -1,6 +1,5 @@
 const { getApp } = require("../shareApp");
 const {HTTPMethodExecutionError,HTTPMethodRouteError} = require("../Errors/HttpMethods.error");
-const app = getApp();
 /**
  * Represents a utility class for defining HTTP methods in an Express application.
  */
@@ -10,9 +9,20 @@ class HTTPMethod {
    */
   constructor() {
     /** @private */
-    this.app = app;
+    this.app = getApp();;
     /** @private */
-    this.path = "";
+    this.path = null;
+    this.setBaseRoute = this.setBaseRoute.bind(this);
+    this.addPrefix = this.addPrefix.bind(this);
+    this.registerRoute = this.registerRoute.bind(this);
+    this.GET = this.GET.bind(this);
+    this.POST = this.POST.bind(this);
+    this.PUT = this.PUT.bind(this);
+    this.DELETE = this.DELETE.bind(this);
+    this.PATCH = this.PATCH.bind(this);
+    this.OPTIONS = this.OPTIONS.bind(this);
+    this.HEAD = this.HEAD.bind(this);
+    this.TRACE = this.TRACE.bind(this);
   }
 
   /**
