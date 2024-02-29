@@ -347,6 +347,20 @@ class RouteManager {
     this.router.use(errorHandler);
     return this;
   }
+  /** @private */
+  createRequestHandler(handlers){
+    return (req, res) => {
+      let response = this.setRes(res);
+      let request = this.setReq(req);
+      handlers.forEach((handler) => {
+        if (handler.length > 1) {
+          handler(this.req(), this.res());
+        } else {
+          handler(request ? request : req, response ? response : res);
+        }
+      });
+    }
+  }
   /**
    * Registers a route with the given method, path, and handlers.
    * @private
@@ -354,7 +368,7 @@ class RouteManager {
   registerRoute(method, handlers) {
     try {
       // Combine middleware with route handlers
-      const routeHandlers = [...this.middleware, ...handlers];
+      const routeHandlers = [...this.middleware, this.createRequestHandler(handlers)];
       // Register the route with Express router
       this.router[method](this.path, routeHandlers);
     } catch (error) {
@@ -374,17 +388,7 @@ class RouteManager {
         this.registerRoute(method, ...handlers);
       } else {
         // Register route without middleware
-        this.router[method](this.path, (req, res) => {
-          let response = this.setRes(res);
-          let request = this.setReq(req);
-          handlers.forEach((handler) => {
-            if (handler.length > 1) {
-              handler(this.req(), this.res());
-            } else {
-              handler(request ? request : req, response ? response : res);
-            }
-          });
-        });
+        this.router[method](this.path, this.createRequestHandler(handlers));
       }
     } catch (error) {
       throw new RouteRegistrationError(
