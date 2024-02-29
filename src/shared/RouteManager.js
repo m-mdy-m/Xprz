@@ -335,8 +335,13 @@ class RouteManager {
     this.router.use(errorHandler);
     return this;
   }
-  /** @private */
-  createRequestHandler(handlers){
+  /**
+   * Creates a request handler function that executes the provided handlers.
+   * @private
+   * @param {Function[]} handlers - An array of handler functions to be executed.
+   * @returns {Function} A request handler function.
+   */
+  createRequestHandler(handlers) {
     return (req, res) => {
       let response = this.setRes(res);
       let request = this.setReq(req);
@@ -347,7 +352,7 @@ class RouteManager {
           handler(request ? request : req, response ? response : res);
         }
       });
-    }
+    };
   }
   /**
    * Registers a route with the given method, path, and handlers.
@@ -356,7 +361,10 @@ class RouteManager {
   registerRoute(method, handlers) {
     try {
       // Combine middleware with route handlers
-      const routeHandlers = [...this.middleware, this.createRequestHandler(handlers)];
+      const routeHandlers = [
+        ...this.middleware,
+        this.createRequestHandler(handlers),
+      ];
       // Register the route with Express router
       this.router[method](this.path, routeHandlers);
     } catch (error) {
