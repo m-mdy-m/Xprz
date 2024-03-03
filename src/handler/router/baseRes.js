@@ -9,9 +9,11 @@ class Response {
    * @param {object} res - Express response object.
    */
   constructor(res) {
+    /** @private */
     this.res = res;
 
     // Bind all methods to the current instance
+    this.getRes = this.getRes.bind(this)
     this.write = this.write.bind(this);
     this.status = this.status.bind(this);
     this.links = this.links.bind(this);
@@ -42,7 +44,15 @@ class Response {
     this.setContentType = this.setContentType.bind(this);
     this.sendHTML = this.sendHTML.bind(this);
   }
-
+  /**
+ * Retrieves the Express response object associated with this Response instance.
+  * @returns {object} The Express response object.
+  * @example
+  * const res = getRes();
+  */
+  getRes(){
+    return this.res
+  }
   /**
    * Writes data to the response and ends it.
    * @param {string} data - Data to write to the response.
