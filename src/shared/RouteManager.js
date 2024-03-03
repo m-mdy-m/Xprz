@@ -381,7 +381,7 @@ class RouteManager {
     try {
       if (this.hasMiddleware) {
         // Register route with middleware
-        this.registerRoute(method, ...handlers);
+        this.registerRoute(method, handlers);
       } else {
         // Register route without middleware
         this.router[method](this.path, this.createRequestHandler(handlers));
