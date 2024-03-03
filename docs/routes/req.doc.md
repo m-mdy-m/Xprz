@@ -19,6 +19,34 @@ Represents a base request handler providing utility methods for handling HTTP re
 
 #### Methods
 
+To create documentation for the `getRes` and `getReq` methods in the `Response` class, you can follow these steps:
+
+1. Create a new Markdown file in the `doc` directory, let's name it `response.md`.
+2. Open `response.md` in a text editor.
+3. Write the documentation for the `getRes` and `getReq` methods using Markdown syntax.
+4. Save the file.
+
+Here's a template you can use:
+
+```markdown
+# Response Class
+
+The `Response` class provides enhanced functionality for handling HTTP responses.
+
+## Methods
+
+### `getReq()`
+
+Retrieves the Express request object associated with this Response instance.
+
+- **Returns:** 
+  - `object`: The Express request object.
+
+- **Example:**
+  ```javascript
+  const req = getReq();
+  ```
+
 ##### `getQuery()`
 
 Retrieves the query parameters from the request.
