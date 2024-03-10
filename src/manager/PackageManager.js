@@ -130,7 +130,8 @@ class PackageManager {
   cors(...handler) {
     const pkg = $install("cors");
     const use = useApp.bind(this);
-    return new Cors(pkg, use, ...handler);
+    const app = getApp.bind(this)
+    return new Cors(pkg, use, app);
   }
 
   /**
