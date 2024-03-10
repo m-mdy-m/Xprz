@@ -30,12 +30,23 @@ class CsrfHandler {
    * If the CSRF secret already exists in the session, it will be overwritten.
    */
   genSecret() {
-    return this.use((req, res, nxt) => {
-      if (req.session.csrfSecret) {
-        req.session.csrfSecret = this.csrf.generateSecret();
+    // Register middleware to generate and store CSRF secret in user's session
+  return this.use((req, res, next) => {
+    try {
+      // Check if CSRF secret is not already stored in the session
+      if (!req.session.csrfSecret) {
+        // Generate a new CSRF token using req.csrfToken() provided by the CSRF middleware
+        req.session.csrfSecret = req.csrfToken();
       }
-      nxt();
-    });
+      // Proceed to the next middleware
+      next();
+    } catch (err) {
+      // If an error occurs during generation and storing of CSRF secret
+      console.error('Error generating CSRF secret:', err);
+      // Pass the error to the Express error handling middleware
+      next(err);
+    }
+  });
   }
   /**
    * Sets up an endpoint to provide the CSRF token to the frontend.
