@@ -9,7 +9,7 @@ class HTTPMethod {
    */
   constructor() {
     /** @private */
-    this.app = getApp();;
+    this.app = getApp();
     /** @private */
     this.path = null;
     this.setBaseRoute = this.setBaseRoute.bind(this);
@@ -63,7 +63,11 @@ class HTTPMethod {
     if (!this.path) {
       throw new HTTPMethodRouteError("Base route is not set. Please set the base route using setBaseRoute() before registering routes.");
     }
+    if(!this.app){
+      throw new Error('')
+    }
     try {
+      
       this.app[method.toLowerCase()](this.path, handler);
     } catch (error) {
       throw new HTTPMethodExecutionError(`Error registering ${method.toUpperCase()} route: ${error.message}`);
