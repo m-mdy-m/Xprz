@@ -55,6 +55,7 @@ class RouteManager {
   /**
    * Methods for interacting with res.
    * @typedef {Object} Response
+   * @property {Function} getRes - Retrieves the Res.
    * @property {Function} write - Writes data to the HTTP response.
    * @property {Function} status - Sets the HTTP status code for the response.
    * @property {Function} links - Sets the links header for the response.
@@ -108,6 +109,7 @@ class RouteManager {
    * @typedef {Object} Request
    * @property {Function} getQuery - Retrieves the query parameters from the request.
    * @property {Function} getBody - Retrieves the request body.
+   * @property {Function} getReq - Retrieves the Req.
    * @property {Function} getHeadersReq - Retrieves the request headers.
    * @property {Function} getUrl - Retrieves the request URL.
    * @property {Function} getPath - Retrieves the request path.

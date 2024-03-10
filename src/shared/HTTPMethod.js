@@ -63,8 +63,8 @@ class HTTPMethod {
     if (!this.path) {
       throw new HTTPMethodRouteError("Base route is not set. Please set the base route using setBaseRoute() before registering routes.");
     }
-    if(!this.app){
-      throw new Error('')
+    if (!this.app) {
+      throw new HTTPMethodRouteError("application is not initialized.");
     }
     try {
       
