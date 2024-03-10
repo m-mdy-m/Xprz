@@ -116,7 +116,8 @@ class PackageManager {
   csrf() {
     const pkg = $install("csurf");
     const use = useApp.bind(this);
-    return new Csrf(pkg, use);
+    const app = getApp.bind(this)
+    return new Csrf(pkg, use,app);
   }
 
   /**
@@ -130,8 +131,7 @@ class PackageManager {
   cors(...handler) {
     const pkg = $install("cors");
     const use = useApp.bind(this);
-    const app = getApp.bind(this)
-    return new Cors(pkg, use, app);
+    return new Cors(pkg, use,...handler);
   }
 
   /**
