@@ -7,11 +7,11 @@ class CsrfHandler {
    * @param {Function} csrf - The CSRF package.
    * @param {Function} use - The Express app's `use` function.
    */
-  constructor(csrf, use,app) {
+  constructor(csrf, use, app) {
     /** @private */
     this.csrf = csrf;
     /** @private */
-    this.app = app
+    this.app = app;
     /** @private */
     this.use = use;
     /** @private */
@@ -19,8 +19,14 @@ class CsrfHandler {
     /** @private */
     this.use(this.protection);
 
-    this.getCsrf = this.getCsrf.bind(this)
-    this.configure = this.configure.bind(this)
+    this.getCsrf = this.getCsrf.bind(this);
+    this.configure = this.configure.bind(this);
+    this.use((req, res, nxt) => {
+      if (req.session.csrfSecret) {
+        req.session.csrfSecret = this.csrf.generateSecret();
+      }
+      nxt();
+    });
   }
 
   /**
