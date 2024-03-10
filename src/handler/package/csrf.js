@@ -11,7 +11,7 @@ class CsrfHandler {
     /** @private */
     this.csrf = csrf;
     /** @private */
-    this.app = app;
+    this.app = app();
     /** @private */
     this.use = use;
     /** @private */
