@@ -74,6 +74,18 @@ class CsrfHandler {
   configure(options) {
     return this.csrf(options);
   }
+  /**
+   * Regenerate CSRF secret periodically to mitigate CSRF token leakage risks.
+   * @param {number} interval - The interval in milliseconds for regenerating CSRF secret.
+   */
+  regenerateSecret(interval = 3600000) {
+    setInterval(() => {
+      this.use((req, res, next) => {
+        req.session.csrfSecret = req.csrfToken();
+        next();
+      });
+    }, interval);
+  }
 }
 
 module.exports = CsrfHandler;
