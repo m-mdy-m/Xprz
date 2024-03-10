@@ -2,11 +2,24 @@
 
 Configures CSRF protection middleware in an Express application.
 
-### Constructor
+### Methods
+
+#### `genSecret()`
+
+Generate CSRF secret and store it in the user's session. If the CSRF secret already exists in the session, it will be overwritten.
+
+- **Returns:**
+  - `Function`: Middleware function for generating and storing CSRF secret.
+
+#### `provideCsrfToken(endPoint = "/get-csrf-token")`
+
+Sets up an endpoint to provide the CSRF token to the frontend.
 
 - **Parameters:**
-  - `csrf` (Function): The CSRF package.
-### Methods
+  - `endPoint` (string, optional): The endpoint path to provide the CSRF token. Default is `"/get-csrf-token"`.
+
+- **Returns:**
+  - `Function`: The Express route handler for the CSRF token endpoint.
 
 #### `getCsrf()`
 
@@ -17,8 +30,7 @@ Get the configured CSRF middleware.
 
 - **Usage:**
   ```javascript
-  const { csrf } = new Package();
-  const csrfMiddleware = csrf().getCsrf();
+  const csrfMiddleware = csrfHandler.getCsrf();
   ```
 
 #### `configure(options)`
