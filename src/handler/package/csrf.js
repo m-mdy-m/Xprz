@@ -21,14 +21,16 @@ class CsrfHandler {
 
     this.getCsrf = this.getCsrf.bind(this);
     this.configure = this.configure.bind(this);
-    this.use((req, res, nxt) => {
+    this.genSecret = this.genSecret.bind(this);
+  }
+  genSecret() {
+    return this.use((req, res, nxt) => {
       if (req.session.csrfSecret) {
         req.session.csrfSecret = this.csrf.generateSecret();
       }
       nxt();
     });
   }
-
   /**
    * Get the configured CSRF middleware.
    * @returns {Function} The configured CSRF middleware.
