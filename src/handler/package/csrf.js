@@ -18,17 +18,33 @@ class CsrfHandler {
     this.protection = this.csrf();
     /** @private */
     this.use(this.protection);
-
+    // Bind methods to the current instance
     this.getCsrf = this.getCsrf.bind(this);
     this.configure = this.configure.bind(this);
     this.genSecret = this.genSecret.bind(this);
+    // Automatically generate CSRF secret when the instance is created
+    this.genSecret();
   }
+  /**
+   * Generate CSRF secret and store it in the user's session.
+   * If the CSRF secret already exists in the session, it will be overwritten.
+   */
   genSecret() {
     return this.use((req, res, nxt) => {
       if (req.session.csrfSecret) {
         req.session.csrfSecret = this.csrf.generateSecret();
       }
       nxt();
+    });
+  }
+  /**
+   * Sets up an endpoint to provide the CSRF token to the frontend.
+   * @param {string} endPoint - The endpoint path to provide the CSRF token.
+   * @returns {Function} The Express route handler for the CSRF token endpoint.
+   */
+  provideCsrfToken(endPoint = "/get-csrf-token") {
+    return this.app.get(endPoint, (req, res) => {
+      res.json({ csrfToken: req.session.csrfSecret });
     });
   }
   /**
