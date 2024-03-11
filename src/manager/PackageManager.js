@@ -108,16 +108,18 @@ class PackageManager {
 
   /**
    * Initialize and configure CSRF protection middleware.
+   * @param {Function|null} handler - Optional additional handler to use with CSRF protection.
    * @returns {Csrf} Instance of Csrf.
    * @example
    * const pkgManager = new Package();
-   * const csrf = pkgManager.csrf();
+   * const csrf = pkgManager.csrf(); 
+   * const csrfWithHandler = pkgManager.csrf(handlerFunction); 
    */
-  csrf(handler=null) {
+  csrf(handler = null) {
     const pkg = $install("csurf");
     const use = useApp.bind(this);
-    const app = getApp.bind(this)
-    return new Csrf(pkg, use,app,...handler);
+    const app = getApp.bind(this);
+    return new Csrf(pkg, use, app, handler);
   }
 
   /**
