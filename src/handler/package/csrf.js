@@ -8,6 +8,7 @@ class CsrfHandler {
    * @param {Function} use - The Express app's `use` function.
    * @param {Function} app - The Express app instance.
    * @param {Object|null} option - Options for CSRF protection (optional).
+   * @param {boolean} setup - Whether to set up CSRF protection middleware upon instantiation (default is true).
    */
   constructor(csrf, use, app, option = null, setup = true) {
     /** @private */
@@ -22,10 +23,15 @@ class CsrfHandler {
     this.getCsrf = this.getCsrf.bind(this);
     this.provideCsrfToken = this.provideCsrfToken.bind(this);
     this.setup = this.setup.bind(this);
+    // Set up CSRF protection if setup parameter is true
     if (setup) {
       this.setup();
     }
   }
+  /**
+   * Sets up CSRF protection middleware based on provided options.
+   * @returns {void}
+   */
   setup() {
     /** @private */
     this.protection = this.option ? this.csrf(this.option) : this.csrf();
