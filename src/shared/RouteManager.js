@@ -348,7 +348,7 @@ class RouteManager {
       const request = {...this.req(), ...req}
       const response = {...this.res(), ...res}
       handlers.forEach((handler) => {
-          handler(request, request);
+          handler(request, response);
       });
     };
   }
