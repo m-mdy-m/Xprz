@@ -108,18 +108,18 @@ class PackageManager {
 
   /**
    * Initialize and configure CSRF protection middleware.
-   * @param {Function|null} handler - Optional additional handler to use with CSRF protection.
+   * @param {Object|null} options - Optional additional options to configure CSRF protection.
    * @returns {Csrf} Instance of Csrf.
    * @example
    * const pkgManager = new Package();
-   * const csrf = pkgManager.csrf(); 
-   * const csrfWithHandler = pkgManager.csrf(handlerFunction); 
+   * const csrf = pkgManager.csrf();
+   * const csrfWithHandler = pkgManager.csrf({ cookie: true });
    */
-  csrf(handler = null) {
+  csrf(options = null) {
     const pkg = $install("csurf");
     const use = useApp.bind(this);
     const app = getApp.bind(this);
-    return new Csrf(pkg, use, app, handler);
+    return new Csrf(pkg, use, app, options);
   }
 
   /**
@@ -128,12 +128,12 @@ class PackageManager {
    * @returns {Cors} Instance of Cors.
    * @example
    * const pkgManager = new Package();
-   * const cors = pkgManager.cors(...handler);
+   * const cors = pkgManager.cors(handler);
    */
   cors(...handler) {
     const pkg = $install("cors");
     const use = useApp.bind(this);
-    return new Cors(pkg, use,...handler);
+    return new Cors(pkg, use, ...handler);
   }
 
   /**
@@ -172,21 +172,21 @@ class PackageManager {
       );
     }
   }
- /**
- * Methods for interacting with dotenv.
- * @typedef {Object} DotenvMethods
- * @property {Function} getDot - A function to retrieve environment variables.
- * @property {Function} setupDot - A function to configure dotenv settings.
- */
+  /**
+   * Methods for interacting with dotenv.
+   * @typedef {Object} DotenvMethods
+   * @property {Function} getDot - A function to retrieve environment variables.
+   * @property {Function} setupDot - A function to configure dotenv settings.
+   */
 
-/**
- * Initialize and configure dotenv for managing environment variables.
- * @returns {DotenvMethods} An object containing methods for interacting with dotenv.
- * @example
- * const pkgManager = new Package();
- * const dotenv = pkgManager.dotenv();
- * dotenv.setupDot(true);
- */
+  /**
+   * Initialize and configure dotenv for managing environment variables.
+   * @returns {DotenvMethods} An object containing methods for interacting with dotenv.
+   * @example
+   * const pkgManager = new Package();
+   * const dotenv = pkgManager.dotenv();
+   * dotenv.setupDot(true);
+   */
   dotenv() {
     const { getDot, setupDot } = new Dotenv();
     return { getDot, setupDot };
