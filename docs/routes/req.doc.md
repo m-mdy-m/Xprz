@@ -14,7 +14,7 @@ Represents a base request handler providing utility methods for handling HTTP re
 
 - **Example:**
   ```javascript
-  const { /* methods **/} = router.req();
+  const { /* methods **/} = req;
   ```
 
 #### Methods

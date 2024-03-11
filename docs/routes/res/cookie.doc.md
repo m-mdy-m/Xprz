@@ -20,7 +20,7 @@ Sets a cookie with the given name, value, and options.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   getCookieHandler().setCookie('username', 'john_doe', { expires: 3600 });
   ```
 
@@ -36,7 +36,7 @@ Retrieves the value of a specific cookie by name.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   const username = getCookieHandler().getCookie('username');
   ```
 
@@ -49,7 +49,7 @@ Retrieves all cookies as an object.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   const allCookies = getCookieHandler().getAllCookies();
   ```
 
@@ -63,7 +63,7 @@ Removes a cookie with the given name.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   getCookieHandler().removeCookie('username');
   ```
 
@@ -79,7 +79,7 @@ Checks if a cookie with the given name exists.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   const isCookie = getCookieHandler().isCookie('username');
   ```
 
@@ -89,7 +89,7 @@ Clears all cookies.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   getCookieHandler().clearAllCookies();
   ```
 
@@ -102,6 +102,6 @@ Gets the number of cookies.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = router.res();
+  const { getCookieHandler } = res;
   const cookieCount = getCookieHandler().countCookies();
   ```

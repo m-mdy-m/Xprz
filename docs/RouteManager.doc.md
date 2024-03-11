@@ -103,8 +103,8 @@ Defines a group of routes under a common path.
   ```javascript
   const router = new Route();
   router.group("/api", (r) => {
-    r.get("/users", (req, res) => {
-      res.send("GET /api/users");
+    r.get("/users", (req, {send}) => {
+      send("GET /api/users");
     });
   });
   ```
@@ -122,8 +122,8 @@ Registers a GET route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").get((req, res) => {
-    res.send("GET /api/users");
+  router.setRoute("/api/users").get((req, {send}) => {
+    send("GET /api/users");
   });
   ```
 
@@ -140,8 +140,8 @@ Registers a POST route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").post((req, res) => {
-    res.send("POST /api/users");
+  router.setRoute("/api/users").post((req, {send}) => {
+    send("POST /api/users");
   });
   ```
 
@@ -158,8 +158,8 @@ Registers a DELETE route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").del((req, res) => {
-    res.send("DELETE /api/users");
+  router.setRoute("/api/users").del((req, {send}) => {
+    send("DELETE /api/users");
   });
   ```
 
@@ -176,8 +176,8 @@ Registers a PUT route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").put((req, res) => {
-    res.send("PUT /api/users");
+  router.setRoute("/api/users").put((req, {send}) => {
+    send("PUT /api/users");
   });
   ```
 
@@ -194,8 +194,8 @@ Registers a PATCH route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").patch((req, res) => {
-    res.send("PATCH /api/users");
+  router.setRoute("/api/users").patch((req, {send}) => {
+    send("PATCH /api/users");
   });
   ```
 
@@ -212,8 +212,8 @@ Registers an OPTIONS route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").options((req, res) => {
-    res.send("OPTIONS /api/users");
+  router.setRoute("/api/users").options((req, {send}) => {
+    send("OPTIONS /api/users");
   });
   ```
 
@@ -230,8 +230,8 @@ Sets a prefix for all routes registered using this RouteManager instance.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/users").prefix("/api/v1").get((req, res) => {
-    res.send("GET /api/v1/users");
+  router.setRoute("/users").prefix("/api/v1").get((req, {send}) => {
+    send("GET /api/v1/users");
   });
   ```
 

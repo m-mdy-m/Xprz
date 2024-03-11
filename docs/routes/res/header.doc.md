@@ -20,7 +20,7 @@ Sets the Cache-Control header for caching directives.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().cacheControl(3600, true);
   ```
 
@@ -35,7 +35,7 @@ Sets CORS headers to allow cross-origin resource sharing.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setCorsHeaders('https://example.com', 'GET, POST', 'Content-Type');
   ```
 
@@ -48,7 +48,7 @@ Sets the Location header for redirection.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setLocation('/new-location');
   ```
 
@@ -61,7 +61,7 @@ Sets the Access-Control-Max-Age header for preflight requests caching.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setCorsMaxAge(3600);
   ```
 
@@ -74,7 +74,7 @@ Sets the Vary header to specify which request header fields are used to select a
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setVaryHeader('Accept-Encoding');
   ```
 
@@ -87,7 +87,7 @@ Sets the Pragma header for backward compatibility.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setPragma('no-cache');
   ```
 
@@ -100,7 +100,7 @@ Sets the Trailer header for indicating the presence of trailer fields in a chunk
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setTrailer('My-Trailer-Field');
   ```
 
@@ -113,7 +113,7 @@ Sets the Transfer-Encoding header for indicating the form of encoding used to sa
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setTransferEncoding('chunked');
   ```
 
@@ -126,7 +126,7 @@ Sets the Upgrade header for specifying additional communication protocols.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setUpgrade('WebSocket');
   ```
 
@@ -139,7 +139,7 @@ Sets the Warning header to provide additional information about the status or tr
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setWarning("299 - Miscellaneous persistent warning");
   ```
 
@@ -152,7 +152,7 @@ Sets the WWW-Authenticate header to indicate the authentication method that shou
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setWWWAuthenticate("Bearer realm='example'");
   ```
 
@@ -165,7 +165,7 @@ Sets the X-Forwarded-For header to indicate the client IP address when behind a 
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setXForwardedFor("203.0.113.195");
   ```
 
@@ -178,7 +178,7 @@ Sets the X-Forwarded-Proto header to indicate the protocol (HTTP or HTTPS) that 
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setXForwardedProto("https");
   ```
 
@@ -191,7 +191,7 @@ Sets the X-Real-IP header to indicate the actual client IP address, particularly
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setXRealIP("203.0.113.195");
   ```
 
@@ -204,7 +204,7 @@ Sets the Retry-After header to indicate when a resource will be available after 
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setRetryAfter("3600");
   ```
 
@@ -217,7 +217,7 @@ Sets the Expires header to specify a date/time after which the response should b
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setExpires(new Date(Date.now() + 3600 * 1000));
   ```
 
@@ -230,7 +230,7 @@ Sets the X-Content-Type-Options header to prevent MIME-sniffing.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setContentTypeOptions("nosniff");
   ```
 
@@ -245,7 +245,7 @@ Sets the Content-Security-Policy header
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setContentSecurityPolicy("default-src 'self'");
   ```
 
@@ -259,7 +259,7 @@ Sets the HTTP Strict Transport Security (HSTS) header to enforce secure connecti
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setHSTSHeader(31536000, true);
   ```
 
@@ -269,7 +269,7 @@ Sets the X-Content-Type-Options header to prevent MIME-sniffing by the browser.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setNoSniffHeader();
   ```
 
@@ -282,7 +282,7 @@ Sets the Referrer-Policy header to control how much referrer information should 
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setReferrerPolicy("no-referrer");
   ```
 
@@ -295,7 +295,7 @@ Sets the Strict-Transport-Security header to enforce secure connections.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setStrictTransportSecurity("max-age=31536000; includeSubDomains");
   ```
 
@@ -308,7 +308,7 @@ Sets the X-Frame-Options header to control whether a browser should be allowed t
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setFrameOptions("deny");
   ```
 
@@ -321,7 +321,7 @@ Sets the X-XSS-Protection header to enable the Cross-Site Scripting (XSS) filter
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setXssProtection("1; mode=block");
   ```
 
@@ -334,7 +334,7 @@ Sets the Expect-CT header to enforce Certificate Transparency requirements.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setExpectCTHeader("enforce, max-age=3600");
   ```
 
@@ -347,7 +347,7 @@ Sets the Feature-Policy header to control which features and APIs can be used in
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setFeaturePolicy("geolocation 'self'");
   ```
 
@@ -360,7 +360,7 @@ Sets the Public-Key-Pins header to associate a specific cryptographic public key
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setPublicKeyPinsHeader("pin-sha256=\"base64==\"; max-age=5184000; includeSubDomains");
   ```
 
@@ -373,7 +373,7 @@ Sets the Cross-Origin Embedder Policy (COEP) header to control how a document is
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setCrossOriginEmbedderPolicy("require-corp");
   ```
 
@@ -386,7 +386,7 @@ Sets the Cross-Origin Opener Policy (COOP) header to control which documents can
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().setCrossOriginOpenerPolicy("same-origin-allow-popups");
   ```
 
@@ -399,7 +399,7 @@ Sets the Cross-Origin Resource Policy (CORP) header to control which origins can
 
 - **Example:**
   ```javascript
-    const { getHeadersHandler } = router.res();
+    const { getHeadersHandler } = res;
     getHeadersHandler().setCrossOriginResourcePolicy("same-site");
   ```
 
@@ -412,7 +412,7 @@ Clears the specified header from the HTTP response.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().clearHeader("Content-Type");
   ```
 
@@ -422,6 +422,6 @@ Clears all headers from the HTTP response.
 
 - **Example:**
   ```javascript
-  const { getHeadersHandler } = router.res();
+  const { getHeadersHandler } = res;
   getHeadersHandler().clearAllHeaders();
   ```

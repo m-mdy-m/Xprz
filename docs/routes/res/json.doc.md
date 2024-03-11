@@ -13,7 +13,7 @@ Class for handling JSON responses.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   ```
 
 #### Methods
@@ -30,7 +30,7 @@ Sends a success response with a message.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().success("Operation successful");
   ```
 
@@ -49,7 +49,7 @@ Sends a response with a list of items along with pagination details.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().list([...], 100, 10, 1);
   ```
 
@@ -65,7 +65,7 @@ Sends a response indicating that the resource was created successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().created({ id: 1, name: "Example" });
   ```
 
@@ -81,7 +81,7 @@ Sends a response indicating that the resource was updated successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().updated({ id: 1, name: "Updated Example" });
   ```
 
@@ -97,7 +97,7 @@ Sends a response indicating that the operation was completed successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().opSuccess("Operation completed successfully");
   ```
 
@@ -113,7 +113,7 @@ Sends a response indicating that the operation failed due to validation errors.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().validationFailed({ field1: "Error message 1", field2: "Error message 2" });
   ```
 
@@ -129,7 +129,7 @@ Sends a response indicating that the resource was deleted successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().deleted({ id: 1, name: "Deleted Resource" });
   ```
 
@@ -146,7 +146,7 @@ Sends an error response with a status code and message.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().error(404, "Resource not found");
   ```
 
@@ -162,7 +162,7 @@ Sends a response with a download link.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().downloadLink("https://example.com/download");
   ```
 
@@ -179,7 +179,7 @@ Sends a JSON response with metadata and additional details.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().advancedJson({ data: { id: 1, name: "Example" }, metadata: { count: 10 } });
   ```
 
@@ -195,7 +195,7 @@ Sends a response indicating that the request requires authentication.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().authRequired("User authentication required");
   ```
 
@@ -211,7 +211,7 @@ Sends a response indicating that the request requires authorization.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().authzRequired("User authorization required");
   ```
 
@@ -227,7 +227,7 @@ Sends a response indicating that the server encountered an unexpected error.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().internalServerError("Unexpected server error occurred");
   ```
 
@@ -243,7 +243,7 @@ Sends a response indicating that the resource is temporarily unavailable.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().serviceUnavailable("Service temporarily unavailable");
   ```
 
@@ -277,7 +277,7 @@ Sends a redirect response.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().redirectResponse("/new-location");
   ```
 
@@ -294,7 +294,7 @@ Sends a response for successful file upload.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().fileUploadSuccess("example.jpg", 1024);
   ```
 
@@ -310,6 +310,6 @@ Sends a response for a bad request.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = router.res();
+  const { getJsonHandler } = res;
   getJsonHandler().badRequest("Bad request");
   ```

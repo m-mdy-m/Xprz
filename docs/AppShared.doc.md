@@ -36,8 +36,6 @@ Here's the documentation for all the methods in the `AppSharedManager` class:
   - `(Object)`: The modified Express application instance.
 - **Example:**
   ```javascript
-  const express = require('express');
-  const app = express();
   useApp(middleware1, middleware2);
   ```
 
