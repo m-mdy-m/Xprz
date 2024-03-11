@@ -17,12 +17,17 @@ class CsrfHandler {
     /** @private */
     this.use = use;
     /** @private */
-    this.protection = option ? this.csrf(option) : this.csrf();
-    /** @private */
-    this.use(this.protection);
+    this.option = option;
     // Bind methods to the current instance
     this.getCsrf = this.getCsrf.bind(this);
     this.provideCsrfToken = this.provideCsrfToken.bind(this);
+    this.setup = this.setup.bind(this);
+  }
+  setup() {
+    /** @private */
+    this.protection = this.option ? this.csrf(this.option) : this.csrf();
+    /** @private */
+    this.use(this.protection);
   }
   /**
    * Sets up an endpoint to provide the CSRF token to the frontend.
