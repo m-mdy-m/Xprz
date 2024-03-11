@@ -14,7 +14,10 @@ Sets up CSRF protection middleware based on provided options.
 **Example:**
 
 ```javascript
-const csrfHandler =csrf({ cookie: true });
+// Initialize CsrfHandler with options
+const csrfHandler = csrf({ cookie: true });
+
+// Setup CSRF protection middleware
 csrfHandler.setup();
 ```
 
@@ -31,8 +34,13 @@ Sets up an endpoint to provide the CSRF token to the frontend.
 **Example:**
 
 ```javascript
-const csrfHandler =csrf();
+// Initialize CsrfHandler
+const csrfHandler = csrf();
+
+// Setup CSRF protection middleware
 csrfHandler.setup();
+
+// Provide CSRF token endpoint
 csrfHandler.provideCsrfToken();
 ```
 
@@ -46,6 +54,15 @@ Retrieves the configured CSRF middleware.
 **Example:**
 
 ```javascript
-const csrfHandler =csrf().getCsrf();
+// Initialize CsrfHandler
+const csrfHandler = csrf();
+
+// Setup CSRF protection middleware
+csrfHandler.setup();
+
+// Retrieve configured CSRF middleware
+const csrfMiddleware = csrfHandler.getCsrf();
+
+// Apply CSRF middleware to the Express app
 app.use(csrfMiddleware);
 ```

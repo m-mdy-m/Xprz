@@ -9,7 +9,7 @@ class CsrfHandler {
    * @param {Function} app - The Express app instance.
    * @param {Object|null} option - Options for CSRF protection (optional).
    */
-  constructor(csrf, use, app, option = null) {
+  constructor(csrf, use, app, option = null, setup = true) {
     /** @private */
     this.csrf = csrf;
     /** @private */
@@ -22,6 +22,9 @@ class CsrfHandler {
     this.getCsrf = this.getCsrf.bind(this);
     this.provideCsrfToken = this.provideCsrfToken.bind(this);
     this.setup = this.setup.bind(this);
+    if (setup) {
+      this.setup();
+    }
   }
   setup() {
     /** @private */
