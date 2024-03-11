@@ -1,6 +1,6 @@
-## `csrfToken`
+# Csrf
 
-Configures Cross-Site Request Forgery (CSRF) protection middleware in an Express application.
+Class for configuring Cross-Site Request Forgery (CSRF) protection middleware in an Express application.
 
 ### Methods
 
@@ -14,22 +14,9 @@ Sets up an endpoint to provide the CSRF token to the frontend.
 - **Returns:**
   - `Function`: The Express route handler for the CSRF token endpoint.
 
-- **Usage:**
-  ```javascript
-  csrf(); // or  
-  csrf(/** options */)
-  const csrfHandler = csrf()
-  csrfHandler.provideCsrfToken();
-  ```
-
 #### `getCsrf()`
 
 Retrieves the configured CSRF middleware.
 
 - **Returns:**
   - `Function`: The configured CSRF middleware.
-
-- **Usage:**
-  ```javascript
-  csrfHandler.getCsrf()
-  ```
