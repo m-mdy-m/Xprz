@@ -79,17 +79,17 @@ First, ensure you have Node.js and npm installed on your system. Then, create a 
 npm install xprz
 ```
 
-### CsrfHandler Setup
+### csrf Setup
 
-Create a new JavaScript file (e.g., `app.js`) and require Express and `CsrfHandler`:
+Create a new JavaScript file (e.g., `app.js`) and require Express and `csrf`:
 
 ```javascript
 const { csrf } = new Package()
 ```
 
-### Configure CsrfHandler
+### Configure csrf
 
-Initialize `CsrfHandler` with options and set up CSRF protection middleware:
+Initialize `csrf` with options and set up CSRF protection middleware:
 
 ```javascript
 const csrfHandler = csrf({ cookie: true });
