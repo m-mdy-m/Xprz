@@ -12,7 +12,6 @@ class baseReq {
     this.req = req;
 
     // Bind all methods to the current instance
-    this.getReq = this.getReq.bind(this)
     this.getQuery = this.getQuery.bind(this);
     this.getBody = this.getBody.bind(this);
     this.getHeadersReq = this.getHeadersReq.bind(this);
@@ -40,15 +39,6 @@ class baseReq {
     this.getLanguages = this.getLanguages.bind(this);
     this.getEncodings = this.getEncodings.bind(this);
     this.getCharsets = this.getCharsets.bind(this);
-  }
-  /**
- * Retrieves the Express request object associated with this baseReq instance.
-  * @returns {object} The Express request object.
-  * @example
-  * const req = getReq();
-  */
-  getReq(){
-    return this.req
   }
   /**
    * Retrieves the query parameters from the request.

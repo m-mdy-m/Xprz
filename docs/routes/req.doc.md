@@ -35,18 +35,6 @@ The `Response` class provides enhanced functionality for handling HTTP responses
 
 ## Methods
 
-### `getReq()`
-
-Retrieves the Express request object associated with this Response instance.
-
-- **Returns:** 
-  - `object`: The Express request object.
-
-- **Example:**
-  ```javascript
-  const req = getReq();
-  ```
-
 ##### `getQuery()`
 
 Retrieves the query parameters from the request.

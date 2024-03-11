@@ -55,7 +55,6 @@ class RouteManager {
   /**
    * Methods for interacting with res.
    * @typedef {Object} Response
-   * @property {Function} getRes - Retrieves the Res.
    * @property {Function} write - Writes data to the HTTP response.
    * @property {Function} status - Sets the HTTP status code for the response.
    * @property {Function} links - Sets the links header for the response.
@@ -109,7 +108,6 @@ class RouteManager {
    * @typedef {Object} Request
    * @property {Function} getQuery - Retrieves the query parameters from the request.
    * @property {Function} getBody - Retrieves the request body.
-   * @property {Function} getReq - Retrieves the Req.
    * @property {Function} getHeadersReq - Retrieves the request headers.
    * @property {Function} getUrl - Retrieves the request URL.
    * @property {Function} getPath - Retrieves the request path.
@@ -345,14 +343,12 @@ class RouteManager {
    */
   createRequestHandler(handlers) {
     return (req, res) => {
-      let response = this.setRes(res);
-      let request = this.setReq(req);
+      this.setRes(res);
+      this.setReq(req);
+      const request = {...this.req(), ...req}
+      const response = {...this.res(), ...res}
       handlers.forEach((handler) => {
-        if (handler.length > 1) {
-          handler(this.req(), this.res());
-        } else {
-          handler(request ? request : req, response ? response : res);
-        }
+          handler(request, request);
       });
     };
   }

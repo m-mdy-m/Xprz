@@ -4,18 +4,6 @@ Response class provides enhanced functionality for handling HTTP responses.
 
 
 ### Methods
-
-### `getRes()`
-
-Retrieves the Express response object associated with this Response instance.
-
-- **Returns:** 
-  - `object`: The Express response object.
-
-- **Example:**
-  ```javascript
-  const res = getRes();
-  ```
 #### `write(data)`
 
 Writes data to the response and ends it.
