@@ -26,6 +26,7 @@ csrfHandler.setup();
 Sets up an endpoint to provide the CSRF token to the frontend.
 
 - **Parameters:**
+
   - `endPoint` (string, optional): The endpoint path to provide the CSRF token. Default is `"/get-csrf-token"`.
 
 - **Returns:**
@@ -73,27 +74,31 @@ In this example, we'll demonstrate how to use the `CsrfHandler` class to configu
 
 ### Installation
 
-First, ensure you have Node.js and npm installed on your system. Then, create a new directory for your project and navigate into it. Initialize a new npm project and install Express:
+First, ensure you have Node.js and npm installed on your system. Then, create a new directory for your project and navigate into it. Initialize a new npm project and install the `xprz` package:
 
 ```bash
 npm install xprz
 ```
 
-### csrf Setup
+### CsrfHandler Setup
 
-Create a new JavaScript file (e.g., `app.js`) and require Express and `csrf`:
+Create a new JavaScript file (e.g., `app.js`) and require Express and `CsrfHandler`:
 
 ```javascript
-const { csrf } = new Package()
+const Xprz = require("xprz");
+const { Package } = new Xprz();
+const { csrf } = new Package();
 ```
 
-### Configure csrf
+### Configure CsrfHandler
 
-Initialize `csrf` with options and set up CSRF protection middleware:
+Initialize `CsrfHandler` with options and set up CSRF protection middleware:
 
 ```javascript
 const csrfHandler = csrf({ cookie: true });
 csrfHandler.setup();
+// or
+const csrfHandler = csrf({ cookie: true });
 ```
 
 ### Provide CSRF Token Endpoint
@@ -118,11 +123,11 @@ app.use(csrfMiddleware);
 Define a route to demonstrate the usage of CSRF token for form submission:
 
 ```javascript
-app.post('/submit-form', (req, res) => {
+app.post("/submit-form", (req, res) => {
   // Verify CSRF token
   // You can access CSRF token from req.csrfToken()
   // Here, we're just sending a success response assuming CSRF token verification passes
-  res.status(200).send('Form submitted successfully!');
+  res.status(200).send("Form submitted successfully!");
 });
 ```
 
