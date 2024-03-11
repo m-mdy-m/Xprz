@@ -6,8 +6,10 @@ class CsrfHandler {
    * Creates an instance of CsrfHandler.
    * @param {Function} csrf - The CSRF package.
    * @param {Function} use - The Express app's `use` function.
+   * @param {Function} app - The Express app instance.
+   * @param {Object|null} option - Options for CSRF protection (optional).
    */
-  constructor(csrf, use, app) {
+  constructor(csrf, use, app, option = null) {
     /** @private */
     this.csrf = csrf;
     /** @private */
@@ -15,38 +17,12 @@ class CsrfHandler {
     /** @private */
     this.use = use;
     /** @private */
-    this.protection = this.csrf();
+    this.protection = option ? this.csrf(option) : this.csrf();
     /** @private */
     this.use(this.protection);
     // Bind methods to the current instance
     this.getCsrf = this.getCsrf.bind(this);
-    this.configure = this.configure.bind(this);
-    this.genSecret = this.genSecret.bind(this);
-    // Automatically generate CSRF secret when the instance is created
-    this.genSecret();
-  }
-  /**
-   * Generate CSRF secret and store it in the user's session.
-   * If the CSRF secret already exists in the session, it will be overwritten.
-   */
-  genSecret() {
-    // Register middleware to generate and store CSRF secret in user's session
-  return this.use((req, res, next) => {
-    try {
-      // Check if CSRF secret is not already stored in the session
-      if (!req.session.csrfSecret) {
-        // Generate a new CSRF token using req.csrfToken() provided by the CSRF middleware
-        req.session.csrfSecret = req.csrfToken();
-      }
-      // Proceed to the next middleware
-      next();
-    } catch (err) {
-      // If an error occurs during generation and storing of CSRF secret
-      console.error('Error generating CSRF secret:', err);
-      // Pass the error to the Express error handling middleware
-      next(err);
-    }
-  });
+    this.provideCsrfToken = this.provideCsrfToken.bind(this);
   }
   /**
    * Sets up an endpoint to provide the CSRF token to the frontend.
@@ -55,7 +31,7 @@ class CsrfHandler {
    */
   provideCsrfToken(endPoint = "/get-csrf-token") {
     return this.app.get(endPoint, (req, res) => {
-      res.json({ csrfToken: req.session.csrfSecret });
+      res.json({ csrfToken: req.csrfToken() });
     });
   }
   /**
@@ -64,27 +40,6 @@ class CsrfHandler {
    */
   getCsrf() {
     return this.csrf;
-  }
-
-  /**
-   * Configure CSRF protection middleware with custom options.
-   * @param {Object} options - Options for configuring CSRF protection.
-   * @returns {Function} The configured CSRF protection middleware.
-   */
-  configure(options) {
-    return this.csrf(options);
-  }
-  /**
-   * Regenerate CSRF secret periodically to mitigate CSRF token leakage risks.
-   * @param {number} interval - The interval in milliseconds for regenerating CSRF secret.
-   */
-  regenerateSecret(interval = 3600000) {
-    setInterval(() => {
-      this.use((req, res, next) => {
-        req.session.csrfSecret = req.csrfToken();
-        next();
-      });
-    }, interval);
   }
 }
 

@@ -113,11 +113,11 @@ class PackageManager {
    * const pkgManager = new Package();
    * const csrf = pkgManager.csrf();
    */
-  csrf() {
+  csrf(handler=null) {
     const pkg = $install("csurf");
     const use = useApp.bind(this);
     const app = getApp.bind(this)
-    return new Csrf(pkg, use,app);
+    return new Csrf(pkg, use,app,...handler);
   }
 
   /**
