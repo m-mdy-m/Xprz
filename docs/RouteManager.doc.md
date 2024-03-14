@@ -103,7 +103,7 @@ Defines a group of routes under a common path.
   ```javascript
   const router = new Route();
   router.group("/api", (r) => {
-    r.get("/users", (req, {send}) => {
+    r.setRoute('/users').get((req, {send}) => {
       send("GET /api/users");
     });
   });

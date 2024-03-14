@@ -213,7 +213,7 @@ class RouteManager {
    * @example
    * const router = new Route()
    * router.group("/api", (r) => {
-   *   r.get("/users", (req, res) => {
+   *   r.setRoute('/users').get((req, res) => {
    *     res.send("GET /api/users");
    *   });
    * });
