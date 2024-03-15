@@ -215,6 +215,21 @@ Retrieves the value of a parameter from the request.
   ```javascript
   const userId = param('userId');
   ```
+  
+##### `getParams()`
+
+Retrieves all parameters from the request.
+
+- **Returns:**
+  - `object`: All parameters from the request.
+
+- **Example:**
+  ```javascript
+  const params = getParams();
+  ```
+
+This method allows you to access all parameters sent with the request, providing a convenient way to retrieve them collectively.
+
 
 ##### `getUrl()`
 

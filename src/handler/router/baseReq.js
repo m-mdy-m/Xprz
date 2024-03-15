@@ -26,6 +26,7 @@ class baseReq {
     this.getProtocol = this.getProtocol.bind(this);
     this.accepts = this.accepts.bind(this);
     this.param = this.param.bind(this);
+    this.getParams = this.getParams.bind(this)
     this.getUrl = this.getUrl.bind(this);
     this.is = this.is.bind(this);
     this.getPath = this.getPath.bind(this);
@@ -190,9 +191,26 @@ class baseReq {
    * @example
    * const userId = param('userId');
    */
-
   param(name, handlers) {
-    return this.req.param(name, handlers);
+    let value = this.req.params[name];
+
+    // Apply optional middleware handlers
+    if (handlers && Array.isArray(handlers)) {
+      handlers.forEach(handler => {
+        value = handler(value);
+      });
+    }
+
+    return value;
+  }
+  /**
+   * Retrieves all parameters from the request.
+   * @returns {object} All parameters from the request.
+   * @example
+   * const params = getParams();
+   */
+  getParams() {
+    return this.req.params;
   }
   /**
    * Retrieves the URL of the request.
