@@ -8,7 +8,7 @@ Represents a base response handler providing utility methods for handling HTTP r
 ##### `Example(res)`
 
 - **Parameters:**
-  - `res` (object): The Express request object.
+  - `res` (object): The Express response object.
 
 - **Example:**
   ```javascript
