@@ -35,6 +35,10 @@ The `Response` class provides enhanced functionality for handling HTTP responses
 
 ## Methods
 
+#### q
+
+
+
 ##### `getQuery()`
 
 Retrieves the query parameters from the request.

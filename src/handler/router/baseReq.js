@@ -13,6 +13,7 @@ class baseReq {
 
     // Bind all methods to the current instance
     this.getQuery = this.getQuery.bind(this);
+    this.query = this.query.bind(this)
     this.getBody = this.getBody.bind(this);
     this.getHeadersReq = this.getHeadersReq.bind(this);
     this.getUrl = this.getUrl.bind(this);
@@ -60,16 +61,6 @@ class baseReq {
    */
   getQuery() {
     return this.req.query;
-  }
-    /**
-   * Sets the request body with the provided properties.
-   * @param {object} bodyData - An object containing properties to be assigned to the request body.
-   * @example
-   * bodyies({ username, name, email });
-   */
-  bodyies(bodyData) {
-    // Assign properties from bodyData to the request body
-    Object.assign(this.req.body, bodyData);
   }
   /**
    * Retrieves the request body.
