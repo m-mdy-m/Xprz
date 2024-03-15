@@ -61,22 +61,15 @@ class baseReq {
   getQuery() {
     return this.req.query;
   }
-   /**
-   * Retrieves the values of specified keys from the request body.
-   * @param {string[]} keys - Array of keys to retrieve values for.
-   * @returns {object} An object containing the values corresponding to the keys.
+    /**
+   * Sets the request body with the provided properties.
+   * @param {object} bodyData - An object containing properties to be assigned to the request body.
    * @example
-   * const bodyValues = bodyies(['username', 'name', ...]);
+   * bodyies({ username, name, email });
    */
-   bodyies(keys) {
-    const body = this.req.body;
-    const bodyValues = {};
-    keys.forEach(key => {
-      if (body.hasOwnProperty(key)) {
-        bodyValues[key] = body[key];
-      }
-    });
-    return bodyValues;
+  bodyies(bodyData) {
+    // Assign properties from bodyData to the request body
+    Object.assign(this.req.body, bodyData);
   }
   /**
    * Retrieves the request body.
