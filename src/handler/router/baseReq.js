@@ -202,17 +202,8 @@ class baseReq {
    * @example
    * const userId = param('userId');
    */
-  param(name, handlers) {
-    let value = this.req.params[name];
-
-    // Apply optional middleware handlers
-    if (handlers && Array.isArray(handlers)) {
-      handlers.forEach(handler => {
-        value = handler(value);
-      });
-    }
-
-    return value;
+  param(name) {
+    return this.req.params[name];
   }
   /**
    * Retrieves all parameters from the request.
