@@ -41,6 +41,17 @@ class baseReq {
     this.getEncodings = this.getEncodings.bind(this);
     this.getCharsets = this.getCharsets.bind(this);
   }
+
+  /**
+   * Retrieves the value of a specific query parameter by its name.
+   * @param {string} name - The name of the query parameter.
+   * @returns {string|undefined} The value of the query parameter, or undefined if not found.
+   * @example
+   * const paramValue = query('paramName');
+   */
+  query(name) {
+    return this.req.query[name];
+  }
   /**
    * Retrieves the query parameters from the request.
    * @returns {object} The request query parameters.
@@ -50,7 +61,23 @@ class baseReq {
   getQuery() {
     return this.req.query;
   }
-
+   /**
+   * Retrieves the values of specified keys from the request body.
+   * @param {string[]} keys - Array of keys to retrieve values for.
+   * @returns {object} An object containing the values corresponding to the keys.
+   * @example
+   * const bodyValues = bodyies(['username', 'name', ...]);
+   */
+   bodyies(keys) {
+    const body = this.req.body;
+    const bodyValues = {};
+    keys.forEach(key => {
+      if (body.hasOwnProperty(key)) {
+        bodyValues[key] = body[key];
+      }
+    });
+    return bodyValues;
+  }
   /**
    * Retrieves the request body.
    * @returns {object} The request body.
