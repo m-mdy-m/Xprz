@@ -1,13 +1,11 @@
-Certainly! Here is the documentation for all the methods in the `baseReq` class:
-
-### baseReq Class
+# `Request`
 
 **Description:**
 Represents a base request handler providing utility methods for handling HTTP requests.
 
 #### Constructor
 
-##### `baseReq(req)`
+##### `Example(req)`
 
 - **Parameters:**
   - `req` (object): The Express request object.
@@ -17,27 +15,22 @@ Represents a base request handler providing utility methods for handling HTTP re
   const { /* methods **/} = req;
   ```
 
-#### Methods
-
-To create documentation for the `getRes` and `getReq` methods in the `Response` class, you can follow these steps:
-
-1. Create a new Markdown file in the `doc` directory, let's name it `response.md`.
-2. Open `response.md` in a text editor.
-3. Write the documentation for the `getRes` and `getReq` methods using Markdown syntax.
-4. Save the file.
-
-Here's a template you can use:
-
-```markdown
-# Response Class
-
-The `Response` class provides enhanced functionality for handling HTTP responses.
-
 ## Methods
 
-#### q
+##### `query(name)`
 
+Retrieves the value of a specific query parameter from the request.
 
+- **Parameters:**
+  - `name` (string): The name of the query parameter.
+
+- **Returns:**
+  - `*`: The value of the specified query parameter.
+
+- **Example:**
+  ```javascript
+  const paramValue = query('paramName');
+  ```
 
 ##### `getQuery()`
 

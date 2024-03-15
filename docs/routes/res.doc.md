@@ -1,7 +1,19 @@
-## `Response`
+# `Response`
 
-Response class provides enhanced functionality for handling HTTP responses.
+**Description:**
+Represents a base response handler providing utility methods for handling HTTP responses.
 
+#### Constructor
+
+##### `Example(res)`
+
+- **Parameters:**
+  - `res` (object): The Express request object.
+
+- **Example:**
+  ```javascript
+  const { /* methods **/} = res;
+  ```
 
 ### Methods
 #### `write(data)`
