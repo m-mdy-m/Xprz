@@ -3,8 +3,8 @@
  */
 class JsonHandler {
   /**
-   * Returns HTTP status codes.
-   * @returns {Object} HTTP status codes.
+  * Returns HTTP status codes.
+  * @returns {Object} HTTP status codes.
    */
   static get HTTP_STATUS() {
     return {
@@ -18,6 +18,7 @@ class JsonHandler {
       INTERNAL_SERVER_ERROR: 500,
       SERVICE_UNAVAILABLE: 503,
       TOO_MANY_REQUESTS: 429,
+      REDIRECT: 302, // Added for redirect response
     };
   }
   /**
@@ -83,12 +84,19 @@ class JsonHandler {
   }
   /**
    * Sends a success response with a message and optional data.
-   * @param {string} [message="Operation successful"] - The success message.
+   * @param {string} message - The success message.
    * @param {Object} [data={}] - Additional data to be included in the response.
    * @returns {Object} The JSON response.
+   * @example
+   * const jsonHandler = new JsonHandler();
+   * jsonHandler.success("Operation successful", { id: 1, name: "John" });
    */
   success(message = JsonHandler.MESSAGES.SUCCESS, data = {}) {
-    return this.sendResponse(JsonHandler.HTTP_STATUS.OK, { success: true, message, data });
+    return this.sendResponse(JsonHandler.HTTP_STATUS.OK, {
+      success: true,
+      message,
+      data,
+    });
   }
   /**
    * Sends a response indicating that the resource was created successfully.
@@ -99,9 +107,9 @@ class JsonHandler {
    * jsonHandler.created({ id: 1, name: "Example" });
    */
   created(createdObject) {
-    return this.status(201).json({
+    return this.sendResponse(JsonHandler.HTTP_STATUS.CREATED, {
       success: true,
-      message: "Resource created successfully",
+      message: JsonHandler.MESSAGES.RESOURCE_CREATED,
       data: createdObject,
     });
   }
@@ -114,9 +122,9 @@ class JsonHandler {
    * jsonHandler.updated({ id: 1, name: "Updated Example" });
    */
   updated(updatedObject) {
-    return this.status(200).json({
+    return this.sendResponse(JsonHandler.HTTP_STATUS.OK, {
       success: true,
-      message: "Resource updated successfully",
+      message: JsonHandler.MESSAGES.RESOURCE_UPDATED,
       data: updatedObject,
     });
   }
@@ -129,9 +137,9 @@ class JsonHandler {
    * jsonHandler.validationFailed({ field1: "Error message 1", field2: "Error message 2" });
    */
   validationFailed(validationErrors) {
-    return this.status(422).json({
+    return this.sendResponse(JsonHandler.HTTP_STATUS.UNPROCESSABLE_ENTITY, {
       success: false,
-      error: "Validation failed",
+      error: JsonHandler.MESSAGES.VALIDATION_FAILED,
       validationErrors,
     });
   }
@@ -144,9 +152,9 @@ class JsonHandler {
    * jsonHandler.deleted({ id: 1, name: "Deleted Resource" });
    */
   deleted(deletedObject) {
-    return this.status(200).json({
+    return this.sendResponse(JsonHandler.HTTP_STATUS.OK, {
       success: true,
-      message: "Resource deleted successfully",
+      message: JsonHandler.MESSAGES.RESOURCE_DELETED,
       data: deletedObject,
     });
   }
@@ -160,7 +168,7 @@ class JsonHandler {
    * jsonHandler.error(404, "Resource not found");
    */
   error(statusCode, message) {
-    return this.status(statusCode).json({ success: false, error: message });
+    return this.sendResponse(statusCode, { success: false, error: message });
   }
 
   /**
@@ -197,7 +205,7 @@ class JsonHandler {
    * jsonHandler.authRequired("User authentication required");
    */
   authRequired(message = "Authentication required") {
-    return this.status(401).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.UNAUTHORIZED).json({ success: false, error: message });
   }
 
   /**
@@ -209,7 +217,7 @@ class JsonHandler {
    * jsonHandler.authzRequired("User authorization required");
    */
   authzRequired(message = "Authorization required") {
-    return this.status(403).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.FORBIDDEN).json({ success: false, error: message });
   }
 
   /**
@@ -221,7 +229,7 @@ class JsonHandler {
    * jsonHandler.internalServerError("Unexpected server error occurred");
    */
   internalServerError(message = "Internal server error") {
-    return this.status(500).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ success: false, error: message });
   }
 
   /**
@@ -233,7 +241,7 @@ class JsonHandler {
    * jsonHandler.serviceUnavailable("Service temporarily unavailable");
    */
   serviceUnavailable(message = "Service temporarily unavailable") {
-    return this.status(503).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.SERVICE_UNAVAILABLE).json({ success: false, error: message });
   }
 
   /**
@@ -245,7 +253,7 @@ class JsonHandler {
    * jsonHandler.notFound("Resource not found");
    */
   notFound(message = "Resource not found") {
-    return this.status(404).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.NOT_FOUND).json({ success: false, error: message });
   }
   /**
    * Sends a redirect response.
@@ -256,9 +264,9 @@ class JsonHandler {
    * jsonHandler.redirectResponse("/new-location");
    */
   redirectResponse(redirectUrl) {
-    return this.status(302).json({
+    return this.status(JsonHandler.HTTP_STATUS.REDIRECT).json({
       success: true,
-      message: "Redirecting...",
+      message: JsonHandler.MESSAGES.REDIRECTING,
       redirectUrl,
     });
   }
@@ -274,7 +282,7 @@ class JsonHandler {
   fileUploadSuccess(filename, fileSize) {
     return this.json({
       success: true,
-      message: "File uploaded successfully",
+      message: JsonHandler.MESSAGES.FILE_UPLOADED,
       filename,
       fileSize,
     });
@@ -288,7 +296,7 @@ class JsonHandler {
    * jsonHandler.badRequest("Bad request");
    */
   badRequest(message = "Bad request") {
-    return this.status(400).json({ success: false, error: message });
+    return this.status(JsonHandler.HTTP_STATUS.BAD_REQUEST).json({ success: false, error: message });
   }
   /**
    * Sends a response indicating that the request rate limit has been exceeded.
@@ -298,9 +306,9 @@ class JsonHandler {
    * jsonHandler.rateLimitExceeded();
    */
   rateLimitExceeded() {
-    return this.status(429).json({
+    return this.status(JsonHandler.HTTP_STATUS.TOO_MANY_REQUESTS).json({
       success: false,
-      error: "Rate limit exceeded",
+      error: JsonHandler.MESSAGES.RATE_LIMIT_EXCEEDED,
     });
   }
 }
