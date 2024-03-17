@@ -34,7 +34,7 @@ class App {
    * @example
    * const express = getExpress();
    */
-  get getExpress() {
+  getExpress() {
     return express;
   }
 
