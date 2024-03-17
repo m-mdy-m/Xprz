@@ -210,24 +210,39 @@ class AppManager extends App {
   }
 
   /**
-   * Methods for interacting with setTemplateEngine instances.
-   * @typedef {Object} setTemplateEngine
+   * Methods for interacting with setViewEngine instances.
+   * @typedef {Object} setViewEngine
    * @property {Function} ejs - Function to configure EJS template engine.
    * @property {Function} hbs - Function to configure Handlebars (HBS) template engine.
    * @property {Function} pug - Function to configure Pug template engine.
+   * @param {string} engineName - Name of the template engine to configure.
    * @example
    * const appManager = new App();
-   * const templateEngines = appManager.setTemplateEngine();
-   * templateEngines.ejs();
+   * const templateEngines = appManager.setViewEngine('ejs');
+   * templateEngines(); // This will configure the EJS template engine.
    */
-  setTemplateEngine() {
+  setViewEngine(engineName) {
     const { setEjs, setHBS, setPug } = require("../utils/templateEngines");
-    return {
-      ejs: setEjs,
-      hbs: setHBS,
-      pug: setPug,
-    };
+    let engineFunction;
+
+    // Determine the appropriate engine function based on the provided engineName
+    switch (engineName) {
+      case "ejs":
+        engineFunction = setEjs;
+        break;
+      case "hbs":
+        engineFunction = setHBS;
+        break;
+      case "pug":
+        engineFunction = setPug;
+        break;
+      default:
+        throw new Error("Invalid template engine specified.");
+    }
+
+    return engineFunction;
   }
+
   /**
    * Dynamically loads and mounts routes from a specified directory.
    * @param {string} routeDir - The directory containing route files.
@@ -243,7 +258,7 @@ class AppManager extends App {
    * // Do not log loaded routes
    * appManager.loadRoutes('routes', false);
    */
-  loadRoutes(routeDir='routes', log = false) {
+  loadRoutes(routeDir = "routes", log = false) {
     try {
       // Check if the provided directory exists
       if (!fs.existsSync(routeDir)) {

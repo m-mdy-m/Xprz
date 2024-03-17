@@ -212,7 +212,7 @@ Shuts down the Express application.
     });
   ```
 
-### `setTemplateEngine`
+### `setViewEngine`
 
 Creates an instance of `TemplateEngines` to manage template engine configuration.
 
@@ -224,8 +224,8 @@ Creates an instance of `TemplateEngines` to manage template engine configuration
   ```javascript
   const xprz = require("xprz")
   const { App } = new xprz();
-  const { setTemplateEngine } = new App();
-  setTemplateEngine().ejs()
+  const { setViewEngine } = new App();
+  setViewEngine('ejs')
   ```
 
 ### `loadRoutes`
