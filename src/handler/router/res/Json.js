@@ -14,10 +14,8 @@ class JsonHandler {
     this.status = status;
     // Bind methods to ensure they have access to the correct 'this' context
     this.success = this.success.bind(this);
-    this.list = this.list.bind(this);
     this.created = this.created.bind(this);
     this.updated = this.updated.bind(this);
-    this.opSuccess = this.opSuccess.bind(this);
     this.validationFailed = this.validationFailed.bind(this);
     this.deleted = this.deleted.bind(this);
     this.error = this.error.bind(this);
@@ -41,29 +39,7 @@ class JsonHandler {
    * jsonHandler.success("Operation successful");
    */
   success(message) {
-    return this.json({ success: true, message });
-  }
-  /**
-   * Sends a response with a list of items along with pagination details.
-   * @param {Array} items - The list of items to be sent in the response.
-   * @param {number} totalCount - The total count of items (for pagination).
-   * @param {number} totalPages - The total number of pages (for pagination).
-   * @param {number} currentPage - The current page number (for pagination).
-   * @returns {Object} The JSON response.
-   * @example
-   * const jsonHandler = new JsonHandler();
-   * jsonHandler.list([...], 100, 10, 1);
-   */
-  list(items, totalCount, totalPages, currentPage) {
-    const responseData = {
-      items,
-      pagination: {
-        totalCount,
-        totalPages,
-        currentPage,
-      },
-    };
-    return this.json(responseData);
+    return this.status(200).json({ success: true, message });
   }
   /**
    * Sends a response indicating that the resource was created successfully.
@@ -89,22 +65,11 @@ class JsonHandler {
    * jsonHandler.updated({ id: 1, name: "Updated Example" });
    */
   updated(updatedObject) {
-    return this.json({
+    return this.status(200).json({
       success: true,
       message: "Resource updated successfully",
       data: updatedObject,
     });
-  }
-  /**
-   * Sends a response indicating that the operation was completed successfully.
-   * @param {string} [message="Operation successful"] - The success message.
-   * @returns {Object} The JSON response.
-   * @example
-   * const jsonHandler = new JsonHandler();
-   * jsonHandler.opSuccess("Operation completed successfully");
-   */
-  opSuccess(message = "Operation successful") {
-    return this.json({ success: true, message });
   }
   /**
    * Sends a response indicating that the operation failed due to validation errors.
@@ -130,7 +95,7 @@ class JsonHandler {
    * jsonHandler.deleted({ id: 1, name: "Deleted Resource" });
    */
   deleted(deletedObject) {
-    return this.json({
+    return this.status(200).json({
       success: true,
       message: "Resource deleted successfully",
       data: deletedObject,

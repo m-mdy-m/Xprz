@@ -34,25 +34,6 @@ Sends a success response with a message.
   getJsonHandler().success("Operation successful");
   ```
 
-##### `list(items, totalCount, totalPages, currentPage)`
-
-Sends a response with a list of items along with pagination details.
-
-- **Parameters:**
-  - `items` (Array): The list of items to be sent in the response.
-  - `totalCount` (number): The total count of items (for pagination).
-  - `totalPages` (number): The total number of pages (for pagination).
-  - `currentPage` (number): The current page number (for pagination).
-
-- **Returns:**
-  - `Object`: The JSON response.
-
-- **Example:**
-  ```javascript
-  const { getJsonHandler } = res;
-  getJsonHandler().list([...], 100, 10, 1);
-  ```
-
 ##### `created(createdObject)`
 
 Sends a response indicating that the resource was created successfully.
@@ -83,22 +64,6 @@ Sends a response indicating that the resource was updated successfully.
   ```javascript
   const { getJsonHandler } = res;
   getJsonHandler().updated({ id: 1, name: "Updated Example" });
-  ```
-
-##### `opSuccess([message="Operation successful"])`
-
-Sends a response indicating that the operation was completed successfully.
-
-- **Parameters:**
-  - `message` (string, optional): The success message. Defaults to "Operation successful".
-
-- **Returns:**
-  - `Object`: The JSON response.
-
-- **Example:**
-  ```javascript
-  const { getJsonHandler } = res;
-  getJsonHandler().opSuccess("Operation completed successfully");
   ```
 
 ##### `validationFailed(validationErrors)`
