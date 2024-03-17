@@ -8,9 +8,10 @@ const $install = require("./installPkg");
 class TemplateEngineConfigurator {
   /**
    * Creates an instance of TemplateEngineConfigurator.
+   * @param {string} engineName - Name of the template engine to configure ('ejs', 'hbs', or 'pug').
    * @throws {Error} Throws an error if the application is not initialized.
    */
-  constructor() {
+  constructor(engineName) {
     /**
      * The Express.js application instance.
      * @type {object}
@@ -23,6 +24,20 @@ class TemplateEngineConfigurator {
     this.ejs = this.ejs.bind(this)
     this.hbs = this.hbs.bind(this)
     this.pug = this.pug.bind(this)
+    // Call the appropriate method based on the engineName
+    switch (engineName) {
+      case 'ejs':
+        this.ejs();
+        break;
+      case 'hbs':
+        this.hbs();
+        break;
+      case 'pug':
+        this.pug();
+        break;
+      default:
+        throw new Error('Invalid template engine specified.');
+    }
   }
 
   /**
@@ -76,4 +91,4 @@ class TemplateEngineConfigurator {
 }
 
 // Export an instance of the TemplateEngineConfigurator
-module.exports = TemplateEngineConfigurator();
+module.exports = TemplateEngineConfigurator;
