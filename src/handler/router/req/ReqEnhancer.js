@@ -1,4 +1,3 @@
-const $install = require("../../../utils/installPkg");
 const Request = require("../baseReq");
 /**
  * Class extending the baseReq class to enhance request handling capabilities.
@@ -157,11 +156,6 @@ class ReqEnhancer extends Request {
    */
   getAcceptedContentTypes() {
     return this.req.accepts();
-  }
-
-  getRateLimit(clientId){
-    const  limiter = $install('express-rate-limit')
-    
   }
 }
 
