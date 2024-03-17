@@ -257,7 +257,7 @@ class AppManager extends App {
       this.loadRoutesRecursively(routeDir, log);
     } catch (error) {
       // Throw a RouteLoadingError if any error occurs
-      throw new RouteLoadingError(`Error loading routes: ${error.message}`);
+      throw new RouteLoadingError(`Failed to load routes from directory "${routeDir}": ${error.message}`);
     }
   }
   /**
