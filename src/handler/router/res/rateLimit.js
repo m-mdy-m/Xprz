@@ -64,4 +64,26 @@ class RequestRateLimiter {
   resetRequests(clientId) {
     this.clientRequests.set(clientId, []);
   }
+
+  /**
+   * Clears all stored requests.
+   */
+  clearAllRequests() {
+    this.clientRequests.clear();
+  }
+
+  /**
+   * Removes requests for a client older than a specified timestamp.
+   * @param {string} clientId - Unique identifier for the client.
+   * @param {number} timestamp - Timestamp in milliseconds.
+   */
+  removeOldRequests(clientId, timestamp) {
+    const requests = this.clientRequests.get(clientId) || [];
+    // Remove requests older than the specified timestamp
+    const recentRequests = requests.filter(
+      (requestTime) => requestTime >= timestamp
+    );
+    // Update the list of recent requests for the client
+    this.clientRequests.set(clientId, recentRequests);
+  }
 }
