@@ -1,4 +1,12 @@
+/**
+ * A class representing a request rate limiter.
+ */
 class RequestRateLimiter {
+  /**
+   * Creates an instance of RequestRateLimiter.
+   * @param {number} [maxRequests=100] - Maximum number of requests allowed within the time window.
+   * @param {number} [timeWindow=60000] - Time window in milliseconds.
+   */
   constructor(maxRequests = 100, timeWindow = 60000) {
     this.maxRequests = maxRequests; // Maximum number of requests allowed within the time window
     this.timeWindow = timeWindow; // Time window in milliseconds
@@ -87,4 +95,5 @@ class RequestRateLimiter {
     this.clientRequests.set(clientId, recentRequests);
   }
 }
+
 module.exports = RequestRateLimiter;
