@@ -3,6 +3,46 @@
  */
 class JsonHandler {
   /**
+   * Returns HTTP status codes.
+   * @returns {Object} HTTP status codes.
+   */
+  static get HTTP_STATUS() {
+    return {
+      OK: 200,
+      CREATED: 201,
+      UNPROCESSABLE_ENTITY: 422,
+      NOT_FOUND: 404,
+      BAD_REQUEST: 400,
+      UNAUTHORIZED: 401,
+      FORBIDDEN: 403,
+      INTERNAL_SERVER_ERROR: 500,
+      SERVICE_UNAVAILABLE: 503,
+      TOO_MANY_REQUESTS: 429,
+    };
+  }
+  /**
+   * Returns messages associated with JSON responses.
+   * @returns {Object} Messages for JSON responses.
+   */
+  static get MESSAGES() {
+    return {
+      SUCCESS: "Operation successful",
+      RESOURCE_CREATED: "Resource created successfully",
+      RESOURCE_UPDATED: "Resource updated successfully",
+      VALIDATION_FAILED: "Validation failed",
+      RESOURCE_DELETED: "Resource deleted successfully",
+      AUTH_REQUIRED: "Authentication required",
+      AUTHZ_REQUIRED: "Authorization required",
+      INTERNAL_SERVER_ERROR: "Internal server error",
+      SERVICE_UNAVAILABLE: "Service temporarily unavailable",
+      NOT_FOUND: "Resource not found",
+      REDIRECTING: "Redirecting...",
+      FILE_UPLOADED: "File uploaded successfully",
+      BAD_REQUEST: "Bad request",
+      RATE_LIMIT_EXCEEDED: "Rate limit exceeded",
+    };
+  }
+  /**
    * Creates an instance of JsonHandler.
    * @param {Function} json - The function used to send JSON responses.
    * @param {Function} status - The function used to set HTTP status code for responses.
@@ -29,17 +69,26 @@ class JsonHandler {
     this.redirectResponse = this.redirectResponse.bind(this);
     this.fileUploadSuccess = this.fileUploadSuccess.bind(this);
     this.badRequest = this.badRequest.bind(this);
+    this.rateLimitExceeded = this.rateLimitExceeded.bind(this);
   }
   /**
-   * Sends a success response with a message.
-   * @param {string} message - The success message.
+   * Sends a JSON response with the given data and status code.
+   * @param {number} statusCode - The HTTP status code.
+   * @param {Object} data - The data to be sent in the response.
    * @returns {Object} The JSON response.
-   * @example
-   * const jsonHandler = new JsonHandler();
-   * jsonHandler.success("Operation successful");
+   * @private
    */
-  success(message,data={}) {
-    return this.status(200).json({ success: true, message,data });
+  sendResponse(statusCode, data) {
+    return this.status(statusCode).json(data);
+  }
+  /**
+   * Sends a success response with a message and optional data.
+   * @param {string} [message="Operation successful"] - The success message.
+   * @param {Object} [data={}] - Additional data to be included in the response.
+   * @returns {Object} The JSON response.
+   */
+  success(message = JsonHandler.MESSAGES.SUCCESS, data = {}) {
+    return this.sendResponse(JsonHandler.HTTP_STATUS.OK, { success: true, message, data });
   }
   /**
    * Sends a response indicating that the resource was created successfully.
