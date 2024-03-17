@@ -38,15 +38,16 @@ class RequestRateLimiter {
    */
   registerRequest(clientId) {
     const currentTime = Date.now();
-    const requests = this._clientRequests.get(clientId) || [];
-    // Remove requests older than the time window
-    const recentRequests = requests.filter(
-      (requestTime) => currentTime - requestTime <= this.getTimeWindow()
-    );
-    // Add the current request timestamp
-    recentRequests.push(currentTime);
-    // Update the list of recent requests for the client
-    this._clientRequests.set(clientId, recentRequests);
+    const lastRequestTime = this._clientRequests.get(clientId) || 0;
+
+    // Check if the last request time is within the time window
+    if (currentTime - lastRequestTime <= this.getTimeWindow()) {
+      // If within the time window, increment the request count
+      this._clientRequests.set(clientId, lastRequestTime + 1);
+    } else {
+      // If outside the time window, reset the request count
+      this._clientRequests.set(clientId, currentTime);
+    }
   }
 
   /**
@@ -56,14 +57,21 @@ class RequestRateLimiter {
    */
   getRemainingRequests(clientId) {
     const currentTime = Date.now();
-    const requests = this._clientRequests.get(clientId) || [];
-    // Remove requests older than the time window
-    const recentRequests = requests.filter(
-      (requestTime) => currentTime - requestTime <= this.getTimeWindow()
-    );
-    // Calculate the remaining requests
-    const remainingRequests = this.getMaxRequests() - recentRequests.length;
-    return Math.max(0, remainingRequests);
+    const lastRequestTime = this._clientRequests.get(clientId) || 0;
+
+    // Check if the last request time is within the time window
+    if (currentTime - lastRequestTime <= this.getTimeWindow()) {
+      // If within the time window, calculate remaining requests
+      const elapsedTime = currentTime - lastRequestTime;
+      const remainingTime = this.getTimeWindow() - elapsedTime;
+      const remainingRequests = Math.floor(
+        (this.getMaxRequests() * remainingTime) / this.getTimeWindow()
+      );
+      return Math.max(0, remainingRequests);
+    } else {
+      // If outside the time window, all requests are allowed
+      return this.getMaxRequests();
+    }
   }
 
   /**
