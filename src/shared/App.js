@@ -32,9 +32,9 @@ class App {
    * @returns {Object} The Express module.
    *
    * @example
-   * const express = getExpress();
+   * const express = new App().express();
    */
-  getExpress() {
+  get express () {
     return express;
   }
 

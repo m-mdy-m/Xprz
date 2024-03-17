@@ -4,7 +4,7 @@ The `App` class manages the lifecycle of an Express application.
 
 ## Methods
 
-### `getExpress`
+### `express`
 
 Returns the Express module.
 
@@ -16,8 +16,7 @@ Returns the Express module.
   ```javascript
   const xprz = require("xprz");
   const { App } = new xprz();
-  const { getExpress } = new App();
-  const express = getExpress();
+  const express = new App().express();
   ```
 
 ### `initApp`
