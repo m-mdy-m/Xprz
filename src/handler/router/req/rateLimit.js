@@ -1,5 +1,5 @@
 class RequestRateLimiter {
-  constructor(maxRequests, timeWindow) {
+  constructor(maxRequests = 100, timeWindow = 60000) {
     this.maxRequests = maxRequests; // Maximum number of requests allowed within the time window
     this.timeWindow = timeWindow; // Time window in milliseconds
     this.clientRequests = new Map(); // Map to store client requests and their timestamps
@@ -87,4 +87,4 @@ class RequestRateLimiter {
     this.clientRequests.set(clientId, recentRequests);
   }
 }
-module.exports = RequestRateLimiter
+module.exports = RequestRateLimiter;
