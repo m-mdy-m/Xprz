@@ -209,7 +209,7 @@ class AppManager extends App {
     });
   }
 
-  /**
+   /**
    * Methods for interacting with setViewEngine instances.
    * @typedef {Object} setViewEngine
    * @property {Function} ejs - Function to configure EJS template engine.
@@ -217,13 +217,18 @@ class AppManager extends App {
    * @property {Function} pug - Function to configure Pug template engine.
    * @param {string} engineName - Name of the template engine to configure.
    * @example
-   * const appManager = new App();
-   * const templateEngines = appManager.setViewEngine('ejs');
-   * templateEngines(); // This will configure the EJS template engine.
+   * // Configure EJS template engine
+   * setViewEngine('ejs');
+   * 
+   * // Configure Handlebars template engine
+   * setViewEngine('hbs');
+   * 
+   * // Configure Pug template engine
+   * setViewEngine('pug');
    */
   setViewEngine(engineName) {
     const TemplateEngineConfigurator = require("../utils/templateEngines");
-    return  new TemplateEngineConfigurator(engineName);
+    return new TemplateEngineConfigurator(engineName);
   }
 
   /**
