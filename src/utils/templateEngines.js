@@ -1,23 +1,29 @@
 // Import the `getApp` function from the "../Using" module
 const { getApp } = require("../shareApp");
 const $install = require("./installPkg");
-let app = getApp();
-if (!app) {
-  return app;
-} else {
-  function setEjs(dir = "views") {
+
+class TemplateEngineConfigurator {
+  constructor() {
+    this.app = getApp();
+    if (!this.app) {
+      throw new Error("Application not initialized.");
+    }
+  }
+
+  ejs(dir = "views") {
     $install("ejs");
     // Set the view engine to EJS
-    app.set("view engine", "ejs");
+    this.app.set("view engine", "ejs");
     // Set the views directory, defaulting to "views" if dir is not provided
-    app.set("views", dir);
+    this.app.set("views", dir);
   }
-  function setHBS(hbs, dir, options = {}) {
+
+  hbs(hbs, dir, options = {}) {
     // Default options for Handlebars
     const defaultOptions = {
       defaultLayout: "main",
-      layoutsDir: `${dir}/layouts`, // Corrected line
-      partialsDir: `${dir}/partials`, // Corrected line
+      layoutsDir: `${dir}/layouts`,
+      partialsDir: `${dir}/partials`,
       extname: ".hbs",
     };
 
@@ -25,18 +31,20 @@ if (!app) {
     const combinedOptions = { ...defaultOptions, ...options };
 
     // Set the view engine to Handlebars
-    app.set("view engine", "hbs");
+    this.app.set("view engine", "hbs");
     // Set the views directory
-    app.set("views", dir);
+    this.app.set("views", dir);
     // Configure Handlebars engine with the combined options
-    app.engine(".hbs", hbs(combinedOptions));
+    this.app.engine(".hbs", hbs(combinedOptions));
   }
-  function setPug(dir = "views") {
+
+  pug(dir = "views") {
     // Set the view engine to Pug
-    app.set("view engine", "pug");
+    this.app.set("view engine", "pug");
     // Set the views directory, defaulting to "views" if dir is not provided
-    app.set("views", dir);
+    this.app.set("views", dir);
   }
-  // Export the functions to be used elsewhere
-  module.exports = { setEjs, setHBS, setPug };
 }
+
+// Export an instance of the TemplateEngineConfigurator
+module.exports = new TemplateEngineConfigurator();
