@@ -157,6 +157,10 @@ class ReqEnhancer extends Request {
   getAcceptedContentTypes() {
     return this.req.accepts();
   }
+
+  getRateLimit(clientId){
+    
+  }
 }
 
 module.exports = ReqEnhancer;

@@ -87,3 +87,4 @@ class RequestRateLimiter {
     this.clientRequests.set(clientId, recentRequests);
   }
 }
+module.exports = RequestRateLimiter

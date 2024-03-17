@@ -278,3 +278,14 @@ Sends a response for a bad request.
   const { getJsonHandler } = res;
   getJsonHandler().badRequest("Bad request");
   ```
+##### `rateLimitExceeded()`
+
+Sends a response indicating that the request rate limit has been exceeded.
+
+- **Returns:**
+  - `Object`: The JSON response.
+
+- **Example:**
+  ```javascript
+  const { getJsonHandler } = res;
+  getJsonHandler().rateLimitExceeded();
