@@ -16,7 +16,7 @@ Returns the Express module.
   ```javascript
   const xprz = require("xprz");
   const { App } = new xprz();
-  const express = new App().express();
+  const express = new App().getExpress();
   ```
 
 ### `initApp`
