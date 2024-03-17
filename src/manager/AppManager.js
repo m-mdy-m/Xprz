@@ -222,25 +222,8 @@ class AppManager extends App {
    * templateEngines(); // This will configure the EJS template engine.
    */
   setViewEngine(engineName) {
-    const { setEjs, setHBS, setPug } = require("../utils/templateEngines");
-    let engineFunction;
-
-    // Determine the appropriate engine function based on the provided engineName
-    switch (engineName) {
-      case "ejs":
-        engineFunction = setEjs;
-        break;
-      case "hbs":
-        engineFunction = setHBS;
-        break;
-      case "pug":
-        engineFunction = setPug;
-        break;
-      default:
-        throw new Error("Invalid template engine specified.");
-    }
-
-    return engineFunction;
+    const TemplateEngineConfigurator = require("../utils/templateEngines");
+    return  new TemplateEngineConfigurator(engineName);
   }
 
   /**
