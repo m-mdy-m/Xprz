@@ -241,5 +241,15 @@ class JsonHandler {
   badRequest(message = "Bad request") {
     return this.status(400).json({ success: false, error: message });
   }
+  /**
+ * Sends a response indicating that the request rate limit has been exceeded.
+ * @returns {Object} The JSON response.
+ * @example
+ * const jsonHandler = new JsonHandler();
+ * jsonHandler.rateLimitExceeded();
+ */
+  rateLimitExceeded() {
+    return this.status(429).json({ success: false, error: "Rate limit exceeded" });
+  }
 }
 module.exports = JsonHandler;
