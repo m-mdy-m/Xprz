@@ -33,19 +33,19 @@ class RequestRateLimiter {
   }
 
   /**
-   * Registers a request from a client.
-   * @param {string} clientId - Unique identifier for the client.
-   */
-  registerRequest(clientId) {
+ * Registers a request from a client.
+ * @param {string} clientId - Unique identifier for the client.
+ */
+registerRequest(clientId) {
     const currentTime = Date.now();
-    const lastRequestTime = this._clientRequests.get(clientId) || [];
-  
-    if (currentTime - lastRequestTime <= this.getTimeWindow()) {
-      // Update the list of request timestamps for the client
-      this._clientRequests.set(clientId, [...lastRequestTime, currentTime]);
-    } else {
-      // Reset the request count and update the list of request timestamps
+    const lastRequestTimes = this._clientRequests.get(clientId) || [];
+    
+    if (lastRequestTimes.length === 0 || currentTime - lastRequestTimes[lastRequestTimes.length - 1] > this.getTimeWindow()) {
+      // If there are no previous requests or the last request is outside the time window
       this._clientRequests.set(clientId, [currentTime]);
+    } else {
+      // Update the list of request timestamps for the client
+      this._clientRequests.set(clientId, [...lastRequestTimes, currentTime]);
     }
   }
 
@@ -148,41 +148,45 @@ class RequestRateLimiter {
 
 module.exports = RequestRateLimiter;
 // Create an instance of RequestRateLimiter with custom settings
-const rateLimiter = new RequestRateLimiter(50, 60000); // Allow 50 requests per minute
+const rateLimiter = new RequestRateLimiter(3, 60000); // Allow 3 requests per minute
 
 // Example client IDs
 const clientId1 = 'client1';
 const clientId2 = 'client2';
 
 // Example requests from clients
+console.log("Registering requests...");
 rateLimiter.registerRequest(clientId1);
 rateLimiter.registerRequest(clientId1);
+rateLimiter.registerRequest(clientId1); // Third request from client1
 rateLimiter.registerRequest(clientId2);
-rateLimiter.registerRequest(clientId2);
+rateLimiter.registerRequest(clientId2); // Second request from client2
 
 // Check if a client is rate limited
-console.log(`Client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: false
-console.log(`Client 2 rate limited? ${rateLimiter.isRateLimited(clientId2)}`); // Output: false
+console.log(`Is client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: false
+console.log(`Is client 2 rate limited? ${rateLimiter.isRateLimited(clientId2)}`); // Output: false
 
 // Add more requests to exceed the limit for client 1
-for (let i = 0; i < 51; i++) {
-  rateLimiter.registerRequest(clientId1);
-}
+console.log("Adding more requests to exceed the limit for client 1...");
+rateLimiter.registerRequest(clientId1); // Fourth request from client1
+rateLimiter.registerRequest(clientId1); // Fifth request from client1
 
 // Check if a client is rate limited after exceeding the limit
-console.log(`Client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: true
+console.log(`Is client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: true
 
 // Get remaining requests for a client within the time window
-console.log(`Remaining requests for Client 1: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 0
+console.log(`Remaining requests for client 1: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 0
 
-// Reset requests for a client
+// Reset requests for client 1
+console.log("Resetting requests for client 1...");
 rateLimiter.resetRequests(clientId1);
 
 // Check if the requests are reset
-console.log(`Remaining requests for Client 1 after reset: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 50
+console.log(`Remaining requests for client 1 after reset: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 3
 
 // Clear all stored requests
+console.log("Clearing all stored requests...");
 rateLimiter.clearAllRequests();
 
 // Check if all requests are cleared
-console.log(`Remaining requests for Client 2 after clearing: ${rateLimiter.getRemainingRequests(clientId2)}`); // Output: 50
+console.log(`Remaining requests for client 2 after clearing: ${rateLimiter.getRemainingRequests(clientId2)}`); // Output: 3
