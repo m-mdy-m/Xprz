@@ -212,13 +212,6 @@ class AppManager extends App {
   /**
    * Methods for interacting with setTemplateEngine instances.
    * @typedef {Object} setTemplateEngine
-   * @property {Function} ejs
-   * @property {Function} hbs
-   * @property {Function} pug
-   */
-  /**
-   * Methods for interacting with setTemplateEngine instances.
-   * @typedef {Object} setTemplateEngine
    * @property {Function} ejs - Function to configure EJS template engine.
    * @property {Function} hbs - Function to configure Handlebars (HBS) template engine.
    * @property {Function} pug - Function to configure Pug template engine.
@@ -230,46 +223,8 @@ class AppManager extends App {
   setTemplateEngine() {
     const { setEjs, setHBS, setPug } = require("../utils/templateEngines");
     return {
-      /**
-       * Sets up EJS as the view engine for rendering views.
-       *
-       * @param {string} [dir='views'] - The directory containing view files.
-       *
-       * @example
-       * // Set up EJS with default views directory
-       * ejs();
-       *
-       * // Set up EJS with custom views directory
-       * ejs('custom_views');
-       */
       ejs: setEjs,
-      /**
-       * Sets up Handlebars (HBS) as the view engine for rendering views.
-       *
-       * @param {function} hbs - The Handlebars instance.
-       * @param {string} dir - The directory containing view files.
-       * @param {Object} [options={}] - Additional options for Handlebars.
-       *
-       * @example
-       * // Set up Handlebars with default options and views directory
-       * hbs(hbs, 'views');
-       *
-       * // Set up Handlebars with custom options and views directory
-       * hbs(hbs, 'custom_views', { defaultLayout: 'main' });
-       */
       hbs: setHBS,
-      /**
-       * Sets up Pug as the view engine for rendering views.
-       *
-       * @param {string} [dir='views'] - The directory containing view files.
-       *
-       * @example
-       * // Set up Pug with default views directory
-       * pug();
-       *
-       * // Set up Pug with custom views directory
-       * pug('custom_views');
-       */
       pug: setPug,
     };
   }
