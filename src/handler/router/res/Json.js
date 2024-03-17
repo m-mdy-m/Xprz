@@ -38,8 +38,8 @@ class JsonHandler {
    * const jsonHandler = new JsonHandler();
    * jsonHandler.success("Operation successful");
    */
-  success(message) {
-    return this.status(200).json({ success: true, message });
+  success(message,data={}) {
+    return this.status(200).json({ success: true, message,data });
   }
   /**
    * Sends a response indicating that the resource was created successfully.
@@ -242,14 +242,17 @@ class JsonHandler {
     return this.status(400).json({ success: false, error: message });
   }
   /**
- * Sends a response indicating that the request rate limit has been exceeded.
- * @returns {Object} The JSON response.
- * @example
- * const jsonHandler = new JsonHandler();
- * jsonHandler.rateLimitExceeded();
- */
+   * Sends a response indicating that the request rate limit has been exceeded.
+   * @returns {Object} The JSON response.
+   * @example
+   * const jsonHandler = new JsonHandler();
+   * jsonHandler.rateLimitExceeded();
+   */
   rateLimitExceeded() {
-    return this.status(429).json({ success: false, error: "Rate limit exceeded" });
+    return this.status(429).json({
+      success: false,
+      error: "Rate limit exceeded",
+    });
   }
 }
 module.exports = JsonHandler;
