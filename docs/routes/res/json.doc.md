@@ -31,7 +31,7 @@ Sends a success response with a message.
 - **Example:**
   ```javascript
   const { getJsonHandler } = res;
-  getJsonHandler().success("Operation successful");
+  getJsonHandler().success("Operation successful", { id: 1, name: "mahdi" });
   ```
 
 ##### `created(createdObject)`
