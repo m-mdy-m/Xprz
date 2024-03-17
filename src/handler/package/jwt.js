@@ -76,29 +76,28 @@ class jwtHandler {
     }
   }
   /**
-   * Middleware for JWT authentication.
-   * @param {string} secretKey - The secret key used for verifying JWT tokens.
-   * @returns {function} Middleware function for JWT authentication.
-   * @example
-   * // Apply JWT authentication middleware
-   * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
-   */
+    * Middleware for JWT authentication.
+    * @param {string} secretKey - The secret key used for verifying JWT tokens.
+    * @returns {function} Middleware function for JWT authentication.
+    * @example
+    * // Apply JWT authentication middleware
+    * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
+    */
   jwtAuthenticate(secretKey) {
-    return (req, res, nxt) => {
-      const token = req.headers.authorization;
-      if (!token) {
-        return res
-          .status(401)
-          .json({ error: "Unauthorized: No token provided" });
-      }
-      try {
-        const decodedPayload = this.jwtVerify(token, secretKey);
-        req.user = decodedPayload;
-        nxt();
-      } catch (error) {
-        return res.status(401).json({ error: "Unauthorized: Invalid token" });
-      }
-    };
+   return (req, res, nxt) => {
+     const authHeader = req.headers.authorization;
+     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+       return res.status(401).json({ error: "Unauthorized: No token provided" });
+     }
+     const token = authHeader.split(' ')[1];
+     try {
+       const decodedPayload = this.jwtVerify(token, secretKey);
+       req.user = decodedPayload;
+       nxt();
+     } catch (error) {
+       return res.status(401).json({ error: "Unauthorized: Invalid token" });
+     }
+   };
   }
 }
 
