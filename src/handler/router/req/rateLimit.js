@@ -38,15 +38,14 @@ class RequestRateLimiter {
    */
   registerRequest(clientId) {
     const currentTime = Date.now();
-    const lastRequestTime = this._clientRequests.get(clientId) || 0;
-
-    // Check if the last request time is within the time window
+    const lastRequestTime = this._clientRequests.get(clientId) || [];
+  
     if (currentTime - lastRequestTime <= this.getTimeWindow()) {
-      // If within the time window, increment the request count
-      this._clientRequests.set(clientId, lastRequestTime + 1);
+      // Update the list of request timestamps for the client
+      this._clientRequests.set(clientId, [...lastRequestTime, currentTime]);
     } else {
-      // If outside the time window, reset the request count
-      this._clientRequests.set(clientId, currentTime);
+      // Reset the request count and update the list of request timestamps
+      this._clientRequests.set(clientId, [currentTime]);
     }
   }
 
@@ -148,3 +147,42 @@ class RequestRateLimiter {
 }
 
 module.exports = RequestRateLimiter;
+// Create an instance of RequestRateLimiter with custom settings
+const rateLimiter = new RequestRateLimiter(50, 60000); // Allow 50 requests per minute
+
+// Example client IDs
+const clientId1 = 'client1';
+const clientId2 = 'client2';
+
+// Example requests from clients
+rateLimiter.registerRequest(clientId1);
+rateLimiter.registerRequest(clientId1);
+rateLimiter.registerRequest(clientId2);
+rateLimiter.registerRequest(clientId2);
+
+// Check if a client is rate limited
+console.log(`Client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: false
+console.log(`Client 2 rate limited? ${rateLimiter.isRateLimited(clientId2)}`); // Output: false
+
+// Add more requests to exceed the limit for client 1
+for (let i = 0; i < 51; i++) {
+  rateLimiter.registerRequest(clientId1);
+}
+
+// Check if a client is rate limited after exceeding the limit
+console.log(`Client 1 rate limited? ${rateLimiter.isRateLimited(clientId1)}`); // Output: true
+
+// Get remaining requests for a client within the time window
+console.log(`Remaining requests for Client 1: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 0
+
+// Reset requests for a client
+rateLimiter.resetRequests(clientId1);
+
+// Check if the requests are reset
+console.log(`Remaining requests for Client 1 after reset: ${rateLimiter.getRemainingRequests(clientId1)}`); // Output: 50
+
+// Clear all stored requests
+rateLimiter.clearAllRequests();
+
+// Check if all requests are cleared
+console.log(`Remaining requests for Client 2 after clearing: ${rateLimiter.getRemainingRequests(clientId2)}`); // Output: 50
