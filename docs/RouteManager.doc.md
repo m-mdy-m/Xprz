@@ -14,6 +14,7 @@ RouteManager class handles route management for Express.js.
 Returns an enhanced response object.
 
 - **Returns:**
+
   - `Response`: Enhanced response object.
 
 - **Example:**
@@ -29,6 +30,7 @@ Returns an enhanced response object.
 Returns an enhanced request object.
 
 - **Returns:**
+
   - `Request`: Enhanced request object.
 
 - **Example:**
@@ -39,14 +41,42 @@ Returns an enhanced request object.
   getBody(); // Accessing request body
   ```
 
+### `validate(req, rules, options = {})`
+
+Validates a request object against specified rules.
+
+- **Parameters:**
+
+  - `req` (object): The request object to be validated.
+  - `rules` (object): The validation rules to be applied.
+  - `options` (object, optional): Additional options for validation.
+
+- **Returns:**
+
+  - `object`: The validation result.
+
+- **Example:**
+  ```javascript
+  const request = { body: { username: "example", age: 25 } };
+  const rules = { username: "string|username", age: "number|min:18" };
+  const errors = router.validate(request.body, rules);
+  if (Object.keys(errors).length === 0) {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(400).json({ success: false, errors });
+  }
+  ```
+
 #### `attachTo(app)`
 
 Attaches the route manager to an Express app.
 
 - **Parameters:**
+
   - `app` (object): Express app instance.
 
 - **Returns:**
+
   - Void
 
 - **Example:**
@@ -61,9 +91,11 @@ Attaches the route manager to an Express app.
 Registers middleware for the route manager.
 
 - **Parameters:**
+
   - `middleware` (function): Middleware function.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
@@ -77,9 +109,11 @@ Registers middleware for the route manager.
 Sets the base path for the route manager.
 
 - **Parameters:**
+
   - `path` (string): Base path for the route manager.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
@@ -93,17 +127,19 @@ Sets the base path for the route manager.
 Defines a group of routes under a common path.
 
 - **Parameters:**
+
   - `mainRoute` (string): Main path for the group of routes.
   - `callback` (function): Callback function to define grouped routes.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
   router.group("/api", (r) => {
-    r.setRoute('/users').get((req, {send}) => {
+    r.setRoute("/users").get((req, { send }) => {
       send("GET /api/users");
     });
   });
@@ -114,15 +150,17 @@ Defines a group of routes under a common path.
 Registers a GET route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").get((req, {send}) => {
+  router.setRoute("/api/users").get((req, { send }) => {
     send("GET /api/users");
   });
   ```
@@ -132,15 +170,17 @@ Registers a GET route.
 Registers a POST route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").post((req, {send}) => {
+  router.setRoute("/api/users").post((req, { send }) => {
     send("POST /api/users");
   });
   ```
@@ -150,15 +190,17 @@ Registers a POST route.
 Registers a DELETE route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").del((req, {send}) => {
+  router.setRoute("/api/users").del((req, { send }) => {
     send("DELETE /api/users");
   });
   ```
@@ -168,15 +210,17 @@ Registers a DELETE route.
 Registers a PUT route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").put((req, {send}) => {
+  router.setRoute("/api/users").put((req, { send }) => {
     send("PUT /api/users");
   });
   ```
@@ -186,15 +230,17 @@ Registers a PUT route.
 Registers a PATCH route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").patch((req, {send}) => {
+  router.setRoute("/api/users").patch((req, { send }) => {
     send("PATCH /api/users");
   });
   ```
@@ -204,15 +250,17 @@ Registers a PATCH route.
 Registers an OPTIONS route.
 
 - **Parameters:**
+
   - `handlers` (...function): Route handler functions.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/api/users").options((req, {send}) => {
+  router.setRoute("/api/users").options((req, { send }) => {
     send("OPTIONS /api/users");
   });
   ```
@@ -222,17 +270,22 @@ Registers an OPTIONS route.
 Sets a prefix for all routes registered using this RouteManager instance.
 
 - **Parameters:**
+
   - `prefixPath` (string): The prefix path for the routes.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
   ```javascript
   const router = new Route();
-  router.setRoute("/users").prefix("/api/v1").get((req, {send}) => {
-    send("GET /api/v1/users");
-  });
+  router
+    .setRoute("/users")
+    .prefix("/api/v1")
+    .get((req, { send }) => {
+      send("GET /api/v1/users");
+    });
   ```
 
 #### `setError(errorHandler)`
@@ -240,9 +293,11 @@ Sets a prefix for all routes registered using this RouteManager instance.
 Registers error handling middleware.
 
 - **Parameters:**
+
   - `errorHandler` (function): Error handling middleware function.
 
 - **Returns:**
+
   - `RouteManager`: The RouteManager instance.
 
 - **Example:**
