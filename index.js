@@ -11,11 +11,26 @@ const $read = require("./src/utils/read");
 /**
  * Represents the main application class.
  * @m-mdy-m
+ * @class
  * @package
+ * @module Xprz
+ * @example
+ * const Xprz = require("xprz");
+ * const { App } = new Xprz();
+ * const { initApp, listen, launch } = new App();
+ * 
+ * // Initialize the Express application
+ * initApp();
+ * 
+ * // Start the server
+ * listen(3000);
+ * // Or use the alternative
+ * launch();
  */
 class Xprz {
   /**
    * Constructs a new instance of the Xprz application.
+   * @constructor
    */
   constructor() {
     // Expose shared modules
