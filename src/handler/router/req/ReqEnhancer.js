@@ -7,9 +7,11 @@ const Request = require("../baseReq");
 class ReqEnhancer extends Request {
   constructor(req) {
     super(req);
+    /** @private */
     this.validation = new Validation(req);
     // Bind methods to ensure they have access to the correct 'this' context
     this.hasQueryParam = this.hasQueryParam.bind(this);
+    this.verifyBody = this.verifyBody.bind(this)
     this.getQueryParam = this.getQueryParam.bind(this);
     this.hasBodyParam = this.hasBodyParam.bind(this);
     this.getBodyParam = this.getBodyParam.bind(this);
