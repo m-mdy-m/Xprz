@@ -325,7 +325,7 @@ class RouteManager {
           `Error in request handler: ${error.message}`
         );
       }
-    }.bind(this); // Bind this to the current context
+    }.bind(this); 
   }
   /**
    * Registers a route with the given method, path, and handlers.
