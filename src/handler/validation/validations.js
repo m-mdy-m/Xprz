@@ -1,18 +1,26 @@
-const { RequestValidator } = require('vfyjs')
-class Validation{
+const { RequestValidator } = require('vfyjs');
+
+class Validation {
     constructor(request) {
-        this._req = request
+        this._req = request;
+        this._validator = new RequestValidator();
     }
-    body(rules,options={}){
-        const validator = new RequestValidator(this._req.body);
-        return validator.validate(rules, options);
+
+    _validate(data, rules, options = {}) {
+        return this._validator.validate(data, rules, options);
     }
-    query(rules,options={}){
-        const validator = new RequestValidator(this._req.query);
-        return validator.validate(rules, options);
+
+    body(rules, options = {}) {
+        return this._validate(this._req.body, rules, options);
     }
-    param(rules,options={}){
-        const validator = new RequestValidator(this._req.param);
-        return validator.validate(rules, options);
+
+    query(rules, options = {}) {
+        return this._validate(this._req.query, rules, options);
+    }
+
+    param(rules, options = {}) {
+        return this._validate(this._req.param, rules, options);
     }
 }
+
+module.exports = Validation;
