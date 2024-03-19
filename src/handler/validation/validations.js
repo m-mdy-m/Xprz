@@ -4,42 +4,41 @@ const { RequestValidator } = require("vfyjs");
  * A class for validating request data using the vfyjs library.
  */
 class Validation {
+  /**
+   * Create a Validation instance.
+   * @param {object} request - The request object containing data to be validated.
+   */
+  constructor(request) {
     /**
-     * Create a Validation instance.
-     * @param {object} request - The request object containing data to be validated.
+     * The request object.
+     * @type {object}
+     * @private
      */
-    constructor(request) {
-      /**
-       * The request object.
-       * @type {object}
-       * @private
-       */
-      this._req = request;
-  
-      /**
-       * The RequestValidator instance.
-       * @type {RequestValidator}
-       * @private
-       */
-      this._validator = new RequestValidator();
-    }
-  
+    this._req = request;
+
     /**
-     * Validates the body of the request against the provided rules.
-     * @param {object} rules - The validation rules to be applied.
-     * @param {object} [options={}] - Additional options for validation.
-     * @returns {object} - The validation result.
-     * @example
-     * const validationRules = {
-     *   username: 'string',
-     *   password: 'string|min:6',
-     * };
-     * const validationResult = validateBody(validationRules);
+     * The RequestValidator instance.
+     * @type {RequestValidator}
+     * @private
      */
-    body(rules, options = {}) {
-      return this._validator.validate(this._req.body, rules, options);
-    }
+    this._validator = new RequestValidator();
   }
-  
-  module.exports = Validation;
-  
+
+  /**
+   * Validates the body of the request against the provided rules.
+   * @param {object} rules - The validation rules to be applied.
+   * @param {object} [options={}] - Additional options for validation.
+   * @returns {object} - The validation result.
+   * @example
+   * const validationRules = {
+   *   username: 'string',
+   *   password: 'string|min:6',
+   * };
+   * const validationResult = request.validateBody(validationRules);
+   */
+  body(rules, options = {}) {
+    return this._validator.validate(this._req.body, rules, options);
+  }
+}
+
+module.exports = Validation;
