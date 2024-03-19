@@ -36,7 +36,7 @@ class RouteManager {
    * @private
    */
   setRes(res) {
-    if (!res) {
+    if (!res || !(res instanceof Response)) {
       throw new RouteManagerValidationError("Response object is required.");
     }
     this.response = res;
@@ -47,7 +47,7 @@ class RouteManager {
    * @private
    */
   setReq(req) {
-    if (!req) {
+    if (!req || !(req instanceof Request)) {
       throw new RouteManagerValidationError("Request object is required.");
     }
     this.request = req;
@@ -100,6 +100,15 @@ class RouteManager {
    * }
    */
   validate(req, rules, options = {}) {
+    if (!req || typeof req !== "object") {
+      throw new RouteManagerValidationError("Request object is required.");
+    }
+    if (!rules || typeof rules !== "object") {
+      throw new RouteManagerValidationError("Validation rules are required.");
+    }
+    if (!(options instanceof Object)) {
+      throw new RouteManagerValidationError("Options object is required.");
+    }
     // Create a new instance of RequestValidator
     const validator = new RequestValidator(req);
     // Perform validation using the provided rules and options
@@ -115,6 +124,12 @@ class RouteManager {
    * router.attachTo(app);
    */
   attachTo(app) {
+    if (!(app instanceof Object)) {
+      throw new RouteManagerValidationError("Express app instance is required.");
+    }
+    if (typeof app.use !== "function") {
+      throw new RouteManagerValidationError("Invalid Express app instance.");
+    }
     app.use(this.router);
   }
   /**
@@ -126,6 +141,9 @@ class RouteManager {
    * router.using(middlewareFunction);
    */
   using(middleware) {
+    if (typeof middleware !== "function") {
+      throw new RouteManagerValidationError("Middleware function is required.");
+    }
     // Add middleware to the list
     this.middleware.push(middleware);
     // Check if middleware is present
@@ -145,6 +163,9 @@ class RouteManager {
    * router.setRoute("/api");
    */
   setRoute(path) {
+    if (!path || typeof path !== "string" || path.trim().length === 0) {
+      throw new RouteManagerValidationError("Base path is required.");
+    }
     // Set the base path for the route manager
     /**
      * @private
@@ -166,6 +187,9 @@ class RouteManager {
    * });
    */
   group(mainRoute, callback) {
+    if (!mainRoute || typeof mainRoute !== "string" || mainRoute.trim().length === 0) {
+      throw new RouteManagerValidationError("Main route is required.");
+    }
     // Create a new RouteManager instance
     const subRouter = new RouteManager();
     // Define routes within the callback function
@@ -267,6 +291,9 @@ class RouteManager {
    * });
    */
   prefix(prefixPath) {
+    if (!prefixPath || typeof prefixPath !== "string" || prefixPath.trim().length === 0) {
+      throw new RouteManagerValidationError("Prefix path is required.");
+    }
     this.path = prefixPath + this.path;
     return this;
   }
