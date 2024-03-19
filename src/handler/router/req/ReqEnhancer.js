@@ -23,15 +23,20 @@ class ReqEnhancer extends Request {
   }
   /**
    * Validates the request body against the provided rules.
-   * @param {object} rules - The validation rules.
+   * @param {object} rules - The validation rules to be applied.
    * @param {object} [options={}] - Additional options for validation.
    * @returns {object} - The validation result.
    * @example
-   * const validationRules = { ... };
-   * const validationResult = reqEnhancer.validateBody(validationRules);
+   * // Define validation rules
+   * const validationRules = {
+   *   username: 'string',
+   *   password: 'string|min:6',
+   * };
+   * // Validate request body
+   * const validationResult = request.validateBody(validationRules);
    */
   validateBody(rules, options = {}) {
-    return this.validation.body(rules, options);
+    return this.validation.body;
   }
   /**
    * Checks if the request has a specific query parameter.
