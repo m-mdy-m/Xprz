@@ -80,12 +80,30 @@ class RouteManager {
   req() {
     return new Request(this.request);
   }
-
-
-
-  validate(req,rules,options={}){
-    const _validator = new RequestValidator(req)
-    return _validator.validate(rules,options={})
+  /**
+   * Validates a request object against specified rules.
+   * @param {object} req - The request object to be validated.
+   * @param {object} rules - The validation rules to be applied.
+   * @param {object} [options={}] - Additional options for validation.
+   * @returns {object} - The validation result.
+   * @example
+   * // Define the request object and validation rules
+   * const request = { body: { username: 'example', age: 25 } };
+   * const rules = { username: 'string|username', age: 'number|min:18' };
+   * // Validate the request
+   * const errors = router.validate(request, rules);
+   * // Handle the validation result
+   * if (Object.keys(errors).length === 0) {
+   *   res.status(200).json({ success: true });
+   * } else {
+   *   res.status(400).json({ success: false, errors });
+   * }
+   */
+  validate(req, rules, options = {}) {
+    // Create a new instance of RequestValidator
+    const validator = new RequestValidator(req);
+    // Perform validation using the provided rules and options
+    return validator.validate(rules, options);
   }
   /**
    * Attaches the route manager to an Express app.
@@ -274,10 +292,10 @@ class RouteManager {
     return (req, res) => {
       this.setRes(res);
       this.setReq(req);
-      const request = {...this.req(), ...req}
-      const response = {...this.res(), ...res}
+      const request = { ...this.req(), ...req };
+      const response = { ...this.res(), ...res };
       handlers.forEach((handler) => {
-          handler(request, response);
+        handler(request, response);
       });
     };
   }
