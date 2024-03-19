@@ -290,8 +290,7 @@ class AppManager extends App {
           console.log(`Route ${routePath} loaded successfully.`);
         }
       } else {
-        // Skip non-JavaScript files
-        console.warn(`Skipping non-JavaScript file: ${routePath}`);
+        throw new RouteLoadingError(`Skipping non-JavaScript file: ${routePath}`);
       }
     });
   }
