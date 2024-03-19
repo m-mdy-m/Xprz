@@ -40,10 +40,16 @@ class RouteRegistrationError extends RouteManagerError {
   }
 }
 
+class RouteInitializationError extends RouteManagerError {
+  constructor(message) {
+    super(message || "Error occurred during RouteManager initialization.");
+  }
+}
 // Export RouteManagerValidationError, RouteMethodError, RouteRegistrationError, and RouteNotFoundError for use in other modules.
 module.exports = {
   RouteManagerValidationError,
   RouteMethodError,
   RouteRegistrationError,
   RouteNotFoundError,
+  RouteInitializationError,
 };

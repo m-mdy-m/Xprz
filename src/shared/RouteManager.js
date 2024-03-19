@@ -4,6 +4,7 @@ const Response = require("../handler/router/res/ResEnhancer");
 const {
   RouteManagerValidationError,
   RouteRegistrationError,
+  RouteInitializationError,
 } = require("../Errors/RouteManager.error");
 const { RequestValidator } = require("vfyjs");
 /**
@@ -124,11 +125,8 @@ class RouteManager {
    * router.attachTo(app);
    */
   attachTo(app) {
-    if (!(app instanceof Object)) {
-      throw new RouteManagerValidationError("Express app instance is required.");
-    }
     if (typeof app.use !== "function") {
-      throw new RouteManagerValidationError("Invalid Express app instance.");
+      throw new RouteInitializationError("Invalid Express app instance.");
     }
     app.use(this.router);
   }
