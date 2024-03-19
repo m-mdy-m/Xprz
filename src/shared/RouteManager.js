@@ -185,7 +185,11 @@ class RouteManager {
    * });
    */
   group(mainRoute, callback) {
-    if (!mainRoute || typeof mainRoute !== "string" || mainRoute.trim().length === 0) {
+    if (
+      !mainRoute ||
+      typeof mainRoute !== "string" ||
+      mainRoute.trim().length === 0
+    ) {
       throw new RouteManagerValidationError("Main route is required.");
     }
     // Create a new RouteManager instance
@@ -289,7 +293,11 @@ class RouteManager {
    * });
    */
   prefix(prefixPath) {
-    if (!prefixPath || typeof prefixPath !== "string" || prefixPath.trim().length === 0) {
+    if (
+      !prefixPath ||
+      typeof prefixPath !== "string" ||
+      prefixPath.trim().length === 0
+    ) {
       throw new RouteManagerValidationError("Prefix path is required.");
     }
     this.path = prefixPath + this.path;
@@ -302,15 +310,22 @@ class RouteManager {
    * @returns {Function} A request handler function.
    */
   createRequestHandler(handlers) {
-    return (req, res) => {
-      this.setRes(res);
-      this.setReq(req);
-      const request = { ...this.req(), ...req };
-      const response = { ...this.res(), ...res };
-      handlers.forEach((handler) => {
-        handler(request, response);
-      });
-    };
+    return function (req, res) {
+      try {
+        this.setRes(res);
+        this.setReq(req);
+        const request = { ...this.req(), ...req };
+        const response = { ...this.res(), ...res };
+        handlers.forEach((handler) => {
+          handler(request, response);
+        });
+      } catch (error) {
+        // Handle errors that occur within the request handler
+        throw new RouteRegistrationError(
+          `Error in request handler: ${error.message}`
+        );
+      }
+    }.bind(this); // Bind this to the current context
   }
   /**
    * Registers a route with the given method, path, and handlers.
@@ -326,6 +341,7 @@ class RouteManager {
       // Register the route with Express router
       this.router[method](this.path, routeHandlers);
     } catch (error) {
+      // Handle errors that occur during route registration
       throw new RouteRegistrationError(
         `Error registering ${method.toUpperCase()} route: ${error.message}`
       );
@@ -345,6 +361,7 @@ class RouteManager {
         this.router[method](this.path, this.createRequestHandler(handlers));
       }
     } catch (error) {
+      // Handle errors that occur during method registration
       throw new RouteRegistrationError(
         `Error registering ${method.toUpperCase()} route: ${error.message}`
       );
