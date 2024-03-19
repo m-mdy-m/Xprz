@@ -1,7 +1,6 @@
 const { getExp } = require("../shareApp");
 const Request = require("../handler/router/req/ReqEnhancer");
 const Response = require("../handler/router/res/ResEnhancer");
-
 const {
   RouteManagerValidationError,
   RouteRegistrationError,
