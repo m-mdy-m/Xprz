@@ -17,6 +17,48 @@ Represents a base request handler providing utility methods for handling HTTP re
 
 ## Methods
 
+Certainly! Here's the updated `Request.doc.md` documentation with the `verifyBody` method added:
+
+```markdown
+# `Request`
+
+**Description:**
+Represents a base request handler providing utility methods for handling HTTP requests.
+
+#### Constructor
+
+##### `Example(req)`
+
+- **Parameters:**
+  - `req` (object): The Express request object.
+
+- **Example:**
+  ```javascript
+  const { /* methods **/} = req;
+  ```
+
+## Methods
+
+##### `verifyBody(rules, options)`
+
+Validates the request body against the provided rules using the vfyjs library.
+
+- **Parameters:**
+  - `rules` (object): The validation rules to be applied.
+  - `options` (object, optional): Additional options for validation.
+
+- **Returns:**
+  - `object`: The validation result.
+
+- **Example:**
+  ```javascript
+  const validationRules = {
+    username: 'string',
+    password: 'string|min:6',
+  };
+  const validationResult = verifyBody(validationRules);
+  ```
+
 ##### `query(name)`
 
 Retrieves the value of a specific query parameter from the request.
