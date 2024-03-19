@@ -91,7 +91,7 @@ class RouteManager {
    * const request = { body: { username: 'example', age: 25 } };
    * const rules = { username: 'string|username', age: 'number|min:18' };
    * // Validate the request
-   * const errors = router.validate(request, rules);
+   * const errors = router.validate(request.body, rules);
    * // Handle the validation result
    * if (Object.keys(errors).length === 0) {
    *   res.status(200).json({ success: true });
