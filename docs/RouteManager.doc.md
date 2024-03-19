@@ -287,21 +287,3 @@ Sets a prefix for all routes registered using this RouteManager instance.
       send("GET /api/v1/users");
     });
   ```
-
-#### `setError(errorHandler)`
-
-Registers error handling middleware.
-
-- **Parameters:**
-
-  - `errorHandler` (function): Error handling middleware function.
-
-- **Returns:**
-
-  - `RouteManager`: The RouteManager instance.
-
-- **Example:**
-  ```javascript
-  const router = new Route();
-  router.setError(errorHandlerFunction);
-  ```

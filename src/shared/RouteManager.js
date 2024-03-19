@@ -271,18 +271,6 @@ class RouteManager {
     return this;
   }
   /**
-   * Registers error handling middleware.
-   * @param {function} errorHandler - Error handling middleware function.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.setError(errorHandlerFunction);
-   */
-  setError(errorHandler) {
-    this.router.use(errorHandler);
-    return this;
-  }
-  /**
    * Creates a request handler function that executes the provided handlers.
    * @private
    * @param {Function[]} handlers - An array of handler functions to be executed.
