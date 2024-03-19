@@ -5,6 +5,7 @@ const {
   RouteManagerValidationError,
   RouteRegistrationError,
 } = require("../Errors/RouteManager.error");
+const { RequestValidator } = require("vfyjs");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -78,6 +79,13 @@ class RouteManager {
    */
   req() {
     return new Request(this.request);
+  }
+
+
+
+  validate(req,rules,options={}){
+    const _validator = new RequestValidator(req)
+    return _validator.validate(rules,options={})
   }
   /**
    * Attaches the route manager to an Express app.

@@ -1,3 +1,4 @@
+const Validation = require("../../validation/validations");
 const Request = require("../baseReq");
 /**
  * Class extending the baseReq class to enhance request handling capabilities.
@@ -6,6 +7,7 @@ const Request = require("../baseReq");
 class ReqEnhancer extends Request {
   constructor(req) {
     super(req);
+    this.validation = new Validation(req);
     // Bind methods to ensure they have access to the correct 'this' context
     this.hasQueryParam = this.hasQueryParam.bind(this);
     this.getQueryParam = this.getQueryParam.bind(this);
@@ -18,6 +20,18 @@ class ReqEnhancer extends Request {
     this.isMethod = this.isMethod.bind(this);
     this.getAllParams = this.getAllParams.bind(this);
     this.getAcceptedContentTypes = this.getAcceptedContentTypes.bind(this);
+  }
+  /**
+   * Validates the request body against the provided rules.
+   * @param {object} rules - The validation rules.
+   * @param {object} [options={}] - Additional options for validation.
+   * @returns {object} - The validation result.
+   * @example
+   * const validationRules = { ... };
+   * const validationResult = reqEnhancer.validateBody(validationRules);
+   */
+  validateBody(rules, options = {}) {
+    return this.validation.body(rules, options);
   }
   /**
    * Checks if the request has a specific query parameter.
