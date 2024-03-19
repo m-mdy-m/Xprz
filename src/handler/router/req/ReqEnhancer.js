@@ -33,10 +33,10 @@ class ReqEnhancer extends Request {
    *   password: 'string|min:6',
    * };
    * // Validate request body
-   * const validationResult = request.validateBody(validationRules);
+   * const validationResult = request.verifyBody(validationRules);
    */
-  validateBody(rules, options = {}) {
-    return this.validation.body;
+  verifyBody(rules, options = {}) {
+    return this.validation.body(rules,options);
   }
   /**
    * Checks if the request has a specific query parameter.
