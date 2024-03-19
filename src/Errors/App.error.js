@@ -32,7 +32,7 @@ class AppManagerError extends Error {
 class RouteLoadingError extends Error {
   constructor(message) {
     super(message);
-    this.name = 'RouteLoadingError';
+    this.name = "RouteLoadingError";
   }
 }
 
@@ -43,6 +43,35 @@ class ShutdownError extends AppManagerError {
     super(message || "Error occurred during AppManager shutdown.");
   }
 }
+// ServerAlreadyRunningError class extends the built-in Error class to represent errors when the server is already running.
+class ServerAlreadyRunningError extends Error {
+  constructor() {
+    // Call the constructor of the Error class with a specific message.
+    super("Server is already running.");
+    // Set the name of the error to the name of the constructor.
+    this.name = this.constructor.name;
+    // Capture the stack trace for better error logging.
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+// ServerNotRunningError class extends the built-in Error class to represent errors when the server is not running.
+class ServerNotRunningError extends Error {
+  constructor() {
+    // Call the constructor of the Error class with a specific message.
+    super("Server is not running.");
+    // Set the name of the error to the name of the constructor.
+    this.name = this.constructor.name;
+    // Capture the stack trace for better error logging.
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
 // Export ExpressNotInitializedError and ShutdownError for use in other modules.
-module.exports = { ExpressNotInitializedError, ShutdownError ,RouteLoadingError};
+module.exports = {
+  ExpressNotInitializedError,
+  ShutdownError,
+  RouteLoadingError,
+  ServerAlreadyRunningError,
+  ServerNotRunningError,
+};

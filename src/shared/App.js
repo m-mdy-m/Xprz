@@ -1,7 +1,7 @@
 const express = require("express");
 const { setApp, setExp } = require("../shareApp");
 
-const { ExpressNotInitializedError } = require("../Errors/App.error");
+const { ExpressNotInitializedError, ServerAlreadyRunningError, ServerNotRunningError } = require("../Errors/App.error");
 
 // Set the Express module using the shared utility function
 setExp(express);
@@ -69,15 +69,17 @@ class App {
     textLog = `Server is running on port ${port}`,
     log = true
   ) {
-    if (this.runApp) {
-      this.server = this.app.listen(port, () => {
-        if (log) {
-          console.log(textLog);
-        }
-      });
-    } else {
+    if (!this.runApp || !this.app) {
       throw new ExpressNotInitializedError();
     }
+    if (this.server) {
+      throw new ServerAlreadyRunningError();
+    }
+    this.server = this.app.listen(port, () => {
+      if (log) {
+        console.log(textLog);
+      }
+    });
   }
   /**
    * Closes the server if it is running.
@@ -94,14 +96,13 @@ class App {
    * });
    */
   closeServer(done) {
-    if (this.server) {
-      this.server.close(() => {
-        this.server = null; // Reset server after closing
-        done(); // Call done to end the test
-      });
-    } else {
-      done(); // Call done to end the test if server is not running
+    if (!this.server) {
+      throw new ServerNotRunningError();
     }
+    this.server.close(() => {
+      this.server = null; // Reset server after closing
+      done(); // Call done to end the test
+    });
   }
   /**
    * Initializes and launches the Express application.
@@ -119,6 +120,9 @@ class App {
     textLog = `Server is running on port ${port}`,
     log = true
   ) {
+    if (this.runApp) {
+      throw new ServerAlreadyRunningError();
+    }
     this.initApp();
     this.listen(port, textLog, log);
     return this.app;
