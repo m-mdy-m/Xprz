@@ -32,11 +32,22 @@ class ReqEnhancer extends Request {
    *   username: 'string',
    *   password: 'string|min:6',
    * };
+   * // Additional options for validation
+   * const validationOptions = {
+   *   customMessages: {
+   *     password: 'Password must be at least 6 characters long.',
+   *   },
+   * };
    * // Validate request body
-   * const validationResult = request.verifyBody(validationRules);
+   * const errors = request.verifyBody(validationRules, validationOptions);
+   * if (Object.keys(errors).length === 0) {
+   *   console.log('Request body is valid.');
+   * } else {
+   *   console.error('Validation errors:', errors);
+   * }
    */
   verifyBody(rules, options = {}) {
-    return this.validation.body(rules,options);
+    return this.validation.body(rules, options);
   }
   /**
    * Checks if the request has a specific query parameter.
