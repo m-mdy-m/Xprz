@@ -179,8 +179,103 @@ console.log(myFolder); // Outputs an object containing all modules within the fo
 const installedPackage = $install("example-package");
 ```
 
-### Example : 
-```ja
+## Example MVC : 
+
+### Example Init APP:
+```javascript
+const Xprz = require("xprz");
+// setup dotenv
+Xprz.Package().dotenv().setupDot();
+const { use, launch, loadRoutes, useJsonBody, static } = Xprz.App();
+// start server 
+launch();
+// json body parser
+useJsonBody();
+// static 
+static("public");
+const cookieParser = $install("cookie-parser");
+// use cookie-parser
+use(cookieParser());
+// read middlewares
+$read("middleware/setup");
+$read("utils/database");
+// load all file router in router directory
+loadRoutes("routes");
+```
+
+
+### Example Router :
+```javascript
+const Xprz = require('xprz')
+const router = Xprz.Route()
+const route = new Route();
+const { ensureAuthenticated ,verifyToken} = $read("middleware/is-auth")
+const { getHome } = $read("controller/home/home");
+router.globalMiddleware([ensureAuthenticated,verifyToken])  // apply  middleware for all router
+// or => 
+router.route("/").get((req, { redirect }) => redirect("/home"));
+router.route("/home").using([ensureAuthenticated,verifyToken]).get(getHome);
+
+module.exports = router;
+```
+
+### Example controller (for authentication registering)
+```javascript
+
+// Controller function to handle signup form submission
+exports.postSignup = async (req, { getJsonHandler, status }) => {
+  const { getBody,verifyBody } = req;
+  const rule = {
+    username : 'username',
+    password : 'password'
+    confirmPassword : "same:password"
+    name : "string|min:10",
+    age:"min:16,max:99"
+  }
+  const option : {
+    customMessages:{
+      password : "password is required" // in error message
+    }
+  }
+  const { created, validationFailed, internalServerError } = getJsonHandler();
+  try {
+    // Extract user input from request body
+    const { username, email, password, passwordConf } = getBody();
+    // Validate user input
+    const errors = verifyBody(rule,option)
+    if (Object.keys(errors).length === 0) {
+      console.log('request body is valid');
+    }else{
+      validationFailed({errors})
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return status(409).json({
+        success: false,
+        error: "You are already exists.",
+      });
+    } else {
+      // Hash the password securely
+      const hashedPassword = await bcryptjs().hash(password, 10);
+      const newUser = await User.create({
+        username: username,
+        email: email,
+        password: hashedPassword,
+      });
+      // Generate JWT token with user information
+      const token = generateAuthToken(newUser)
+      req.session.token = token;
+      // Send success response
+      return created({ token });
+    }
+  } catch (error) {
+    // Handle other errors (e.g., database error)
+    internalServerError(error.message);
+  }
+};
+```
 
 
 ## Documentation
