@@ -41,17 +41,40 @@ class Xprz {
     // Expose route manager
     this.Route = RouteManager;
   }
-  static App(){
-    return new AppManager()
+  /**
+   * Retrieve a new instance of the AppManager.
+   * @static
+   * @returns {AppManager} A new instance of the AppManager.
+   */
+  static App() {
+    return new AppManager();
   }
-  static Package(){
-    return new PackageManager()
+
+  /**
+   * Retrieve a new instance of the PackageManager.
+   * @static
+   * @returns {PackageManager} A new instance of the PackageManager.
+   */
+  static Package() {
+    return new PackageManager();
   }
-  static Route(){
-    return new RouteManager()
+
+  /**
+   * Retrieve a new instance of the RouteManager.
+   * @static
+   * @returns {RouteManager} A new instance of the RouteManager.
+   */
+  static Route() {
+    return new RouteManager();
   }
-  static GetUtilsApp(){
-    return new AppSharedManager()
+
+  /**
+   * Retrieve a new instance of the AppSharedManager.
+   * @static
+   * @returns {AppSharedManager} A new instance of the AppSharedManager.
+   */
+  static GetUtilsApp() {
+    return new AppSharedManager();
   }
 }
 
