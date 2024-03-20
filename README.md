@@ -179,82 +179,120 @@ console.log(myFolder); // Outputs an object containing all modules within the fo
 const installedPackage = $install("example-package");
 ```
 
-## Example MVC : 
+Sure, let's break down the provided examples:
 
 ### Example Init APP:
+
 ```javascript
 const Xprz = require("xprz");
-// setup dotenv
+
+// Setup dotenv
 Xprz.Package().dotenv().setupDot();
+
+// Initialize components
 const { use, launch, loadRoutes, useJsonBody, static } = Xprz.App();
-// start server 
+
+// Start server 
 launch();
-// json body parser
+
+// JSON body parser
 useJsonBody();
-// static 
+
+// Serve static files from 'public' directory
 static("public");
+
+// Install and use cookie-parser middleware
 const cookieParser = $install("cookie-parser");
-// use cookie-parser
 use(cookieParser());
-// read middlewares
+
+// Load middleware and database setup utilities
 $read("middleware/setup");
 $read("utils/database");
-// load all file router in router directory
+
+// Load all router files in 'routes' directory
 loadRoutes("routes");
 ```
 
+**Explanation:**
+- This section initializes the XPRZ framework and sets up the Express application.
+- It loads environment variables using dotenv to configure the application environment.
+- The `App` component's methods like `use`, `launch`, `loadRoutes`, `useJsonBody`, and `static` are utilized to configure the Express app.
+- The server is launched to start listening for incoming requests.
+- Middleware such as `cookie-parser` is installed and used.
+- Custom middleware and database setup utilities are loaded.
+- All router files in the 'routes' directory are loaded to handle different routes in the application.
 
-### Example Router :
+### Example Router:
+
 ```javascript
-const Xprz = require('xprz')
-const router = Xprz.Route()
-const route = new Route();
-const { ensureAuthenticated ,verifyToken} = $read("middleware/is-auth")
+const Xprz = require('xprz');
+const router = Xprz.Route();
+const { ensureAuthenticated, verifyToken } = $read("middleware/is-auth");
 const { getHome } = $read("controller/home/home");
-router.globalMiddleware([ensureAuthenticated,verifyToken])  // apply  middleware for all router
-// or => 
+
+// Apply middleware for all routes
+router.globalMiddleware([ensureAuthenticated, verifyToken]);
+
+// Define routes
 router.route("/").get((req, { redirect }) => redirect("/home"));
-router.route("/home").using([ensureAuthenticated,verifyToken]).get(getHome);
+router.route("/home").using([ensureAuthenticated, verifyToken]).get(getHome);
 
 module.exports = router;
 ```
 
-### Example controller (for authentication registering)
-```javascript
+**Explanation:**
+- This section defines a router using the `Route` component provided by XPRZ.
+- Middleware functions for authentication (`ensureAuthenticated` and `verifyToken`) are imported using the `$read` utility function.
+- The `globalMiddleware` method is used to apply middleware for all routes.
+- Route handlers are defined for the root path ("/") and "/home" path.
+- The `getHome` function from the home controller is used as a route handler for the "/home" route.
 
+### Example Controller (for authentication registering):
+
+```javascript
 // Controller function to handle signup form submission
 exports.postSignup = async (req, { getJsonHandler, status }) => {
-  const { getBody,verifyBody } = req;
-  const rule = {
-    username : 'username',
-    password : 'password'
-    confirmPassword : "same:password"
-    name : "string|min:10",
-    age:"min:16,max:99"
-  }
-  const option : {
-    customMessages:{
-      password : "password is required" // in error message
+  const { getBody, verifyBody } = req;
+
+  // Define validation rules for request body
+  const rules = {
+    username: 'username',
+    password: 'password',
+    confirmPassword: "same:password",
+    name: "string|min:10",
+    age: "min:16,max:99"
+  };
+
+  // Define options for validation
+  const options = {
+    customMessages: {
+      password: "Password is required"
     }
-  }
+  };
+
   const { created, validationFailed, internalServerError } = getJsonHandler();
+
   try {
     // Extract user input from request body
     const { username, email, password, passwordConf } = getBody();
+
     // Validate user input
-    const errors = verifyBody(rule,option)
+    const errors = verifyBody(rules, options);
+
     if (Object.keys(errors).length === 0) {
-      console.log('request body is valid');
-    }else{
-      validationFailed({errors})
+      console.log('Request body is valid');
+    } else {
+      // Return validation errors
+      validationFailed({ errors });
     }
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
     if (existingUser) {
       return status(409).json({
         success: false,
-        error: "You are already exists.",
+        error: "User already exists.",
       });
     } else {
       // Hash the password securely
@@ -264,9 +302,11 @@ exports.postSignup = async (req, { getJsonHandler, status }) => {
         email: email,
         password: hashedPassword,
       });
+
       // Generate JWT token with user information
-      const token = generateAuthToken(newUser)
+      const token = generateAuthToken(newUser);
       req.session.token = token;
+
       // Send success response
       return created({ token });
     }
@@ -276,6 +316,17 @@ exports.postSignup = async (req, { getJsonHandler, status }) => {
   }
 };
 ```
+
+**Explanation:**
+- This section defines a controller function (`postSignup`) to handle user signup requests.
+- The function receives the request object (`req`) and utility functions (`getJsonHandler`, `status`) as parameters.
+- Validation rules for the request body are defined using the `verifyBody` function.
+- Custom error messages for validation are defined in the `options` object.
+- The request body is validated against the defined rules, and any validation errors are returned if present.
+- The function checks if the user already exists in the database.
+- If the user does not exist, the password is securely hashed using bcryptjs, and a new user is created in the database.
+- A JWT token is generated for the new user, and the token is returned in the response.
+- Any errors that occur during the process are handled and an appropriate response is sent.
 
 
 ## Documentation
