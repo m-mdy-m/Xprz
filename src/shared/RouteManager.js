@@ -29,13 +29,14 @@ class RouteManager {
     this.response = null;
     /** @private */
     this.request = null;
-    this.route = this.route.bind(this)
+    this.route = this.route.bind(this);
   }
-  setDefaultMiddleware(middleware){
-    this.middleware.push(middleware)
-
-    this.hasMIddleware = this.middleware.length > 0 ? true : false
-    return this
+  setDefaultMiddleware(middleware) {
+    if (!middleware || !Array.isArray(middleware)) {
+      throw new RouteManagerValidationError("Middleware must be provided as an array.");
+    }
+    this.middleware = middleware;
+    return this;
   }
   /**
    * Sets the response object.
@@ -43,7 +44,7 @@ class RouteManager {
    * @private
    */
   setRes(res) {
-    if (!res ) {
+    if (!res) {
       throw new RouteManagerValidationError("Response object is required.");
     }
     this.response = res;
@@ -296,7 +297,7 @@ class RouteManager {
    * @returns {Function} A request handler function.
    */
   createRequestHandler(handlers) {
-    return  (req, res) =>{
+    return (req, res) => {
       try {
         this.setRes(res);
         this.setReq(req);
@@ -311,7 +312,7 @@ class RouteManager {
           `Error in request handler: ${error.message}`
         );
       }
-    }
+    };
   }
   /**
    * Registers a route with the given method, path, and handlers.
