@@ -1,7 +1,6 @@
 const Response = require("../baseRes");
 const JsonHandler = require("./Json");
 const CookieHandler = require("./cookie");
-const HeadersHandler = require("./header");
 
 /**
  * ResEnhancer extends the base Response class to provide additional handlers for cookies, headers, and JSON.
@@ -27,16 +26,6 @@ class ResEnhancer extends Response {
    */
   getCookieHandler() {
     return new CookieHandler(this.cookie);
-  }
-  /**
-   * Gets an advanced headers handler.
-   * @returns {HeadersHandler} Advanced headers handler.
-   * @example
-   * const headersHandler = resEnhancer.getHeadersHandler();
-   * headersHandler.set("Cache-Control", "no-cache").send();
-   */
-  getHeadersHandler() {
-    return new HeadersHandler(this.header, this.res);
   }
   /**
    * Gets an advanced JSON handler.
