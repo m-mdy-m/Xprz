@@ -31,14 +31,30 @@ class RouteManager {
     this.request = null;
     this.route = this.route.bind(this);
   }
+  /**
+   * Sets the global middleware for the route manager.
+   * @param {Array} middleware - An array of middleware functions.
+   * @returns {RouteManager} The RouteManager instance.
+   * @throws {RouteManagerValidationError} Throws an error if middleware is not provided as an array.
+   * @example
+   * const router = new Route();
+   * router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
+   */
   globalMiddleware(middleware) {
+    // Check if middleware is provided and is an array
     if (!middleware || !Array.isArray(middleware)) {
       throw new RouteManagerValidationError(
         "Middleware must be provided as an array."
       );
     }
+
+    // Set the global middleware for the route manager
     this.middleware = middleware;
-    this.hasMiddleware = this.middleware.length > 0 ? true : false;
+
+    // Update the flag to indicate whether middleware is present
+    this.hasMiddleware = this.middleware.length > 0;
+
+    // Return the RouteManager instance for method chaining
     return this;
   }
   /**
