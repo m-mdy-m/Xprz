@@ -21,7 +21,7 @@ class Validation {
      * @type {RequestValidator}
      * @private
      */
-    this._validator = new RequestValidator();
+    this._validator = new RequestValidator(this._req);
   }
 
   /**
@@ -38,7 +38,7 @@ class Validation {
    * const validationResult = request.verifyBody(validationRules);
    */
   body(rules, options = {}) {
-    return this._validator.validate(this._req.body, rules, options);
+    return this._validator.validate(rules, options);
   }
   /**
    * Available validators:
