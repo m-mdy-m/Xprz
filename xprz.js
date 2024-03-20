@@ -95,6 +95,8 @@ class Xprz {
 
 // Expose $install and $read globally
 /** @global */
+global.$read  = $read
+global.$install = $install
 globalThis.$read = $read;
 globalThis.$install = $install;
 // Export the Xprz class

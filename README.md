@@ -260,7 +260,7 @@ exports.postSignup = async (req, { getJsonHandler, status }) => {
     password: 'password',
     confirmPassword: "same:password",
     name: "string|min:10",
-    age: "min:16,max:99"
+    age: "min:16|max:99"
   };
 
   // Define options for validation
