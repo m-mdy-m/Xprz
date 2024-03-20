@@ -6,7 +6,9 @@ const app = launch();
 route("/")
   .get((req, { send }) => {
     send("hi");
-
+  })
+  .post((req, res) => {
+    console.log("req.body =>", req.body);
     // Define validation rules
     const validationRules = {
       username: "string",
@@ -18,10 +20,8 @@ route("/")
         password: "Password must be at least 6 characters long.",
       },
     };
-    console.log('req.body =>',req.body);
-    // Validate request body
     const errors = req.verifyBody(validationRules, validationOptions);
-    console.log('error =>',errors);
+    console.log("error =>", errors);
     if (Object.keys(errors).length === 0) {
       console.log("Request body is valid.");
     } else {
