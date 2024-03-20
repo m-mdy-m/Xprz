@@ -56,31 +56,6 @@ class PackageManager {
   }
 
   /**
-   * Initialize and configure multer middleware.
-   * @returns {MulterHandler} Instance of MulterHandler.
-   * @example
-   * const pkgManager = new Package();
-   * const multer = pkgManager.multer();
-   */
-  multer() {
-    const pkg = $install("multer");
-    const app = getApp();
-    return new MulterHandler(pkg, app);
-  }
-
-  /**
-   * Initialize and configure Nodemailer handler.
-   * @returns {NodemailerHandler} Instance of NodemailerHandler.
-   * @example
-   * const pkgManager = new Package();
-   * const nodemailer = pkgManager.nodemailer();
-   */
-  nodemailer() {
-    const pkg = $install("nodemailer");
-    return new NodemailerHandler(pkg);
-  }
-
-  /**
    * Initialize and configure bcryptjs handler.
    * @returns {bcryptjsHandler} Instance of bcryptjsHandler.
    * @example
@@ -135,20 +110,6 @@ class PackageManager {
     const use = useApp.bind(this);
     return new Cors(pkg, use, ...handler);
   }
-
-  /**
-   * Initialize and configure flash middleware.
-   * @returns {flash} Instance of flash.
-   * @example
-   * const pkgManager = new Package();
-   * const flash = pkgManager.flash();
-   */
-  flash() {
-    const pkg = $install("connect-flash");
-    const use = useApp.bind(this);
-    return new flash(pkg, use);
-  }
-
   /**
    * Initialize and configure connect-mongodb-session middleware.
    * @param {...any} options - Options for configuring the MongoDB session store.

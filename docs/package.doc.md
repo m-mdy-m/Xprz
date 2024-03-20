@@ -45,34 +45,6 @@ Initialize and configure JWT handler.
   const jwt = pkgManager.jwt();
   ```
 
-#### `multer()`
-
-Initialize and configure multer middleware.
-
-- **Returns:**
-
-  - `MulterHandler`: Instance of MulterHandler.
-
-- **Usage:**
-  ```javascript
-  const pkgManager = new Package();
-  const multer = pkgManager.multer();
-  ```
-
-#### `nodemailer()`
-
-Initialize and configure Nodemailer handler.
-
-- **Returns:**
-
-  - `NodemailerHandler`: Instance of NodemailerHandler.
-
-- **Usage:**
-  ```javascript
-  const pkgManager = new Package();
-  const nodemailer = pkgManager.nodemailer();
-  ```
-
 #### `bcryptjs()`
 
 Initialize and configure bcryptjs handler.
@@ -135,20 +107,6 @@ Initialize and configure CORS middleware.
   ```javascript
   const pkgManager = new Package();
   const cors = pkgManager.cors();
-  ```
-
-#### `flash()`
-
-Initialize and configure flash middleware.
-
-- **Returns:**
-
-  - `flash`: Instance of flash.
-
-- **Usage:**
-  ```javascript
-  const pkgManager = new Package();
-  const flash = pkgManager.flash();
   ```
 
 #### `connectMongoDbSession(...options)`

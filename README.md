@@ -9,8 +9,6 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 ## Components
 
 - **App**: Manage your Express application's lifecycle effortlessly with the `App` class. Initialize, launch, and handle server events seamlessly.
-- **Database**: Seamlessly integrate with MongoDB and MySQL databases for efficient data management and CRUD operations.
-- **HttpMethod**: Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly.
 - **Package**: Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for essential packages like bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 - **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
 - **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
@@ -23,8 +21,6 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 
 - **Middleware Management**: Effortlessly enhance your application's functionality by attaching middleware functions with a simple API.
 - **Static File Serving**: Serve static files and directories effortlessly to handle CSS, JavaScript, images, and more.
-- **Database Integration**: Seamlessly integrate with MongoDB and MySQL databases for efficient data management.
-- **HTTP Method Utilities**: Simplify HTTP method handling with predefined utility methods for GET, POST, PUT, DELETE, and more.
 - **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
 - **Shared Application Instance**: Share the Express application instance across modules for easy access and configuration.
 - **$read**: Dynamically load modules or directories within your project, simplifying dependency management and resource access.
@@ -87,37 +83,6 @@ setRoute('/api/users').get((req, res) => {
   // Handle GET request for '/api/users'
 });
 ```
-
-### Database Integration
-Seamlessly integrate with MongoDB and MySQL databases:
-```javascript
-const Xprz= require("xprz")
-const { App, Database } = new Xprz()
-const { MongoDB, MySql } = new Database();
-
-// MongoDB usage example
-const { find } = MongoDB();
-find('users', { username: 'john_doe' });
-
-// MySQL usage example
-const { query } = MySql();
-query('SELECT * FROM users');
-```
-
-### HTTP Method Utilities
-Simplify HTTP method handling with the `HttpMethod` class. Define and handle various HTTP methods effortlessly:
-```javascript
-const Xprz= require("xprz")
-const { HttpMethod } = new Xprz()
-const { setBaseRoute } = new HttpMethod();
-// Define routes for different HTTP methods
-setBaseRoute('/api/users',).GET((req, res) => {
-  // Handle GET request for '/api/users'
-}).POST((req, res) => {
-  // Handle POST request for '/api/users'
-})
-```
-
 ### Package Integration
 Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 
