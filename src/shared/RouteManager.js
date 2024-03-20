@@ -167,7 +167,8 @@ class RouteManager {
     }
     // Create a new RouteManager instance
     const subRouter = new RouteManager();
-    subRouter.middleware = this.middleware.length>0 ? this.middleware : []
+    subRouter.middleware = [...this.middleware];
+    this.hasMiddleware = subRouter.middleware.length > 0 ? true : false;
     // Define routes within the callback function
     callback(subRouter);
     // Mount the sub-route manager on the main route
