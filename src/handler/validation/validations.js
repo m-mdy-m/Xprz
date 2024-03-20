@@ -29,6 +29,7 @@ class Validation {
    * @param {object} rules - The validation rules to be applied.
    * @param {object} [options={}] - Additional options for validation.
    * @returns {object} - The validation result.
+   * @public
    * @example
    * const validationRules = {
    *   username: 'string',
