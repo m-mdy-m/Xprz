@@ -49,7 +49,10 @@ class ReqEnhancer extends Request {
    * }
    */
   verifyBody(rules, options = {}) {
-    return this.validation.body(rules, options);
+    const errors= this.validation.body(rules, options);
+    const key = Object.keys(errors)
+    const value = Object.values(errors)
+    return key,value
   }
   /**
    * Checks if the request has a specific query parameter.

@@ -8,7 +8,6 @@ route("/")
     send("hi");
   })
   .post((req, res) => {
-    console.log("req.body =>", req.body);
     // Define validation rules
     const Rules = {
       username: "string",
@@ -22,10 +21,10 @@ route("/")
     };
     const errors = req.verifyBody(Rules, option);
     console.log("error =>", errors);
-    if (Object.keys(errors).length === 0) {
+    if (errors.length === 0) {
       console.log("Request body is valid.");
     } else {
-      console.error("Validation errors:", errors);
+      console.error("Validation errors:");
     }
   })
   .attachTo(app);
