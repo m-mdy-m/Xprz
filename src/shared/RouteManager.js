@@ -59,7 +59,7 @@ class RouteManager {
    * @example
    * const router = new Route();
    * // Assuming 'response' is the Express response object
-   * router.setRoute("/").get(()=>{
+   * router.route("/").get(()=>{
    *     const {  send } = router.res()
    *     send("hello world")
    * });
@@ -73,7 +73,7 @@ class RouteManager {
    * @example
    * const router = new Route();
    * // Assuming 'response' is the Express response object
-   * router.setRoute("/").get(()=>{
+   * router.route("/").get(()=>{
    * const {  getBody } = router.req()
    * getBody() // Accessing request body
    * });
@@ -158,9 +158,9 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api");
+   * router.route("/api");
    */
-  setRoute(path) {
+  route(path) {
     if (!path || typeof path !== "string" || path.trim().length === 0) {
       throw new RouteManagerValidationError("Base path is required.");
     }
@@ -179,7 +179,7 @@ class RouteManager {
    * @example
    * const router = new Route()
    * router.group("/api", (r) => {
-   *   r.setRoute('/users').get((req, res) => {
+   *   r.route('/users').get((req, res) => {
    *     res.send("GET /api/users");
    *   });
    * });
@@ -207,7 +207,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").get((req, res) => {
+   * router.route("/api/users").get((req, res) => {
    *   res.send("GET /api/users");
    * });
    */
@@ -220,7 +220,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").post((req, res) => {
+   * router.route("/api/users").post((req, res) => {
    *   res.send("POST /api/users");
    * });
    */
@@ -234,7 +234,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").del((req, res) => {
+   * router.route("/api/users").del((req, res) => {
    *   res.send("DELETE /api/users");
    * });
    */
@@ -248,7 +248,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").put((req, res) => {
+   * router.route("/api/users").put((req, res) => {
    *   res.send("PUT /api/users");
    * });
    */
@@ -261,7 +261,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").patch((req, res) => {
+   * router.route("/api/users").patch((req, res) => {
    *   res.send("PATCH /api/users");
    * });
    */
@@ -275,7 +275,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/api/users").options((req, res) => {
+   * router.route("/api/users").options((req, res) => {
    *   res.send("OPTIONS /api/users");
    * });
    */
@@ -288,7 +288,7 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.setRoute("/users").prefix("/api/v1").get((req, res) => {
+   * router.route("/users").prefix("/api/v1").get((req, res) => {
    *   res.send("GET /api/v1/users");
    * });
    */
@@ -325,7 +325,7 @@ class RouteManager {
           `Error in request handler: ${error.message}`
         );
       }
-    }.bind(this); 
+    }.bind(this);
   }
   /**
    * Registers a route with the given method, path, and handlers.

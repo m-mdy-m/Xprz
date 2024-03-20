@@ -24,17 +24,17 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 - **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
 - **Shared Application Instance**: Share the Express application instance across modules for easy access and configuration.
 - **$read**: Dynamically load modules or directories within your project, simplifying dependency management and resource access.
-  
 - **$install**: Streamline package installation by automating the process of checking for package existence and installing dependencies with ease.
-
 
 ## Example Features:
 
 ### Express Application Management
+
 Simplify the management of your Express application's lifecycle with xprz's intuitive `App` class. Initialize your application, launch the server, and handle lifecycle events seamlessly:
+
 ```javascript
-const Xprz= require("xprz")
-const { App } = new Xprz()
+const Xprz = require("xprz");
+const { App } = new Xprz();
 const { initApp, listen, launch } = new App();
 
 // Initialize the Express application
@@ -47,10 +47,12 @@ launch();
 ```
 
 ### Middleware Management
+
 Effortlessly enhance your application's functionality by attaching middleware functions with a simple API:
+
 ```javascript
-const Xprz= require("xprz")
-const { App } = new Xprz()
+const Xprz = require("xprz");
+const { App } = new Xprz();
 const { use, useJsonBody } = new App();
 
 // Enable CORS
@@ -61,32 +63,39 @@ useJsonBody();
 ```
 
 ### Static File Serving
+
 Serve static files and directories with ease:
+
 ```javascript
-const Xprz= require("xprz")
-const { App } = new Xprz()
+const Xprz = require("xprz");
+const { App } = new Xprz();
 const { static } = new App();
 
 // Serve static files from the 'public' directory
-static('public');
+static("public");
 ```
 
 ### Route Management
+
 Efficiently organize and manage your application's routes with the `Route` class:
+
 ```javascript
-const Xprz= require("xprz")
-const {  Route } = new Xprz()
-const {setRoute } = new Route();
+const Xprz = require("xprz");
+const { Route } = new Xprz();
+const { route } = new Route();
 
 // Define a route
-setRoute('/api/users').get((req, res) => {
+route("/api/users").get((req, res) => {
   // Handle GET request for '/api/users'
 });
 ```
+
 ### Package Integration
+
 Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 
 ### Shared Application Instance
+
 Access and share the Express application instance across modules with xprz's `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Installation
@@ -106,17 +115,17 @@ Get started with xprz by initializing the components you need and configuring th
 ### Basic Example
 
 ```javascript
-const Xprz= require("xprz")
-const { App, Route } = new Xprz()
+const Xprz = require("xprz");
+const { App, Route } = new Xprz();
 const { initApp, listen } = new App();
-const { setRoute } = new Route();
+const { route } = new Route();
 
 // Initialize Express application
 initApp();
 
 // Define a basic route
-setRoute('/').get((req, {send}) => {
-  send('Hello, xprz!');
+route("/").get((req, { send }) => {
+  send("Hello, xprz!");
 });
 
 // Start server
@@ -124,6 +133,7 @@ listen(3000);
 ```
 
 ### $read
+
 ```javascript
 const myModule = $read("./myFile.js");
 console.log(myModule); // Outputs the loaded module
@@ -133,8 +143,9 @@ console.log(myFolder); // Outputs an object containing all modules within the fo
 ```
 
 ### $install
+
 ```javascript
-const installedPackage = $install('example-package');
+const installedPackage = $install("example-package");
 ```
 
 ### Real-world Example (Project Initialization)
@@ -143,21 +154,21 @@ const installedPackage = $install('example-package');
 const myFolder = $read("./myFolder");
 console.log(myFolder); // Outputs an object containing all modules within the folder
 
-const installedPackage = $install('example-package');
+const installedPackage = $install("example-package");
 ```
 
 ### Real-world Example (Blogging Platform)
 
 ```javascript
-const Xprz= require("xprz")
-const { App } = new Xprz()
+const Xprz = require("xprz");
+const { App } = new Xprz();
 const { initApp, loadRoutes, listen } = new App();
 
 // Initialize Express application
 initApp();
 
 // Load routes from 'blogRoutes' directory
-loadRoutes('blogRoutes');
+loadRoutes("blogRoutes");
 
 // Start server
 listen(3000);
@@ -170,7 +181,6 @@ For detailed documentation on xprz and its various features, refer to the docume
 ## Benefits of Using xprz
 
 - **Productivity**: xprz simplifies complex tasks, allowing developers to focus on building features rather than managing boilerplate code.
-  
 - **Scalability**: With built-in support for middleware, routing, and database integration, xprz facilitates the development of scalable web applications.
 
 - **Flexibility**: xprz offers flexibility in choosing database options, middleware, and package integrations, enabling developers to tailor their applications to specific requirements.
