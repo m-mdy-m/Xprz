@@ -6,7 +6,6 @@ const {
   RouteRegistrationError,
   RouteInitializationError,
 } = require("../Errors/RouteManager.error");
-const { RequestValidator } = require("vfyjs");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -31,6 +30,12 @@ class RouteManager {
     /** @private */
     this.request = null;
     this.route = this.route.bind(this)
+  }
+  setDefaultMiddleware(middleware){
+    this.middleware.push(middleware)
+
+    this.hasMIddleware = this.middleware.length > 0 ? true : false
+    return this
   }
   /**
    * Sets the response object.
@@ -106,9 +111,6 @@ class RouteManager {
    * router.using(middlewareFunction);
    */
   using(middleware) {
-    if (typeof middleware !== "function") {
-      throw new RouteManagerValidationError("Middleware function is required.");
-    }
     // Add middleware to the list
     this.middleware.push(middleware);
     // Check if middleware is present
