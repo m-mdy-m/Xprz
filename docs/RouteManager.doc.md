@@ -281,3 +281,35 @@ Sets a prefix for all routes registered using this RouteManager instance.
       send("GET /api/v1/users");
     });
   ```
+#### `globalMiddleware(middleware)`
+
+Sets the global middleware for the route manager.
+
+- **Parameters:**
+
+  - `middleware` (Array or Function): An array of middleware functions.
+
+- **Returns:**
+
+  - `RouteManager`: The RouteManager instance.
+
+- **Throws:**
+
+  - `RouteManagerValidationError`: Throws an error if middleware is not provided as an array.
+
+- **Example:**
+
+  ```javascript
+  const router = new Route();
+  router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
+  ```
+
+  or
+
+  ```javascript
+  const router = new Route();
+  router.globalMiddleware(middlewareFunction);
+  ```
+
+  In both cases, `middlewareFunction1`, `middlewareFunction2`, and `middlewareFunction` are middleware functions.
+```

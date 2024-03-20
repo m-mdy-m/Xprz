@@ -8,7 +8,7 @@ const loggerMiddleware = (req, res, next) => {
   next();
 };
 // Register global middleware
-router.globalMiddleware([loggerMiddleware]);
+router.globalMiddleware(loggerMiddleware);
 
 // Define routes
 router
