@@ -3,7 +3,7 @@ const { launch } = Xprz.App();
 const app = launch();
 const router = Xprz.Route();
 const loggerMiddleware = (req, res, next) => {
-    console.log('hi');
+  console.log("hi");
   console.log("Logging request:", req.method, req.url);
   next();
 };
@@ -19,7 +19,6 @@ router
   .post((req, res) => {
     res.send("POST /api");
   });
-
 router
   .route("/api/users")
   .get((req, res) => {
@@ -28,7 +27,6 @@ router
   .post((req, res) => {
     res.send("POST /api/users");
   });
-
 router
   .group("/api/admin", (adminRouter) => {
     adminRouter
@@ -40,5 +38,4 @@ router
         res.send("POST /api/admin/users");
       });
   })
-  .endGroup();
 router.attachTo(app);

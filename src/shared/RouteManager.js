@@ -38,6 +38,7 @@ class RouteManager {
       );
     }
     this.middleware = middleware;
+    this.hasMiddleware = this.middleware.length > 0 ? true : false;
     return this;
   }
   /**
@@ -166,6 +167,7 @@ class RouteManager {
     }
     // Create a new RouteManager instance
     const subRouter = new RouteManager();
+    subRouter.middleware = this.middleware.length>0 ? this.middleware : []
     // Define routes within the callback function
     callback(subRouter);
     // Mount the sub-route manager on the main route
