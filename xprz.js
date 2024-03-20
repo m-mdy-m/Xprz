@@ -16,10 +16,10 @@ const $read = require("./src/utils/read");
  * const Xprz = require("xprz");
  * const { App } = new Xprz();
  * const { initApp, listen, launch } = new App();
- * 
+ *
  * // Initialize the Express application
  * initApp();
- * 
+ *
  * // Start the server
  * listen(3000);
  * // Or use the alternative
@@ -29,6 +29,21 @@ class Xprz {
   /**
    * Constructs a new instance of the Xprz application.
    * @constructor
+   * @m-mdy-m
+   * @package
+   * @module Xprz
+   * @example
+   * const Xprz = require("xprz");
+   * const { App } = new Xprz();
+   * const { initApp, listen, launch } = new App();
+   *
+   * // Initialize the Express application
+   * initApp();
+   *
+   * // Start the server
+   * listen(3000);
+   * // Or use the alternative
+   * launch();
    */
   constructor() {
     // Expose shared modules
@@ -81,7 +96,7 @@ class Xprz {
 // Expose $install and $read globally
 global.$install = $install;
 global.$read = $read;
-globalThis.$read = $read
-globalThis.$install = $install
+globalThis.$read = $read;
+globalThis.$install = $install;
 // Export the Xprz class
 module.exports = Xprz;
