@@ -46,6 +46,35 @@ Represents a base request handler providing utility methods for handling HTTP re
 
 ## Methods
 
+##### `validate(req, rules, options)`
+
+Validates a request object against specified rules using the vfyjs library.
+
+- **Parameters:**
+
+  - `req` (object): The request object to be validated.
+  - `rules` (object): The validation rules to be applied.
+  - `options` (object, optional): Additional options for validation.
+
+- **Returns:**
+
+  - `object`: The validation result.
+
+- **Example:**
+  ```javascript
+  // Define the request object and validation rules
+  const request = { body: { username: 'example', age: 25 } };
+  const rules = { username: 'string|username', age: 'number|min:18' };
+  // Validate the request
+  const errors = validate(req.body, rules);
+  // Handle the validation result
+  if (Object.keys(errors).length === 0) {
+    console.log('Request is valid.');
+  } else {
+    console.error('Validation errors:', errors);
+  }
+  ```
+
 ##### `verifyBody(rules, options)`
 
 Validates the request body against the provided rules using the vfyjs library.
