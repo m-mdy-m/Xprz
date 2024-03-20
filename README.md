@@ -191,8 +191,8 @@ const { initApp, loadRoutes, listen } = new App();
 // Initialize Express application
 initApp();
 
-// Load routes from 'blogRoutes' directory
-loadRoutes("blogRoutes");
+// Load routes from 'routes' directory
+loadRoutes("routes");
 
 // Start server
 listen(3000);
