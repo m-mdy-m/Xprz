@@ -19,12 +19,12 @@ route("/")
         password: "must be at least 6 characters long.",
       },
     };
-    const errors = req.verifyBody(Rules, option);
+    const errors = req.validate(req.body,Rules, option);
     console.log("Object.keys(errors) =>", Object.keys(errors));
     if (Object.keys(errors).length === 0) {
       console.log("Request body is valid.");
     } else {
-      console.error("Validation errors:");
+      console.error("Validation errors:",errors);
     }
   })
   .attachTo(app);

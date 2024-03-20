@@ -11,6 +11,7 @@ class ReqEnhancer extends Request {
     this.validation = new Validation(req.body);
     // Bind methods to ensure they have access to the correct 'this' context
     this.hasQueryParam = this.hasQueryParam.bind(this);
+    this.validate = this.validate.bind(this)
     this.verifyBody = this.verifyBody.bind(this);
     this.getQueryParam = this.getQueryParam.bind(this);
     this.hasBodyParam = this.hasBodyParam.bind(this);
