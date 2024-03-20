@@ -200,7 +200,24 @@ class RouteManager {
     this.router.use(mainRoute, subRouter.router);
     return this;
   }
-
+  /**
+   * Ends the current group of routes.
+   * @returns {RouteManager} The RouteManager instance.
+   * @example
+   * const router = new Route();
+   * router.group("/api", (r) => {
+   *   r.route('/users').get((req, res) => {
+   *     res.send("GET /api/users");
+   *   });
+   * }).endGroup().get((req, res) => {
+   *   res.send("GET /api");
+   * });
+   */
+  endGroup() {
+    // Reset the path to the parent's path
+    this.path = "/";
+    return this;
+  }
   /**
    * Registers a GET route.
    * @param {...function} handlers - Route handler functions.

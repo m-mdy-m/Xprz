@@ -145,6 +145,25 @@ Defines a group of routes under a common path.
   });
   ```
 
+### `endGroup()`
+
+Ends the current group of routes.
+
+- **Returns:**
+
+  - `RouteManager`: The RouteManager instance.
+
+- **Example:**
+  ```javascript
+  const router = new Route();
+  router.group("/api", (r) => {
+    r.route("/users").get((req, { send }) => {
+      send("GET /api/users");
+    });
+  }).endGroup().get((req, { send }) => {
+    send("GET /api");
+  });
+
 #### `get(...handlers)`
 
 Registers a GET route.
