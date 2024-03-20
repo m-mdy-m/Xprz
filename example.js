@@ -6,6 +6,6 @@ const app = launch();
 route("/")
   .get((req, { send }) => {
     send("hi");
-    console.log("req=>", req);
+    console.log("req=>", req.verifyBody);
   })
   .attachTo(app);
