@@ -303,13 +303,4 @@ Sets the global middleware for the route manager.
   const router = new Route();
   router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
   ```
-
-  or
-
-  ```javascript
-  const router = new Route();
-  router.globalMiddleware(middlewareFunction);
-  ```
-
-  In both cases, `middlewareFunction1`, `middlewareFunction2`, and `middlewareFunction` are middleware functions.
 ```
