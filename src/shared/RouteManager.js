@@ -295,7 +295,7 @@ class RouteManager {
    */
   createRequestHandler(handlers) {
     return  (req, res) =>{
-      // try {
+      try {
         this.setRes(res);
         this.setReq(req);
         const request = { ...this.req(), ...req };
@@ -303,12 +303,12 @@ class RouteManager {
         handlers.forEach((handler) => {
           handler(request, response);
         });
-      // } catch (error) {
-      //   // Handle errors that occur within the request handler
-      //   throw new RouteRegistrationError(
-      //     `Error in request handler: ${error.message}`
-      //   );
-      // }
+      } catch (error) {
+        // Handle errors that occur within the request handler
+        throw new RouteRegistrationError(
+          `Error in request handler: ${error.message}`
+        );
+      }
     }
   }
   /**
