@@ -1,8 +1,9 @@
 const Xprz = require('./xprz')
 const {launch } = Xprz.App()
 const { route }  = Xprz.Route()
-launch()
+const app = launch()
 
-route('/').get((req,res)=>{
+route('/hi').get((req,{send})=>{
+    send('hi')
     console.log('req=>',req);
-})
+}).attachTo(app)

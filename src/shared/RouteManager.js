@@ -7,7 +7,6 @@ const {
   RouteInitializationError,
 } = require("../Errors/RouteManager.error");
 const { RequestValidator } = require("vfyjs");
-const Validation = require("../handler/validation/validations");
 /**
  * RouteManager class handles route management for Express.js.
  * @class
@@ -31,7 +30,9 @@ class RouteManager {
     this.response = null;
     /** @private */
     this.request = null;
-    this.route = this.route.bind(this)
+    this.route = this.route.bind(this);
+    this.setReq = this.setReq.bind(this);
+    this.setRes = this.setRes.bind(this);
   }
   /**
    * Sets the response object.
@@ -39,7 +40,7 @@ class RouteManager {
    * @private
    */
   setRes(res) {
-    if (!res || !(res instanceof Response)) {
+    if (!res) {
       throw new RouteManagerValidationError("Response object is required.");
     }
     this.response = res;
@@ -50,7 +51,7 @@ class RouteManager {
    * @private
    */
   setReq(req) {
-    if (!req || !(req instanceof Request)) {
+    if (!req) {
       throw new RouteManagerValidationError("Request object is required.");
     }
     this.request = req;
@@ -329,7 +330,7 @@ class RouteManager {
    * @returns {Function} A request handler function.
    */
   createRequestHandler(handlers) {
-    return function (req, res) {
+    return (req, res) => {
       try {
         this.setRes(res);
         this.setReq(req);
@@ -344,7 +345,7 @@ class RouteManager {
           `Error in request handler: ${error.message}`
         );
       }
-    }.bind(this);
+    };
   }
   /**
    * Registers a route with the given method, path, and handlers.
