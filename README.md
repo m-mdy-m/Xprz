@@ -13,9 +13,33 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 - **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
 - **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
 
+## Utilities
+
 - **$read**: Dynamically load files or folders within a Node.js environment with ease using the `$read` utility function. Simplify the process of managing dependencies and accessing resources effortlessly.
 
 - **$install**: Simplify package installation in your Node.js applications with the `$install` utility function provided by Xprz. Automate the process of checking for package existence and installing dependencies seamlessly.
+
+Sure, here's how you can describe the static methods of the `Xprz` class using markdown:
+
+## Static Methods
+
+Xprz provides the following static methods for convenient instantiation of various components:
+
+### `Xprz.App()`
+
+Creates a new instance of the `AppManager` class, allowing easy management of the Express application lifecycle.
+
+### `Xprz.Package()`
+
+Creates a new instance of the `PackageManager` class, facilitating seamless integration of popular Node.js packages into your application.
+
+### `Xprz.Route()`
+
+Creates a new instance of the `RouteManager` class, enabling efficient organization and management of application routes.
+
+### `Xprz.GetUtilsApp()`
+
+Creates a new instance of the `AppSharedManager` class, providing access to shared application configurations and resources across modules.
 
 ## Features
 
