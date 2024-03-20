@@ -60,6 +60,8 @@ Simplify the management of your Express application's lifecycle with xprz's intu
 const Xprz = require("xprz");
 const { App } = new Xprz();
 const { initApp, listen, launch } = new App();
+// or
+const { initApp, listen, launch } = Xprz.App();
 
 // Initialize the Express application
 initApp();
@@ -94,6 +96,8 @@ Serve static files and directories with ease:
 const Xprz = require("xprz");
 const { App } = new Xprz();
 const { static } = new App();
+// or
+const { static } = Xprz.App();
 
 // Serve static files from the 'public' directory
 static("public");
@@ -107,11 +111,14 @@ Efficiently organize and manage your application's routes with the `Route` class
 const Xprz = require("xprz");
 const { Route } = new Xprz();
 const { route } = new Route();
-
+// or
+const { route } = Xprz.Route();
 // Define a route
-route("/api/users").get((req, res) => {
-  // Handle GET request for '/api/users'
-});
+route("/api/users")
+  .get((req, res) => {
+    // Handle GET request for '/api/users'
+  })
+  .attachTo(app);
 ```
 
 ### Package Integration
@@ -172,31 +179,9 @@ console.log(myFolder); // Outputs an object containing all modules within the fo
 const installedPackage = $install("example-package");
 ```
 
-### Real-world Example (Project Initialization)
+### Example : 
+```ja
 
-```javascript
-const myFolder = $read("./myFolder");
-console.log(myFolder); // Outputs an object containing all modules within the folder
-
-const installedPackage = $install("example-package");
-```
-
-### Real-world Example (Blogging Platform)
-
-```javascript
-const Xprz = require("xprz");
-const { App } = new Xprz();
-const { initApp, loadRoutes, listen } = new App();
-
-// Initialize Express application
-initApp();
-
-// Load routes from 'routes' directory
-loadRoutes("routes");
-
-// Start server
-listen(3000);
-```
 
 ## Documentation
 
