@@ -8,18 +8,21 @@ Represents a base request handler providing utility methods for handling HTTP re
 ##### `Example(req)`
 
 - **Parameters:**
+
   - `req` (object): The Express request object.
 
 - **Example:**
   ```javascript
-  const { /* methods **/} = req;
+  const {
+    /* methods **/
+  } = req;
   ```
 
 ## Methods
 
 Certainly! Here's the updated `Request.doc.md` documentation with the `verifyBody` method added:
 
-```markdown
+````markdown
 # `Request`
 
 **Description:**
@@ -30,12 +33,16 @@ Represents a base request handler providing utility methods for handling HTTP re
 ##### `Example(req)`
 
 - **Parameters:**
+
   - `req` (object): The Express request object.
 
 - **Example:**
   ```javascript
-  const { /* methods **/} = req;
+  const {
+    /* methods **/
+  } = req;
   ```
+````
 
 ## Methods
 
@@ -44,19 +51,26 @@ Represents a base request handler providing utility methods for handling HTTP re
 Validates the request body against the provided rules using the vfyjs library.
 
 - **Parameters:**
+
   - `rules` (object): The validation rules to be applied.
   - `options` (object, optional): Additional options for validation.
 
 - **Returns:**
+
   - `object`: The validation result.
 
 - **Example:**
   ```javascript
   const validationRules = {
-    username: 'string',
-    password: 'string|min:6',
+    username: "string",
+    password: "string|min:6",
   };
-  const validationResult = verifyBody(validationRules);
+  const errors = verifyBody(validationRules);
+  if (Object.keys(errors).length === 0) {
+    console.log("Request body is valid.");
+  } else {
+    console.error("Validation errors:");
+  }
   ```
 
 ##### `query(name)`
@@ -64,14 +78,16 @@ Validates the request body against the provided rules using the vfyjs library.
 Retrieves the value of a specific query parameter from the request.
 
 - **Parameters:**
+
   - `name` (string): The name of the query parameter.
 
 - **Returns:**
+
   - `*`: The value of the specified query parameter.
 
 - **Example:**
   ```javascript
-  const paramValue = query('paramName');
+  const paramValue = query("paramName");
   ```
 
 ##### `getQuery()`
@@ -79,6 +95,7 @@ Retrieves the value of a specific query parameter from the request.
 Retrieves the query parameters from the request.
 
 - **Returns:**
+
   - `object`: The request query parameters.
 
 - **Example:**
@@ -91,6 +108,7 @@ Retrieves the query parameters from the request.
 Retrieves the request body.
 
 - **Returns:**
+
   - `object`: The request body.
 
 - **Example:**
@@ -103,6 +121,7 @@ Retrieves the request body.
 Retrieves the request headers.
 
 - **Returns:**
+
   - `object`: The request headers.
 
 - **Example:**
@@ -115,6 +134,7 @@ Retrieves the request headers.
 Retrieves the request URL.
 
 - **Returns:**
+
   - `string`: The request URL.
 
 - **Example:**
@@ -127,6 +147,7 @@ Retrieves the request URL.
 Retrieves the request path.
 
 - **Returns:**
+
   - `string`: The request path.
 
 - **Example:**
@@ -139,6 +160,7 @@ Retrieves the request path.
 Checks if the request is an AJAX request.
 
 - **Returns:**
+
   - `boolean`: True if the request is an AJAX request, false otherwise.
 
 - **Example:**
@@ -151,6 +173,7 @@ Checks if the request is an AJAX request.
 Checks if the request is secure (HTTPS).
 
 - **Returns:**
+
   - `boolean`: True if the request is secure (HTTPS), otherwise false.
 
 - **Example:**
@@ -163,6 +186,7 @@ Checks if the request is secure (HTTPS).
 Gets the IP address of the request.
 
 - **Returns:**
+
   - `string`: The IP address of the request.
 
 - **Example:**
@@ -175,6 +199,7 @@ Gets the IP address of the request.
 Retrieves the cookies from the request.
 
 - **Returns:**
+
   - `object`: The cookies sent with the request.
 
 - **Example:**
@@ -187,14 +212,16 @@ Retrieves the cookies from the request.
 Checks if the request has a specific header.
 
 - **Parameters:**
+
   - `headerName` (string): The name of the header to check.
 
 - **Returns:**
+
   - `boolean`: True if the request has the specified header, otherwise false.
 
 - **Example:**
   ```javascript
-  const hasContentTypeHeader = hasHeader('Content-Type');
+  const hasContentTypeHeader = hasHeader("Content-Type");
   ```
 
 ##### `getHeaderName(headerName)`
@@ -202,14 +229,16 @@ Checks if the request has a specific header.
 Gets the value of a specific request header.
 
 - **Parameters:**
+
   - `headerName` (string): The name of the header.
 
 - **Returns:**
+
   - `string`: The value of the specified header.
 
 - **Example:**
   ```javascript
-  const contentType = getHeaderName('Content-Type');
+  const contentType = getHeaderName("Content-Type");
   ```
 
 ##### `getProtocol()`
@@ -217,6 +246,7 @@ Gets the value of a specific request header.
 Retrieves the protocol used by the request (HTTP or HTTPS).
 
 - **Returns:**
+
   - `string`: The protocol used by the request.
 
 - **Example:**
@@ -229,14 +259,16 @@ Retrieves the protocol used by the request (HTTP or HTTPS).
 Checks if the request accepts a specific content type.
 
 - **Parameters:**
+
   - `type` (string|string[]): The content type to check.
 
 - **Returns:**
+
   - `string|false|null`: The best matching content type, or false if none of the given types is accepted, or null if the request does not specify a content type preference.
 
 - **Example:**
   ```javascript
-  const contentType = accepts('json');
+  const contentType = accepts("json");
   ```
 
 ##### `param(name, [handlers])`
@@ -244,22 +276,25 @@ Checks if the request accepts a specific content type.
 Retrieves the value of a parameter from the request.
 
 - **Parameters:**
+
   - `name` (string): The name of the parameter.
   - `handlers` (Function[], optional): Optional middleware for processing the parameter.
 
 - **Returns:**
+
   - `*`: The value of the specified parameter.
 
 - **Example:**
   ```javascript
-  const userId = param('userId');
+  const userId = param("userId");
   ```
-  
+
 ##### `getParams()`
 
 Retrieves all parameters from the request.
 
 - **Returns:**
+
   - `object`: All parameters from the request.
 
 - **Example:**
@@ -269,12 +304,12 @@ Retrieves all parameters from the request.
 
 This method allows you to access all parameters sent with the request, providing a convenient way to retrieve them collectively.
 
-
 ##### `getUrl()`
 
 Retrieves the URL of the request.
 
 - **Returns:**
+
   - `string`: The URL of the request.
 
 - **Example:**
@@ -287,14 +322,16 @@ Retrieves the URL of the request.
 Checks if the request matches the given types.
 
 - **Parameters:**
+
   - `types` (string|string[]): The types to check against.
 
 - **Returns:**
+
   - `string|false|null`: The first type that matches, or false if none match, or null if the request does not specify a content type.
 
 - **Example:**
   ```javascript
-  const isJSON = is('json');
+  const isJSON = is("json");
   ```
 
 ##### `getPath()`
@@ -302,6 +339,7 @@ Checks if the request matches the given types.
 Retrieves the path of the request.
 
 - **Returns:**
+
   - `string`: The path of the request.
 
 - **Example:**
@@ -314,6 +352,7 @@ Retrieves the path of the request.
 Retrieves the HTTP method of the request.
 
 - **Returns:**
+
   - `string`: The HTTP method of the request (e.g., GET, POST).
 
 - **Example:**
@@ -326,6 +365,7 @@ Retrieves the HTTP method of the request.
 Retrieves an array of subdomains in the domain name of the request.
 
 - **Returns:**
+
   - `string[]`: An array of subdomains.
 
 - **Example:**
@@ -338,6 +378,7 @@ Retrieves an array of subdomains in the domain name of the request.
 Retrieves the hostname from the request.
 
 - **Returns:**
+
   - `string`: The hostname.
 
 - **Example:**
@@ -350,6 +391,7 @@ Retrieves the hostname from the request.
 Retrieves the host from the request.
 
 - **Returns:**
+
   - `string`: The host.
 
 - **Example:**
@@ -362,6 +404,7 @@ Retrieves the host from the request.
 Checks if the request is fresh.
 
 - **Returns:**
+
   - `boolean`: True if the request is fresh, false otherwise.
 
 - **Example:**
@@ -374,6 +417,7 @@ Checks if the request is fresh.
 Checks if the request is stale.
 
 - **Returns:**
+
   - `boolean`: True if the request is stale, false otherwise.
 
 - **Example:**
@@ -387,7 +431,6 @@ Checks if the request is an XMLHttpRequest (AJAX) request.
 
 - **Returns:**
 
-
   - `boolean`: True if the request is an XMLHttpRequest, false otherwise.
 
 - **Example:**
@@ -400,6 +443,7 @@ Checks if the request is an XMLHttpRequest (AJAX) request.
 Retrieves the request language preferences.
 
 - **Returns:**
+
   - `string[]`: An array of language preferences.
 
 - **Example:**
@@ -412,6 +456,7 @@ Retrieves the request language preferences.
 Retrieves the request encoding preferences.
 
 - **Returns:**
+
   - `string[]`: An array of encoding preferences.
 
 - **Example:**
@@ -424,25 +469,29 @@ Retrieves the request encoding preferences.
 Retrieves the request charset preferences.
 
 - **Returns:**
+
   - `string[]`: An array of charset preferences.
 
 - **Example:**
   ```javascript
   const charsets = getCharsets();
   ```
+
 ##### `hasQueryParam(paramName)`
 
 Checks if the request has a specific query parameter.
 
 - **Parameters:**
+
   - `paramName` (string): The name of the query parameter to check.
 
 - **Returns:**
+
   - `boolean`: True if the query parameter exists, otherwise false.
 
 - **Example:**
   ```javascript
-  const hasParam = hasQueryParam('paramName');
+  const hasParam = hasQueryParam("paramName");
   ```
 
 ##### `getQueryParam(paramName)`
@@ -450,14 +499,16 @@ Checks if the request has a specific query parameter.
 Retrieves a specific query parameter from the request.
 
 - **Parameters:**
+
   - `paramName` (string): The name of the query parameter to retrieve.
 
 - **Returns:**
+
   - `*`: The value of the query parameter, or undefined if not found.
 
 - **Example:**
   ```javascript
-  const paramValue = getQueryParam('paramName');
+  const paramValue = getQueryParam("paramName");
   ```
 
 ##### `hasBodyParam(paramName)`
@@ -465,14 +516,16 @@ Retrieves a specific query parameter from the request.
 Checks if the request has a specific body parameter.
 
 - **Parameters:**
+
   - `paramName` (string): The name of the body parameter to check.
 
 - **Returns:**
+
   - `boolean`: True if the body parameter exists, otherwise false.
 
 - **Example:**
   ```javascript
-  const hasParam = hasBodyParam('paramName');
+  const hasParam = hasBodyParam("paramName");
   ```
 
 ##### `getBodyParam(paramName)`
@@ -480,14 +533,16 @@ Checks if the request has a specific body parameter.
 Retrieves a specific body parameter from the request.
 
 - **Parameters:**
+
   - `paramName` (string): The name of the body parameter to retrieve.
 
 - **Returns:**
+
   - `*`: The value of the body parameter, or undefined if not found.
 
 - **Example:**
   ```javascript
-  const paramValue = getBodyParam('paramName');
+  const paramValue = getBodyParam("paramName");
   ```
 
 ##### `hasCookie(cookieName)`
@@ -495,14 +550,16 @@ Retrieves a specific body parameter from the request.
 Checks if the request has a specific cookie.
 
 - **Parameters:**
+
   - `cookieName` (string): The name of the cookie to check.
 
 - **Returns:**
+
   - `boolean`: True if the cookie exists, otherwise false.
 
 - **Example:**
   ```javascript
-  const hasCookie = hasCookie('cookieName');
+  const hasCookie = hasCookie("cookieName");
   ```
 
 ##### `getCookieName(cookieName)`
@@ -510,14 +567,16 @@ Checks if the request has a specific cookie.
 Retrieves a specific cookie from the request.
 
 - **Parameters:**
+
   - `cookieName` (string): The name of the cookie to retrieve.
 
 - **Returns:**
+
   - `*`: The value of the cookie, or undefined if not found.
 
 - **Example:**
   ```javascript
-  const cookieValue = getCookieName('cookieName');
+  const cookieValue = getCookieName("cookieName");
   ```
 
 ##### `hasHeaderIgnoreCase(headerName)`
@@ -525,14 +584,16 @@ Retrieves a specific cookie from the request.
 Checks if the request has a specific header with a case-insensitive comparison.
 
 - **Parameters:**
+
   - `headerName` (string): The name of the header to check.
 
 - **Returns:**
+
   - `boolean`: True if the header exists, otherwise false.
 
 - **Example:**
   ```javascript
-  const hasHeader = hasHeaderIgnoreCase('headerName');
+  const hasHeader = hasHeaderIgnoreCase("headerName");
   ```
 
 ##### `getHeaderIgnoreCase(headerName)`
@@ -540,14 +601,16 @@ Checks if the request has a specific header with a case-insensitive comparison.
 Retrieves a specific header from the request with a case-insensitive comparison.
 
 - **Parameters:**
+
   - `headerName` (string): The name of the header to retrieve.
 
 - **Returns:**
+
   - `*`: The value of the header, or undefined if not found.
 
 - **Example:**
   ```javascript
-  const headerValue = getHeaderIgnoreCase('headerName');
+  const headerValue = getHeaderIgnoreCase("headerName");
   ```
 
 ##### `isMethod(method)`
@@ -555,14 +618,16 @@ Retrieves a specific header from the request with a case-insensitive comparison.
 Checks if the request is sent with a specific HTTP method.
 
 - **Parameters:**
+
   - `method` (string): The HTTP method to check (e.g., 'GET', 'POST').
 
 - **Returns:**
+
   - `boolean`: True if the request method matches the specified method, otherwise false.
 
 - **Example:**
   ```javascript
-  const isGetMethod = isMethod('GET');
+  const isGetMethod = isMethod("GET");
   ```
 
 ##### `getAllParams()`
@@ -570,6 +635,7 @@ Checks if the request is sent with a specific HTTP method.
 Retrieves all parameters from the request, including query parameters, body parameters, and cookies.
 
 - **Returns:**
+
   - `Object`: An object containing all request parameters.
 
 - **Example:**
@@ -582,6 +648,7 @@ Retrieves all parameters from the request, including query parameters, body para
 Retrieves the accepted content types by the request.
 
 - **Returns:**
+
   - `string[]`: An array of accepted content types.
 
 - **Example:**

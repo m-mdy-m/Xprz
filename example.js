@@ -20,8 +20,8 @@ route("/")
       },
     };
     const errors = req.verifyBody(Rules, option);
-    console.log("error =>", errors);
-    if (errors.length === 0) {
+    console.log("Object.keys(errors) =>", Object.keys(errors));
+    if (Object.keys(errors).length === 0) {
       console.log("Request body is valid.");
     } else {
       console.error("Validation errors:");

@@ -41,31 +41,6 @@ Returns an enhanced request object.
   getBody(); // Accessing request body
   ```
 
-### `validate(req, rules, options = {})`
-
-Validates a request object against specified rules.
-
-- **Parameters:**
-
-  - `req` (object): The request object to be validated.
-  - `rules` (object): The validation rules to be applied.
-  - `options` (object, optional): Additional options for validation.
-
-- **Returns:**
-
-  - `object`: The validation result.
-
-- **Example:**
-  ```javascript
-  const request = { body: { username: "example", age: 25 } };
-  const rules = { username: "string|username", age: "number|min:18" };
-  const errors = router.validate(request.body, rules);
-  if (Object.keys(errors).length === 0) {
-    res.status(200).json({ success: true });
-  } else {
-    res.status(400).json({ success: false, errors });
-  }
-  ```
 
 #### `attachTo(app)`
 
