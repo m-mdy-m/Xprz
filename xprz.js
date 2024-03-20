@@ -46,6 +46,7 @@ class Xprz {
 // Expose $install and $read globally
 global.$install = $install;
 global.$read = $read;
-
+globalThis.$read = $read
+globalThis.$install = $install
 // Export the Xprz class
 module.exports = Xprz;
