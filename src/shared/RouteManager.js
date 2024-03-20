@@ -31,7 +31,7 @@ class RouteManager {
     this.request = null;
     this.route = this.route.bind(this);
   }
-  static setDefaultMiddleware(middleware) {
+  static globalMiddleware(middleware) {
     if (!middleware || !Array.isArray(middleware)) {
       throw new RouteManagerValidationError(
         "Middleware must be provided as an array."
