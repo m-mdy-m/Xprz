@@ -41,6 +41,18 @@ class Xprz {
     // Expose route manager
     this.Route = RouteManager;
   }
+  static App(){
+    return new AppManager()
+  }
+  static Package(){
+    return new PackageManager()
+  }
+  static Route(){
+    return new RouteManager()
+  }
+  static GetUtilsApp(){
+    return new AppSharedManager()
+  }
 }
 
 // Expose $install and $read globally

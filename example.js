@@ -1,3 +1,3 @@
 const Xprz = require('./xprz')
 
-const { } = new Xprz()
+const { } = Xprz.APP()
