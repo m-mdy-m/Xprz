@@ -1,10 +1,7 @@
 const jwtHandler = require("../handler/package/jwt"),
   bcryptjsHandler = require("../handler/package/bcryptjs"),
-  NodemailerHandler = require("../handler/package/nodemailer"),
-  MulterHandler = require("../handler/package/multer"),
   BodyParser = require("../handler/package/bodyParser"),
   Cors = require("../handler/package/cors"),
-  flash = require("../handler/package/flash"),
   Csrf = require("../handler/package/csrf"),
   { PackageInitializationError } = require("../Errors/package.manager.error"),
   $install = require("../utils/installPkg");

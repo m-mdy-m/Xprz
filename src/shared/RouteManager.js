@@ -31,6 +31,7 @@ class RouteManager {
     this.response = null;
     /** @private */
     this.request = null;
+    this.route = this.route.bind(this)
   }
   /**
    * Sets the response object.

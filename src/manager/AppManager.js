@@ -22,7 +22,7 @@ class AppManager extends App {
     this.static = this.static.bind(this);
     this.useJsonBody = this.useJsonBody.bind(this);
     this.shutdown = this.shutdown.bind(this);
-    this.setTemplateEngine = this.setTemplateEngine.bind(this);
+    this.setViewEngine = this.setViewEngine.bind(this);
     this.loadRoutes = this.loadRoutes.bind(this);
     /** @private */
     this.loadRoutesRecursively = this.loadRoutesRecursively.bind(this);
