@@ -7,12 +7,15 @@ node_modules/
 tests/
 test/
 *.test.js
-
+example/
+example
 # Ignore editor and IDE files
 .vscode/
 .idea/
 *.sublime-*
 
+docs/
+docs
 # Ignore configuration files (keep this line)
 tsconfig.json
 babel.config.js
