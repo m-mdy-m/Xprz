@@ -60,7 +60,7 @@ class jwtHandler {
   }
 
   /**
-   * Check if a JWT token is expired.
+   * Checks if a JWT token has expired.
    * @param {string} token - The JWT token to be checked.
    * @returns {boolean} True if the token is expired, false otherwise.
    * @example
@@ -68,36 +68,42 @@ class jwtHandler {
    */
   isTokenExpired(token) {
     try {
+      // Decode the JWT token to extract expiration time
       const decoded = this.jwt.decode(token);
+      // If decoded payload or expiration time is not available, token is considered not expired
       if (!decoded || !decoded.exp) return false;
+      // Compare current time with expiration time to determine if token is expired
       return Date.now() >= decoded.exp * 1000;
     } catch (error) {
+      // If an error occurs during decoding or comparison, consider token as expired
       return false;
     }
   }
   /**
-    * Middleware for JWT authentication.
-    * @param {string} secretKey - The secret key used for verifying JWT tokens.
-    * @returns {function} Middleware function for JWT authentication.
-    * @example
-    * // Apply JWT authentication middleware
-    * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
-    */
+   * Middleware for JWT authentication.
+   * @param {string} secretKey - The secret key used for verifying JWT tokens.
+   * @returns {function} Middleware function for JWT authentication.
+   * @example
+   * // Apply JWT authentication middleware
+   * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
+   */
   jwtAuthenticate(secretKey) {
-   return (req, res, nxt) => {
-     const authHeader = req.headers.authorization;
-     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-       return res.status(401).json({ error: "Unauthorized: No token provided" });
-     }
-     const token = authHeader.split(' ')[1];
-     try {
-       const decodedPayload = this.jwtVerify(token, secretKey);
-       req.user = decodedPayload;
-       nxt();
-     } catch (error) {
-       return res.status(401).json({ error: "Unauthorized: Invalid token" });
-     }
-   };
+    return (req, res, nxt) => {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res
+          .status(401)
+          .json({ error: "Unauthorized: No token provided" });
+      }
+      const token = authHeader.split(" ")[1];
+      try {
+        const decodedPayload = this.jwtVerify(token, secretKey);
+        req.user = decodedPayload;
+        nxt();
+      } catch (error) {
+        return res.status(401).json({ error: "Unauthorized: Invalid token" });
+      }
+    };
   }
 }
 
