@@ -112,33 +112,6 @@ class AppManager extends App {
   use(...handler) {
     return super.use(...handler);
   }
-  /**
-   * Sets the error handler middleware for the Express application.
-   *
-   * @param {...Function} errorHandler - The error handler middleware function(s).
-   * @returns {void}
-   *
-   * @example
-   * const appManager = new App();
-   * appManager.setErrorHandler(errorHandler);
-   */
-  setErrorHandler(...errorHandler) {
-    this.use(...errorHandler);
-  }
-
-  /**
-   * Adds middleware function(s) to the Express application.
-   *
-   * @param {...Function} handler - The middleware function(s) to add.
-   * @returns {void}
-   *
-   * @example
-   * const appManager = new App();
-   * appManager.middleware(myMiddlewareFunction);
-   */
-  middleware(...handler) {
-    this.use(...handler);
-  }
 
   /**
    * Sets properties on the Express application.
