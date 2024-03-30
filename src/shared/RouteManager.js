@@ -318,15 +318,25 @@ class RouteManager {
    * @returns {Function} A request handler function.
    */
   createRequestHandler(handlers) {
-    return (req, res) => {
+    return (req, res, next) => {
       try {
         this.setRes(res);
         this.setReq(req);
         const request = { ...this.req(), ...req };
         const response = { ...this.res(), ...res };
-        handlers.forEach((handler) => {
-          handler(request, response);
-        });
+        const cx = new Proxy(
+          { request, response },
+          {
+            get(target, prop) {
+              const cxValue = target.response[prop] ?? target.request[prop];
+              console.log('prop:',prop);
+              return cxValue;
+            },
+          }
+        );
+        for (const handler of handlers) {
+          handler(cx, next);
+        }
       } catch (error) {
         // Handle errors that occur within the request handler
         throw new RouteRegistrationError(

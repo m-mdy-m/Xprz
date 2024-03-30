@@ -16,8 +16,6 @@ class AppManager extends App {
     /** @private */
     this.express = this.getExpress();
     // Bind methods
-    this.setErrorHandler = this.setErrorHandler.bind(this);
-    this.middleware = this.middleware.bind(this);
     this.set = this.set.bind(this);
     this.static = this.static.bind(this);
     this.useJsonBody = this.useJsonBody.bind(this);

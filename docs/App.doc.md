@@ -110,38 +110,6 @@ Attaches middleware functions to the Express application.
   use(cors());
   ```
 
-### `setErrorHandler`
-
-Sets the error handler middleware for the Express application.
-
-- **Parameters:**
-
-  - `errorHandler` (...Function): The error handler middleware function(s).
-
-- **Usage:**
-  ```javascript
-  const xprz = require("xprz")
-  const { App } = new xprz();
-  const { setErrorHandler } = new App();
-  setErrorHandler(errorHandler);
-  ```
-
-### `middleware`
-
-Adds middleware function(s) to the Express application.
-
-- **Parameters:**
-
-  - `handler` (...Function): The middleware function(s) to add.
-
-- **Usage:**
-  ```javascript
-  const xprz = require("xprz")
-  const { App } = new xprz();
-  const { middleware } = new App();
-  middleware(myMiddlewareFunction);
-  ```
-
 ### `set`
 
 Sets properties on the Express application.
