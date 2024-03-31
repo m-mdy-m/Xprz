@@ -30,6 +30,10 @@ class RouteManager {
     /** @private */
     this.request = null;
     this.route = this.route.bind(this);
+    this.exportInstance = this.exportInstance.bind(this)
+  }
+  exportInstance()  { 
+    return this
   }
   /**
    * Sets the global middleware for the route manager.
@@ -49,9 +53,11 @@ class RouteManager {
     }
 
     // Set the global middleware for the route manager
+    /**@private */
     this.middleware = middleware;
 
     // Update the flag to indicate whether middleware is present
+    /**@private */
     this.hasMiddleware = this.middleware.length > 0;
 
     // Return the RouteManager instance for method chaining
@@ -329,7 +335,7 @@ class RouteManager {
           {
             get(target, prop) {
               const cxValue = target.response[prop] ?? target.request[prop];
-              console.log('prop:',prop);
+              console.log("prop:", prop);
               return cxValue;
             },
           }

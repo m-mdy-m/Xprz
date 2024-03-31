@@ -225,10 +225,10 @@ class AppManager extends App {
           `Route directory ${routeDir} does not exist.`
         );
       }
-      this.loadRoutesRecursively(routeDir, log);
+        this.loadRoutesRecursively(routeDir, log);
     } catch (error) {
       // Throw a RouteLoadingError if any error occurs
-      throw new RouteLoadingError(`Failed to load routes from directory "${routeDir}": ${error.message}`);
+      throw new RouteLoadingError(error.message);
     }
   }
   /**
@@ -247,7 +247,7 @@ class AppManager extends App {
       } else if (file.endsWith(".js")) {
         // Dynamically require the route file
         const route = $read(routePath);
-        // Check if the route is a function
+        
         // Mount the route to the application
         const app = getApp();
         try {
