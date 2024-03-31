@@ -18,7 +18,7 @@ class AppManager extends App {
     // Bind methods
     this.set = this.set.bind(this);
     this.static = this.static.bind(this);
-    this.usebodyParsing = this.usebodyParsing.bind(this);
+    this.bodyParsing = this.bodyParsing.bind(this);
     this.shutdown = this.shutdown.bind(this);
     this.setViewEngine = this.setViewEngine.bind(this);
     this.loadRoutes = this.loadRoutes.bind(this);
