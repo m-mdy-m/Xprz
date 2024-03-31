@@ -3,7 +3,7 @@
  */
 class CookieHandler {
   /**
-   * Creates an instance of getCookieHandler().
+   * Creates an instance of cookieManager().
    * @param {string} [cookie=""] - The initial cookie string.
    */
   constructor(cookie = "") {
@@ -28,8 +28,8 @@ class CookieHandler {
    * @param {string} value - The value of the cookie.
    * @param {Object} [options={}] - Additional options for the cookie (e.g., expiration).
    * @example
-   *const { getCookieHandler } = router.res();
-   * getCookieHandler().setCookie('username', 'john_doe', { expires: 3600 });
+   *const { cookieManager } = ctx.res;
+   * cookieManager().setCookie('username', 'john_doe', { expires: 3600 });
    */
   setCookie(name, value, options = {}) {
     const serializedCookie = this.serializeCookie(name, value, options);
@@ -41,8 +41,8 @@ class CookieHandler {
    * @param {string} name - The name of the cookie to retrieve.
    * @returns {string|undefined} The value of the cookie, or undefined if not found.
    * @example
-   *const { getCookieHandler } = router.res();
-   * const username = getCookieHandler().getCookie('username');
+   *const { cookieManager } = ctx.res;
+   * const username = cookieManager().getCookie('username');
    */
   getCookie(name) {
     const cookies = this.parseCookies();
@@ -52,8 +52,8 @@ class CookieHandler {
    * Retrieves all cookies as an object.
    * @returns {Object} An object containing all cookies.
    * @example
-   *const { getCookieHandler } = router.res();
-   * const allCookies = getCookieHandler().getAllCookies();
+   *const { cookieManager } = ctx.res;
+   * const allCookies = cookieManager().getAllCookies();
    */
   getAllCookies() {
     return this.parseCookies();
@@ -63,8 +63,8 @@ class CookieHandler {
    * @param {string} name - The name of the cookie to remove.
    * @param {Object} [options={}] - Additional options for the cookie (e.g., expiration).
    * @example
-   *const { getCookieHandler } = router.res();
-   * getCookieHandler().removeCookie('username');
+   *const { cookieManager } = ctx.res;
+   * cookieManager().removeCookie('username');
    */
   removeCookie(name, options = {}) {
     const cookies = this.parseCookies();
@@ -112,8 +112,8 @@ class CookieHandler {
    * @param {string} name - The name of the cookie to check.
    * @returns {boolean} True if the cookie exists, otherwise false.
    * @example
-   *const { getCookieHandler } = router.res();
-   * const isCookie = getCookieHandler().isCookie('username');
+   *const { cookieManager } = ctx.res;
+   * const isCookie = cookieManager().isCookie('username');
    */
   isCookie(name) {
     const cookies = this.parseCookies();
@@ -123,8 +123,8 @@ class CookieHandler {
   /**
    * Clears all cookies.
    * @example
-   *const { getCookieHandler } = router.res();
-   * getCookieHandler().clearAllCookies();
+   *const { cookieManager } = ctx.res;
+   * cookieManager().clearAllCookies();
    */
   clearAllCookies() {
     this.cookie = "";
@@ -133,8 +133,8 @@ class CookieHandler {
    * Gets the number of cookies.
    * @returns {number} The number of cookies.
    * @example
-   *const { getCookieHandler } = router.res();
-   * const cookieCount = getCookieHandler().countCookies();
+   *const { cookieManager } = ctx.res;
+   * const cookieCount = cookieManager().countCookies();
    */
   countCookies() {
     const cookies = this.parseCookies();

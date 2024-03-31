@@ -13,27 +13,27 @@ class ResEnhancer extends Response {
   constructor(res) {
     super(res);
     // Bind methods to ensure they have access to the correct 'this' context
-    this.getCookieHandler = this.getCookieHandler.bind(this);
-    this.getJsonHandler = this.getJsonHandler.bind(this);
+    this.cookieManager = this.cookieManager.bind(this);
+    this.jsonSender = this.jsonSender.bind(this);
   }
   /**
    * Gets an advanced cookie handler.
    * @returns {CookieHandler} Advanced cookie handler.
    * @example
-   * const cookieHandler = resEnhancer.getCookieHandler();
+   * const cookieHandler = resEnhancer.cookieManager();
    * cookieHandler.set("myCookie", "cookieValue").send();
    */
-  getCookieHandler() {
+  cookieManager() {
     return new CookieHandler(this.cookie);
   }
   /**
    * Gets an advanced JSON handler.
    * @returns {JsonHandler} Advanced JSON handler.
    * @example
-   * const jsonHandler = resEnhancer.getJsonHandler();
+   * const jsonHandler = resEnhancer.jsonSender();
    * jsonHandler.send({ message: "Success" });
    */
-  getJsonHandler() {
+  jsonSender() {
     return new JsonHandler(this.json, this.status);
   }
 }

@@ -146,9 +146,9 @@ class AppManager extends App {
    *
    * @example
    * const appManager = new App();
-   * appManager.useJsonBody();
+   * appManager.jsonBody();
    */
-  useJsonBody(status = false) {
+  jsonBody(status = false) {
     this.use(this.express.json());
     this.use(this.express.urlencoded({ extended: status }));
   }

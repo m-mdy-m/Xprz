@@ -20,8 +20,8 @@ Sets a cookie with the given name, value, and options.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  getCookieHandler().setCookie('username', 'john_doe', { expires: 3600 });
+  const { cookieManager } = ctx.res;
+  cookieManager().setCookie('username', 'john_doe', { expires: 3600 });
   ```
 
 #### `getCookie(name)`
@@ -36,8 +36,8 @@ Retrieves the value of a specific cookie by name.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  const username = getCookieHandler().getCookie('username');
+  const { cookieManager } = ctx.res;
+  const username = cookieManager().getCookie('username');
   ```
 
 #### `getAllCookies()`
@@ -49,8 +49,8 @@ Retrieves all cookies as an object.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  const allCookies = getCookieHandler().getAllCookies();
+  const { cookieManager } = ctx.res;
+  const allCookies = cookieManager().getAllCookies();
   ```
 
 #### `removeCookie(name, options)`
@@ -63,8 +63,8 @@ Removes a cookie with the given name.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  getCookieHandler().removeCookie('username');
+  const { cookieManager } = ctx.res;
+  cookieManager().removeCookie('username');
   ```
 
 #### `isCookie(name)`
@@ -79,8 +79,8 @@ Checks if a cookie with the given name exists.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  const isCookie = getCookieHandler().isCookie('username');
+  const { cookieManager } = ctx.res;
+  const isCookie = cookieManager().isCookie('username');
   ```
 
 #### `clearAllCookies()`
@@ -89,8 +89,8 @@ Clears all cookies.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  getCookieHandler().clearAllCookies();
+  const { cookieManager } = ctx.res;
+  cookieManager().clearAllCookies();
   ```
 
 #### `countCookies()`
@@ -102,6 +102,6 @@ Gets the number of cookies.
 
 - **Example:**
   ```javascript
-  const { getCookieHandler } = res;
-  const cookieCount = getCookieHandler().countCookies();
+  const { cookieManager } = ctx.res;
+  const cookieCount = cookieManager().countCookies();
   ```

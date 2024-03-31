@@ -25,7 +25,7 @@ exports.getSignupPage = ({sendFile}) => {
  */
 exports.signupUser = async (ctx) => {
   const { getBody } = ctx.req;
-  const { created, validationFailed, internalServerError } = ctx.getJsonHandler();
+  const { created, validationFailed, internalServerError } = ctx.jsonSender();
   
   try {
     // Extract user input from request body

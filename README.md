@@ -11,7 +11,6 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 - **App**: Manage your Express application's lifecycle effortlessly with the `App` class. Initialize, launch, and handle server events seamlessly.
 - **Package**: Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for essential packages like bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
 - **Route**: Efficiently organize and manage your application's routes with the `Route` class. Define routes for various HTTP methods and handle requests with ease.
-- **SharedApp**: Access and share the Express application instance across modules with the `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Utilities
 
@@ -46,7 +45,6 @@ Creates a new instance of the `AppSharedManager` class, providing access to shar
 - **Middleware Management**: Effortlessly enhance your application's functionality by attaching middleware functions with a simple API.
 - **Static File Serving**: Serve static files and directories effortlessly to handle CSS, JavaScript, images, and more.
 - **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
-- **Shared Application Instance**: Share the Express application instance across modules for easy access and configuration.
 - **$read**: Dynamically load modules or directories within your project, simplifying dependency management and resource access.
 - **$install**: Streamline package installation by automating the process of checking for package existence and installing dependencies with ease.
 
@@ -77,15 +75,12 @@ launch();
 Effortlessly enhance your application's functionality by attaching middleware functions with a simple API:
 
 ```javascript
-const Xprz = require("xprz");
-const { App } = new Xprz();
-const { use, useJsonBody } = new App();
-
+const  { use, jsonBody } = require("xprz").App();
 // Enable CORS
 use(cors());
 
 // Parse JSON and URL-encoded request bodies
-useJsonBody();
+jsonBody();
 ```
 
 ### Static File Serving
@@ -124,10 +119,6 @@ route("/api/users")
 ### Package Integration
 
 Integrate popular Node.js packages seamlessly with xprz. Enjoy out-of-the-box support for bcryptjs, bodyParser, cors, jwt, multer, nodemailer, and more.
-
-### Shared Application Instance
-
-Access and share the Express application instance across modules with xprz's `SharedApp` class. Simplify application-wide configuration and access with ease.
 
 ## Installation
 
@@ -226,18 +217,18 @@ loadRoutes("routes");
 
 ```javascript
 const Xprz = require('xprz');
-const router = Xprz.Route();
+const {expose , route,globalMiddleware} = Xprz.Route();
 const { ensureAuthenticated, verifyToken } = $read("middleware/is-auth");
 const { getHome } = $read("controller/home/home");
 
 // Apply middleware for all routes
-router.globalMiddleware([ensureAuthenticated, verifyToken]);
+globalMiddleware([ensureAuthenticated, verifyToken]);
 
 // Define routes
-router.route("/").get(({ redirect }) => redirect("/home"));
-router.route("/home").using([ensureAuthenticated, verifyToken]).get(getHome);
+route("/").get(({ redirect }) => redirect("/home"));
+route("/home").using([ensureAuthenticated, verifyToken]).get(getHome);
 
-module.exports = router;
+module.exports = expose;
 ```
 
 **Explanation:**
@@ -270,7 +261,7 @@ exports.postSignup = async (ctx) => {
     }
   };
 
-  const { created, validationFailed, internalServerError } = getJsonHandler();
+  const { created, validationFailed, internalServerError } = jsonSender();
 
   try {
     // Extract user input from request body
@@ -319,7 +310,7 @@ exports.postSignup = async (ctx) => {
 
 **Explanation:**
 - This section defines a controller function (`postSignup`) to handle user signup requests.
-- The function receives the request object (`req`) and utility functions (`getJsonHandler`, `status`) as parameters.
+- The function receives the request object (`req`) and utility functions (`jsonSender`, `status`) as parameters.
 - Validation rules for the request body are defined using the `verifyBody` function.
 - Custom error messages for validation are defined in the `options` object.
 - The request body is validated against the defined rules, and any validation errors are returned if present.

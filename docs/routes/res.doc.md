@@ -475,7 +475,7 @@ Sends HTML as the response.
   ctx.res.sendHTML("<h1>Hello, World!</h1>");
   ```
 
-#### `getCookieHandler()`
+#### `cookieManager()`
 
 Gets an advanced cookie handler.
 
@@ -484,24 +484,11 @@ Gets an advanced cookie handler.
 
 - **Example:**
   ```javascript
-  const cookieHandler = resEnhancer.getCookieHandler();
+  const cookieHandler = ctx.res.cookieManager();
   cookieHandler.set("myCookie", "cookieValue").send();
   ```
 
-#### `getHeadersHandler()`
-
-Gets an advanced headers handler.
-
-- **Returns:**
-  - `HeadersHandler`: Advanced headers handler.
-
-- **Example:**
-  ```javascript
-  const headersHandler = resEnhancer.getHeadersHandler();
-  headersHandler.set("Cache-Control", "no-cache").send();
-  ```
-
-#### `getJsonHandler()`
+#### `jsonSender()`
 
 Gets an advanced JSON handler.
 
@@ -510,6 +497,6 @@ Gets an advanced JSON handler.
 
 - **Example:**
   ```javascript
-  const jsonHandler = resEnhancer.getJsonHandler();
+  const jsonHandler = ctx.res.jsonSender();
   jsonHandler.send({ message: "Success" });
   ```

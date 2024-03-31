@@ -1,11 +1,11 @@
-### JsonHandler Class
+### jsonSender 
 
 **Description:**
 Class for handling JSON responses.
 
 #### Constructor
 
-##### `JsonHandler(json, status)`
+##### `jsonSender()`
 
 - **Parameters:**
   - `json` (function): The function used to send JSON responses.
@@ -13,7 +13,7 @@ Class for handling JSON responses.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
+  const { jsonSender } = ctx.res;
   ```
 
 #### Methods
@@ -30,8 +30,8 @@ Sends a success response with a message.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().success("Operation successful", { id: 1, name: "mahdi" });
+  const { jsonSender } = ctx.res;
+  jsonSender().success("Operation successful", { id: 1, name: "mahdi" });
   ```
 
 ##### `created(createdObject)`
@@ -46,8 +46,8 @@ Sends a response indicating that the resource was created successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().created({ id: 1, name: "Example" });
+  const { jsonSender } = ctx.res;
+  jsonSender().created({ id: 1, name: "Example" });
   ```
 
 ##### `updated(updatedObject)`
@@ -62,8 +62,8 @@ Sends a response indicating that the resource was updated successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().updated({ id: 1, name: "Updated Example" });
+  const { jsonSender } = ctx.res;
+  jsonSender().updated({ id: 1, name: "Updated Example" });
   ```
 
 ##### `validationFailed(validationErrors)`
@@ -78,8 +78,8 @@ Sends a response indicating that the operation failed due to validation errors.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().validationFailed({ field1: "Error message 1", field2: "Error message 2" });
+  const { jsonSender } = ctx.res;
+  jsonSender().validationFailed({ field1: "Error message 1", field2: "Error message 2" });
   ```
 
 ##### `deleted(deletedObject)`
@@ -94,8 +94,8 @@ Sends a response indicating that the resource was deleted successfully.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().deleted({ id: 1, name: "Deleted Resource" });
+  const { jsonSender } = ctx.res;
+  jsonSender().deleted({ id: 1, name: "Deleted Resource" });
   ```
 
 ##### `error(statusCode, message)`
@@ -111,8 +111,8 @@ Sends an error response with a status code and message.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().error(404, "Resource not found");
+  const { jsonSender } = ctx.res;
+  jsonSender().error(404, "Resource not found");
   ```
 
 ##### `downloadLink(downloadUrl)`
@@ -127,8 +127,8 @@ Sends a response with a download link.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().downloadLink("https://example.com/download");
+  const { jsonSender } = ctx.res;
+  jsonSender().downloadLink("https://example.com/download");
   ```
 
 ##### `advancedJson(data, [metadata={}])`
@@ -144,8 +144,8 @@ Sends a JSON response with metadata and additional details.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().advancedJson({ data: { id: 1, name: "Example" }, metadata: { count: 10 } });
+  const { jsonSender } = ctx.res;
+  jsonSender().advancedJson({ data: { id: 1, name: "Example" }, metadata: { count: 10 } });
   ```
 
 ##### `authRequired([message="Authentication required"])`
@@ -160,8 +160,8 @@ Sends a response indicating that the request requires authentication.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().authRequired("User authentication required");
+  const { jsonSender } = ctx.res;
+  jsonSender().authRequired("User authentication required");
   ```
 
 ##### `authzRequired([message="Authorization required"])`
@@ -176,8 +176,8 @@ Sends a response indicating that the request requires authorization.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().authzRequired("User authorization required");
+  const { jsonSender } = ctx.res;
+  jsonSender().authzRequired("User authorization required");
   ```
 
 ##### `internalServerError([message="Internal server error"])`
@@ -192,8 +192,8 @@ Sends a response indicating that the server encountered an unexpected error.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().internalServerError("Unexpected server error occurred");
+  const { jsonSender } = ctx.res;
+  jsonSender().internalServerError("Unexpected server error occurred");
   ```
 
 ##### `serviceUnavailable(message)`
@@ -208,8 +208,8 @@ Sends a response indicating that the resource is temporarily unavailable.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().serviceUnavailable("Service temporarily unavailable");
+  const { jsonSender } = ctx.res;
+  jsonSender().serviceUnavailable("Service temporarily unavailable");
   ```
 
 ##### `notFound(message)`
@@ -227,7 +227,7 @@ Sends a response indicating that the resource was not found.
   const jsonHandler = new
 
     JsonHandler();
-    getJsonHandler().notFound("Resource not found");
+    jsonSender().notFound("Resource not found");
   ```
 
 ##### `redirectResponse(redirectUrl)`
@@ -242,8 +242,8 @@ Sends a redirect response.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().redirectResponse("/new-location");
+  const { jsonSender } = ctx.res;
+  jsonSender().redirectResponse("/new-location");
   ```
 
 ##### `fileUploadSuccess(filename, fileSize)`
@@ -259,8 +259,8 @@ Sends a response for successful file upload.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().fileUploadSuccess("example.jpg", 1024);
+  const { jsonSender } = ctx.res;
+  jsonSender().fileUploadSuccess("example.jpg", 1024);
   ```
 
 ##### `badRequest([message="Bad request"])`
@@ -275,8 +275,8 @@ Sends a response for a bad request.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().badRequest("Bad request");
+  const { jsonSender } = ctx.res;
+  jsonSender().badRequest("Bad request");
   ```
 ##### `rateLimitExceeded()`
 
@@ -287,5 +287,5 @@ Sends a response indicating that the request rate limit has been exceeded.
 
 - **Example:**
   ```javascript
-  const { getJsonHandler } = ctx.res;
-  getJsonHandler().rateLimitExceeded();
+  const { jsonSender } = ctx.res;
+  jsonSender().rateLimitExceeded();
