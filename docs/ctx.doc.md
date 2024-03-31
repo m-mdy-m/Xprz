@@ -24,7 +24,7 @@ The `ctx` object encapsulates the context of a request within the application. I
 // Example of using ctx object in a route handler
 route("/example").get((ctx) => {
   ctx.send("Hello, World!");
+  //or
+  ctx.res.send("Hello World")
 });
 ```
-
-In this example, a route handler is defined for the `/example` endpoint. Within the handler function, the `ctx` object is used to access the request and response objects associated with the current request context. The `ctx.send()` method is then used to send a simple "Hello, World!" response back to the client. This demonstrates the basic usage of the `ctx` object in handling HTTP requests and responses.
