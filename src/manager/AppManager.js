@@ -244,7 +244,7 @@ class AppManager extends App {
       if (fs.statSync(routePath).isDirectory()) {
         // Recursively load routes from subdirectories
         this.loadRoutesRecursively(routePath, log);
-      } else if (file.endsWith(".js")) {
+      } else if (file.endsWith(".js"|| ".mjs" || ".cjs")) {
         // Dynamically require the route file
         const route = $read(routePath);
         // Mount the route to the application
