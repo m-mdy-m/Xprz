@@ -15,7 +15,6 @@ class ReqEnhancer extends Request {
     this.verifyBody = this.verifyBody.bind(this);
     this.getQueryParam = this.getQueryParam.bind(this);
     this.hasBodyParam = this.hasBodyParam.bind(this);
-    this.getBody = this.getBody.bind(this);
     this.hasCookie = this.hasCookie.bind(this);
     this.getCookieName = this.getCookieName.bind(this);
     this.hasHeaderIgnoreCase = this.hasHeaderIgnoreCase.bind(this);
@@ -114,18 +113,6 @@ class ReqEnhancer extends Request {
    */
   hasBodyParam(paramName) {
     return paramName in this.req.body;
-  }
-
-  /**
-   * Retrieves a specific body parameter from the request.
-   * @param {string} paramName - The name of the body parameter to retrieve.
-   * @returns {*} The value of the body parameter, or undefined if not found.
-   * @example
-   * 
-   * const paramValue = ctx.req.getBody('paramName');
-   */
-  getBody(paramName) {
-    return this.req.body[paramName];
   }
 
   /**

@@ -131,6 +131,20 @@ Retrieves the query parameters from the request.
   ```javascript
   const queryParams = getQuery();
   ```
+
+##### `getBody()`
+
+Retrieves the request body.
+
+- **Returns:**
+
+  - `object`: The request body.
+
+- **Example:**
+  ```javascript
+  const requestBody = getBody();
+  ```
+
 ##### `getHeadersReq()`
 
 Retrieves the request headers.
@@ -543,22 +557,6 @@ Checks if the request has a specific body parameter.
   const hasParam = hasBodyParam("paramName");
   ```
 
-##### `getBody(paramName)`
-
-Retrieves a specific body parameter from the request.
-
-- **Parameters:**
-
-  - `paramName` (string): The name of the body parameter to retrieve.
-
-- **Returns:**
-
-  - `*`: The value of the body parameter, or undefined if not found.
-
-- **Example:**
-  ```javascript
-  const paramValue = getBody("paramName");
-  ```
 
 ##### `hasCookie(cookieName)`
 
