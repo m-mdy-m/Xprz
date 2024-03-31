@@ -17,31 +17,31 @@ route.globalMiddleware([verifyToken]);
 route.group("/api", (r) => {
   
   // POST method for creating a resource
-  r.route("/").post((req, res) => {
+  r.route("/").post((ctx) => {
     // Logic for handling POST requests to '/api'
   });
   
   // GET method for retrieving a resource
-  r.route("/").get((req, res) => {
+  r.route("/").get((ctx) => {
     // Logic for handling GET requests to '/api'
   });
   
   // PUT method for updating a resource
-  r.route("/").put((req, res) => {
+  r.route("/").put((ctx) => {
     // Logic for handling PUT requests to '/api'
   });
   
   // DELETE method for deleting a resource
-  r.route("/").del((req, res) => {
+  r.route("/").del((ctx) => {
     // Logic for handling DELETE requests to '/api'
   });
   // POST method for creating a new resource
-  r.route("/new").post((req, res) => {
+  r.route("/new").post((ctx) => {
     // Logic for handling POST requests to '/api/new'
   });
 
   // PUT method for updating an existing resource
-  r.route("/update").put((req, res) => {
+  r.route("/update").put((ctx) => {
     // Logic for handling PUT requests to '/api/update'
   });
 });

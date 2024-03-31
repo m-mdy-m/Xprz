@@ -9,17 +9,17 @@
 const { jwt } = require("xprz").Package();
 
 // Middleware function to verify JWT token and authenticate users
-exports.verifyToken = (req, res, nxt) => {
+exports.verifyToken = (ctx, nxt) => {
   try {
     // Extract the JWT token from request cookies
-    const token = req.cookies.token;
+    const token = ctx.cookies.token;
     
     // Check if the token is present and not expired
     if (token && !jwt().isTokenExpired(token)) {
       // Token is valid, set authorization header with the token
-      req.headers.authorization = `Bearer ${token}`;
+      ctx.headers.authorization = `Bearer ${token}`;
       // Proceed with JWT authentication
-      jwt().jwtAuthenticate(process.env.JWT_SECRET)(req, res, nxt);
+      jwt().jwtAuthenticate(process.env.JWT_SECRET)(ctx.req,ctx.res, nxt);
     } else {
       // Token is missing, invalid, or expired, redirect user to login page
       return res.status(401).redirect("/auth/login");
@@ -27,6 +27,6 @@ exports.verifyToken = (req, res, nxt) => {
   } catch (error) {
     // Handle any unexpected errors
     console.error("Error in JWT token verification middleware:", error);
-    return res.status(500).send("Internal Server Error");
+    return ctx.status(500).send("Internal Server Error");
   }
 };
