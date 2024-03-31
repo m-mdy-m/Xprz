@@ -115,7 +115,7 @@ const { route } = new Route();
 const { route } = Xprz.Route();
 // Define a route
 route("/api/users")
-  .get((req, res) => {
+  .get((ctx) => {
     // Handle GET request for '/api/users'
   })
   .attachTo(app);
@@ -155,7 +155,7 @@ const { route } = new Route();
 initApp();
 
 // Define a basic route
-route("/").get((req, { send }) => {
+route("/").get(({ send }) => {
   send("Hello, xprz!");
 });
 
@@ -234,7 +234,7 @@ const { getHome } = $read("controller/home/home");
 router.globalMiddleware([ensureAuthenticated, verifyToken]);
 
 // Define routes
-router.route("/").get((req, { redirect }) => redirect("/home"));
+router.route("/").get(({ redirect }) => redirect("/home"));
 router.route("/home").using([ensureAuthenticated, verifyToken]).get(getHome);
 
 module.exports = router;
@@ -251,8 +251,8 @@ module.exports = router;
 
 ```javascript
 // Controller function to handle signup form submission
-exports.postSignup = async (req, { getJsonHandler, status }) => {
-  const { getBody, verifyBody } = req;
+exports.postSignup = async (ctx) => {
+  const { getBody, verifyBody } = ctx.req;
 
   // Define validation rules for request body
   const rules = {
@@ -305,7 +305,7 @@ exports.postSignup = async (req, { getJsonHandler, status }) => {
 
       // Generate JWT token with user information
       const token = generateAuthToken(newUser);
-      req.session.token = token;
+      ctx.session.token = token;
 
       // Send success response
       return created({ token });
