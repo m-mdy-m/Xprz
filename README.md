@@ -337,8 +337,8 @@ For detailed documentation on xprz and its various features, refer to the docume
 
 ## Bugs and Feedback
 
-If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/m-mdy-m/XprsJS).
+If you encounter any bugs or have feedback or suggestions for improvement, please open an issue on the [GitHub repository](https://github.com/m-mdy-m/Xprz).
 
 ## License
 
-xprz is licensed under the MIT License. See the [LICENSE](https://github.com/m-mdy-m/XprsJS/blob/main/LICENSE) file for details.
+xprz is licensed under the MIT License. See the [LICENSE](https://github.com/m-mdy-m/Xprz/blob/main/LICENSE) file for details.

@@ -34,7 +34,7 @@ class Validation {
    *   username: 'string',
    *   password: 'string|min:6',
    * };
-   * const errors = req.validate(req.body,validationRules);
+   * const errors = ctx.req.validate(req.body,validationRules);
    */
   validate(rules, options = {}) {
     return this._validator.validate(rules, options);
@@ -50,7 +50,7 @@ class Validation {
    *   username: 'string',
    *   password: 'string|min:6',
    * };
-   * const validationResult = request.verifyBody(validationRules);
+   * const validationResult = ctx.req.verifyBody(validationRules);
    */
   body(rules, options = {}) {
     return this._validator.validate(rules, options);
