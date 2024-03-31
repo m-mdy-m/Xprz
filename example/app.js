@@ -14,7 +14,7 @@ launch();
 
 
 // Set the view engine to 'ejs'
-// setViewEngine('ejs');
+setViewEngine('ejs');
 // Enable JSON body parsing
 bodyParsing();
 // Serve static files from the 'public' directory
