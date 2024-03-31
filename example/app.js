@@ -4,7 +4,7 @@
 const Xprz = require('xprz')
 
 // Destructure required functions from Xprz App module
-const { use, launch, loadRoutes, useJsonBody, static,initApp,listen, closeServer,setViewEngine} = Xprz.App();
+const { use, launch, loadRoutes, bodyParsing, static,initApp,listen, closeServer,setViewEngine} = Xprz.App();
 
 // Launch the server
 launch();
@@ -16,7 +16,7 @@ launch();
 // Set the view engine to 'ejs'
 setViewEngine('ejs');
 // Enable JSON body parsing
-useJsonBody();
+bodyParsing();
 // Serve static files from the 'public' directory
 static('public');
 // Example usage of middleware 'cors' using $install

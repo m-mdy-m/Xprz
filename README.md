@@ -75,12 +75,12 @@ launch();
 Effortlessly enhance your application's functionality by attaching middleware functions with a simple API:
 
 ```javascript
-const  { use, jsonBody } = require("xprz").App();
+const  { use, bodyParsing } = require("xprz").App();
 // Enable CORS
 use(cors());
 
 // Parse JSON and URL-encoded request bodies
-jsonBody();
+bodyParsing();
 ```
 
 ### Static File Serving
@@ -181,13 +181,13 @@ const Xprz = require("xprz");
 Xprz.Package().dotenv().setupDot();
 
 // Initialize components
-const { use, launch, loadRoutes, useJsonBody, static } = Xprz.App();
+const { use, launch, loadRoutes, bodyParsing, static } = Xprz.App();
 
 // Start server 
 launch();
 
 // JSON body parser
-useJsonBody();
+bodyParsing();
 
 // Serve static files from 'public' directory
 static("public");
@@ -207,7 +207,7 @@ loadRoutes("routes");
 **Explanation:**
 - This section initializes the XPRZ framework and sets up the Express application.
 - It loads environment variables using dotenv to configure the application environment.
-- The `App` component's methods like `use`, `launch`, `loadRoutes`, `useJsonBody`, and `static` are utilized to configure the Express app.
+- The `App` component's methods like `use`, `launch`, `loadRoutes`, `bodyParsing`, and `static` are utilized to configure the Express app.
 - The server is launched to start listening for incoming requests.
 - Middleware such as `cookie-parser` is installed and used.
 - Custom middleware and database setup utilities are loaded.

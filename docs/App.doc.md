@@ -142,7 +142,7 @@ Serves static files and directories with Express.
   static("public");
   ```
 
-### `useJsonBody`
+### `bodyParsing`
 
 Enables JSON and URL-encoded parsing for request bodies.
 
@@ -154,8 +154,8 @@ Enables JSON and URL-encoded parsing for request bodies.
   ```javascript
   const xprz = require("xprz")
   const { App } = new xprz();
-  const { useJsonBody } = new App();
-  useJsonBody();
+  const { bodyParsing } = new App();
+  bodyParsing();
   ```
 
 ### `shutdown`
