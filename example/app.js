@@ -20,8 +20,8 @@ bodyParsing();
 // Serve static files from the 'public' directory
 static('public');
 // Example usage of middleware 'cors' using $install
-// const cors = $install('cors');
-// use(cors());
+const cors = $install('cors');
+use(cors());
 use((ctx,nxt)=>{
     if (ctx.code === 'EBADCSRFTOKEN') {
       // CSRF token validation failed
@@ -32,9 +32,9 @@ use((ctx,nxt)=>{
     }
   })
 // Load routes from the 'routes' directory automatically
-loadRoutes('./example/routes');
+loadRoutes('routes');
 
 // Gracefully close the server
-// closeServer(() => {
-//     console.log('Server closed');
-// });
+closeServer(() => {
+    console.log('Server closed');
+});

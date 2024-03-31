@@ -7,13 +7,10 @@
 const {expose,route} = require("../../xprz").Route();
 
 // Import the 'verifyToken' middleware for authentication
-const { verifyToken } = require('../middleware/auth')
+const { verifyToken } = $read("./example/middleware/auth");
 
 // Define a route to redirect to '/home' when accessing '/'
-route("/").using([verifyToken]).get((ctx)=>{
-  ctx.send('hi')
-  console.log('hi');
-})
+route("/").using([verifyToken]).get(({redirect}) => redirect("/home"));
 
 // Define a route for accessing the '/home' endpoint with authentication middleware applied
 route("/home").using([verifyToken]).get(getHome);
