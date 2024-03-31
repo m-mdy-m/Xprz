@@ -70,13 +70,20 @@ class jwtHandler {
     try {
       // Decode the JWT token to extract expiration time
       const decoded = this.jwt.decode(token);
-      // If decoded payload or expiration time is not available, token is considered not expired
-      if (!decoded || !decoded.exp) return false;
+
+      // If decoded payload or expiration time is not available, consider token as not expired
+      if (!decoded || !decoded.exp) {
+        return false;
+      }
+
+      // Calculate current time in seconds
+      const currentTimeSeconds = Math.floor(Date.now() / 1000);
+
       // Compare current time with expiration time to determine if token is expired
-      return Date.now() >= decoded.exp * 1000;
+      return currentTimeSeconds >= decoded.exp;
     } catch (error) {
       // If an error occurs during decoding or comparison, consider token as expired
-      return false;
+      return true;
     }
   }
   /**
