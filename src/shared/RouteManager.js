@@ -309,13 +309,8 @@ class RouteManager {
    */
   registerRoute(method, handlers) {
     try {
-      // Combine middleware with route handlers
-      const routeHandlers = [
-        this.middleware,
-        this.createRequestHandler(handlers),
-      ];
       // Register the route with Express router
-      this.router[method](this.path, routeHandlers);
+      this.router[method](this.path,this.createRequestHandler(...this.middleware), this.createRequestHandler(handlers));
     } catch (error) {
       // Handle errors that occur during route registration
       throw new RouteRegistrationError(
