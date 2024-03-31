@@ -9,7 +9,7 @@ Represents a base request handler providing utility methods for handling HTTP re
 
 - **Parameters:**
 
-  - `req` (object): The Express request object.
+  - `ctx.req` (object): The Express request object.
 
 - **Example:**
   ```javascript
@@ -66,7 +66,7 @@ Validates a request object against specified rules using the vfyjs library.
   const request = { body: { username: 'example', age: 25 } };
   const rules = { username: 'string|username', age: 'number|min:18' };
   // Validate the request
-  const errors = validate(req.body, rules);
+  const errors = validate(ctx.body, rules);
   // Handle the validation result
   if (Object.keys(errors).length === 0) {
     console.log('Request is valid.');

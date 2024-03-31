@@ -9,39 +9,6 @@ RouteManager class handles route management for Express.js.
 
 ### Methods
 
-#### `res()`
-
-Returns an enhanced response object.
-
-- **Returns:**
-
-  - `Response`: Enhanced response object.
-
-- **Example:**
-  ```javascript
-  const router = new Route();
-  // Assuming 'response' is the Express response object
-  const { send } = router.res();
-  send("hello world");
-  ```
-
-#### `req()`
-
-Returns an enhanced request object.
-
-- **Returns:**
-
-  - `Request`: Enhanced request object.
-
-- **Example:**
-  ```javascript
-  const router = new Route();
-  // Assuming 'request' is the Express request object
-  const { getBody } = router.req();
-  getBody(); // Accessing request body
-  ```
-
-
 #### `attachTo(app)`
 
 Attaches the route manager to an Express app.
@@ -114,7 +81,7 @@ Defines a group of routes under a common path.
   ```javascript
   const router = new Route();
   router.group("/api", (r) => {
-    r.route("/users").get((req, { send }) => {
+    r.route("/users").get(({send}) => {
       send("GET /api/users");
     });
   });
@@ -132,10 +99,10 @@ Ends the current group of routes.
   ```javascript
   const router = new Route();
   router.group("/api", (r) => {
-    r.route("/users").get((req, { send }) => {
+    r.route("/users").get(({send}) => {
       send("GET /api/users");
     });
-  }).endGroup().get((req, { send }) => {
+  }).endGroup().get(({send}) => {
     send("GET /api");
   });
 
@@ -154,7 +121,7 @@ Registers a GET route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").get((req, { send }) => {
+  router.route("/api/users").get(({send}) => {
     send("GET /api/users");
   });
   ```
@@ -174,7 +141,7 @@ Registers a POST route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").post((req, { send }) => {
+  router.route("/api/users").post(({send}) => {
     send("POST /api/users");
   });
   ```
@@ -194,7 +161,7 @@ Registers a DELETE route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").del((req, { send }) => {
+  router.route("/api/users").del(({send}) => {
     send("DELETE /api/users");
   });
   ```
@@ -214,7 +181,7 @@ Registers a PUT route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").put((req, { send }) => {
+  router.route("/api/users").put(({send}) => {
     send("PUT /api/users");
   });
   ```
@@ -234,7 +201,7 @@ Registers a PATCH route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").patch((req, { send }) => {
+  router.route("/api/users").patch(({send}) => {
     send("PATCH /api/users");
   });
   ```
@@ -254,7 +221,7 @@ Registers an OPTIONS route.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.route("/api/users").options((req, { send }) => {
+  router.route("/api/users").options(({send}) => {
     send("OPTIONS /api/users");
   });
   ```
@@ -277,7 +244,7 @@ Sets a prefix for all routes registered using this RouteManager instance.
   router
     .route("/users")
     .prefix("/api/v1")
-    .get((req, { send }) => {
+    .get(({send}) => {
       send("GET /api/v1/users");
     });
   ```

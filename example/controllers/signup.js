@@ -14,7 +14,7 @@ const User = $read("model/User");
  * @param {Object} req - The request object.
  * @param {Function} sendFile - Function to send a file as response.
  */
-exports.getSignupPage = (req, { sendFile }) => {
+exports.getSignupPage = ({sendFile}) => {
   // Send the signup page to the client
   sendFile(path.join(process.cwd(), "/public/signup.html"));
 };
@@ -22,12 +22,10 @@ exports.getSignupPage = (req, { sendFile }) => {
 /**
  * Controller function to handle signup form submission securely.
  * This function hashes the password before storing it in the database to ensure security.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
  */
-exports.signupUser = async (req, res) => {
-  const { getBody } = req;
-  const { created, validationFailed, internalServerError } = res.getJsonHandler();
+exports.signupUser = async (ctx) => {
+  const { getBody } = ctx.req;
+  const { created, validationFailed, internalServerError } = ctx.getJsonHandler();
   
   try {
     // Extract user input from request body
@@ -42,7 +40,7 @@ exports.signupUser = async (req, res) => {
     };
     
     // Verify user input against defined rules
-    const errors = req.verifyBody(rules);
+    const errors = ctx.verifyBody(rules);
 
     // If there are validation errors, respond with failure
     if (Object.keys(errors).length > 0) {
@@ -54,7 +52,7 @@ exports.signupUser = async (req, res) => {
 
     // If user already exists, respond with conflict error
     if (existingUser) {
-      return res.status(409).json({
+      return ctx.status(409).json({
         success: false,
         error: "User already exists.",
       });
@@ -71,7 +69,7 @@ exports.signupUser = async (req, res) => {
 
       // Generate JWT token with user information
       const token = generateAuthToken(newUser);
-      req.session.token = token;
+      ctx.session.token = token;
       // Send success response
       return created({ token });
     }

@@ -12,7 +12,7 @@ Represents a base response handler providing utility methods for handling HTTP r
 
 - **Example:**
   ```javascript
-  const { /* methods **/} = res;
+  const { /* methods **/} = ctx.res;
   ```
 
 ### Methods
@@ -28,7 +28,7 @@ Writes data to the response and ends it.
 
 - **Example:**
   ```javascript
-  response.write("Hello, World!");
+  ctx.res.write("Hello, World!");
   ```
 
 #### `status(code)`
@@ -43,7 +43,7 @@ Sets the status code for the response.
 
 - **Example:**
   ```javascript
-  response.status(200).send("OK");
+  ctx.res.status(200).send("OK");
   ```
 
 #### `links(links)`
@@ -58,7 +58,7 @@ Sets links in the response header.
 
 - **Example:**
   ```javascript
-  response.links({ next: 'http://example.com/page/2' });
+  ctx.res.links({ next: 'http://example.com/page/2' });
   ```
 
 #### `send(body)`
@@ -73,7 +73,7 @@ Sends the HTTP response.
 
 - **Example:**
   ```javascript
-  response.send("Hello, World!");
+  ctx.res.send("Hello, World!");
   ```
 
 #### `json(obj)`
@@ -88,7 +88,7 @@ Sends a JSON response.
 
 - **Example:**
   ```javascript
-  response.json({ message: "Hello, World!" });
+  ctx.res.json({ message: "Hello, World!" });
   ```
 
 #### `end(any)`
@@ -100,7 +100,7 @@ Ends the response.
 
 - **Example:**
   ```javascript
-  response.end();
+  ctx.res.end();
   ```
 
 #### `jsonp(obj)`
@@ -115,7 +115,7 @@ Sends a JSONP response.
 
 - **Example:**
   ```javascript
-  response.jsonp({ message: "Hello, World!" });
+  ctx.res.jsonp({ message: "Hello, World!" });
   ```
 
 #### `setHeaders(headers)`
@@ -130,7 +130,7 @@ Sets multiple response headers.
 
 - **Example:**
   ```javascript
-  response.setHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+  ctx.res.setHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
   ```
 
 #### `setHeader(field, val)`
@@ -146,7 +146,7 @@ Sets a single response header.
 
 - **Example:**
   ```javascript
-  response.setHeader("Content-Type", "application/json");
+  ctx.res.setHeader("Content-Type", "application/json");
   ```
 
 #### `getHeader(field)`
@@ -176,7 +176,7 @@ Sends the HTTP response with the specified status code.
 
 - **Example:**
   ```javascript
-  response.sendStatus(404);
+  ctx.res.sendStatus(404);
   ```
 
 #### `sendFile(path, fn)`
@@ -192,7 +192,7 @@ Sends a file in the HTTP response.
 
 - **Example:**
   ```javascript
-  response.sendFile("/path/to/file.txt");
+  ctx.res.sendFile("/path/to/file.txt");
   ```
 
 #### `download(path, filename, callback)`
@@ -209,7 +209,7 @@ Initiates a file download in the HTTP response.
 
 - **Example:**
   ```javascript
-  response.download("/path/to/file.txt", "downloaded_file.txt", (err) => {
+  ctx.res.download("/path/to/file.txt", "downloaded_file.txt", (err) => {
     if (err) {
       console.error(err);
     } else {
@@ -230,7 +230,7 @@ Sets the content type of the response.
 
 - **Example:**
   ```javascript
-  response.contentType("text/plain");
+  ctx.res.contentType("text/plain");
   ```
 
 #### `type(type)`
@@ -245,7 +245,7 @@ Sets the content type of the response.
 
 - **Example:**
   ```javascript
-  response.type("text/html");
+  ctx.res.type("text/html");
   ```
 
 #### `format(obj)`
@@ -260,12 +260,12 @@ Formats the response according to the given object.
 
 - **Example:**
   ```javascript
-  response.format({
+  ctx.res.format({
     'text/plain': () => {
-      response.send('Hello, World!');
+      ctx.res.send('Hello, World!');
     },
     'text/html': () => {
-      response.send('<h1>Hello, World!</h1>');
+      ctx.res.send('<h1>Hello, World!</h1>');
     },
   });
   ```
@@ -282,7 +282,7 @@ Sets the attachment filename for "Content-Disposition" header.
 
 - **Example:**
   ```javascript
-  response.attachment("document.pdf");
+  ctx.res.attachment("document.pdf");
   ```
 
 #### `append(field, val)`
@@ -298,7 +298,7 @@ Appends the specified value to the HTTP response header field.
 
 - **Example:**
   ```javascript
-  response.append("Set-Cookie", "sessionId=12345");
+  ctx.res.append("Set-Cookie", "sessionId=12345");
   ```
 
 #### `set(field, val)`
@@ -316,7 +316,7 @@ Sets a single header field with the specified value.
   ```javascript
 
 
-  response.set("X-Custom-Header", "Value");
+  ctx.res.set("X-Custom-Header", "Value");
   ```
 
 #### `header(field, val)`
@@ -332,7 +332,7 @@ Sets a single header field with the specified value.
 
 - **Example:**
   ```javascript
-  response.header("X-Custom-Header", "Value");
+  ctx.res.header("X-Custom-Header", "Value");
   ```
 
 #### `get(field)`
@@ -347,7 +347,7 @@ Gets the value of the specified response header field.
 
 - **Example:**
   ```javascript
-  const contentType = response.get("Content-Type");
+  const contentType = ctx.res.get("Content-Type");
   ```
 
 #### `clearCookie(name, options)`
@@ -363,7 +363,7 @@ Clears the cookie specified by name.
 
 - **Example:**
   ```javascript
-  response.clearCookie("sessionId");
+  ctx.res.clearCookie("sessionId");
   ```
 
 #### `cookie(name, value, options)`
@@ -380,7 +380,7 @@ Sets a cookie with the specified name, value, and options.
 
 - **Example:**
   ```javascript
-  response.cookie("sessionId", "12345", { maxAge: 900000, httpOnly: true });
+  ctx.res.cookie("sessionId", "12345", { maxAge: 900000, httpOnly: true });
   ```
 
 #### `location(url)`
@@ -395,7 +395,7 @@ Sets the response Location HTTP header to the specified URL.
 
 - **Example:**
   ```javascript
-  response.location("/users");
+  ctx.res.location("/users");
   ```
 
 #### `redirect(url)`
@@ -410,7 +410,7 @@ Redirects to the specified URL.
 
 - **Example:**
   ```javascript
-  response.redirect("/login");
+  ctx.res.redirect("/login");
   ```
 
 #### `vary(field)`
@@ -425,7 +425,7 @@ Adds the given field to the Vary response header.
 
 - **Example:**
   ```javascript
-  response.vary("User-Agent");
+  ctx.res.vary("User-Agent");
   ```
 
 #### `render(view, options, callback)`
@@ -442,7 +442,7 @@ Renders a view and sends the rendered HTML string to the client.
 
 - **Example:**
   ```javascript
-  response.render("index", { title: "Home" });
+  ctx.res.render("index", { title: "Home" });
   ```
 
 #### `setContentType(type)`
@@ -457,7 +457,7 @@ Sets the Content-Type header for the response to the specified type.
 
 - **Example:**
   ```javascript
-  response.setContentType("application/json");
+  ctx.res.setContentType("application/json");
   ```
 
 #### `sendHTML(html)`
@@ -472,7 +472,7 @@ Sends HTML as the response.
 
 - **Example:**
   ```javascript
-  response.sendHTML("<h1>Hello, World!</h1>");
+  ctx.res.sendHTML("<h1>Hello, World!</h1>");
   ```
 
 #### `getCookieHandler()`

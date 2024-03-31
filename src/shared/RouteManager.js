@@ -91,6 +91,7 @@ class RouteManager {
   /**
    * Returns an enhanced response object.
    * @returns {Response} Enhanced response object.
+   * @private
    * @example
    * const router = new Route();
    * // Assuming 'response' is the Express response object
@@ -105,6 +106,7 @@ class RouteManager {
   /**
    * Returns an enhanced request object.
    * @returns {Request} Enhanced request object.
+   * @private
    * @example
    * const router = new Route();
    * // Assuming 'response' is the Express response object
@@ -338,7 +340,6 @@ class RouteManager {
           {
             get(target, prop) {
               const cxValue = target.response[prop] ?? target.request[prop];
-              console.log("prop:", prop);
               return cxValue;
             },
           }
