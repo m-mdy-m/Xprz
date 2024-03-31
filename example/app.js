@@ -1,7 +1,7 @@
 /**
  * Example setup for using the Xprz framework.
  */
-const Xprz = require('xprz')
+const Xprz = require('../xprz')
 
 // Destructure required functions from Xprz App module
 const { use, launch, loadRoutes, bodyParsing, static,initApp,listen, closeServer,setViewEngine} = Xprz.App();
@@ -14,18 +14,27 @@ launch();
 
 
 // Set the view engine to 'ejs'
-setViewEngine('ejs');
+// setViewEngine('ejs');
 // Enable JSON body parsing
 bodyParsing();
 // Serve static files from the 'public' directory
 static('public');
 // Example usage of middleware 'cors' using $install
-const cors = $install('cors');
-use(cors());
+// const cors = $install('cors');
+// use(cors());
+use((ctx,nxt)=>{
+    if (ctx.code === 'EBADCSRFTOKEN') {
+      // CSRF token validation failed
+      ctx.status(403).json({ error: 'CSRF token validation failed. Please refresh the page and try again.'  });
+    } else {
+      // Other errors
+      nxt(ctx);
+    }
+  })
 // Load routes from the 'routes' directory automatically
-loadRoutes('routes');
+loadRoutes('./example/routes');
 
 // Gracefully close the server
-closeServer(() => {
-    console.log('Server closed');
-});
+// closeServer(() => {
+//     console.log('Server closed');
+// });

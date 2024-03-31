@@ -25,6 +25,7 @@ class AppManager extends App {
     /** @private */
     this.loadRoutesRecursively = this.loadRoutesRecursively.bind(this);
   }
+  
   /**
    * Initializes the Express application.
    *

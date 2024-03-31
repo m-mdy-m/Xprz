@@ -30,12 +30,14 @@ class RouteManager {
     /** @private */
     this.request = null;
     this.route = this.route.bind(this);
+    this.globalMiddleware = this.globalMiddleware.bind(this);
+    this.group = this.group.bind(this);
   }
   /**
    * Exposes the RouteManager instance for exporting.
    * @returns {RouteManager} The RouteManager instance.
    */
-  get expose () {
+  get expose() {
     return this;
   }
   /**
@@ -65,58 +67,6 @@ class RouteManager {
 
     // Return the RouteManager instance for method chaining
     return this;
-  }
-  /**
-   * Sets the response object.
-   * @param {object} res - Express response object.
-   * @private
-   */
-  setRes(res) {
-    if (!res) {
-      throw new RouteManagerValidationError("Response object is required.");
-    }
-    this.response = res;
-  }
-  /**
-   * Sets the request object.
-   * @param {object} req - Express request object.
-   * @private
-   */
-  setReq(req) {
-    if (!req) {
-      throw new RouteManagerValidationError("Request object is required.");
-    }
-    this.request = req;
-  }
-  /**
-   * Returns an enhanced response object.
-   * @returns {Response} Enhanced response object.
-   * @private
-   * @example
-   * const router = new Route();
-   * // Assuming 'response' is the Express response object
-   * router.route("/").get(()=>{
-   *     const {  send } = router.res()
-   *     send("hello world")
-   * });
-   */
-  res() {
-    return new Response(this.response);
-  }
-  /**
-   * Returns an enhanced request object.
-   * @returns {Request} Enhanced request object.
-   * @private
-   * @example
-   * const router = new Route();
-   * // Assuming 'response' is the Express response object
-   * router.route("/").get(()=>{
-   * const {  getBody } = router.req()
-   * getBody() // Accessing request body
-   * });
-   */
-  req() {
-    return new Request(this.request);
   }
   /**
    * Attaches the route manager to an Express app.
@@ -331,16 +281,14 @@ class RouteManager {
   createRequestHandler(handlers) {
     return (req, res, next) => {
       try {
-        this.setRes(res);
-        this.setReq(req);
-        const request = { ...this.req(), ...req };
-        const response = { ...this.res(), ...res };
+        const request = { ...new Request(req), ...req };
+        const response = { ...new Response(res), ...res };
         const cx = new Proxy(
           { request, response },
           {
             get(target, prop) {
               const cxValue = target.response[prop] ?? target.request[prop];
-              return cxValue;
+              return cxValue !== undefined ? cxValue : null;
             },
           }
         );
@@ -363,7 +311,7 @@ class RouteManager {
     try {
       // Combine middleware with route handlers
       const routeHandlers = [
-        ...this.middleware,
+        this.middleware,
         this.createRequestHandler(handlers),
       ];
       // Register the route with Express router

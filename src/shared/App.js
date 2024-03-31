@@ -138,12 +138,23 @@ class App {
    * app.use(express.json());
    * app.use(cors());
    */
-  use(...handler) {
+  use(...handlers) {
     // Ensure that app is initialized before using it
     if (!this.runApp || !this.app) {
       throw new ExpressNotInitializedError();
     }
-    this.app.use(...handler);
+    this.app.use((error, req, res, nxt) => {
+      const ctx = new Proxy({ error, req, res }, {
+          get(target, prop) {
+              const cxValue = target.error[prop] || target.req[prop] || target.res[prop];
+              return cxValue !== undefined ? cxValue : null;
+          }
+      });
+      for (const handler of handlers) {
+          handler(ctx, nxt);
+          return ctx;
+      }
+  });
   }
 }
 
