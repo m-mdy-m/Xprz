@@ -30,10 +30,13 @@ class RouteManager {
     /** @private */
     this.request = null;
     this.route = this.route.bind(this);
-    this.exportInstance = this.exportInstance.bind(this)
   }
-  exportInstance()  { 
-    return this
+  /**
+   * Exposes the RouteManager instance for exporting.
+   * @returns {RouteManager} The RouteManager instance.
+   */
+  get expose () {
+    return this;
   }
   /**
    * Sets the global middleware for the route manager.

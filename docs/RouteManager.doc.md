@@ -303,4 +303,18 @@ Sets the global middleware for the route manager.
   const router = new Route();
   router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
   ```
-```
+
+#### `expose`
+
+Exposes the RouteManager instance for exporting.
+
+- **Returns:**
+
+  - `RouteManager`: The RouteManager instance.
+
+- **Example:**
+
+  ```javascript
+  const {expose} = new Route();
+  module.exports = expose
+  ```

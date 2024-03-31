@@ -247,7 +247,6 @@ class AppManager extends App {
       } else if (file.endsWith(".js")) {
         // Dynamically require the route file
         const route = $read(routePath);
-        
         // Mount the route to the application
         const app = getApp();
         try {
