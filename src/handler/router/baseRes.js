@@ -347,9 +347,7 @@ class Response {
    * response.redirect("/login");
    */
   redirect(url) {
-    this.setHeader("Location", url);
-    this.res.statusCode = 302;
-    this.res.end();
+    this.res.redirect(url)
     return this;
   }
   /**
