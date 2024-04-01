@@ -280,14 +280,13 @@ class RouteManager {
    */
   createRequestHandler(handlers) {
     return (req, res, next) => {
-      try {
         const request = { ...new Request(req), ...req };
         const response = { ...new Response(res), ...res };
         const cx = new Proxy(
           { request, response },
           {
             get(target, prop) {
-              const cxValue = target.response[prop] ?? target.request[prop];
+              const cxValue = target.response[prop] || target.request[prop] || target.response.res[prop] || target.request.req[prop];
               return cxValue !== undefined ? cxValue : null;
             },
           }
@@ -295,12 +294,6 @@ class RouteManager {
         for (const handler of handlers) {
           handler(cx, next);
         }
-      } catch (error) {
-        // Handle errors that occur within the request handler
-        throw new RouteRegistrationError(
-          `Error in request handler: ${error.message}`
-        );
-      }
     };
   }
   /**
@@ -308,15 +301,8 @@ class RouteManager {
    * @private
    */
   registerRoute(method, handlers) {
-    try {
       // Register the route with Express router
       this.router[method](this.path,this.createRequestHandler(...this.middleware), this.createRequestHandler(handlers));
-    } catch (error) {
-      // Handle errors that occur during route registration
-      throw new RouteRegistrationError(
-        `Error registering ${method.toUpperCase()} route: ${error.message}`
-      );
-    }
   }
   /**
    * Registers a method with the given method and handlers.

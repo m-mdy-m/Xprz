@@ -36,18 +36,6 @@ Creates a new instance of the `PackageManager` class, facilitating seamless inte
 
 Creates a new instance of the `RouteManager` class, enabling efficient organization and management of application routes.
 
-### `Xprz.GetUtilsApp()`
-
-Creates a new instance of the `AppSharedManager` class, providing access to shared application configurations and resources across modules.
-
-## Features
-
-- **Middleware Management**: Effortlessly enhance your application's functionality by attaching middleware functions with a simple API.
-- **Static File Serving**: Serve static files and directories effortlessly to handle CSS, JavaScript, images, and more.
-- **Package Integration**: Integrate popular Node.js packages seamlessly to extend the functionality of your application.
-- **$read**: Dynamically load modules or directories within your project, simplifying dependency management and resource access.
-- **$install**: Streamline package installation by automating the process of checking for package existence and installing dependencies with ease.
-
 ## Example Features:
 
 ### Express Application Management

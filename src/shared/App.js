@@ -147,39 +147,34 @@ class App {
     if (!this.runApp || !this.app) {
       throw new ExpressNotInitializedError();
     }
+    this.app.use(...handlers);
+  }
+  useCtx(...handlers){
+    if (!this.runApp || !this.app) {
+      throw new ExpressNotInitializedError();
+    }
     this.app.use((error, req, res, nxt) => {
+      const request = { ...new Request(req), ...req };
+      const response = { ...new Response(res), ...res };
       const ctx = new Proxy(
-        { error, req, res },
+        { error, request, response },
         {
           get(target, prop) {
             const cxValue =
-              target.error[prop] || target.req[prop] || target.res[prop];
+              target.error[prop] || target.request[prop] || target.response[prop] || target.response.res[prop] || target.request.req[prop];
             return cxValue !== undefined ? cxValue : null;
           },
         }
       );
-      // Iterate through each handler
       for (const handler of handlers) {
-        // Check if the handler is a function
-        if (typeof handler === 'function') {
-          // If it's a function, directly execute it with ctx and nxt
-          try {
-            handler(ctx, nxt);
-          } catch (err) {
-            nxt(err); // Pass any errors to the next middleware in the chain
-          }
-        } else if (typeof handler === 'object' && typeof handler.handle === 'function') {
-          try {
-            handler.handle(req, res, nxt);
-          } catch (err) {
-            nxt(err); 
-          }
-        } else {
-          throw new Error('Invalid middleware provided.');
-        }
+       try {
+         handler(ctx, nxt);
+       } catch (err) {
+         nxt(err); // Pass any errors to the next middleware in the chain
+       }
       }
       return ctx;
-    });
+    })
   }
 }
 
