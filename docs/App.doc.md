@@ -214,3 +214,20 @@ Dynamically loads and mounts routes from a specified directory.
   // Assuming 'routes' is the directory containing route files
   loadRoutes("routes");
   ```
+### `useCtx`
+
+Attaches context-based middleware functions to the Express application.
+
+- **Parameters:**
+  - `handlers` (...Function): The context-based middleware function(s) to be attached.
+
+- **Throws:**
+  - `ExpressNotInitializedError`: If the Express application is not initialized.
+
+- **Usage:**
+  ```javascript
+  const { useCtx } = require("xprz").App()
+  useCtx((ctx, nxt) => {
+     // Handle middleware logic here
+  });
+  ```

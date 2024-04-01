@@ -29,6 +29,7 @@ class App {
     this.use = this.use.bind(this);
     this.closeServer = this.closeServer.bind(this);
     this.getExpress = this.getExpress.bind(this);
+    this.useCtx = this.useCtx.bind(this)
   }
   /**
    * Returns the Express module.
@@ -149,6 +150,19 @@ class App {
     }
     this.app.use(...handlers);
   }
+  /**
+ * Attaches context-based middleware functions to the Express application.
+ * These middleware functions receive a context object containing error, request, and response properties.
+ *
+ * @param {...Function} handlers - The context-based middleware function(s) to be attached.
+ * @throws {ExpressNotInitializedError} Throws an error if the Express application is not initialized.
+ * @returns {void}
+ * @example
+ * const { useCtx } = require("xprz").App();
+ * useCtx((ctx, nxt) => {
+ *   // Handle middleware logic here
+ * });
+ */
   useCtx(...handlers){
     if (!this.runApp || !this.app) {
       throw new ExpressNotInitializedError();
@@ -170,13 +184,11 @@ class App {
        try {
          handler(ctx, nxt);
        } catch (err) {
-         nxt(err); // Pass any errors to the next middleware in the chain
+         nxt(err); 
        }
       }
       return ctx;
     })
   }
 }
-
-// Export methods bound to the AppManager instance
 module.exports = App;
