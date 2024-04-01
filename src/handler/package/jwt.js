@@ -95,20 +95,20 @@ class jwtHandler {
    * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
    */
   jwtAuthenticate(secretKey) {
-    return (req, res, nxt) => {
-      const authHeader = req.headers.authorization;
+    return (ctx, nxt) => {
+      const authHeader = ctx.headers.authorization;
       if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res
+        return ctx
           .status(401)
           .json({ error: "Unauthorized: No token provided" });
       }
       const token = authHeader.split(" ")[1];
       try {
         const decodedPayload = this.jwtVerify(token, secretKey);
-        req.user = decodedPayload;
+        ctx.user = decodedPayload;
         nxt();
       } catch (error) {
-        return res.status(401).json({ error: "Unauthorized: Invalid token" });
+        return ctx.status(401).json({ error: "Unauthorized: Invalid token" });
       }
     };
   }

@@ -225,13 +225,20 @@ class RouteManager {
           { request, response },
           {
             get(target, prop) {
-              const cxValue = target.response[prop] || target.request[prop] || target.response.res[prop] || target.request.req[prop];
-              return cxValue !== undefined ? cxValue : null;
+              return target.response[prop] || target.request[prop] || target.request.req[prop] || target.response.res[prop];
             },
+            set(target,prop,val){
+              req[prop] = val
+              return target.request[prop] = val
+            }
           }
         );
-        for (const handler of handlers) {
-          handler(cx, next);
+        if(Symbol.iterator in Object(handlers)){
+          for (const handler of handlers) {
+            handler(cx, next);
+          }
+        }else{
+          handlers(cx, next);
         }
     };
   }
