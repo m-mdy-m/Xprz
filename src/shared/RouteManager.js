@@ -14,9 +14,9 @@ class RouteManager {
   /**
    * Creates a new RouteManager instance.
    */
-  constructor() {
+  constructor(exp=getExp().Router()) {
     /** @private */
-    this.router = getExp().Router();
+    this.router = exp;
     this.method = this.method.bind(this)
     this.method()
     /**
