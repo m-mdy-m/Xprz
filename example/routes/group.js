@@ -5,7 +5,7 @@
  */
 
 // Import the Route module from Xprz
-const {route,expose,globalMiddleware} = require("../../xprz").Route();
+const {route,expose,globalMiddleware,group} = require("xprz").Route();
 
 // Import the 'verifyToken' middleware for authentication
 const { verifyToken } = $read("./example/middleware/auth");

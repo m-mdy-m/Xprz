@@ -1,10 +1,10 @@
 /**
  * Example setup for using the Xprz framework.
  */
-const Xprz = require('../xprz')
+const Xprz = require('xprz')
 
 // Destructure required functions from Xprz App module
-const { use, launch, loadRoutes, bodyParsing, static,initApp,listen, closeServer,setViewEngine} = Xprz.App();
+const { use,useCtx, launch, loadRoutes, bodyParsing, static,initApp,listen, closeServer,setViewEngine} = Xprz.App();
 
 // Launch the server
 launch();
@@ -22,7 +22,7 @@ static('public');
 // Example usage of middleware 'cors' using $install
 const cors = $install('cors');
 use(cors());
-use((ctx,nxt)=>{
+useCtx((ctx,nxt)=>{
     if (ctx.code === 'EBADCSRFTOKEN') {
       // CSRF token validation failed
       ctx.status(403).json({ error: 'CSRF token validation failed. Please refresh the page and try again.'  });
