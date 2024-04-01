@@ -17,6 +17,8 @@ class RouteManager {
   constructor() {
     /** @private */
     this.router = getExp().Router();
+    this.method = this.method.bind(this)
+    this.method()
     /**
      * Middleware functions.
      * @type {Array}
@@ -32,6 +34,23 @@ class RouteManager {
     this.route = this.route.bind(this);
     this.globalMiddleware = this.globalMiddleware.bind(this);
     this.group = this.group.bind(this);
+  }
+  static HTTP_METHODS =['get', 'post', 'delete', 'put', 'patch', 'options'];
+  /**
+   * Initializes the prototype methods for each HTTP method.
+   * @private
+   * @throws {Error} Throws an error if the HTTP method is invalid.
+   */
+  method() {
+    for (const method of RouteManager.HTTP_METHODS) {
+      if (!RouteManager.prototype.hasOwnProperty(method)) {
+        RouteManager.prototype[method] = function (...handlers) {
+          return this.registerMethod(method, ...handlers);
+        };
+      } else {
+        throw new Error(`Prototype method '${method}' already exists.`);
+      }
+    }
   }
   /**
    * Exposes the RouteManager instance for exporting.
@@ -169,87 +188,6 @@ class RouteManager {
     // Reset the path to the parent's path
     this.path = "/";
     return this;
-  }
-  /**
-   * Registers a GET route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").get((req, res) => {
-   *   res.send("GET /api/users");
-   * });
-   */
-  get(...handlers) {
-    return this.registerMethod("get", ...handlers);
-  }
-  /**
-   * Registers a POST route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").post((req, res) => {
-   *   res.send("POST /api/users");
-   * });
-   */
-  post(...handlers) {
-    return this.registerMethod("post", ...handlers);
-  }
-
-  /**
-   * Registers a DELETE route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").del((req, res) => {
-   *   res.send("DELETE /api/users");
-   * });
-   */
-  del(...handlers) {
-    return this.registerMethod("delete", ...handlers);
-  }
-
-  /**
-   * Registers a PUT route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").put((req, res) => {
-   *   res.send("PUT /api/users");
-   * });
-   */
-  put(...handlers) {
-    return this.registerMethod("put", ...handlers);
-  }
-  /**
-   * Registers a PATCH route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").patch((req, res) => {
-   *   res.send("PATCH /api/users");
-   * });
-   */
-  patch(...handlers) {
-    return this.registerMethod("patch", ...handlers);
-  }
-
-  /**
-   * Registers an OPTIONS route.
-   * @param {...function} handlers - Route handler functions.
-   * @returns {RouteManager} The RouteManager instance.
-   * @example
-   * const router = new Route()
-   * router.route("/api/users").options((req, res) => {
-   *   res.send("OPTIONS /api/users");
-   * });
-   */
-  options(...handlers) {
-    return this.registerMethod("options", ...handlers);
   }
   /**
    * Sets a prefix for all routes registered using this RouteManager instance.
