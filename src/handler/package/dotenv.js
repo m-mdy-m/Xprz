@@ -12,6 +12,7 @@ class Dotenv {
     this.setupDot = this.setupDot.bind(this);
     /** @private */
     this.getDot = this.getDot.bind(this);
+    this.setupDot()
   }
   /**
    * Get the underlying dotenv instance.
