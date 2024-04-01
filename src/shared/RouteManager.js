@@ -43,14 +43,10 @@ class RouteManager {
    */
   method() {
     for (const method of RouteManager.HTTP_METHODS) {
-      if (!RouteManager.prototype.hasOwnProperty(method)) {
-        const methodName = method === 'delete' ? 'del' : method;
-        RouteManager.prototype[methodName] = function (...handlers) {
-          return this.registerMethod(method, ...handlers);
-        };
-      } else {
-        throw new Error(`Prototype method '${method}' already exists.`);
-      }
+      const methodName = method === 'delete' ? 'del' : method;
+      RouteManager.prototype[methodName] = function (...handlers) {
+        return this.registerMethod(method, ...handlers);
+      };
     }
   }
   /**

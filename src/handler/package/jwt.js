@@ -45,7 +45,7 @@ class jwtManager {
    * @example
    * const decoded = jwtHandler.verifyToken(token, 'secret');
    */
-  verifyToken(token, secretKey,options ) {
+  verifyToken(token, secretKey ) {
     if (!token || !secretKey) {
       throw new Error(
         "Token and secret key are required for JWT verification."
@@ -104,7 +104,7 @@ class jwtManager {
       }
       const token = authHeader.split(" ")[1];
       try {
-        const decodedPayload = this.jwtVerify(token, secretKey);
+        const decodedPayload = this.verifyToken(token, secretKey);
         ctx.user = decodedPayload;
         nxt();
       } catch (error) {
@@ -166,10 +166,10 @@ class jwtManager {
 
     try {
       // Verify the integrity and validity of the expired token
-      const decodedPayload = this.jwt.verify(expiredToken, secretKey);
+      const decodedPayload = this.verifyToken(expiredToken, secretKey);
 
       // Sign a new token with the decoded payload and provided options
-      return this.jwt.sign(decodedPayload, secretKey, options);
+      return this.signToken(decodedPayload, secretKey, options);
     } catch (error) {
       throw new Error("Failed to refresh JWT token: " + error.message);
     }

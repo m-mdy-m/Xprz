@@ -236,7 +236,7 @@ class App {
    * app.static('public');
    */
   static(...handlers) {
-    this.use(this.express.static(path.resolve(process.cwd(), ...handlers)));
+    this.use(this.getExpress().static(path.resolve(process.cwd(), ...handlers)));
   }
 
   /**
@@ -249,8 +249,8 @@ class App {
    * app.bodyParsing();
    */
   bodyParsing(status = false) {
-    this.use(this.express.json());
-    this.use(this.express.urlencoded({ extended: status }));
+    this.use(this.getExpress().json());
+    this.use(this.getExpress().urlencoded({ extended: status }));
   }
 
   /**
