@@ -142,30 +142,37 @@ class jwtManager {
     };
   }
   /**
-   * Middleware for refreshing JWT tokens upon expiration.
-   * This middleware automatically refreshes JWT tokens by issuing a new token with extended validity.
-   * @param {string} secretKey - The secret key used for signing the JWT.
-   * @param {number} [refreshThreshold=300] - The time threshold in seconds before the token expiration to trigger refresh.
-   * @returns {Function} A middleware function for refreshing JWT tokens.
+   * Refreshes an expired JWT token with a new one.
+   * @param {string} expiredToken - The expired JWT token to be refreshed.
+   * @param {string} secretKey - The secret key used for signing the new JWT token.
+   * @param {Object} [options={}] - Additional options for signing the new JWT token.
+   * @returns {string} The new JWT token.
+   * @throws {Error} If the expired token or secret key is missing, or if token verification fails.
    * @example
-   * // Apply JWT token refresh middleware
-   * app.use(jwtManager.refreshToken('your_secret_key', 300));
+   * // Example usage:
+   * const expiredToken = 'your_token';
+   * const secretKey = 'secret_key';
+   * const options = { expiresIn: '1h' };
+   * const newToken = refreshToken(expiredToken, secretKey, options);
+   * console.log('New JWT Token:', newToken);
    */
-  refreshToken(secretKey, refreshThreshold = 300) {
-    return (cx, nxt) => {
-      const { user } = cx;
+  refreshToken(expiredToken, secretKey, options = {}) {
+    // Check if expired token and secret key are provided
+    if (!expiredToken || !secretKey) {
+      throw new Error(
+        "Both expired token and secret key are required for refreshing JWT."
+      );
+    }
 
-      // Check if user is authenticated and token is close to expiration
-      if (user && user.exp && user.exp - Date.now() / 1000 < refreshThreshold) {
-        // Generate a new token with extended validity
-        const newToken = this.signToken(user, secretKey);
+    try {
+      // Verify the integrity and validity of the expired token
+      const decodedPayload = this.jwt.verify(expiredToken, secretKey);
 
-        // Send the new token in the response headers
-        cx.set('Authorization', `Bearer ${newToken}`);
-      }
-
-      nxt();
-    };
+      // Sign a new token with the decoded payload and provided options
+      return this.jwt.sign(decodedPayload, secretKey, options);
+    } catch (error) {
+      throw new Error("Failed to refresh JWT token: " + error.message);
+    }
   }
 }
 
