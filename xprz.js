@@ -1,5 +1,5 @@
 // Import necessary modules
-const AppManager = require("./src/manager/AppManager");
+const App = require("./src/shared/App");
 const PackageManager = require("./src/manager/PackageManager");
 const RouteManager = require("./src/shared/RouteManager");
 const $read = require("./src/utils/read");
@@ -45,19 +45,19 @@ class Xprz {
    */
   constructor() {
     // Initialize managers
-    this.App = AppManager;
+    this.App = App;
     this.Package = PackageManager;
 
     // Expose route manager
     this.Route = RouteManager;
   }
   /**
-   * Retrieve a new instance of the AppManager.
+   * Retrieve a new instance of the App.
    * @static
-   * @returns {AppManager} A new instance of the AppManager.
+   * @returns {App} A new instance of the App.
    */
   static App() {
-    return new AppManager();
+    return new App();
   }
 
   /**

@@ -17,7 +17,6 @@ function initSession() {
 }
 /**
  * PackageManager class for managing various packages and middleware in an Express application.
- * @extends AppManager
  */
 class PackageManager {
   constructor() {}
