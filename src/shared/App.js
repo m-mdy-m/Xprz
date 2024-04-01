@@ -9,7 +9,6 @@ const {
   ServerAlreadyRunningError,
   ServerNotRunningError,
 } = require("../Errors/App.error");
-const RouteManager = require("./RouteManager");
 
 // Set the Express module using the shared utility function
 setExp(express);
@@ -26,7 +25,6 @@ class App {
     this.runApp = false; // Flag indicating if the application is running
     /** @private */
     this.server = null; // Server instance
-    
     this.initApp = this.initApp.bind(this);
     this.launch = this.launch.bind(this);
     this.listen = this.listen.bind(this);
@@ -66,7 +64,6 @@ class App {
   initApp() {
     this.app = express();
     setApp(this.app);
-    new RouteManager(this.app)
     this.runApp = true;
     return this.app;
   }
