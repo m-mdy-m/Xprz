@@ -15,11 +15,11 @@ exports.verifyToken = (ctx, nxt) => {
     const token = ctx.cookies.token;
     
     // Check if the token is present and not expired
-    if (token && !jwt().isTokenExpired(token)) {
+    if (token && !jwt().isExpired(token)) {
       // Token is valid, set authorization header with the token
       ctx.headers.authorization = `Bearer ${token}`;
       // Proceed with JWT authentication
-      jwt().jwtAuthenticate(process.env.JWT_SECRET)(ctx.req,ctx.res, nxt);
+      jwt().authenticate(process.env.JWT_SECRET)(ctx.req,ctx.res, nxt);
     } else {
       // Token is missing, invalid, or expired, redirect user to login page
       return ctx.status(401).redirect("/auth/login");

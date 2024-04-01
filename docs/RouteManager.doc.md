@@ -28,7 +28,7 @@ Attaches the route manager to an Express app.
   router.attachTo(app);
   ```
 
-#### `using(middleware)`
+#### `mid(middleware)`
 
 Registers middleware for the route manager.
 
@@ -43,7 +43,7 @@ Registers middleware for the route manager.
 - **Example:**
   ```javascript
   const router = new Route();
-  router.using(middlewareFunction); // or using([middleware function])
+  router.mid(middlewareFunction); // or using([middleware function])
   ```
 
 #### `route(path)`
@@ -248,7 +248,7 @@ Sets a prefix for all routes registered using this RouteManager instance.
       send("GET /api/v1/users");
     });
   ```
-#### `globalMiddleware(middleware)`
+#### `mids(middleware)`
 
 Sets the global middleware for the route manager.
 
@@ -268,7 +268,7 @@ Sets the global middleware for the route manager.
 
   ```javascript
   const router = new Route();
-  router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
+  router.mids([middlewareFunction1, middlewareFunction2]);
   ```
 
 #### `expose`

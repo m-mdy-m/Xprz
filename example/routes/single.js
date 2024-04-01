@@ -10,10 +10,10 @@ const {expose,route} = require("xprz").Route();
 const { verifyToken } = $read("./example/middleware/auth");
 
 // Define a route to redirect to '/home' when accessing '/'
-route("/").using([verifyToken]).get(({redirect}) => redirect("/home"));
+route("/").mid([verifyToken]).get(({redirect}) => redirect("/home"));
 
 // Define a route for accessing the '/home' endpoint with authentication middleware applied
-route("/home").using([verifyToken]).get(getHome);
+route("/home").mid([verifyToken]).get(getHome);
 
 // Define the getHome handler function to be executed when accessing '/home'
 function getHome(ctx) {

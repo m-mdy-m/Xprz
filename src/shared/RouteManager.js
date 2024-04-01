@@ -32,7 +32,7 @@ class RouteManager {
     /** @private */
     this.request = null;
     this.route = this.route.bind(this);
-    this.globalMiddleware = this.globalMiddleware.bind(this);
+    this.mids = this.mids.bind(this);
     this.group = this.group.bind(this);
   }
   static HTTP_METHODS =['get', 'post', 'delete', 'put', 'patch', 'options'];
@@ -63,9 +63,9 @@ class RouteManager {
    * @throws {RouteManagerValidationError} Throws an error if middleware is not provided as an array.
    * @example
    * const router = new Route();
-   * router.globalMiddleware([middlewareFunction1, middlewareFunction2]);
+   * router.mids([middlewareFunction1, middlewareFunction2]);
    */
-  globalMiddleware(middleware) {
+  mids(middleware) {
     // Check if middleware is provided and is an array
     if (!middleware || !Array.isArray(middleware)) {
       throw new RouteManagerValidationError(
@@ -105,9 +105,9 @@ class RouteManager {
    * @returns {RouteManager} The RouteManager instance.
    * @example
    * const router = new Route()
-   * router.using(middlewareFunction);
+   * router.mid(middlewareFunction);
    */
-  using(middleware) {
+  mid(middleware) {
     // Add middleware to the list
     this.middleware.push(middleware);
     // Check if middleware is present
@@ -161,7 +161,7 @@ class RouteManager {
     // Create a new RouteManager instance
     const subRouter = new RouteManager();
     // Assign global middleware from the parent router to the sub-router
-    subRouter.globalMiddleware([...this.middleware]);
+    subRouter.mids([...this.middleware]);
     // Define routes within the callback function
     callback(subRouter);
     // Mount the sub-route manager on the main route
@@ -187,7 +187,7 @@ class RouteManager {
     return this;
   }
   /**
-   * Sets a prefix for all routes registered using this RouteManager instance.
+   * Sets a prefix for all routes registered mid this RouteManager instance.
    * @param {string} prefixPath - The prefix path for the routes.
    * @returns {RouteManager} The RouteManager instance.
    * @example
