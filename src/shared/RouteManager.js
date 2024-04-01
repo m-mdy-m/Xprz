@@ -44,7 +44,8 @@ class RouteManager {
   method() {
     for (const method of RouteManager.HTTP_METHODS) {
       if (!RouteManager.prototype.hasOwnProperty(method)) {
-        RouteManager.prototype[method] = function (...handlers) {
+        const methodName = method === 'delete' ? 'del' : method;
+        RouteManager.prototype[methodName] = function (...handlers) {
           return this.registerMethod(method, ...handlers);
         };
       } else {
