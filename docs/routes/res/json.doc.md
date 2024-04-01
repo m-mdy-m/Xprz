@@ -289,3 +289,19 @@ Sends a response indicating that the request rate limit has been exceeded.
   ```javascript
   const { jsonSender } = ctx.res;
   jsonSender().rateLimitExceeded();
+
+##### `forbidden([message="Forbidden"])`
+
+Sends a response indicating that access to the resource is forbidden.
+
+- **Parameters:**
+  - `message` (string, optional): The error message. Defaults to "Forbidden".
+
+- **Returns:**
+  - `Object`: The JSON response.
+
+- **Example:**
+  ```javascript
+  const { jsonSender } = ctx.res;
+  jsonSender().forbidden("You don't have permission to access this resource");
+  ```

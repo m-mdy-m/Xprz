@@ -88,7 +88,7 @@ class JsonHandler {
    * @param {Object} [data={}] - Additional data to be included in the response.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.success("Operation successful", { id: 1, name: "John" });
    */
   success(message = JsonHandler.MESSAGES.SUCCESS, data = {}) {
@@ -103,7 +103,7 @@ class JsonHandler {
    * @param {Object} createdObject - The created object.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.created({ id: 1, name: "Example" });
    */
   created(createdObject) {
@@ -118,7 +118,7 @@ class JsonHandler {
    * @param {Object} updatedObject - The updated object.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.updated({ id: 1, name: "Updated Example" });
    */
   updated(updatedObject) {
@@ -133,7 +133,7 @@ class JsonHandler {
    * @param {Object} validationErrors - The validation errors object.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.validationFailed({ field1: "Error message 1", field2: "Error message 2" });
    */
   validationFailed(validationErrors) {
@@ -148,7 +148,7 @@ class JsonHandler {
    * @param {Object} deletedObject - The deleted object.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.deleted({ id: 1, name: "Deleted Resource" });
    */
   deleted(deletedObject) {
@@ -164,7 +164,7 @@ class JsonHandler {
    * @param {string} message - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.error(404, "Resource not found");
    */
   error(statusCode, message) {
@@ -176,7 +176,7 @@ class JsonHandler {
    * @param {string} downloadUrl - The URL for downloading.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.downloadLink("https://example.com/download");
    */
   downloadLink(downloadUrl) {
@@ -189,7 +189,7 @@ class JsonHandler {
    * @param {Object} [metadata={}] - Additional metadata.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.advancedJson({ data: { id: 1, name: "Example" }, metadata: { count: 10 } });
    */
   advancedJson(data, metadata = {}) {
@@ -201,7 +201,7 @@ class JsonHandler {
    * @param {string} [message="Authentication required"] - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.authRequired("User authentication required");
    */
   authRequired(message = "Authentication required") {
@@ -213,7 +213,7 @@ class JsonHandler {
    * @param {string} [message="Authorization required"] - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.authzRequired("User authorization required");
    */
   authzRequired(message = "Authorization required") {
@@ -225,7 +225,7 @@ class JsonHandler {
    * @param {string} [message="Internal server error"] - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.internalServerError("Unexpected server error occurred");
    */
   internalServerError(message = "Internal server error") {
@@ -237,7 +237,7 @@ class JsonHandler {
    * @param {string} message - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.serviceUnavailable("Service temporarily unavailable");
    */
   serviceUnavailable(message = "Service temporarily unavailable") {
@@ -249,7 +249,7 @@ class JsonHandler {
    * @param {string} message - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.notFound("Resource not found");
    */
   notFound(message = "Resource not found") {
@@ -260,7 +260,7 @@ class JsonHandler {
    * @param {string} redirectUrl - The URL to redirect to.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.redirectResponse("/new-location");
    */
   redirectResponse(redirectUrl) {
@@ -276,7 +276,7 @@ class JsonHandler {
    * @param {number} fileSize - The size of the uploaded file.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.fileUploadSuccess("example.jpg", 1024);
    */
   fileUploadSuccess(filename, fileSize) {
@@ -292,7 +292,7 @@ class JsonHandler {
    * @param {string} message - The error message.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.badRequest("Bad request");
    */
   badRequest(message = "Bad request") {
@@ -302,7 +302,7 @@ class JsonHandler {
    * Sends a response indicating that the request rate limit has been exceeded.
    * @returns {Object} The JSON response.
    * @example
-   * const jsonHandler = new JsonHandler();
+   * const jsonHandler = json.sender();
    * jsonHandler.rateLimitExceeded();
    */
   rateLimitExceeded() {
@@ -310,6 +310,17 @@ class JsonHandler {
       success: false,
       error: JsonHandler.MESSAGES.RATE_LIMIT_EXCEEDED,
     });
+  }
+  /**
+   * Sends a response indicating that access to the resource is forbidden.
+   * @param {string} [message="Forbidden"] - The error message.
+   * @returns {Object} The JSON response.
+   * @example
+   * const jsonHandler = json.sender();
+   * jsonHandler.forbidden("You don't have permission to access this resource");
+   */
+  forbidden(message = "Forbidden") {
+    return this.status(JsonHandler.HTTP_STATUS.FORBIDDEN).json({ success: false, error: message });
   }
 }
 module.exports = JsonHandler;
