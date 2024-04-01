@@ -45,7 +45,7 @@ class jwtManager {
    * @example
    * const decoded = jwtHandler.verifyToken(token, 'secret');
    */
-  verifyToken(token, secretKey) {
+  verifyToken(token, secretKey,options ) {
     if (!token || !secretKey) {
       throw new Error(
         "Token and secret key are required for JWT verification."
@@ -152,7 +152,7 @@ class jwtManager {
    * // Example usage:
    * const expiredToken = 'your_token';
    * const secretKey = 'secret_key';
-   * const options = { expiresIn: '1h' };
+   * const options = { expiresIn: '1d' };
    * const newToken = refreshToken(expiredToken, secretKey, options);
    * console.log('New JWT Token:', newToken);
    */

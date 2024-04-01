@@ -131,7 +131,7 @@ Refreshes an expired JWT token with a new one.
   ```javascript
   const expiredToken = 'your_token';
   const secretKey = 'secret_key';
-  const options = { expiresIn: '1h' };
+  const options = { expiresIn: '1d' };
   const newToken = jwt().refreshToken(expiredToken, secretKey, options);
   console.log('New JWT Token:', newToken);
   ```
