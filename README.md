@@ -16,10 +16,6 @@ Xprz provides a wide range of functionalities to simplify and enhance your Node.
 
 - **$read**: Dynamically load files or folders within a Node.js environment with ease using the `$read` utility function. Simplify the process of managing dependencies and accessing resources effortlessly.
 
-- **$install**: Simplify package installation in your Node.js applications with the `$install` utility function provided by Xprz. Automate the process of checking for package existence and installing dependencies seamlessly.
-
-Sure, here's how you can describe the static methods of the `Xprz` class using markdown:
-
 ## Static Methods
 
 Xprz provides the following static methods for convenient instantiation of various components:
@@ -45,7 +41,7 @@ Simplify the management of your Express application's lifecycle with xprz's intu
 ```javascript
 const Xprz = require("xprz");
 const { App } = new Xprz();
-const { initApp, listen, launch } = new App();
+const { initApp, listen, launch } = App();
 // or
 const { initApp, listen, launch } = Xprz.App();
 
@@ -78,7 +74,7 @@ Serve static files and directories with ease:
 ```javascript
 const Xprz = require("xprz");
 const { App } = new Xprz();
-const { static } = new App();
+const { static } = App();
 // or
 const { static } = Xprz.App();
 
@@ -93,7 +89,7 @@ Efficiently organize and manage your application's routes with the `Route` class
 ```javascript
 const Xprz = require("xprz");
 const { Route } = new Xprz();
-const { route } = new Route();
+const { route } = Route();
 // or
 const { route } = Xprz.Route();
 // Define a route
@@ -127,7 +123,7 @@ Get started with xprz by initializing the components you need and configuring th
 ```javascript
 const Xprz = require("xprz");
 const { App, Route } = new Xprz();
-const { initApp, listen } = new App();
+const { initApp, listen } = App();
 const { route } = new Route();
 
 // Initialize Express application
@@ -152,14 +148,6 @@ const myFolder = $read("./myFolder");
 console.log(myFolder); // Outputs an object containing all modules within the folder
 ```
 
-### $install
-
-```javascript
-const installedPackage = $install("example-package");
-```
-
-Sure, let's break down the provided examples:
-
 ### Example Init APP:
 
 ```javascript
@@ -179,10 +167,6 @@ bodyParsing();
 
 // Serve static files from 'public' directory
 static("public");
-
-// Install and use cookie-parser middleware
-const cookieParser = $install("cookie-parser");
-use(cookieParser());
 
 // Load middleware and database setup utilities
 $read("middleware/setup");
@@ -205,16 +189,16 @@ loadRoutes("routes");
 
 ```javascript
 const Xprz = require('xprz');
-const {expose , route,globalMiddleware} = Xprz.Route();
+const {expose , route,mids} = Xprz.Route();
 const { ensureAuthenticated, verifyToken } = $read("middleware/is-auth");
 const { getHome } = $read("controller/home/home");
 
 // Apply middleware for all routes
-globalMiddleware([ensureAuthenticated, verifyToken]);
+mids([ensureAuthenticated, verifyToken]);
 
 // Define routes
 route("/").get(({ redirect }) => redirect("/home"));
-route("/home").using([ensureAuthenticated, verifyToken]).get(getHome);
+route("/home").mid([ensureAuthenticated, verifyToken]).get(getHome);
 
 module.exports = expose;
 ```
@@ -222,7 +206,7 @@ module.exports = expose;
 **Explanation:**
 - This section defines a router using the `Route` component provided by XPRZ.
 - Middleware functions for authentication (`ensureAuthenticated` and `verifyToken`) are imported using the `$read` utility function.
-- The `globalMiddleware` method is used to apply middleware for all routes.
+- The `mids` method is used to apply middleware for all routes.
 - Route handlers are defined for the root path ("/") and "/home" path.
 - The `getHome` function from the home controller is used as a route handler for the "/home" route.
 

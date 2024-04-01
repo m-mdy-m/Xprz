@@ -79,7 +79,7 @@ class Xprz {
   }
 }
 
-// Expose $install and $read globally
+// Expose $read globally
 /** @global */
 global.$read  = $read
 globalThis.$read = $read;
