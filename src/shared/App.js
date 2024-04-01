@@ -1,5 +1,4 @@
 const express = require("express");
-const { getApp } = require("../shareApp");
 const { setApp, setExp } = require("../shareApp");
 const { ShutdownError, RouteLoadingError } = require("../Errors/App.error");
 const fs = require("fs");
@@ -339,7 +338,7 @@ class App {
         // Dynamically require the route file
         const route = $read(routePath);
         // Mount the route to the application
-        const app = getApp();
+        const app = this.app;
         try {
           route.attachTo(app);
         } catch (error) {
