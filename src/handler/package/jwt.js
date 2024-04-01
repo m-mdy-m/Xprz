@@ -113,36 +113,60 @@ class jwtManager {
     };
   }
   /**
- * Middleware for user authorization based on roles/permissions.
- * This middleware ensures that only users with specific roles are granted access to routes.
- * @param {Array<string>} allowedRoles - The roles allowed to access the route.
- * @returns {Function} A middleware function that checks if the user has the required role.
- *                     If the user has the required role, the next middleware function is called.
- *                     Otherwise, a 403 Forbidden response is sent.
- * @example
- * // Assuming 'app' is an instance of the 'App' class
- * // Protect a route with authorization for admin role
- * app.get('/admin/dashboard', authorizeUser(['admin']), (req, res) => {
- *   res.json({ message: 'Admin dashboard' });
- * });
- */
-authorizeUser(allowedRoles) {
-  return (cx, nxt) => {
-    const { user } = cx.request;
+   * Middleware for user authorization based on roles/permissions.
+   * This middleware ensures that only users with specific roles are granted access to routes.
+   * @param {Array<string>} allowedRoles - The roles allowed to access the route.
+   * @returns {Function} A middleware function that checks if the user has the required role.
+   *                     If the user has the required role, the next middleware function is called.
+   *                     Otherwise, a 403 Forbidden response is sent.
+   * @example
+   * // Assuming 'app' is an instance of the 'App' class
+   * // Protect a route with authorization for admin role
+   * app.get('/admin/dashboard', authorizeUser(['admin']), (req, res) => {
+   *   res.json({ message: 'Admin dashboard' });
+   * });
+   */
+  authorizeUser(allowedRoles) {
+    return (cx, nxt) => {
+      const { user } = cx.request;
 
-    // Check if user is authenticated and has the required role
-    if (!user || !user.role || !allowedRoles.includes(user.role)) {
-      // Send a 401 Unauthorized response if user is not authorized
-      return cx.response
-        .status(401)
-        .json({
+      // Check if user is authenticated and has the required role
+      if (!user || !user.role || !allowedRoles.includes(user.role)) {
+        // Send a 401 Unauthorized response if user is not authorized
+        return cx.response.status(401).json({
           error: "Oops! You don't have permission to access this resource.",
         });
-    }
+      }
 
-    nxt();
-  };
-}
+      nxt();
+    };
+  }
+  /**
+   * Middleware for refreshing JWT tokens upon expiration.
+   * This middleware automatically refreshes JWT tokens by issuing a new token with extended validity.
+   * @param {string} secretKey - The secret key used for signing the JWT.
+   * @param {number} [refreshThreshold=300] - The time threshold in seconds before the token expiration to trigger refresh.
+   * @returns {Function} A middleware function for refreshing JWT tokens.
+   * @example
+   * // Apply JWT token refresh middleware
+   * app.use(jwtManager.refreshToken('your_secret_key', 300));
+   */
+  refreshToken(secretKey, refreshThreshold = 300) {
+    return (cx, nxt) => {
+      const { user } = cx;
+
+      // Check if user is authenticated and token is close to expiration
+      if (user && user.exp && user.exp - Date.now() / 1000 < refreshThreshold) {
+        // Generate a new token with extended validity
+        const newToken = this.signToken(user, secretKey);
+
+        // Send the new token in the response headers
+        cx.set('Authorization', `Bearer ${newToken}`);
+      }
+
+      nxt();
+    };
+  }
 }
 
 module.exports = jwtManager;
