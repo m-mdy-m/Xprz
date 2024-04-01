@@ -32,7 +32,7 @@ class App {
     this.use = this.use.bind(this);
     this.closeServer = this.closeServer.bind(this);
     this.getExpress = this.getExpress.bind(this);
-    this.useCtx = this.useCtx.bind(this)
+    this.useCtx = this.useCtx.bind(this);
     this.set = this.set.bind(this);
     this.static = this.static.bind(this);
     this.bodyParsing = this.bodyParsing.bind(this);
@@ -162,44 +162,55 @@ class App {
     this.app.use(...handlers);
   }
   /**
- * Attaches context-based middleware functions to the Express application.
- * These middleware functions receive a context object containing error, request, and response properties.
- *
- * @param {...Function} handlers - The context-based middleware function(s) to be attached.
- * @throws {ExpressNotInitializedError} Throws an error if the Express application is not initialized.
- * @returns {void}
- * @example
- * const { useCtx } = require("xprz").App();
- * useCtx((ctx, nxt) => {
- *   // Handle middleware logic here
- * });
- */
-  useCtx(...handlers){
+   * Attaches context-based middleware functions to the Express application.
+   * These middleware functions receive a context object containing error, request, and response properties.
+   *
+   * @param {...Function} handlers - The context-based middleware function(s) to be attached.
+   * @throws {ExpressNotInitializedError} Throws an error if the Express application is not initialized.
+   * @returns {void}
+   * @example
+   * const { useCtx } = require("xprz").App();
+   * useCtx((ctx, nxt) => {
+   *   // Handle middleware logic here
+   * });
+   */
+  useCtx(...handlers) {
     if (!this.runApp || !this.app) {
       throw new ExpressNotInitializedError();
     }
     this.app.use((error, req, res, nxt) => {
       const request = { ...new Request(req), ...req };
       const response = { ...new Response(res), ...res };
-      const ctx = new Proxy(
+      const cx = new Proxy(
         { error, request, response },
         {
           get(target, prop) {
             const cxValue =
-              target.error[prop] || target.request[prop] || target.response[prop] || target.response.res[prop] || target.request.req[prop];
+              target.error[prop] ||
+              target.request[prop] ||
+              target.response[prop] ||
+              target.response.res[prop] ||
+              target.request.req[prop];
             return cxValue !== undefined ? cxValue : null;
+          },
+          set(target, prop, val) {
+            req[prop] = val;
+            return (target.request[prop] = val);
           },
         }
       );
-      for (const handler of handlers) {
-       try {
-         handler(ctx, nxt);
-       } catch (err) {
-         nxt(err); 
-       }
+      try {
+        if (Symbol.iterator in Object(handlers)) {
+          for (const handler of handlers) {
+            handler(cx, nxt);
+          }
+        } else {
+          handlers(cx, nxt);
+        }
+      } catch (error) {
+        nxt(error);
       }
-      return ctx;
-    })
+    });
   }
   /**
    * Sets properties on the Express application.
@@ -270,7 +281,7 @@ class App {
     });
   }
 
-   /**
+  /**
    * Methods for interacting with setViewEngine instances.
    * @typedef {Object} setViewEngine
    * @property {Function} ejs - Function to configure EJS template engine.
@@ -280,10 +291,10 @@ class App {
    * @example
    * // Configure EJS template engine
    * setViewEngine('ejs');
-   * 
+   *
    * // Configure Handlebars template engine
    * setViewEngine('hbs');
-   * 
+   *
    * // Configure Pug template engine
    * setViewEngine('pug');
    */
@@ -315,7 +326,7 @@ class App {
           `Route directory ${routeDir} does not exist.`
         );
       }
-        this.loadRoutesRecursively(routeDir, log);
+      this.loadRoutesRecursively(routeDir, log);
     } catch (error) {
       // Throw a RouteLoadingError if any error occurs
       throw new RouteLoadingError(error.message);
@@ -334,7 +345,7 @@ class App {
       if (fs.statSync(routePath).isDirectory()) {
         // Recursively load routes from subdirectories
         this.loadRoutesRecursively(routePath, log);
-      } else if (file.endsWith(".js"|| ".mjs" || ".cjs")) {
+      } else if (file.endsWith(".js" || ".mjs" || ".cjs")) {
         // Dynamically require the route file
         const route = $read(routePath);
         // Mount the route to the application
@@ -350,7 +361,9 @@ class App {
           console.log(`Route ${routePath} loaded successfully.`);
         }
       } else {
-        throw new RouteLoadingError(`Skipping non-JavaScript file: ${routePath}`);
+        throw new RouteLoadingError(
+          `Skipping non-JavaScript file: ${routePath}`
+        );
       }
     });
   }
