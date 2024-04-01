@@ -113,31 +113,36 @@ class jwtManager {
     };
   }
   /**
-   * Middleware for user authorization based on roles/permissions.
-   * This middleware ensures that only users with specific roles are granted access to routes.
-   * @param {Array<string>} allowedRoles - The roles allowed to access the route.
-   * @returns {Function} A middleware function that checks if the user has the required role.
-   *                     If the user has the required role, the next middleware function is called.
-   *                     Otherwise, a 403 Forbidden response is sent.
-   */
-  authorizeUser(allowedRoles) {
-    return (cx, nxt) => {
-      const { user } = cx.request;
+ * Middleware for user authorization based on roles/permissions.
+ * This middleware ensures that only users with specific roles are granted access to routes.
+ * @param {Array<string>} allowedRoles - The roles allowed to access the route.
+ * @returns {Function} A middleware function that checks if the user has the required role.
+ *                     If the user has the required role, the next middleware function is called.
+ *                     Otherwise, a 403 Forbidden response is sent.
+ * @example
+ * // Assuming 'app' is an instance of the 'App' class
+ * // Protect a route with authorization for admin role
+ * app.get('/admin/dashboard', authorizeUser(['admin']), (req, res) => {
+ *   res.json({ message: 'Admin dashboard' });
+ * });
+ */
+authorizeUser(allowedRoles) {
+  return (cx, nxt) => {
+    const { user } = cx.request;
 
-      // Check if user is authenticated and has the required role
-      if (!user || !user.role || !allowedRoles.includes(user.role)) {
-        // Send a 403 Forbidden response if user is not authorized
-        return cx.response
-          .status(401)
-          .json({
-            error: "Oops! You don't have permission to access this resource.",
-          });
-      }
+    // Check if user is authenticated and has the required role
+    if (!user || !user.role || !allowedRoles.includes(user.role)) {
+      // Send a 401 Unauthorized response if user is not authorized
+      return cx.response
+        .status(401)
+        .json({
+          error: "Oops! You don't have permission to access this resource.",
+        });
+    }
 
-      // Call the next middleware function if user is authorized
-      nxt();
-    };
-  }
+    nxt();
+  };
+}
 }
 
 module.exports = jwtManager;
