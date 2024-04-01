@@ -22,7 +22,7 @@ Get the JSON Web Token package.
   const Jwt = jwt().getJwt();
   ```
 
-#### `jwtSign(payload, secretKey, options = {})`
+#### `signToken(payload, secretKey, options = {})`
 
 Sign a JWT token with the provided payload and secret key.
 
@@ -39,10 +39,10 @@ Sign a JWT token with the provided payload and secret key.
 
 - **Usage:**
   ```javascript
-  const token = jwt().jwtSign({ userId: '123' }, 'secret');
+  const token = jwt().signToken({ userId: '123' }, 'secret');
   ```
 
-#### `jwtVerify(token, secretKey)`
+#### `verifyToken(token, secretKey)`
 
 Verify a JWT token with the provided secret key.
 
@@ -58,10 +58,10 @@ Verify a JWT token with the provided secret key.
 
 - **Usage:**
   ```javascript
-  const decoded = jwt().jwtVerify(token, 'secret');
+  const decoded = jwt().verifyToken(token, 'secret');
   ```
 
-#### `isTokenExpired(token)`
+#### `isExpired(token)`
 
 Check if a JWT token is expired.
 
@@ -73,10 +73,10 @@ Check if a JWT token is expired.
 
 - **Usage:**
   ```javascript
-  const isExpired = jwt().isTokenExpired(token);
+  const isExpired = jwt().isExpired(token);
   ```
 
-#### `jwtAuthenticate(secretKey)`
+#### `authenticate(secretKey)`
 
 Middleware for JWT authentication.
 
@@ -89,5 +89,49 @@ Middleware for JWT authentication.
 - **Usage:**
   ```javascript
   // Apply JWT authentication middleware
-  app.use(jwt().jwtAuthenticate('your_secret_key'));
+  app.use(jwt().authenticate('your_secret_key'));
+  ```
+#### `authorizeUser(allowedRoles)`
+
+Middleware for user authorization based on roles/permissions.
+
+- **Parameters:**
+  - `allowedRoles` (Array\<string\>): The roles allowed to access the route.
+
+- **Returns:**
+  - `Function`: A middleware function that checks if the user has the required role. If the user has the required role, the next middleware function is called. Otherwise, a 401 Unauthorized response is sent.
+
+- **Throws:**
+  - `Error`: If the user is not authenticated or does not have the required role.
+
+- **Usage:**
+  ```javascript
+  // Protect a route with authorization for admin role
+  route('/admin/dashboard').using([ jwt().authorizeUser(['admin'])]).get((ctx) => {
+    ctx.json({ message: 'Admin dashboard' });
+  });
+  ```
+
+#### `refreshToken(expiredToken, secretKey, options = {})`
+
+Refreshes an expired JWT token with a new one.
+
+- **Parameters:**
+  - `expiredToken` (string): The expired JWT token to be refreshed.
+  - `secretKey` (string): The secret key used for signing the new JWT token.
+  - `options` (Object): Additional options for signing the new JWT token. (optional)
+
+- **Returns:**
+  - `string`: The new JWT token.
+
+- **Throws:**
+  - `Error`: If the expired token or secret key is missing, or if token verification fails.
+
+- **Usage:**
+  ```javascript
+  const expiredToken = 'your_token';
+  const secretKey = 'secret_key';
+  const options = { expiresIn: '1h' };
+  const newToken = jwt().refreshToken(expiredToken, secretKey, options);
+  console.log('New JWT Token:', newToken);
   ```
