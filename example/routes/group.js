@@ -8,7 +8,7 @@
 const {route,expose,mids,group} = require("xprz").Route();
 
 // Import the 'verifyToken' middleware for authentication
-const { verifyToken } = $read("./example/middleware/auth");
+const { verifyToken } = $read("middleware/auth");
 
 // Apply global middleware to all routes within the '/api' group
 mids([verifyToken]);

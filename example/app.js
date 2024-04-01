@@ -19,8 +19,7 @@ setViewEngine('ejs');
 bodyParsing();
 // Serve static files from the 'public' directory
 static('public');
-// Example usage of middleware 'cors' using $install
-const cors = $install('cors');
+const cors = require('cors');
 use(cors());
 useCtx((ctx,nxt)=>{
     if (ctx.code === 'EBADCSRFTOKEN') {
