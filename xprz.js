@@ -2,7 +2,6 @@
 const AppManager = require("./src/manager/AppManager");
 const PackageManager = require("./src/manager/PackageManager");
 const RouteManager = require("./src/shared/RouteManager");
-const $install = require("./src/utils/installPkg");
 const $read = require("./src/utils/read");
 
 /**
@@ -83,8 +82,6 @@ class Xprz {
 // Expose $install and $read globally
 /** @global */
 global.$read  = $read
-global.$install = $install
 globalThis.$read = $read;
-globalThis.$install = $install;
 // Export the Xprz class
 module.exports = Xprz;

@@ -1,7 +1,11 @@
 const express = require("express");
 const { setApp, setExp } = require("../shareApp");
 
-const { ExpressNotInitializedError, ServerAlreadyRunningError, ServerNotRunningError } = require("../Errors/App.error");
+const {
+  ExpressNotInitializedError,
+  ServerAlreadyRunningError,
+  ServerNotRunningError,
+} = require("../Errors/App.error");
 
 // Set the Express module using the shared utility function
 setExp(express);
@@ -144,17 +148,38 @@ class App {
       throw new ExpressNotInitializedError();
     }
     this.app.use((error, req, res, nxt) => {
-      const ctx = new Proxy({ error, req, res }, {
+      const ctx = new Proxy(
+        { error, req, res },
+        {
           get(target, prop) {
-              const cxValue = target.error[prop] || target.req[prop] || target.res[prop];
-              return cxValue !== undefined ? cxValue : null;
-          }
-      });
+            const cxValue =
+              target.error[prop] || target.req[prop] || target.res[prop];
+            return cxValue !== undefined ? cxValue : null;
+          },
+        }
+      );
+      // Iterate through each handler
       for (const handler of handlers) {
-          handler(ctx, nxt);
-          return ctx;
+        // Check if the handler is a function
+        if (typeof handler === 'function') {
+          // If it's a function, directly execute it with ctx and nxt
+          try {
+            handler(ctx, nxt);
+          } catch (err) {
+            nxt(err); // Pass any errors to the next middleware in the chain
+          }
+        } else if (typeof handler === 'object' && typeof handler.handle === 'function') {
+          try {
+            handler.handle(req, res, nxt);
+          } catch (err) {
+            nxt(err); 
+          }
+        } else {
+          throw new Error('Invalid middleware provided.');
+        }
       }
-  });
+      return ctx;
+    });
   }
 }
 
