@@ -1,7 +1,7 @@
 /**
  * jwtHandler class for handling JSON Web Tokens (JWT) in an Express application.
  */
-class jwtHandler {
+class jwtManager {
   /**
    * Creates an instance of jwtHandler.
    * @param {Object} jwt - The JSON Web Token package.
@@ -26,9 +26,9 @@ class jwtHandler {
    * @param {Object} [options={}] - Additional options for signing the JWT.
    * @returns {string} The signed JWT token.
    * @example
-   * const token = jwtHandler.jwtSign({ userId: '123' }, 'secret');
+   * const token = jwtHandler.signToken({ userId: '123' }, 'secret');
    */
-  jwtSign(payload, secretKey, options = {}) {
+  signToken(payload, secretKey, options = {}) {
     if (!payload || !secretKey) {
       throw new Error("Payload and secret key are required for JWT signing.");
     }
@@ -43,9 +43,9 @@ class jwtHandler {
    * @returns {Object} The decoded payload if the token is valid.
    * @throws {Error} If the token or secret key is missing, or if the token verification fails.
    * @example
-   * const decoded = jwtHandler.jwtVerify(token, 'secret');
+   * const decoded = jwtHandler.verifyToken(token, 'secret');
    */
-  jwtVerify(token, secretKey) {
+  verifyToken(token, secretKey) {
     if (!token || !secretKey) {
       throw new Error(
         "Token and secret key are required for JWT verification."
@@ -64,9 +64,9 @@ class jwtHandler {
    * @param {string} token - The JWT token to be checked.
    * @returns {boolean} True if the token is expired, false otherwise.
    * @example
-   * const isExpired = jwtHandler.isTokenExpired(token);
+   * const isExpired = jwtHandler.isExpired(token);
    */
-  isTokenExpired(token) {
+  isExpired(token) {
     try {
       // Decode the JWT token to extract expiration time
       const decoded = this.jwt.decode(token);
@@ -92,9 +92,9 @@ class jwtHandler {
    * @returns {function} Middleware function for JWT authentication.
    * @example
    * // Apply JWT authentication middleware
-   * app.use(jwtHandlerInstance.jwtAuthenticate('your_secret_key'));
+   * app.use(jwtHandlerInstance.authenticate('your_secret_key'));
    */
-  jwtAuthenticate(secretKey) {
+  authenticate(secretKey) {
     return (ctx, nxt) => {
       const authHeader = ctx.headers.authorization;
       if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -112,6 +112,32 @@ class jwtHandler {
       }
     };
   }
+  /**
+   * Middleware for user authorization based on roles/permissions.
+   * This middleware ensures that only users with specific roles are granted access to routes.
+   * @param {Array<string>} allowedRoles - The roles allowed to access the route.
+   * @returns {Function} A middleware function that checks if the user has the required role.
+   *                     If the user has the required role, the next middleware function is called.
+   *                     Otherwise, a 403 Forbidden response is sent.
+   */
+  authorizeUser(allowedRoles) {
+    return (cx, nxt) => {
+      const { user } = cx.request;
+
+      // Check if user is authenticated and has the required role
+      if (!user || !user.role || !allowedRoles.includes(user.role)) {
+        // Send a 403 Forbidden response if user is not authorized
+        return cx.response
+          .status(401)
+          .json({
+            error: "Oops! You don't have permission to access this resource.",
+          });
+      }
+
+      // Call the next middleware function if user is authorized
+      nxt();
+    };
+  }
 }
 
-module.exports = jwtHandler;
+module.exports = jwtManager;
