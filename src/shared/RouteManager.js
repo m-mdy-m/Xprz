@@ -215,17 +215,18 @@ class RouteManager {
    */
   createRequestHandler(handlers) {
     return (req, res, next) => {
-        const request = { ...new Request(req), ...req };
-        const response = { ...new Response(res), ...res };
+        const request =new Request(req);
+        const response = new Response(res)
         const cx = new Proxy(
-          { request, response },
+          { request, response ,req,res},
           {
             get(target, prop) {
-              return target.response[prop] || target.request[prop] || target.request.req[prop] || target.response.res[prop];
+              return target[prop] || target.response[prop] || target.request[prop] || target.req[prop] || target.res[prop];
             },
             set(target,prop,val){
               req[prop] = val
-              return target.request[prop] = val
+              target.request[prop] = val
+              return target[val] = val
             }
           }
         );
