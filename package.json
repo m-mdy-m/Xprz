@@ -19,6 +19,6 @@
   "homepage": "https://github.com/m-mdy-m/Xprz/blob/main/README.md",
   "dependencies": {
     "express": "^4.19.2",
-    "vfyjs": "^2.0.0"
+    "vfyjs": "^2.0.3"
   }
 }
