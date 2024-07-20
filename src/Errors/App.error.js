@@ -1,4 +1,3 @@
-// CustomError class extends the built-in Error class to create custom error types.
 class CustomError extends Error {
   constructor(message) {
     // Call the constructor of the Error class with the provided message.
@@ -66,8 +65,6 @@ class ServerNotRunningError extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 }
-
-// Export ExpressNotInitializedError and ShutdownError for use in other modules.
 module.exports = {
   ExpressNotInitializedError,
   ShutdownError,
